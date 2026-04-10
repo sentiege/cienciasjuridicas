@@ -2,141 +2,1036 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Introducción a las Ciencias Jurídicas</title>
   <style>
+
+    :root {
+      --azul: #1565c0;
+      --azul-claro: #e3f0ff;
+      --acento: #f57c00;
+      --verde: #2e7d32;
+      --fondo: #f0f4f8;
+      --tarjeta: #ffffff;
+      --texto: #1a1a2e;
+      --gris: #6b7280;
+    }
+
+    * { box-sizing: border-box; }
+
     body {
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       margin: 0;
       padding: 0;
-      background: #f5f5f5;
+      background: var(--fondo);
+      color: var(--texto);
     }
+
     .container {
-      max-width: 900px;
+      max-width: 860px;
       margin: 0 auto;
-      padding: 1.5rem;
+      padding: 1.5rem 1rem;
     }
-    h1, h2 {
-      margin-top: 0;
+
+    /* CABECERA */
+    header {
+      background: linear-gradient(135deg, #1565c0 0%, #0d47a1 100%);
+      color: white;
+      padding: 1.5rem 1rem 1rem;
+      text-align: center;
+      margin-bottom: 1.5rem;
+      border-radius: 0 0 16px 16px;
     }
-    .cartilla {
-      display: none;
-      background: #ffffff;
-      padding: 1.5rem;
-      border-radius: 8px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+    header h1 {
+      margin: 0 0 0.25rem;
+      font-size: 1.4rem;
+      font-weight: 700;
+    }
+    header p {
+      margin: 0;
+      font-size: 0.85rem;
+      opacity: 0.85;
+    }
+
+    /* PROGRESO */
+    .progress-wrapper {
+      background: var(--tarjeta);
+      border-radius: 12px;
+      padding: 0.9rem 1.2rem;
       margin-bottom: 1rem;
-    }
-    .cartilla.activa {
-      display: block;
-    }
-    .nav-buttons {
+      box-shadow: 0 1px 4px rgba(0,0,0,0.07);
       display: flex;
-      justify-content: space-between;
-      margin-top: 1rem;
+      align-items: center;
+      gap: 1rem;
     }
-    button {
-      padding: 0.5rem 1rem;
-      border-radius: 4px;
-      border: none;
-      cursor: pointer;
-      font-size: 0.95rem;
+    .progress-info {
+      flex: 1;
     }
-    .btn-prev {
-      background: #e0e0e0;
-    }
-    .btn-next {
-      background: #1976d2;
-      color: #fff;
-    }
-    .btn-prev:disabled,
-    .btn-next:disabled {
-      opacity: 0.5;
-      cursor: default;
-    }
-    .progress-container {
-      margin-bottom: 1rem;
+    .progress-label {
+      font-size: 0.78rem;
+      color: var(--gris);
+      margin-bottom: 0.3rem;
     }
     .progress-bar-bg {
       width: 100%;
-      height: 8px;
-      background: #e0e0e0;
-      border-radius: 4px;
+      height: 10px;
+      background: #dde3ea;
+      border-radius: 999px;
       overflow: hidden;
     }
     .progress-bar-fill {
-      height: 8px;
-      background: #1976d2;
+      height: 10px;
+      background: linear-gradient(90deg, #1565c0, #42a5f5);
       width: 0%;
-      transition: width 0.3s ease;
+      transition: width 0.4s ease;
+      border-radius: 999px;
     }
-    .progress-text {
+    .badge-num {
+      background: var(--azul);
+      color: white;
       font-size: 0.85rem;
+      font-weight: 700;
+      padding: 0.35rem 0.75rem;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+
+    /* ÍNDICE LATERAL (menú hamburger) */
+    .menu-toggle {
+      position: fixed;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      z-index: 200;
+      background: var(--azul);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 52px;
+      height: 52px;
+      font-size: 1.3rem;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(21,101,192,0.4);
+      transition: transform 0.2s;
+    }
+    .menu-toggle:hover { transform: scale(1.1); }
+
+    .indice-panel {
+      position: fixed;
+      top: 0; right: -340px;
+      width: 320px;
+      height: 100%;
+      background: white;
+      z-index: 300;
+      box-shadow: -4px 0 20px rgba(0,0,0,0.15);
+      transition: right 0.3s ease;
+      overflow-y: auto;
+      padding: 1rem;
+    }
+    .indice-panel.abierto { right: 0; }
+    .indice-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.35);
+      z-index: 250;
+    }
+    .indice-overlay.visible { display: block; }
+    .indice-titulo {
+      font-weight: 700;
+      font-size: 1rem;
+      margin-bottom: 0.75rem;
+      color: var(--azul);
+      border-bottom: 2px solid var(--azul-claro);
+      padding-bottom: 0.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .btn-cerrar-indice {
+      background: none;
+      border: none;
+      font-size: 1.2rem;
+      cursor: pointer;
+      color: var(--gris);
+    }
+    .indice-item {
+      display: block;
+      width: 100%;
+      text-align: left;
+      background: none;
+      border: none;
+      padding: 0.45rem 0.6rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.82rem;
+      color: var(--texto);
+      line-height: 1.35;
+      transition: background 0.15s;
+    }
+    .indice-item:hover { background: var(--azul-claro); }
+    .indice-item.activo {
+      background: var(--azul);
+      color: white;
+      font-weight: 600;
+    }
+    .indice-num {
+      font-size: 0.72rem;
+      color: var(--gris);
+      margin-right: 0.4rem;
+    }
+    .indice-item.activo .indice-num { color: rgba(255,255,255,0.75); }
+    .indice-item.indice-portada {
+      font-weight: 700;
+      font-size: 0.84rem;
+      color: var(--azul);
+      border-top: 2px solid var(--azul);
       margin-top: 0.25rem;
-      color: #555;
-      text-align: right;
+      background: rgba(37,99,235,0.05);
     }
-    ul {
-      padding-left: 1.2rem;
+    .indice-item.indice-portada.activo { background: var(--azul); color: white; }
+    .indice-item.indice-portada {
+      font-weight: 700;
+      font-size: 0.84rem;
+      color: var(--azul);
+      border-top: 2px solid var(--azul);
+      margin-top: 0.3rem;
+      background: none;
     }
+    .indice-item.indice-portada.activo { background: var(--azul); color: white; }
+
+    /* CARTILLA */
+    .cartilla {
+      display: none;
+      background: var(--tarjeta);
+      padding: 1.5rem 1.6rem;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      margin-bottom: 1rem;
+      animation: fadeIn 0.3s ease;
+    }
+    .cartilla.activa { display: block; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .cartilla-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+      border-bottom: 2px solid var(--azul-claro);
+      padding-bottom: 0.75rem;
+    }
+    .num-cartilla {
+      background: var(--azul);
+      color: white;
+      font-weight: 700;
+      font-size: 0.85rem;
+      padding: 0.3rem 0.65rem;
+      border-radius: 6px;
+      white-space: nowrap;
+      margin-top: 2px;
+    }
+    .cartilla h2 {
+      margin: 0;
+      font-size: 1.15rem;
+      color: var(--azul);
+      line-height: 1.3;
+    }
+
+    /* Citas / definiciones destacadas */
+    .cita {
+      border-left: 4px solid var(--acento);
+      background: #fff8f0;
+      padding: 0.7rem 1rem;
+      margin: 0.9rem 0;
+      border-radius: 0 8px 8px 0;
+      font-style: italic;
+      font-size: 0.93rem;
+      color: #4a3000;
+    }
+    .cita .autor {
+      display: block;
+      font-style: normal;
+      font-weight: 600;
+      font-size: 0.8rem;
+      color: var(--acento);
+      margin-top: 0.35rem;
+    }
+
+    /* Cuadro de concepto clave */
+    .concepto-clave {
+      background: var(--azul-claro);
+      border: 1px solid #90caf9;
+      border-radius: 8px;
+      padding: 0.75rem 1rem;
+      margin: 0.9rem 0;
+      font-size: 0.92rem;
+    }
+    .concepto-clave .etiqueta {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--azul);
+      margin-bottom: 0.25rem;
+    }
+
+    /* Tabla comparativa */
+    .tabla-comp {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 0.9rem 0;
+      font-size: 0.88rem;
+    }
+    .tabla-comp th {
+      background: var(--azul);
+      color: white;
+      padding: 0.5rem 0.75rem;
+      text-align: left;
+    }
+    .tabla-comp td {
+      padding: 0.45rem 0.75rem;
+      border-bottom: 1px solid #e5e7eb;
+      vertical-align: top;
+    }
+    .tabla-comp tr:nth-child(even) td { background: #f8fafc; }
+
+    /* Tags de término */
+    .tag {
+      display: inline-block;
+      background: #e8f5e9;
+      color: #1b5e20;
+      border: 1px solid #a5d6a7;
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 0.15rem 0.5rem;
+      border-radius: 999px;
+      margin: 0.1rem 0.15rem;
+    }
+
+    /* Tooltip */
+    .tooltip-wrap {
+      position: relative;
+      display: inline;
+      cursor: help;
+      border-bottom: 1px dashed var(--azul);
+    }
+    .tooltip-wrap .tooltip-box {
+      display: none;
+      position: absolute;
+      bottom: 125%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #1a1a2e;
+      color: white;
+      padding: 0.5rem 0.75rem;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      width: 220px;
+      line-height: 1.4;
+      z-index: 100;
+      pointer-events: none;
+    }
+    .tooltip-wrap:hover .tooltip-box { display: block; }
+
+    /* MINI QUIZ */
+    .quiz-section {
+      margin-top: 1.2rem;
+      border-top: 2px dashed #dde3ea;
+      padding-top: 1rem;
+    }
+    .quiz-titulo {
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--acento);
+      margin-bottom: 0.6rem;
+    }
+    .quiz-pregunta {
+      font-size: 0.93rem;
+      font-weight: 600;
+      margin-bottom: 0.6rem;
+      color: var(--texto);
+    }
+    .quiz-opciones {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+    .quiz-btn {
+      background: #f0f4f8;
+      border: 2px solid #dde3ea;
+      border-radius: 8px;
+      padding: 0.55rem 0.9rem;
+      text-align: left;
+      cursor: pointer;
+      font-size: 0.88rem;
+      transition: background 0.15s, border-color 0.15s;
+      color: var(--texto);
+    }
+    .quiz-btn:hover:not(:disabled) {
+      background: var(--azul-claro);
+      border-color: var(--azul);
+    }
+    .quiz-btn.correcto {
+      background: #e8f5e9;
+      border-color: var(--verde);
+      color: var(--verde);
+      font-weight: 700;
+    }
+    .quiz-btn.incorrecto {
+      background: #ffeaea;
+      border-color: #c62828;
+      color: #c62828;
+    }
+    .quiz-feedback {
+      margin-top: 0.5rem;
+      font-size: 0.85rem;
+      min-height: 1.2em;
+      font-weight: 600;
+    }
+    .quiz-btn-reset {
+      margin-top: 0.5rem;
+      background: none;
+      border: 1px solid var(--gris);
+      border-radius: 6px;
+      padding: 0.3rem 0.75rem;
+      font-size: 0.8rem;
+      color: var(--gris);
+      cursor: pointer;
+      display: none;
+    }
+    .quiz-btn-reset:hover { background: #f0f4f8; }
+
+    /* NAV BUTTONS */
+    .nav-buttons {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+    }
+    .btn-nav {
+      padding: 0.6rem 1.4rem;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      font-size: 0.95rem;
+      font-weight: 600;
+      transition: opacity 0.2s, transform 0.1s;
+    }
+    .btn-nav:active { transform: scale(0.97); }
+    .btn-prev { background: #e0e7ef; color: var(--texto); }
+    .btn-next { background: var(--azul); color: white; }
+    .btn-nav:disabled { opacity: 0.4; cursor: default; }
+
+    ul { padding-left: 1.3rem; }
+    li { margin-bottom: 0.35rem; }
+    p { line-height: 1.65; margin-top: 0; }
+  
+* { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--fondo);
+      color: var(--texto);
+      min-height: 100vh;
+    }
+
+    /* ── PANTALLA INICIO ── */
+    #pantallaInicio {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 2rem 1rem;
+      text-align: center;
+    }
+    .logo-examen {
+      font-size: 3.5rem;
+      margin-bottom: 0.5rem;
+    }
+    #pantallaInicio h1 {
+      font-size: 1.7rem;
+      color: var(--azul);
+      margin-bottom: 0.4rem;
+    }
+    #pantallaInicio p {
+      color: var(--gris);
+      margin-bottom: 1.5rem;
+      max-width: 420px;
+      line-height: 1.6;
+    }
+    .config-card {
+      background: white;
+      border-radius: 16px;
+      padding: 1.5rem 2rem;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      max-width: 420px;
+      width: 100%;
+      margin-bottom: 1.5rem;
+    }
+    .config-label {
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--gris);
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+    .num-selector {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 1.2rem;
+    }
+    .num-btn {
+      padding: 0.45rem 1rem;
+      border-radius: 999px;
+      border: 2px solid #dde3ea;
+      background: white;
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--gris);
+      transition: all 0.15s;
+    }
+    .num-btn.sel {
+      border-color: var(--azul);
+      background: var(--azul);
+      color: white;
+    }
+    .modo-selector {
+      display: flex;
+      gap: 0.5rem;
+    }
+    .modo-btn {
+      flex: 1;
+      padding: 0.55rem 0.5rem;
+      border-radius: 8px;
+      border: 2px solid #dde3ea;
+      background: white;
+      cursor: pointer;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--gris);
+      transition: all 0.15s;
+      text-align: center;
+    }
+    .modo-btn.sel {
+      border-color: var(--azul);
+      background: var(--azul-claro);
+      color: var(--azul);
+    }
+    .btn-empezar {
+      background: var(--azul);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      padding: 0.85rem 2.5rem;
+      font-size: 1.05rem;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(21,101,192,0.35);
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .btn-empezar:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(21,101,192,0.4); }
+    .btn-empezar:active { transform: scale(0.97); }
+
+    /* ── PANTALLA EXAMEN ── */
+    #pantallaExamen { display: none; }
+    .exam-header {
+      background: linear-gradient(135deg, #1565c0, #0d47a1);
+      color: white;
+      padding: 1rem 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .exam-header h2 { font-size: 1rem; flex: 1; }
+    .badge-tiempo {
+      background: rgba(255,255,255,0.2);
+      border-radius: 999px;
+      padding: 0.3rem 0.85rem;
+      font-size: 0.85rem;
+      font-weight: 700;
+      min-width: 60px;
+      text-align: center;
+    }
+    .badge-tiempo.urgente { background: rgba(255,100,100,0.4); animation: pulso 1s infinite; }
+    @keyframes pulso { 0%,100%{opacity:1} 50%{opacity:0.6} }
+
+    .exam-container { max-width: 700px; margin: 0 auto; padding: 1.5rem 1rem; }
+
+    .progreso-examen {
+      background: white;
+      border-radius: 10px;
+      padding: 0.75rem 1.1rem;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    }
+    .pbar-bg {
+      flex: 1;
+      height: 8px;
+      background: #dde3ea;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+    .pbar-fill {
+      height: 8px;
+      background: linear-gradient(90deg, #1565c0, #42a5f5);
+      border-radius: 999px;
+      transition: width 0.4s ease;
+    }
+    .pbar-label { font-size: 0.82rem; color: var(--gris); white-space: nowrap; }
+    .score-live {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--verde);
+      white-space: nowrap;
+    }
+
+    .pregunta-card {
+      background: white;
+      border-radius: 14px;
+      padding: 1.5rem 1.6rem;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.07);
+      animation: fadeIn 0.3s ease;
+    }
+    @keyframes fadeIn { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
+
+    .pregunta-num {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--azul);
+      margin-bottom: 0.6rem;
+    }
+    .pregunta-texto {
+      font-size: 1.05rem;
+      font-weight: 600;
+      line-height: 1.5;
+      margin-bottom: 1.1rem;
+      color: var(--texto);
+    }
+    .origen-tag {
+      display: inline-block;
+      font-size: 0.72rem;
+      background: var(--azul-claro);
+      color: var(--azul);
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+      margin-bottom: 1rem;
+      font-weight: 600;
+    }
+    .opciones { display: flex; flex-direction: column; gap: 0.5rem; }
+    .opcion-btn {
+      background: #f8fafc;
+      border: 2px solid #dde3ea;
+      border-radius: 10px;
+      padding: 0.65rem 1rem;
+      text-align: left;
+      cursor: pointer;
+      font-size: 0.92rem;
+      line-height: 1.4;
+      color: var(--texto);
+      transition: background 0.15s, border-color 0.15s, transform 0.1s;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .opcion-btn:hover:not(:disabled) {
+      background: var(--azul-claro);
+      border-color: var(--azul);
+      transform: translateX(3px);
+    }
+    .letra-opcion {
+      font-weight: 700;
+      font-size: 0.82rem;
+      color: var(--azul);
+      min-width: 1.4rem;
+      text-align: center;
+    }
+    .opcion-btn.correcto { background: #e8f5e9; border-color: var(--verde); }
+    .opcion-btn.correcto .letra-opcion { color: var(--verde); }
+    .opcion-btn.incorrecto { background: #ffeaea; border-color: var(--rojo); }
+    .opcion-btn.incorrecto .letra-opcion { color: var(--rojo); }
+
+    .feedback-box {
+      margin-top: 1rem;
+      padding: 0.75rem 1rem;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      display: none;
+    }
+    .feedback-box.correcto { background: #e8f5e9; color: var(--verde); display: block; }
+    .feedback-box.incorrecto { background: #ffeaea; color: var(--rojo); display: block; }
+
+    .btn-siguiente {
+      margin-top: 1rem;
+      width: 100%;
+      background: var(--azul);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      padding: 0.75rem;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: none;
+      transition: opacity 0.2s;
+    }
+    .btn-siguiente:hover { opacity: 0.9; }
+
+    /* ── PANTALLA RESULTADO ── */
+    #pantallaResultado {
+      display: none;
+      min-height: 100vh;
+      padding: 2rem 1rem;
+    }
+    .resultado-container {
+      max-width: 600px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .trofeo { font-size: 5rem; margin-bottom: 0.5rem; }
+    .resultado-titulo {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--azul);
+      margin-bottom: 0.25rem;
+    }
+    .resultado-subtitulo {
+      font-size: 0.95rem;
+      color: var(--gris);
+      margin-bottom: 1.5rem;
+    }
+    .score-grande {
+      font-size: 4.5rem;
+      font-weight: 900;
+      line-height: 1;
+      margin-bottom: 0.25rem;
+    }
+    .score-grande.excelente { color: var(--verde); }
+    .score-grande.bueno { color: #f57c00; }
+    .score-grande.regular { color: var(--rojo); }
+    .score-detalle {
+      font-size: 0.9rem;
+      color: var(--gris);
+      margin-bottom: 1.5rem;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+    .stat-box {
+      background: white;
+      border-radius: 12px;
+      padding: 1rem 0.5rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    }
+    .stat-num { font-size: 1.8rem; font-weight: 800; }
+    .stat-num.verde { color: var(--verde); }
+    .stat-num.rojo { color: var(--rojo); }
+    .stat-num.azul { color: var(--azul); }
+    .stat-label { font-size: 0.75rem; color: var(--gris); margin-top: 0.2rem; }
+
+    .mensaje-resultado {
+      background: white;
+      border-radius: 12px;
+      padding: 1rem 1.5rem;
+      margin-bottom: 1.5rem;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+      text-align: left;
+    }
+    .mensaje-resultado .titulo-mensaje {
+      font-weight: 700;
+      color: var(--azul);
+      margin-bottom: 0.4rem;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    /* Detalle de respuestas */
+    .detalle-section { text-align: left; margin-bottom: 1.5rem; }
+    .detalle-toggle {
+      background: none;
+      border: 2px solid #dde3ea;
+      border-radius: 8px;
+      padding: 0.55rem 1rem;
+      width: 100%;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      color: var(--gris);
+      margin-bottom: 0.75rem;
+      transition: background 0.15s;
+    }
+    .detalle-toggle:hover { background: #f0f4f8; }
+    .detalle-lista { display: none; }
+    .detalle-lista.visible { display: block; }
+    .detalle-item {
+      background: white;
+      border-radius: 10px;
+      padding: 0.85rem 1rem;
+      margin-bottom: 0.5rem;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+      border-left: 4px solid transparent;
+    }
+    .detalle-item.ok { border-left-color: var(--verde); }
+    .detalle-item.fail { border-left-color: var(--rojo); }
+    .detalle-preg { font-size: 0.88rem; font-weight: 600; margin-bottom: 0.35rem; }
+    .detalle-resp { font-size: 0.82rem; color: var(--gris); }
+    .detalle-resp span.ok { color: var(--verde); font-weight: 600; }
+    .detalle-resp span.fail { color: var(--rojo); font-weight: 600; }
+    .detalle-cartilla { font-size: 0.72rem; color: var(--azul); font-weight: 600; }
+
+    .btns-resultado {
+      display: flex;
+      gap: 0.75rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .btn-resultado {
+      padding: 0.75rem 1.5rem;
+      border-radius: 10px;
+      border: none;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.1s;
+    }
+    .btn-resultado:hover { opacity: 0.88; transform: translateY(-1px); }
+    .btn-reintentar { background: var(--azul); color: white; }
+    .btn-volver { background: #e0e7ef; color: var(--texto); }
+    .btn-pagprincipal { background: #e0e7ef; color: var(--texto); text-decoration: none; display: inline-flex; align-items: center; gap: 0.4rem; }
+
+/* ════ FOOTER NAV ════ */
+#footer-nav {
+  background: linear-gradient(135deg, #0d47a1 0%, #1565c0 100%);
+  position: fixed; bottom:0; left:0; right:0; z-index:999;
+  box-shadow: 0 -2px 12px rgba(0,0,0,.2);
+  display: flex; justify-content: center;
+}
+.fnav-tab {
+  background:none; border:none; color:rgba(255,255,255,.65);
+  font-size:.82rem; font-weight:700;
+  padding:.7rem 2.5rem .65rem;
+  cursor:pointer; border-top:3px solid transparent;
+  display:flex; flex-direction:column; align-items:center; gap:.15rem;
+  transition:color .2s, border-color .2s, background .2s;
+}
+.fnav-tab .fnav-icon { font-size:1.2rem; }
+.fnav-tab:hover { color:white; background:rgba(255,255,255,.08); }
+.fnav-tab.activo  { color:white; border-top-color:#90caf9; background:rgba(255,255,255,.12); }
+body { padding-bottom:70px; }
+.menu-toggle { bottom:5.5rem !important; }
+.vista { display:none; }
+.vista.activa { display:block; }
+.btn-resultado { background:#e0e7ef; color:#1a1a2e; border:none; border-radius:8px; padding:.65rem 1.3rem; cursor:pointer; font-weight:600; }
+.btn-reintentar { background:var(--azul); color:white; }
+
   </style>
 </head>
 <body>
 
+<!-- ════ VISTA CARTILLAS ════ -->
+<div id="vistaCartillas" class="vista activa">
+<header>
+  <div class="container" style="padding:0">
+    <div style="font-size:2.5rem; margin-bottom:0.4rem;">⚖️</div>
+    <h1>Introducción a las Ciencias Jurídicas</h1>
+    <p>Navegá las cartillas y comprobá tu comprensión con los ejercicios</p>
+    <p style="font-size:0.78rem; opacity:0.75; margin-top:0.3rem; font-style:italic;">Elaborado con materiales del Dr. Raul Florentin</p>
+  </div>
+</header>
+
 <div class="container">
-  <h1>Introducción a las Ciencias Jurídicas</h1>
 
-  <!-- Progreso -->
-  <div class="progress-container">
-    <div class="progress-bar-bg">
-      <div class="progress-bar-fill" id="progressBar"></div>
+  <!-- PROGRESO -->
+  <div class="progress-wrapper">
+    <div class="progress-info">
+      <div class="progress-label">Progreso del curso</div>
+      <div class="progress-bar-bg">
+        <div class="progress-bar-fill" id="progressBar"></div>
+      </div>
     </div>
-    <div class="progress-text">
-      <span id="progressText">Cartilla 1 de N</span>
-    </div>
+    <div class="badge-num" id="progressText">1 / 32</div>
   </div>
 
-  <!-- CARTILLA 1 -->
+  <!-- ===== CARTILLAS ===== -->
+
+  <!-- 1 -->
   <div class="cartilla activa">
-    <h2>Bienvenida al curso</h2>
-    <p>Esta serie de cartillas recorre las lecciones de Introducción a las Ciencias Jurídicas: vocablo Derecho, fenómeno jurídico, disciplinas jurídicas, valores, justicia, equidad y principios generales del Derecho.</p>
-    <p>Usá los botones “Anterior” y “Siguiente” para avanzar, y seguí la barra de progreso para ver cuánto te falta para terminar.</p>
+    <div class="cartilla-header">
+      <span class="num-cartilla">1</span>
+      <h2>Bienvenida al curso</h2>
+    </div>
+    <p>Esta serie de cartillas recorre las lecciones de <strong>Introducción a las Ciencias Jurídicas</strong>: vocablo Derecho, fenómeno jurídico, disciplinas jurídicas, valores, justicia, equidad y principios generales del Derecho.</p>
+    <p>Usá los botones <strong>Anterior</strong> y <strong>Siguiente</strong> para avanzar. El ícono <strong>☰</strong> (abajo a la derecha) abre el índice completo para saltar a cualquier cartilla. Los ejercicios al final de cada tarjeta te ayudan a fijar los conceptos.</p>
+    <div class="concepto-clave">
+      <div class="etiqueta">¿Qué vas a aprender?</div>
+      Conceptos fundamentales del Derecho: su origen, acepciones, disciplinas que lo estudian, valores que lo inspiran y principios que lo integran.
+    </div>
   </div>
 
-  <!-- CARTILLA 2 -->
+  <!-- 2 -->
+    <!-- PORTADA AUTOGENERADA -->
   <div class="cartilla">
-    <h2>Vocablo Derecho: jus, fas y etimología</h2>
+    <div class="cartilla-header">
+      <span class="num-cartilla" style="background:#37474f;">Lección 1</span>
+      <h2>Lección 1 — Vocablo, Fenómeno Jurídico y Disciplinas del Derecho</h2>
+    </div>
+    <div class="concepto-clave">
+      <div class="etiqueta">Temas de esta lección</div>
+      Etimología del vocablo <strong>Derecho</strong> (jus/fas/directus), acepciones principales (objetivo, subjetivo, positivo, natural), el fenómeno jurídico (conducta, norma, valoración), definición y fundamento del Derecho, la pirámide de Kelsen y las <strong>disciplinas jurídicas</strong> fundamentales y auxiliares.
+    </div>
+    <ul>
+      <li><strong>Jus</strong> (derecho humano) vs. <strong>fas</strong> (derecho divino); <em>directus</em> → guiar, enderezar.</li>
+      <li><strong>Derecho objetivo</strong> (norma coercible) vs. <strong>Derecho subjetivo</strong> (facultad de exigir).</li>
+      <li>Definiciones: Ihering, Kant, Abelardo Torré.</li>
+      <li>Disciplinas <em>fundamentales</em>: Introducción, Filosofía, Historia del Derecho. <em>Auxiliares</em>: Sociología, Derecho Comparado, Lógica Jurídica.</li>
+    </ul>
+  </div>
+
+<div class="cartilla">
+    <div class="cartilla-header">
+      <span class="num-cartilla">2</span>
+      <h2>Vocablo Derecho: jus, fas y etimología</h2>
+    </div>
     <p>Para los romanos, el <strong>jus</strong> era el derecho humano: las normas de conducta que regían la vida social. El <strong>fas</strong> era el derecho divino, lo permitido y manifestado por los dioses a través de los sacerdotes.</p>
-    <p>Algunos autores derivan <strong>jus</strong> de una voz sánscrita que significa “unir, juntar”; otros de <em>jussum</em> (mandamiento), <em>juvare</em> (ayudar) o <em>juvere</em> (mandar).</p>
-    <p>En la Edad Media se generaliza el uso de la palabra <strong>Derecho</strong>, derivada de <em>directus</em>, participio de <em>dirigere</em> (guiar, enderezar), y de <em>rectus</em>, que sugiere la idea de rectitud. El cambio se vincula a la influencia cristiana, que pone el acento en “dirigir” al hombre hacia el bien más que en mandarlo.</p>
+    <p>Algunos autores derivan <strong>jus</strong> de una voz sánscrita que significa "unir, juntar"; otros de <em>jussum</em> (mandamiento), <em>juvare</em> (ayudar) o <em>juvere</em> (mandar).</p>
+    <p>En la Edad Media se generaliza el uso de la palabra <strong>Derecho</strong>, derivada de <em>directus</em> (participio de <em>dirigere</em>: guiar, enderezar) y de <em>rectus</em>, que sugiere rectitud. El cambio se vincula a la influencia cristiana: "dirigir" al hombre hacia el bien, más que solo mandarlo.</p>
+    <div class="quiz-section" data-correcta="1">
+      <div class="quiz-titulo">✏️ Comprobá tu comprensión</div>
+      <div class="quiz-pregunta">¿Qué concepto romano designaba el derecho divino?</div>
+      <div class="quiz-opciones">
+        <button class="quiz-btn" data-idx="0">Jus</button>
+        <button class="quiz-btn" data-idx="1">Fas</button>
+        <button class="quiz-btn" data-idx="2">Directus</button>
+      </div>
+      <div class="quiz-feedback"></div>
+      <button class="quiz-btn-reset">Reintentar</button>
+    </div>
   </div>
 
-  <!-- CARTILLA 3 -->
+  <!-- 3 -->
   <div class="cartilla">
-    <h2>Acepciones del Derecho: objetivo y subjetivo</h2>
+    <div class="cartilla-header">
+      <span class="num-cartilla">3</span>
+      <h2>Acepciones del Derecho: objetivo y subjetivo</h2>
+    </div>
     <p>La palabra <strong>Derecho</strong> es pluricomprensiva y admite diversas acepciones según el contexto.</p>
-    <p>El Derecho <strong>objetivo</strong> o derecho-norma es el conjunto de reglas obligatorias de la vida humana en sociedad, cuyo cumplimiento puede ser impuesto por la coacción exterior. Se manifiesta en leyes, decretos, reglamentos, sentencias, tratados, contratos, usos y costumbres.</p>
-    <p>El Derecho <strong>subjetivo</strong> o derecho-facultad es el poder, facultad o pretensión legítima para exigir algo del Estado o de otro sujeto privado. Toda obligación jurídica tiene un correlato en un derecho subjetivo de otra persona, por ejemplo, el derecho a la legítima defensa.</p>
+    <table class="tabla-comp">
+      <thead>
+        <tr><th>Tipo</th><th>También llamado</th><th>Definición</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Derecho objetivo</strong></td>
+          <td>Derecho-norma</td>
+          <td>Conjunto de reglas obligatorias de la vida social, cuyo cumplimiento puede imponerse por coacción exterior. Incluye leyes, decretos, reglamentos, sentencias, costumbres.</td>
+        </tr>
+        <tr>
+          <td><strong>Derecho subjetivo</strong></td>
+          <td>Derecho-facultad</td>
+          <td>Poder o facultad legítima para exigir algo del Estado o de otro sujeto. Ej.: derecho a la legítima defensa.</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="concepto-clave">
+      <div class="etiqueta">Relación clave</div>
+      Toda obligación jurídica (derecho objetivo) tiene un correlato en un derecho subjetivo de otra persona.
+    </div>
+    <div class="quiz-section" data-correcta="0">
+      <div class="quiz-titulo">✏️ Comprobá tu comprensión</div>
+      <div class="quiz-pregunta">El conjunto de normas que pueden imponerse por coacción es el Derecho…</div>
+      <div class="quiz-opciones">
+        <button class="quiz-btn" data-idx="0">Objetivo</button>
+        <button class="quiz-btn" data-idx="1">Subjetivo</button>
+        <button class="quiz-btn" data-idx="2">Natural</button>
+      </div>
+      <div class="quiz-feedback"></div>
+      <button class="quiz-btn-reset">Reintentar</button>
+    </div>
   </div>
 
-  <!-- CARTILLA 4 -->
+  <!-- 4 -->
   <div class="cartilla">
-    <h2>Acepciones del Derecho: positivo, natural y otros usos</h2>
-    <p>El <strong>Derecho positivo</strong> es el sistema de normas jurídicas creadas por el hombre que rigen o han regido con carácter obligatorio la vida de un pueblo en una época determinada. Incluye el derecho escrito o legislado, el consuetudinario o no escrito, el derecho vigente y el histórico.</p>
-    <p>El <strong>Derecho natural</strong> es el conjunto de principios intrínsecamente justos fundados en la naturaleza humana, concebidos como ideal de superación del derecho positivo. La diferencia central entre ambos está en el fundamento de su validez.</p>
-    <p>Además, “Derecho” se usa para designar la <strong>ciencia del Derecho</strong> (facultad, carrera), como sinónimo de <strong>justicia</strong> (“estar a Derecho”) y para referirse a algunos tributos (derecho de aduana, de peaje, de timbre).</p>
+    <div class="cartilla-header">
+      <span class="num-cartilla">4</span>
+      <h2>Acepciones: positivo, natural y otros usos</h2>
+    </div>
+    <p>El <strong>Derecho positivo</strong> es el sistema de normas creadas por el hombre que rigen o han regido con carácter obligatorio la vida de un pueblo en una época determinada. Incluye el derecho escrito, el consuetudinario, el vigente y el histórico.</p>
+    <p>El <strong>Derecho natural</strong> es el conjunto de principios intrínsecamente justos fundados en la naturaleza humana, concebidos como ideal de superación del derecho positivo.</p>
+    <div class="concepto-clave">
+      <div class="etiqueta">Diferencia central</div>
+      La distinción está en el <strong>fundamento de validez</strong>: el positivo vale porque fue creado por el hombre; el natural vale por su conformidad con la razón y la naturaleza humana.
+    </div>
+    <p>Además, "Derecho" se usa para designar la <strong>carrera universitaria</strong>, como sinónimo de <strong>justicia</strong> ("estar a Derecho") y para referirse a tributos (derecho de aduana, peaje, timbre).</p>
+    <div class="quiz-section" data-correcta="2">
+      <div class="quiz-titulo">✏️ Comprobá tu comprensión</div>
+      <div class="quiz-pregunta">¿En qué radica la diferencia central entre Derecho positivo y natural?</div>
+      <div class="quiz-opciones">
+        <button class="quiz-btn" data-idx="0">En que uno está escrito y el otro no</button>
+        <button class="quiz-btn" data-idx="1">En que uno es vigente y el otro histórico</button>
+        <button class="quiz-btn" data-idx="2">En el fundamento de su validez</button>
+      </div>
+      <div class="quiz-feedback"></div>
+      <button class="quiz-btn-reset">Reintentar</button>
+    </div>
   </div>
 
-  <!-- CARTILLA 5 -->
+  <!-- 5 -->
   <div class="cartilla">
-    <h2>Fenómeno jurídico: conducta, norma y valoración</h2>
-    <p>El Derecho es un orden normativo de la <strong>conducta humana</strong>: solo hay conducta jurídicamente relevante cuando se trata de actos imputables al hombre, que exteriorizan sus intenciones y propósitos.</p>
-    <p>La <strong>norma jurídica</strong> es el elemento formal que expresa la conceptualización jurídica de la conducta de varios sujetos en su interferencia. Enlaza un hecho antecedente con un hecho consecuente que “debe ser”, y presupone la libertad del sujeto (por ejemplo, si A mata a B, debe ser la prisión y condena del homicida).</p>
-    <p>Toda norma implica una <strong>valoración</strong>: lo valioso o disvalioso no es la norma en sí, sino la conducta considerada. La norma imputa determinadas consecuencias a ciertos hechos en función de un juicio de valor.</p>
+    <div class="cartilla-header">
+      <span class="num-cartilla">5</span>
+      <h2>Fenómeno jurídico: conducta, norma y valoración</h2>
+    </div>
+    <p>El Derecho es un orden normativo de la <strong>conducta humana</strong>: solo hay conducta jurídicamente relevante cuando se trata de actos imputables al hombre que exteriorizan sus intenciones.</p>
+    <p>La <strong>norma jurídica</strong> enlaza un hecho antecedente con un hecho consecuente que "debe ser", y presupone la libertad del sujeto.</p>
+    <div class="cita">
+      Si A mata a B, <em>debe ser</em> la prisión y condena del homicida.
+      <span class="autor">Ejemplo clásico de estructura de norma jurídica</span>
+    </div>
+    <p>Toda norma implica una <strong>valoración</strong>: lo valioso o disvalioso no es la norma en sí, sino la conducta considerada. La norma imputa consecuencias a ciertos hechos en función de un juicio de valor.</p>
+    <div class="quiz-section" data-correcta="1">
+      <div class="quiz-titulo">✏️ Comprobá tu comprensión</div>
+      <div class="quiz-pregunta">En la norma jurídica, ¿qué elemento "debe ser" según su estructura lógica?</div>
+      <div class="quiz-opciones">
+        <button class="quiz-btn" data-idx="0">El hecho antecedente</button>
+        <button class="quiz-btn" data-idx="1">El hecho consecuente</button>
+        <button class="quiz-btn" data-idx="2">La valoración del juez</button>
+      </div>
+      <div class="quiz-feedback"></div>
+      <button class="quiz-btn-reset">Reintentar</button>
+    </div>
   </div>
 
-  <!-- CARTILLA 6 -->
+  <!-- 6 -->
   <div class="cartilla">
-    <h2>Definición del Derecho: caracteres y autores</h2>
+    <div class="cartilla-header">
+      <span class="num-cartilla">6</span>
+      <h2>Definición del Derecho: caracteres y autores</h2>
+    </div>
     <p>La regla de Derecho presenta caracteres distintivos:</p>
     <ul>
       <li>Es impuesta por una autoridad exterior al sujeto.</li>
@@ -144,338 +1039,1885 @@
       <li>Se refiere a las acciones de varios sujetos en relación.</li>
       <li>Delimita las acciones posibles para armonizar coexistencia y cooperación.</li>
     </ul>
-    <p>Rudolf von Ihering define el Derecho como “la suma de las condiciones de la vida social, aseguradas por el poder del Estado, mediante coacción externa”.</p>
-    <p>Para Kant, es “el conjunto de condiciones por las cuales el arbitrio de cada uno puede coexistir con el arbitrio de los demás, según una ley universal de libertad”. Abelardo Torré lo concibe como “el sistema de normas coercibles que rigen la conducta humana en su interferencia intersubjetiva”.</p>
+    <div class="cita">
+      "La suma de las condiciones de la vida social, aseguradas por el poder del Estado, mediante coacción externa."
+      <span class="autor">Rudolf von Ihering</span>
+    </div>
+    <div class="cita">
+      "El conjunto de condiciones por las cuales el arbitrio de cada uno puede coexistir con el arbitrio de los demás, según una ley universal de libertad."
+      <span class="autor">Immanuel Kant</span>
+    </div>
+    <div class="cita">
+      "El sistema de normas coercibles que rigen la conducta humana en su interferencia intersubjetiva."
+      <span class="autor">Abelardo Torré</span>
+    </div>
+    <div class="quiz-section" data-correcta="0">
+      <div class="quiz-titulo">✏️ Comprobá tu comprensión</div>
+      <div class="quiz-pregunta">¿Qué autor definió el Derecho como "sistema de normas coercibles que rigen la conducta humana en su interferencia intersubjetiva"?</div>
+      <div class="quiz-opciones">
+        <button class="quiz-btn" data-idx="0">Abelardo Torré</button>
+        <button class="quiz-btn" data-idx="1">Rudolf von Ihering</button>
+        <button class="quiz-btn" data-idx="2">Immanuel Kant</button>
+      </div>
+      <div class="quiz-feedback"></div>
+      <button class="quiz-btn-reset">Reintentar</button>
+    </div>
   </div>
 
-  <!-- CARTILLA 7 -->
+  <!-- 7 -->
   <div class="cartilla">
-    <h2>Fundamento del Derecho y pirámide de Kelsen</h2>
-    <p>El fundamento filosófico o causa del Derecho es la necesidad de <strong>conservar la vida</strong> y hacer posible la convivencia de seres libres en sociedad.</p>
-    <p>El ser humano es gregario: vive en sociedad, donde el Derecho es indispensable para regular las relaciones y limitar las libertades individuales, garantizando un orden social seguro. De ahí la máxima: <strong>“Ubi societas, ibi ius”</strong> (donde hay sociedad, hay Derecho).</p>
-    <p>La <strong>pirámide de Kelsen</strong> representa la estructura jerárquica del ordenamiento: en la cúspide se ubica la Constitución y normas supremas; luego las leyes, reglamentos y actos particulares, que deben ser válidos conforme a normas superiores.</p>
+    <div class="cartilla-header">
+      <span class="num-cartilla">7</span>
+      <h2>Fundamento del Derecho y pirámide de Kelsen</h2>
+    </div>
+    <p>El fundamento filosófico del Derecho es la necesidad de <strong>conservar la vida</strong> y hacer posible la convivencia de seres libres en sociedad.</p>
+    <div class="concepto-clave">
+      <div class="etiqueta">Máxima fundamental</div>
+      <strong>"Ubi societas, ibi ius"</strong> — Donde hay sociedad, hay Derecho.
+    </div>
+    <p>La <strong>pirámide de Kelsen</strong> representa la estructura jerárquica del ordenamiento jurídico:</p>
+    <ul>
+      <li>🔝 <strong>Constitución</strong> y normas supremas (cúspide)</li>
+      <li>📄 <strong>Leyes</strong> y reglamentos</li>
+      <li>📋 <strong>Actos particulares</strong> (contratos, sentencias)</li>
+    </ul>
+    <p>Cada nivel debe ser válido conforme a las normas del nivel superior.</p>
+    <div class="quiz-section" data-correcta="2">
+      <div class="quiz-titulo">✏️ Comprobá tu comprensión</div>
+      <div class="quiz-pregunta">Según Kelsen, ¿qué se ubica en la cúspide del ordenamiento jurídico?</div>
+      <div class="quiz-opciones">
+        <button class="quiz-btn" data-idx="0">Las leyes ordinarias</button>
+        <button class="quiz-btn" data-idx="1">Los contratos entre particulares</button>
+        <button class="quiz-btn" data-idx="2">La Constitución</button>
+      </div>
+      <div class="quiz-feedback"></div>
+      <button class="quiz-btn-reset">Reintentar</button>
+    </div>
   </div>
 
-  <!-- CARTILLA 8 -->
+  <!-- 8 -->
   <div class="cartilla">
-    <h2>Caso Fátima Afif</h2>
-    <p>El caso Fátima Afif trata de una trabajadora despedida por llevar un velo islámico (hiyab) en su lugar de trabajo en Francia.</p>
-    <p>La Corte Suprema confirmó el despido por violar el principio de laicismo y neutralidad establecidos en el reglamento interno. En 2011, Francia prohibió el uso del velo en lugares públicos, con sanciones de multas y antecedentes penales.</p>
-    <p>Este caso ejemplifica cómo el derecho positivo, los reglamentos internos y los principios constitucionales (como la laicidad) pueden entrar en tensión con derechos individuales y libertades religiosas.</p>
+    <div class="cartilla-header">
+      <span class="num-cartilla">8</span>
+      <h2>Caso Fátima Afif</h2>
+    </div>
+    <p>El caso Fátima Afif trata de una trabajadora despedida por llevar un velo islámico (hiyab) en su lugar de trabajo en Francia. La Corte Suprema confirmó el despido por violar el principio de laicismo y neutralidad establecidos en el reglamento interno.</p>
+    <p>En 2011, Francia prohibió el uso del velo en lugares públicos, con sanciones de multas y antecedentes penales.</p>
+    <div class="concepto-clave">
+      <div class="etiqueta">Enseñanza jurídica del caso</div>
+      Ejemplifica la tensión entre el <strong>derecho positivo</strong> (laicidad constitucional), los <strong>reglamentos internos</strong> (empresa) y los <strong>derechos individuales</strong> (libertad religiosa). Muestra cómo distintas fuentes del Derecho pueden entrar en conflicto.
+    </div>
+    <div class="quiz-section" data-correcta="1">
+      <div class="quiz-titulo">✏️ Comprobá tu comprensión</div>
+      <div class="quiz-pregunta">¿Qué principio constitucional francés justificó el despido de Fátima Afif?</div>
+      <div class="quiz-opciones">
+        <button class="quiz-btn" data-idx="0">Principio de igualdad de géneros</button>
+        <button class="quiz-btn" data-idx="1">Principio de laicismo y neutralidad</button>
+        <button class="quiz-btn" data-idx="2">Principio de no discriminación</button>
+      </div>
+      <div class="quiz-feedback"></div>
+      <button class="quiz-btn-reset">Reintentar</button>
+    </div>
   </div>
 
-  <!-- CARTILLA 9 -->
+  <!-- 9 -->
+    <!-- PORTADA AUTOGENERADA -->
   <div class="cartilla">
-    <h2>Disciplinas jurídicas: fundamentales y auxiliares</h2>
+    <div class="cartilla-header">
+      <span class="num-cartilla" style="background:#00695c;">Lección 2</span>
+      <h2>Lección 2 — Ciencia del Derecho y Disciplinas Jurídicas</h2>
+    </div>
+    <div class="concepto-clave">
+      <div class="etiqueta">Temas de esta lección</div>
+      La <strong>Ciencia del Derecho</strong> (Jurisprudencia), su objeto, carácter dogmático y sistematización. La <strong>Filosofía del Derecho</strong> y su distinción con la Ciencia. La <strong>Historia del Derecho</strong> y el <strong>Derecho Comparado</strong>. Sociología Jurídica y Lógica Jurídica. El método jurídico.
+    </div>
+    <ul>
+      <li>Savigny: padre de la ciencia jurídica. Esquema: hecho → norma → institución → construcción → sistema.</li>
+      <li><strong>Filosofía del Derecho</strong> (Del Vecchio): define el derecho en su universalidad lógica e investiga sus fundamentos.</li>
+      <li><strong>Método inductivo</strong> (legislador) vs. <strong>método deductivo</strong>/silogismo (juez).</li>
+      <li>Historia del Derecho: universal/particular; clásica/moderna. Derecho Comparado: compara sistemas jurídicos.</li>
+    </ul>
+  </div>
+
+<div class="cartilla">
+    <div class="cartilla-header">
+      <span class="num-cartilla">9</span>
+      <h2>Disciplinas jurídicas: fundamentales y auxiliares</h2>
+    </div>
     <p>Las disciplinas jurídicas se clasifican en <strong>fundamentales</strong> y <strong>auxiliares</strong>.</p>
-    <p>Entre las fundamentales están:</p>
-    <ul>
-      <li>Jurisprudencia o Ciencia del Derecho (Dogmática jurídica).</li>
-      <li>Introducción a las Ciencias Jurídicas.</li>
-      <li>Filosofía del Derecho.</li>
-      <li>Historia del Derecho.</li>
-    </ul>
-    <p>Entre las auxiliares se incluyen:</p>
-    <ul>
-      <li>Sociología Jurídica.</li>
-      <li>Derecho Comparado.</li>
-      <li>Lógica Jurídica.</li>
-    </ul>
+    <table class="tabla-comp">
+      <thead><tr><th>Fundamentales</th><th>Auxiliares</th></tr></thead>
+      <tbody>
+        <tr><td>Jurisprudencia o Dogmática jurídica</td><td>Sociología Jurídica</td></tr>
+        <tr><td>Introducción a las Ciencias Jurídicas</td><td>Derecho Comparado</td></tr>
+        <tr><td>Filosofía del Derecho</td><td>Lógica Jurídica</td></tr>
+        <tr><td>Historia del Derecho</td><td></td></tr>
+      </tbody>
+    </table>
+    <div class="quiz-section" data-correcta="2">
+      <div class="quiz-titulo">✏️ Comprobá tu comprensión</div>
+      <div class="quiz-pregunta">¿Cuál de estas es una disciplina jurídica <em>auxiliar</em>?</div>
+      <div class="quiz-opciones">
+        <button class="quiz-btn" data-idx="0">Filosofía del Derecho</button>
+        <button class="quiz-btn" data-idx="1">Historia del Derecho</button>
+        <button class="quiz-btn" data-idx="2">Sociología Jurídica</button>
+      </div>
+      <div class="quiz-feedback"></div>
+      <button class="quiz-btn-reset">Reintentar</button>
+    </div>
   </div>
 
-  <!-- CARTILLA 10 -->
+  <!-- 10 -->
   <div class="cartilla">
-    <h2>Ciencia del Derecho y sistematización</h2>
-    <p>La <strong>Ciencia del Derecho</strong> o Dogmática jurídica tiene por objeto la interpretación, integración y sistematización de un ordenamiento jurídico determinado para su justa aplicación.</p>
-    <p>Su objeto es la conducta humana en interferencia intersubjetiva, considerada como objeto cultural (lo que el hombre crea o modifica) y egológico (con sustrato en la conducta). Tiene carácter <strong>dogmático</strong>: el jurista acepta el contenido del orden jurídico y se limita a interpretarlo, construirlo y sistematizarlo.</p>
-    <p>La <strong>sistemática jurídica</strong> busca exponer ordenadamente las normas de un ordenamiento circunscripto en el tiempo y el espacio. La <strong>sistematización</strong> presenta las normas como partes de un sistema, en relaciones de coordinación y subordinación. Savigny, con su “Sistema del Derecho Romano actual”, es considerado el padre de la ciencia jurídica moderna; su esquema va del hecho jurídico a la norma, institución, construcción, sistema y ordenamiento jurídico.</p>
+    <div class="cartilla-header">
+      <span class="num-cartilla">10</span>
+      <h2>Ciencia del Derecho y sistematización</h2>
+    </div>
+    <p>La <strong>Ciencia del Derecho</strong> (Dogmática jurídica) tiene por objeto la interpretación, integración y sistematización de un ordenamiento jurídico determinado para su justa aplicación.</p>
+    <p>Tiene carácter <strong>dogmático</strong>: el jurista acepta el contenido del orden jurídico y se limita a interpretarlo, construirlo y sistematizarlo.</p>
+    <div class="concepto-clave">
+      <div class="etiqueta">Esquema de Savigny</div>
+      Hecho jurídico → Norma → Institución → Construcción → Sistema → Ordenamiento jurídico.<br>
+      Savigny es considerado el <strong>padre de la ciencia jurídica moderna</strong>.
+    </div>
+    <div class="quiz-section" data-correcta="0">
+      <div class="quiz-titulo">✏️ Comprobá tu comprensión</div>
+      <div class="quiz-pregunta">¿Quién es considerado el padre de la ciencia jurídica moderna?</div>
+      <div class="quiz-opciones">
+        <button class="quiz-btn" data-idx="0">Savigny</button>
+        <button class="quiz-btn" data-idx="1">Kelsen</button>
+        <button class="quiz-btn" data-idx="2">Von Ihering</button>
+      </div>
+      <div class="quiz-feedback"></div>
+      <button class="quiz-btn-reset">Reintentar</button>
+    </div>
   </div>
 
-  <!-- CARTILLA 11 -->
+  <!-- 11 -->
   <div class="cartilla">
-    <h2>Recursos técnicos de la ciencia jurídica</h2>
-    <p>La ciencia jurídica emplea diversos recursos técnicos para interpretar y aplicar el Derecho:</p>
+    <div class="cartilla-header">
+      <span class="num-cartilla">11</span>
+      <h2>Recursos técnicos de la ciencia jurídica</h2>
+    </div>
+    <p>La ciencia jurídica emplea recursos técnicos para interpretar y aplicar el Derecho:</p>
     <ul>
       <li><strong>Concepto y definición</strong>: fijan el contenido de las nociones jurídicas.</li>
-      <li><strong>Indicio y presunción</strong>: permiten inferir hechos desconocidos a partir de hechos conocidos.</li>
-      <li><strong>Presunciones juris et de jure</strong>: no admiten prueba en contrario; <strong>juris tantum</strong>: admiten ser desvirtuadas (ejemplos en el Código Civil).</li>
-      <li><strong>Estándar jurídico o regla flexible</strong>: norma intermedia para acomodar el hecho a la ley (como “buen padre de familia”, “diligencia razonable”).</li>
-      <li><strong>Ficciones jurídicas</strong>: construcciones que tratan como real algo que no lo es, para resolver problemas prácticos.</li>
+      <li><strong>Presunción juris et de jure</strong>: no admite prueba en contrario.</li>
+      <li><strong>Presunción juris tantum</strong>: admite ser desvirtuada.</li>
+      <li><strong>Estándar jurídico</strong>: norma flexible para acomodar el hecho a la ley (ej.: "buen padre de familia", "diligencia razonable").</li>
+      <li><strong>Ficciones jurídicas</strong>: tratan como real algo que no lo es, para resolver problemas prácticos.</li>
     </ul>
+    <div class="quiz-section" data-correcta="1">
+      <div class="quiz-titulo">✏️ Comprobá tu comprensión</div>
+      <div class="quiz-pregunta">Una presunción que NO admite prueba en contrario se llama…</div>
+      <div class="quiz-opciones">
+        <button class="quiz-btn" data-idx="0">Juris tantum</button>
+        <button class="quiz-btn" data-idx="1">Juris et de jure</button>
+        <button class="quiz-btn" data-idx="2">Estándar jurídico</button>
+      </div>
+      <div class="quiz-feedback"></div>
+      <button class="quiz-btn-reset">Reintentar</button>
+    </div>
   </div>
 
-  <!-- CARTILLA 12 -->
+  <!-- 12 -->
   <div class="cartilla">
-    <h2>Introducción a las Ciencias Jurídicas</h2>
+    <div class="cartilla-header">
+      <span class="num-cartilla">12</span>
+      <h2>Introducción a las Ciencias Jurídicas</h2>
+    </div>
     <p>La <strong>Introducción a las Ciencias Jurídicas</strong> es la disciplina que, con propósito eminentemente didáctico, estudia las nociones fundamentales de la ciencia y técnica jurídicas y las diversas ramas del Derecho positivo.</p>
-    <p>Se ubica en el umbral de los estudios universitarios, ayudando al estudiante a orientarse en el sistema jurídico.</p>
-    <p>Su contenido comprende tres partes:</p>
+    <p>Se ubica en el <em>umbral</em> de los estudios universitarios, ayudando al estudiante a orientarse en el sistema jurídico. Su contenido comprende tres partes:</p>
     <ul>
-      <li><strong>Dogmática</strong>: nociones jurídicas fundamentales.</li>
-      <li><strong>Técnica</strong>: interpretación, aplicación e integración de la ley, y solución de conflictos de leyes en el tiempo y el espacio.</li>
-      <li><strong>Descriptiva</strong>: determina el ámbito de cada rama del Derecho positivo y sus principales problemas.</li>
+      <li>🧱 <strong>Dogmática</strong>: nociones jurídicas fundamentales.</li>
+      <li>⚙️ <strong>Técnica</strong>: interpretación, aplicación e integración de la ley, y solución de conflictos de leyes.</li>
+      <li>🗺️ <strong>Descriptiva</strong>: determina el ámbito de cada rama del Derecho positivo y sus principales problemas.</li>
     </ul>
   </div>
 
-  <!-- CARTILLA 13 -->
+  <!-- 13 -->
   <div class="cartilla">
-    <h2>Filosofía del Derecho</h2>
-    <p>La filosofía se divide en teórica (primeros principios del ser y conocer) y práctica (primeros principios del obrar). Dentro de esta última se ubican la filosofía moral y la <strong>Filosofía del Derecho</strong>.</p>
-    <p>Del Vecchio define la Filosofía del Derecho como la disciplina que define el Derecho en su universalidad lógica, investiga los fundamentos y caracteres generales de su desarrollo histórico y lo valora según el ideal de justicia trazado por la razón. Cecilio Báez identifica el derecho natural con la propia filosofía del Derecho, considerada como ciencia de los principios del Derecho concebidos por la razón y fundados en la naturaleza humana.</p>
-    <p>Sus temas fundamentales son: la determinación del concepto del Derecho (ontología o gnoseología jurídica) y los valores que el orden jurídico positivo debe realizar (axiología).</p>
+    <div class="cartilla-header">
+      <span class="num-cartilla">13</span>
+      <h2>Filosofía del Derecho</h2>
+    </div>
+    <p>La filosofía práctica incluye la filosofía moral y la <strong>Filosofía del Derecho</strong>.</p>
+    <div class="cita">
+      "La disciplina que define el Derecho en su universalidad lógica, investiga los fundamentos de su desarrollo histórico y lo valora según el ideal de justicia trazado por la razón."
+      <span class="autor">Del Vecchio</span>
+    </div>
+    <div class="concepto-clave">
+      <div class="etiqueta">Temas fundamentales</div>
+      <strong>Ontología/Gnoseología jurídica</strong>: ¿qué es el Derecho?<br>
+      <strong>Axiología jurídica</strong>: ¿qué valores debe realizar el orden jurídico?
+    </div>
+    <div class="quiz-section" data-correcta="0">
+      <div class="quiz-titulo">✏️ Comprobá tu comprensión</div>
+      <div class="quiz-pregunta">¿Qué rama de la Filosofía del Derecho estudia los valores que debe realizar el orden jurídico?</div>
+      <div class="quiz-opciones">
+        <button class="quiz-btn" data-idx="0">Axiología jurídica</button>
+        <button class="quiz-btn" data-idx="1">Ontología jurídica</button>
+        <button class="quiz-btn" data-idx="2">Lógica jurídica</button>
+      </div>
+      <div class="quiz-feedback"></div>
+      <button class="quiz-btn-reset">Reintentar</button>
+    </div>
   </div>
 
-  <!-- CARTILLA 14 -->
+  <!-- 14 -->
   <div class="cartilla">
-    <h2>Ciencia del Derecho vs Filosofía del Derecho</h2>
-    <p>La <strong>Ciencia del Derecho</strong> se ocupa de sistemas jurídicos particulares, vigentes o históricos, considerados singularmente para cada pueblo en una época determinada (por ejemplo, el Derecho paraguayo).</p>
-    <p>La <strong>Filosofía Jurídica</strong> estudia el Derecho en sus ingredientes universales, busca los elementos esenciales comunes a todos los sistemas jurídicos y va más allá del Derecho positivo. Mientras el jurista considera lo que es el Derecho, la filosofía del Derecho valora los sistemas para determinar sus fundamentos y lo que el Derecho debería ser.</p>
+    <div class="cartilla-header">
+      <span class="num-cartilla">14</span>
+      <h2>Ciencia del Derecho vs. Filosofía del Derecho</h2>
+    </div>
+    <table class="tabla-comp">
+      <thead><tr><th>Aspecto</th><th>Ciencia del Derecho</th><th>Filosofía del Derecho</th></tr></thead>
+      <tbody>
+        <tr><td>Objeto</td><td>Sistemas jurídicos particulares (ej.: Derecho paraguayo)</td><td>El Derecho en sus ingredientes universales</td></tr>
+        <tr><td>Alcance</td><td>Vigentes o históricos de un pueblo</td><td>Común a todos los sistemas jurídicos</td></tr>
+        <tr><td>Pregunta</td><td>¿Qué <em>es</em> el Derecho aquí y ahora?</td><td>¿Qué <em>debería ser</em> el Derecho?</td></tr>
+      </tbody>
+    </table>
+    <div class="quiz-section" data-correcta="1">
+      <div class="quiz-titulo">✏️ Comprobá tu comprensión</div>
+      <div class="quiz-pregunta">¿Cuál va más allá del Derecho positivo y busca sus fundamentos universales?</div>
+      <div class="quiz-opciones">
+        <button class="quiz-btn" data-idx="0">Ciencia del Derecho</button>
+        <button class="quiz-btn" data-idx="1">Filosofía del Derecho</button>
+        <button class="quiz-btn" data-idx="2">Sociología Jurídica</button>
+      </div>
+      <div class="quiz-feedback"></div>
+      <button class="quiz-btn-reset">Reintentar</button>
+    </div>
   </div>
 
-  <!-- CARTILLA 15 -->
+  <!-- 15 -->
   <div class="cartilla">
-    <h2>Historia del Derecho</h2>
+    <div class="cartilla-header">
+      <span class="num-cartilla">15</span>
+      <h2>Historia del Derecho</h2>
+    </div>
     <p>La <strong>Historia del Derecho</strong> estudia la evolución del fenómeno jurídico en las distintas etapas de la vida humana, con el propósito de establecer el origen, transformación y caducidad de las instituciones.</p>
-    <p>Puede ser historia universal (formación y desarrollo de los sistemas jurídicos de todos los países) o particular (de un país determinado). Clásicamente se distinguía entre historia externa (fuentes del Derecho) e interna (instituciones jurídicas); los enfoques modernos incluyen métodos sincrónicos (consideran factores políticos, económicos, morales y sociales) y sistemáticos (reconstruyen el sistema jurídico de la época).</p>
-    <p>Entre las <strong>fuentes del conocimiento histórico jurídico</strong> se cuentan fuentes jurídicas (códigos, leyes, costumbres, jurisprudencia, expedientes judiciales y administrativos) y no jurídicas (libros, cartas, documentos).</p>
-  </div>
-
-  <!-- CARTILLA 16 -->
-  <div class="cartilla">
-    <h2>Derecho comparado, Sociología jurídica y Lógica jurídica</h2>
-    <p>El <strong>Derecho Comparado</strong>, surgido en el siglo XIX, tuvo nombres como Concordancias y Legislación comparada antes de consolidarse como tal. Se propone describir el fondo común de conceptos e instituciones mediante la confrontación de sistemas jurídicos relacionados (por ejemplo, sistema continental y common law).</p>
-    <p>Es importante porque permite establecer analogías y diferencias entre sistemas, identificar rasgos constantes de las instituciones, conocer el origen de instituciones nacionales por analogía, interpretar correctamente leyes y orientar reformas legislativas y la uniformidad internacional de las legislaciones, además de uniformar soluciones de Derecho Internacional Privado.</p>
-    <p>La <strong>Sociología Jurídica</strong> explica el fenómeno jurídico como hecho social; estudia factores que intervienen en la formación y desarrollo del Derecho y los efectos del ordenamiento en la vida social, mostrando la interdependencia entre normas y fenómenos sociales.</p>
-    <p>La <strong>Lógica Jurídica</strong> es instrumento de la dogmática: exige someter el trabajo del jurista a las reglas del pensar y a la elaboración de conceptos puros como precepto jurídico, relación jurídica, sujeto, facultad, deber, prestación y sanción.</p>
-  </div>
-
-  <!-- CARTILLA 17 -->
-  <div class="cartilla">
-    <h2>Método jurídico: inductivo, deductivo y aplicación</h2>
-    <p>El <strong>método jurídico</strong> es el conjunto de procedimientos intelectuales que usa el jurista para descubrir la verdad jurídica.</p>
-    <p>El método <strong>inductivo</strong> parte de la observación de hechos particulares para, mediante generalización, llegar a principios o causas que los originan. El método <strong>deductivo</strong> parte de principios generales considerados evidentes para extraer por razonamiento lógico las consecuencias necesarias.</p>
-    <p>En la elaboración de leyes, el legislador utiliza una lógica marcadamente inductiva, generalizando casos posibles hacia textos legales abstractos. El juez aplica la ley mediante un método predominantemente deductivo, utilizando el silogismo jurídico (norma general como premisa mayor, caso concreto como premisa menor y sentencia como conclusión). El jurista, por su parte, goza de mayor libertad para combinar ambos métodos en su tarea de describir, sistematizar e interpretar el ordenamiento.</p>
-  </div>
-
-  <!-- CARTILLA 18 -->
-  <div class="cartilla">
-    <h2>Regulación de la actividad humana: técnica y ética</h2>
-    <p>Para satisfacer las necesidades de subsistencia y bienestar, el ser humano se vio obligado a emplear prácticas adecuadas y a someter sus actividades a <strong>reglas técnicas</strong> relacionadas con la producción y el consumo.</p>
-    <p>Paralelamente, fue estructurando <strong>normas</strong> destinadas a orientar la conducta, indicando qué actos realizar o dejar de realizar. De este modo, se distinguen dos grandes categorías de actividad humana: la <strong>técnica</strong> y la <strong>ética</strong>.</p>
-    <p>La actividad técnica se propone fines científicos, artísticos o de utilidad práctica y su regulación concierne a las reglas técnicas. Cuando lo que se busca es la bondad y perfección del sujeto que actúa, la regulación corresponde a las normas éticas.</p>
-  </div>
-
-  <!-- CARTILLA 19 -->
-  <div class="cartilla">
-    <h2>Reglas técnicas: definición, tipos y caracteres</h2>
-    <p>Las <strong>reglas técnicas</strong> prescriben los medios idóneos para la realización de fines determinados. Por ejemplo, para construir un edificio se aplican las reglas del arte arquitectónico; para trasladarse por el camino más corto, se sigue la línea recta; el conductor de un automóvil debe respetar ciertas reglas para obtener el mejor resultado, al igual que un cirujano durante una operación.</p>
-    <p>Según el ámbito regulado, pueden distinguirse reglas lógicas (modos del pensar), estéticas (modos de la belleza), higiénicas (modos de conservar), dialécticas (modos de discusión), entre otras.</p>
-    <p>Sus caracteres principales son: responden a una necesidad lógica; regulan la actividad humana para alcanzar verdad, belleza o fines de utilidad; encauzan el hacer humano (cómo debe hacerse algo), con una orientación preferentemente práctica; y son particulares, adecuadas a cada uno de los resultados posibles.</p>
-  </div>
-
-  <!-- CARTILLA 20 -->
-  <div class="cartilla">
-    <h2>Normas éticas, norma y canon</h2>
-    <p>La palabra <strong>norma</strong> deriva de la voz latina que significa escuadra o modelo, y en sentido jurídico estricto designa el principio cuya observancia constituye un deber para el sujeto a quien se dirige.</p>
-    <p>Toda norma implica un <strong>deber ser</strong>: es una fórmula que expresa imperativamente que, supuesto un determinado hecho antecedente A, debe producirse un hecho consecuente B. Comprende el hecho antecedente, el hecho consecuente y la relación que los une en una estructura de imputación.</p>
-    <p>Las normas éticas tienen como caracteres ser reglas de comportamiento obligatorio; contener un imperativo sobre cómo debe ser la conducta del hombre, individualmente o en relación con sus semejantes; y encauzar el obrar humano como actividad perfeccionista que aspira a Dios, a la pureza interior, a la justicia y al decoro social.</p>
-    <p>En sentido estricto, <strong>norma</strong> y <strong>canon</strong> son sinónimos: este último designaba originalmente el instrumento para trazar líneas rectas y pasó a significar regla. En el ámbito religioso se habla de Derecho canónico; en el económico, de canon enfitéutico como pensión anual vinculada a ciertos derechos sobre bienes raíces.</p>
-  </div>
-
-  <!-- CARTILLA 21 -->
-  <div class="cartilla">
-    <h2>Ley natural y norma: conceptos y diferencias</h2>
-    <p>En el reino de la naturaleza, nada sucede sin razón suficiente ni causa: la <strong>ley natural</strong> enlaza un hecho antecedente como causa con un hecho consecuente como efecto, sin excepción normal posible.</p>
-    <p>La <strong>norma</strong>, en cambio, es una ley cultural, aplicable al deber ser, que vincula hechos mediante imputación: dado un antecedente, “debe ser” un consecuente. Se refiere a fenómenos del ámbito de la cultura y la libertad.</p>
-    <p>Entre las principales diferencias se destacan:</p>
     <ul>
-      <li>La ley natural se aplica al ser y expresa relaciones constantes; la norma se aplica al deber ser y expresa cómo debe realizarse la conducta.</li>
-      <li>La ley natural se cumple siempre e indefectiblemente; la norma es contingente y violable por la libertad humana.</li>
-      <li>La ley natural tiene significado teórico y describe realidades efectivas; la norma tiene sentido práctico y expresa lo que debe acontecer, aunque no suceda.</li>
-      <li>El fin de la ley natural es explicar relaciones constantes entre fenómenos; el fin de la norma es indicar cómo debe obrar el hombre para que su conducta sea recta.</li>
+      <li><strong>Universal</strong>: formación y desarrollo de los sistemas jurídicos de todos los países.</li>
+      <li><strong>Particular</strong>: de un país determinado.</li>
+    </ul>
+    <div class="concepto-clave">
+      <div class="etiqueta">Fuentes del conocimiento histórico jurídico</div>
+      <strong>Jurídicas</strong>: códigos, leyes, costumbres, jurisprudencia, expedientes.<br>
+      <strong>No jurídicas</strong>: libros, cartas, documentos.
+    </div>
+  </div>
+
+  <!-- 16 -->
+  <div class="cartilla">
+    <div class="cartilla-header">
+      <span class="num-cartilla">16</span>
+      <h2>Derecho Comparado, Sociología y Lógica Jurídica</h2>
+    </div>
+    <p>El <strong>Derecho Comparado</strong> (surgido en el siglo XIX) confronta sistemas jurídicos relacionados para establecer analogías y diferencias, orientar reformas legislativas y uniformar soluciones de Derecho Internacional Privado.</p>
+    <p>La <strong>Sociología Jurídica</strong> explica el fenómeno jurídico como hecho social: estudia los factores que intervienen en la formación del Derecho y los efectos del ordenamiento en la vida social.</p>
+    <p>La <strong>Lógica Jurídica</strong> exige someter el trabajo del jurista a las reglas del pensar y a conceptos puros: precepto jurídico, relación jurídica, sujeto, facultad, deber, prestación y sanción.</p>
+    <div class="quiz-section" data-correcta="2">
+      <div class="quiz-titulo">✏️ Comprobá tu comprensión</div>
+      <div class="quiz-pregunta">¿Qué disciplina estudia el Derecho como hecho social?</div>
+      <div class="quiz-opciones">
+        <button class="quiz-btn" data-idx="0">Derecho Comparado</button>
+        <button class="quiz-btn" data-idx="1">Lógica Jurídica</button>
+        <button class="quiz-btn" data-idx="2">Sociología Jurídica</button>
+      </div>
+      <div class="quiz-feedback"></div>
+      <button class="quiz-btn-reset">Reintentar</button>
+    </div>
+  </div>
+
+  <!-- 17 -->
+  <div class="cartilla">
+    <div class="cartilla-header">
+      <span class="num-cartilla">17</span>
+      <h2>Método jurídico: inductivo, deductivo y aplicación</h2>
+    </div>
+    <table class="tabla-comp">
+      <thead><tr><th>Método</th><th>Punto de partida</th><th>Dirección</th><th>Quién lo usa principalmente</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Inductivo</strong></td><td>Hechos particulares</td><td>→ Principios generales</td><td>Legislador</td></tr>
+        <tr><td><strong>Deductivo</strong></td><td>Principios generales</td><td>→ Casos concretos</td><td>Juez</td></tr>
+        <tr><td><strong>Mixto</strong></td><td>Ambos</td><td>Combinado</td><td>Jurista</td></tr>
+      </tbody>
+    </table>
+    <div class="concepto-clave">
+      <div class="etiqueta">Silogismo jurídico del juez</div>
+      Premisa mayor: norma general → Premisa menor: caso concreto → Conclusión: sentencia.
+    </div>
+    <div class="quiz-section" data-correcta="0">
+      <div class="quiz-titulo">✏️ Comprobá tu comprensión</div>
+      <div class="quiz-pregunta">¿Qué método utiliza predominantemente el juez al aplicar la ley?</div>
+      <div class="quiz-opciones">
+        <button class="quiz-btn" data-idx="0">Deductivo (silogismo jurídico)</button>
+        <button class="quiz-btn" data-idx="1">Inductivo</button>
+        <button class="quiz-btn" data-idx="2">Comparado</button>
+      </div>
+      <div class="quiz-feedback"></div>
+      <button class="quiz-btn-reset">Reintentar</button>
+    </div>
+  </div>
+
+  <!-- 18 -->
+    <!-- PORTADA AUTOGENERADA -->
+  <div class="cartilla">
+    <div class="cartilla-header">
+      <span class="num-cartilla" style="background:#6a1b9a;">Lección 3</span>
+      <h2>Lección 3 — Normas Éticas: Clasificación y Caracteres</h2>
+    </div>
+    <div class="concepto-clave">
+      <div class="etiqueta">Temas de esta lección</div>
+      Distinción entre <strong>reglas técnicas</strong> y <strong>normas éticas</strong>. Estructura lógica de la norma (<em>deber ser</em>). Diferencia entre <strong>ley natural</strong> y norma. Clasificación de las normas éticas en cuatro grupos. La ética como ciencia.
+    </div>
+    <ul>
+      <li><strong>Reglas técnicas</strong>: fines prácticos/artísticos/científicos. <strong>Normas éticas</strong>: bondad y perfección del sujeto.</li>
+      <li>Norma: dado A (antecedente), debe ser B (consecuente).</li>
+      <li><strong>Ley natural</strong> (ser, infalible) vs. <strong>Norma</strong> (deber ser, violable).</li>
+      <li>4 grupos: religiosas · morales · de trato social · jurídicas.</li>
     </ul>
   </div>
 
-  <!-- CARTILLA 22 -->
+<div class="cartilla">
+    <div class="cartilla-header">
+      <span class="num-cartilla">18</span>
+      <h2>Regulación de la actividad humana: técnica y ética</h2>
+    </div>
+    <p>Para satisfacer sus necesidades, el ser humano empleó <strong>reglas técnicas</strong> (relacionadas con producción y consumo) y estructuró <strong>normas éticas</strong> destinadas a orientar la conducta.</p>
+    <table class="tabla-comp">
+      <thead><tr><th>Categoría</th><th>Fin</th><th>Regulada por</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Actividad técnica</strong></td><td>Fines científicos, artísticos o de utilidad práctica</td><td>Reglas técnicas</td></tr>
+        <tr><td><strong>Actividad ética</strong></td><td>Bondad y perfección del sujeto</td><td>Normas éticas</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 19 -->
   <div class="cartilla">
-    <h2>Clasificación de normas éticas y concepto de ética</h2>
-    <p>Dada la complejidad de la actividad ética del ser humano, no basta un solo tipo de norma. En general, las normas éticas se clasifican en cuatro grupos:</p>
+    <div class="cartilla-header">
+      <span class="num-cartilla">19</span>
+      <h2>Reglas técnicas: definición, tipos y caracteres</h2>
+    </div>
+    <p>Las <strong>reglas técnicas</strong> prescriben los medios idóneos para la realización de fines determinados. Pueden ser:</p>
     <ul>
-      <li><strong>Religiosas</strong>: regulan la relación del hombre con lo divino.</li>
-      <li><strong>Morales</strong>: orientan la perfección interior y el bien personal.</li>
-      <li><strong>De trato social</strong>: regulan la urbanidad y las formas de convivencia.</li>
-      <li><strong>Jurídicas</strong>: regulan conductas en sociedad mediante coacción institucionalizada.</li>
+      <li><strong>Lógicas</strong>: modos del pensar.</li>
+      <li><strong>Estéticas</strong>: modos de la belleza.</li>
+      <li><strong>Higiénicas</strong>: modos de conservar la salud.</li>
+      <li><strong>Dialécticas</strong>: modos de discusión.</li>
     </ul>
-    <p>En sentido amplio, la <strong>ética</strong> es la ciencia de la conducta humana en general, la filosofía práctica del obrar, que incluye Religión, Moral y Derecho como órdenes normativos fundamentales.</p>
-    <p>En sentido restringido, ética es sinónimo de moral, como cuando se habla de ética profesional del abogado o de códigos de ética profesional dictados por los colegios.</p>
+    <div class="concepto-clave">
+      <div class="etiqueta">Caracteres principales</div>
+      Responden a una necesidad lógica; encauzan el <em>hacer</em> humano; orientación preferentemente práctica; son <strong>particulares</strong>, adecuadas a cada resultado posible.
+    </div>
   </div>
 
-  <!-- CARTILLA 23 -->
+  <!-- 20 -->
   <div class="cartilla">
-    <h2>Los valores y los valores de acción</h2>
-    <p>Los <strong>valores</strong> pertenecen al reino de los objetos ideales, estudiados por la metafísica. Son cualidades ideales, inespaciales e intemporales que captamos por una intuición no sensible llamada estimación (por ejemplo, la belleza de un cuadro, la verdad de una teoría, la justicia de una ley).</p>
-    <p>Los valores no forman parte del ser de los objetos; son cualidades ideales que estos poseen y están referidos a ideas de valor. Son <strong>a priori</strong> (conocimiento independiente de la experiencia de los objetos reales) y <strong>objetivos</strong> (tienen validez propia y necesaria, no dependen de la existencia de los soportes reales).</p>
-    <p>Los valores admiten siempre polaridad: buenos/malos, bellos/feos, justos/injustos, útiles/inútiles, etc. Los valores referidos a los actos humanos son <strong>valores de acción</strong>, y pueden calificarse como valiosos o disvaliosos. La conciencia humana establece una jerarquía de valores, propone fines y elige medios, lo que refleja la superioridad de la especie humana.</p>
+    <div class="cartilla-header">
+      <span class="num-cartilla">20</span>
+      <h2>Normas éticas, norma y canon</h2>
+    </div>
+    <div class="concepto-clave">
+      <div class="etiqueta">Definición de norma</div>
+      Del latín <em>norma</em> (escuadra o modelo). En sentido jurídico: principio cuya observancia constituye un <strong>deber</strong> para el sujeto a quien se dirige.
+    </div>
+    <p>Toda norma implica un <strong>deber ser</strong>: supuesto un hecho antecedente A, <em>debe</em> producirse un hecho consecuente B. Comprende: hecho antecedente, hecho consecuente y la relación de imputación.</p>
+    <p>Las normas éticas encauzan el obrar humano como actividad perfeccionista que aspira a la justicia y al decoro social. <strong>Norma</strong> y <strong>canon</strong> son sinónimos; en lo religioso, "Derecho canónico"; en lo económico, "canon enfitéutico".</p>
+    <div class="quiz-section" data-correcta="2">
+      <div class="quiz-titulo">✏️ Comprobá tu comprensión</div>
+      <div class="quiz-pregunta">¿Qué expresa la estructura lógica de toda norma?</div>
+      <div class="quiz-opciones">
+        <button class="quiz-btn" data-idx="0">Una descripción de lo que ocurre</button>
+        <button class="quiz-btn" data-idx="1">Una ley natural de causa-efecto</button>
+        <button class="quiz-btn" data-idx="2">Un deber ser: dado A, debe producirse B</button>
+      </div>
+      <div class="quiz-feedback"></div>
+      <button class="quiz-btn-reset">Reintentar</button>
+    </div>
   </div>
 
-  <!-- CARTILLA 24 -->
+  <!-- 21 -->
   <div class="cartilla">
-    <h2>Valores jurídicos: concepto, alteridad y enumeración</h2>
-    <p>Los <strong>valores jurídicos</strong> son aquellos que el hombre debe realizar en la sociedad mediante normas cuyo cumplimiento puede exigirse coercitivamente.</p>
-    <p>Suponen siempre valores sociales o de comunidad y presentan la nota de <strong>alteridad o bilateralidad</strong>: solo pueden verificarse en relaciones entre una pluralidad de personas o en situaciones de convivencia. El elemento valorativo integra toda conducta en interferencia intersubjetiva.</p>
-    <p>Se suelen enumerar siete valores jurídicos: justicia, orden, seguridad, paz, poder, cooperación y solidaridad. Aunque hay discrepancias sobre su jerarquía, se admite que la <strong>justicia</strong> es el valor supremo o central, que determina la armonía y equilibrio de los demás valores jurídicos.</p>
+    <div class="cartilla-header">
+      <span class="num-cartilla">21</span>
+      <h2>Ley natural vs. norma jurídica</h2>
+    </div>
+    <table class="tabla-comp">
+      <thead><tr><th>Aspecto</th><th>Ley natural</th><th>Norma jurídica</th></tr></thead>
+      <tbody>
+        <tr><td>Ámbito</td><td>El <strong>ser</strong></td><td>El <strong>deber ser</strong></td></tr>
+        <tr><td>Cumplimiento</td><td>Siempre e indefectiblemente</td><td>Contingente y violable</td></tr>
+        <tr><td>Sentido</td><td>Teórico: describe realidades</td><td>Práctico: prescribe conducta</td></tr>
+        <tr><td>Fin</td><td>Explicar relaciones constantes</td><td>Indicar cómo debe obrar el hombre</td></tr>
+      </tbody>
+    </table>
+    <div class="quiz-section" data-correcta="0">
+      <div class="quiz-titulo">✏️ Comprobá tu comprensión</div>
+      <div class="quiz-pregunta">¿Cuál es una diferencia fundamental entre ley natural y norma?</div>
+      <div class="quiz-opciones">
+        <button class="quiz-btn" data-idx="0">La ley natural se cumple siempre; la norma puede ser violada</button>
+        <button class="quiz-btn" data-idx="1">La norma se cumple siempre; la ley natural puede ser violada</button>
+        <button class="quiz-btn" data-idx="2">Ambas regulan el deber ser</button>
+      </div>
+      <div class="quiz-feedback"></div>
+      <button class="quiz-btn-reset">Reintentar</button>
+    </div>
   </div>
 
-  <!-- CARTILLA 25 -->
+  <!-- 22 -->
   <div class="cartilla">
-    <h2>Justicia: etimología, sentimiento e idea</h2>
-    <p>La palabra <strong>justicia</strong> tiene el mismo origen que <em>jus</em>, el derecho humano para los romanos. En sentido corriente, justicia significa exactitud o conformidad de una acción o cosa con otra (por ejemplo, un traje que queda “justo” a la medida).</p>
-    <p>En sentido técnico, se aplica a las relaciones entre personas para señalar límites y proporciones armónicas (por ejemplo, en una compraventa, es justo que el vendedor entregue la cosa y el comprador pague el precio convenido). En acepción forense, designa el conjunto de jueces y tribunales (administración de justicia).</p>
-    <p>El <strong>sentimiento de justicia</strong> consiste en la intuición emocional de un valor absoluto que reclama trato igual para situaciones iguales. Nace espontáneamente en la conciencia del pueblo y permite distinguir lo lícito de lo ilícito, el mérito del desmérito, provocando indignación cuando se trata igual al honrado y al ladrón, al trabajador y al holgazán.</p>
-    <p>La <strong>idea de justicia</strong>, en acepción amplia, se entiende como armonía, igualdad proporcional o medida armónica de cambio y distribución. Según la definición clásica de Ulpiano, “justicia es la voluntad perpetua y constante de dar a cada uno lo suyo”. En sentido restringido o jurídico, es el cumplimiento exacto de obligaciones susceptibles de ser exigidas por otros.</p>
-  </div>
-
-  <!-- CARTILLA 26 -->
-  <div class="cartilla">
-    <h2>Elementos lógicos de la justicia y valores conexos</h2>
-    <p>Entre los elementos lógicos de la justicia se destacan:</p>
+    <div class="cartilla-header">
+      <span class="num-cartilla">22</span>
+      <h2>Clasificación de normas éticas y concepto de ética</h2>
+    </div>
+    <p>Las normas éticas se clasifican en cuatro grupos:</p>
     <ul>
-      <li><strong>Alteridad o bilateralidad</strong>: simultánea consideración de diversos sujetos, colocados idealmente en un mismo plano.</li>
-      <li><strong>Paridad o igualdad</strong>: la justicia es un criterio de medida que consiste en la igualdad o paridad; no deben establecerse diferencias injustificadas de protección jurídica para relaciones humanas idénticas.</li>
-      <li><strong>Reciprocidad o correlación</strong>: el obrar de cada uno se considera en tanto se relaciona con el obrar de otro; a toda exigencia corresponde una obligación.</li>
-      <li><strong>Contracambio o compensación</strong>: valoración de cada acto en su significado objetivo como medio de comunicación entre sujetos.</li>
-      <li><strong>Remuneración</strong>: exigencia de que cada sujeto sea reconocido y retribuido conforme a lo que vale y le corresponde.</li>
+      <li>🙏 <strong>Religiosas</strong>: regulan la relación del hombre con lo divino.</li>
+      <li>💛 <strong>Morales</strong>: orientan la perfección interior y el bien personal.</li>
+      <li>🤝 <strong>De trato social</strong>: regulan la urbanidad y las formas de convivencia.</li>
+      <li>⚖️ <strong>Jurídicas</strong>: regulan conductas en sociedad mediante coacción institucionalizada.</li>
     </ul>
-    <p>Entre los valores conexos a la justicia se encuentran:</p>
-    <ul>
-      <li><strong>Orden</strong>: organización de la sociedad para que pueda cumplir sus fines; es un elemento necesario para el desarrollo armónico de las actividades sociales.</li>
-      <li><strong>Seguridad</strong>: conjunto de medidas indispensables para que el orden jurídico sea estable y duradero, incluyendo órganos del Estado con funciones de prevenir o castigar violaciones.</li>
-    </ul>
+    <div class="concepto-clave">
+      <div class="etiqueta">Ética: sentido amplio vs. restringido</div>
+      <strong>Amplio</strong>: ciencia de la conducta humana en general (incluye Religión, Moral y Derecho).<br>
+      <strong>Restringido</strong>: sinónimo de moral (ej.: ética profesional del abogado).
+    </div>
+    <div class="quiz-section" data-correcta="3">
+      <div class="quiz-titulo">✏️ Comprobá tu comprensión</div>
+      <div class="quiz-pregunta">¿Qué tipo de normas éticas se imponen mediante coacción institucionalizada?</div>
+      <div class="quiz-opciones">
+        <button class="quiz-btn" data-idx="0">Religiosas</button>
+        <button class="quiz-btn" data-idx="1">Morales</button>
+        <button class="quiz-btn" data-idx="2">De trato social</button>
+        <button class="quiz-btn" data-idx="3">Jurídicas</button>
+      </div>
+      <div class="quiz-feedback"></div>
+      <button class="quiz-btn-reset">Reintentar</button>
+    </div>
   </div>
 
-  <!-- CARTILLA 27 -->
+  <!-- 23 -->
+    <!-- PORTADA AUTOGENERADA -->
   <div class="cartilla">
-    <h2>Especies de justicia particular y símbolos</h2>
-    <p>Entre las especies de <strong>justicia particular</strong> se distingue:</p>
+    <div class="cartilla-header">
+      <span class="num-cartilla" style="background:#c62828;">Lección 4</span>
+      <h2>Lección 4 — Los Valores y la Justicia</h2>
+    </div>
+    <div class="concepto-clave">
+      <div class="etiqueta">Temas de esta lección</div>
+      Concepto de <strong>valores</strong> (a priori, objetivos, bipolares, estimados). Los <strong>valores jurídicos</strong> y su jerarquía. La <strong>justicia</strong>: etimología, sentimiento, idea, elementos lógicos y especies. La <strong>equidad</strong>: historia, definición y funciones. Equidad en el Derecho paraguayo.
+    </div>
     <ul>
-      <li><strong>Justicia distributiva</strong>: igualdad en el trato a los desiguales, distribución proporcional de bienes, honores, funciones, ventajas y desventajas según capacidad y méritos.</li>
-      <li><strong>Justicia igualadora o sinalagmática</strong>: igualdad en las cosas o prestaciones que se dan o reciben; válida para cambios e interferencias civiles y penales.</li>
-      <li><strong>Justicia conmutativa</strong>: se aplica a relaciones contractuales, buscando la igualdad o proporción entre las cosas que se dan unas por otras.</li>
-      <li><strong>Justicia judicial</strong>: se aplica cuando interviene un juez para reparar daños en relaciones entre particulares o en materia penal.</li>
-      <li><strong>Justicia de subordinación</strong>: exigencia establecida por el Estado a cargo de todos los obligados para respetar la ley y prestar servicios a favor de la colectividad; el primer obligado es el propio Estado.</li>
-      <li><strong>Justicia social</strong>: deber jurídico de solidaridad y cooperación para el logro del bien común; se expresa en dar más a quienes tienen menos.</li>
-    </ul>
-    <p>Entre los <strong>símbolos de la justicia</strong> se encuentran la balanza (nivelación), la espada (potencia y precisión), la figura de una virgen (incorruptibilidad y ausencia de pasión) y las diosas Temis y Astrea. Una representación célebre es la pintura de Rafael en el Vaticano, donde la justicia aparece como una virgen sentada con ojos vendados, balanza en una mano y espada en la otra.</p>
-  </div>
-
-  <!-- CARTILLA 28 -->
-  <div class="cartilla">
-    <h2>Equidad: etimología, historia, definición y funciones</h2>
-    <p>La <strong>equidad</strong> proviene del latín <em>aequitas</em>, que literalmente significa igualdad. En Grecia se conocía como <em>epiqueya</em> y fue estudiada por Aristóteles, quien la entendía como mitigación de la ley escrita atendiendo a circunstancias de personas, cosas, tiempo y lugar.</p>
-    <p>En Roma, la equidad (<em>aequitas</em>) se consideró sinónimo de justicia y prudencia; fue esencial para la progresiva estructuración del Derecho romano por obra de pretores y juristas.</p>
-    <p>La equidad puede definirse como un criterio de justicia no necesariamente recibido por el derecho escrito, que se aplica para moderar el rigor legal y adaptar las normas generales a los casos particulares, previa apreciación de las circunstancias.</p>
-    <p>Cumple funciones:</p>
-    <ul>
-      <li><strong>Correctora</strong>: adaptación de la norma general a circunstancias particulares sin modificar la norma.</li>
-      <li><strong>Supletiva</strong>: en algunos ordenamientos, suple la ausencia de normas en casos de lagunas del Derecho positivo, cuando no se puede recurrir a la analogía ni a la costumbre.</li>
-      <li><strong>Interpretativa</strong>: ayuda a desentrañar el sentido y alcance de las normas, evitando consecuencias injustas derivadas de una aplicación puramente literal.</li>
+      <li>Valor supremo: la <strong>justicia</strong>. Otros: orden, seguridad, paz, poder, cooperación, solidaridad.</li>
+      <li>Ulpiano: "dar a cada uno lo suyo". Elementos: alteridad, paridad, reciprocidad, contracambio, remuneración.</li>
+      <li>Especies: distributiva · igualadora (conmutativa, judicial) · subordinación · social.</li>
+      <li><strong>Equidad</strong>: criterio de justicia que modera el rigor legal adaptando normas al caso concreto.</li>
     </ul>
   </div>
 
-  <!-- CARTILLA 29 -->
+<div class="cartilla">
+    <div class="cartilla-header">
+      <span class="num-cartilla">23</span>
+      <h2>Los valores y los valores de acción</h2>
+    </div>
+    <p>Los <strong>valores</strong> son cualidades ideales, inespaciales e intemporales captadas por una intuición no sensible llamada <em>estimación</em>.</p>
+    <div class="concepto-clave">
+      <div class="etiqueta">Características de los valores</div>
+      <strong>A priori</strong>: conocimiento independiente de la experiencia.<br>
+      <strong>Objetivos</strong>: tienen validez propia, no dependen de los soportes reales.<br>
+      <strong>Polares</strong>: siempre admiten opuesto (bello/feo, justo/injusto, útil/inútil).
+    </div>
+    <p>Los valores referidos a los actos humanos son <strong>valores de acción</strong> y pueden calificarse como valiosos o disvaliosos. La conciencia humana establece una <em>jerarquía de valores</em>, propone fines y elige medios.</p>
+    <div class="quiz-section" data-correcta="1">
+      <div class="quiz-titulo">✏️ Comprobá tu comprensión</div>
+      <div class="quiz-pregunta">¿Cómo se llama la intuición con la que captamos los valores?</div>
+      <div class="quiz-opciones">
+        <button class="quiz-btn" data-idx="0">Deducción</button>
+        <button class="quiz-btn" data-idx="1">Estimación</button>
+        <button class="quiz-btn" data-idx="2">Axioma</button>
+      </div>
+      <div class="quiz-feedback"></div>
+      <button class="quiz-btn-reset">Reintentar</button>
+    </div>
+  </div>
+
+  <!-- 24 -->
   <div class="cartilla">
-    <h2>Equidad en el Derecho paraguayo</h2>
-    <p>En el Derecho paraguayo, la equidad aparece en diversos textos:</p>
+    <div class="cartilla-header">
+      <span class="num-cartilla">24</span>
+      <h2>Valores jurídicos: concepto, alteridad y enumeración</h2>
+    </div>
+    <p>Los <strong>valores jurídicos</strong> son aquellos que el hombre debe realizar en la sociedad mediante normas cuyo cumplimiento puede exigirse coercitivamente. Presentan la nota de <strong>alteridad o bilateralidad</strong>: solo pueden verificarse en relaciones entre varias personas.</p>
+    <div class="concepto-clave">
+      <div class="etiqueta">Los 7 valores jurídicos</div>
+      <span class="tag">Justicia</span>
+      <span class="tag">Orden</span>
+      <span class="tag">Seguridad</span>
+      <span class="tag">Paz</span>
+      <span class="tag">Poder</span>
+      <span class="tag">Cooperación</span>
+      <span class="tag">Solidaridad</span><br>
+      La <strong>justicia</strong> es el valor supremo que armoniza a los demás.
+    </div>
+    <div class="quiz-section" data-correcta="0">
+      <div class="quiz-titulo">✏️ Comprobá tu comprensión</div>
+      <div class="quiz-pregunta">¿Cuál es el valor jurídico supremo o central?</div>
+      <div class="quiz-opciones">
+        <button class="quiz-btn" data-idx="0">Justicia</button>
+        <button class="quiz-btn" data-idx="1">Orden</button>
+        <button class="quiz-btn" data-idx="2">Seguridad</button>
+      </div>
+      <div class="quiz-feedback"></div>
+      <button class="quiz-btn-reset">Reintentar</button>
+    </div>
+  </div>
+
+  <!-- 25 -->
+  <div class="cartilla">
+    <div class="cartilla-header">
+      <span class="num-cartilla">25</span>
+      <h2>Justicia: etimología, sentimiento e idea</h2>
+    </div>
+    <p>La palabra <strong>justicia</strong> tiene el mismo origen que <em>jus</em>. En sentido técnico, señala límites y proporciones armónicas entre personas (en una compraventa, es justo que el vendedor entregue la cosa y el comprador pague el precio).</p>
+    <p>El <strong>sentimiento de justicia</strong> es la intuición emocional de un valor absoluto que reclama trato igual para situaciones iguales, y provoca indignación ante el trato igualitario del honrado y el ladrón.</p>
+    <div class="cita">
+      "Justicia es la voluntad perpetua y constante de dar a cada uno lo suyo."
+      <span class="autor">Ulpiano</span>
+    </div>
+    <div class="quiz-section" data-correcta="2">
+      <div class="quiz-titulo">✏️ Comprobá tu comprensión</div>
+      <div class="quiz-pregunta">¿A quién se atribuye la definición clásica "dar a cada uno lo suyo"?</div>
+      <div class="quiz-opciones">
+        <button class="quiz-btn" data-idx="0">Aristóteles</button>
+        <button class="quiz-btn" data-idx="1">Kelsen</button>
+        <button class="quiz-btn" data-idx="2">Ulpiano</button>
+      </div>
+      <div class="quiz-feedback"></div>
+      <button class="quiz-btn-reset">Reintentar</button>
+    </div>
+  </div>
+
+  <!-- 26 -->
+  <div class="cartilla">
+    <div class="cartilla-header">
+      <span class="num-cartilla">26</span>
+      <h2>Elementos lógicos de la justicia y valores conexos</h2>
+    </div>
+    <p>Elementos lógicos de la justicia:</p>
     <ul>
-      <li><strong>Constitución Nacional</strong>: faculta al Congreso para conceder amnistías y al Presidente para conceder indultos; alude a soluciones equitativas en materia de justicia.</li>
-      <li><strong>Código Civil</strong>: la equidad es pauta de interpretación de contratos y criterio para fijar retribuciones cuando no se han pactado expresamente.</li>
-      <li><strong>Código del Trabajo</strong>: la equidad se reconoce como fuente formal del Derecho.</li>
-      <li><strong>Código Penal</strong>: se prohíbe expresamente la aplicación de la equidad para integrar la ley, en virtud del principio de legalidad.</li>
-      <li><strong>Código Procesal Penal</strong>: también limita el uso de la equidad para integrar la ley, aunque se aplica el principio de duda a favor del reo.</li>
-      <li><strong>Código Procesal Civil</strong>: faculta a los jueces a actuar como amigables componedores en juicios de familia y se vincula con mecanismos de arbitraje y mediación.</li>
-      <li><strong>Código Procesal del Trabajo</strong>: indica que la interpretación, aplicación e integración de sus normas se hará de acuerdo con la equidad, y dispone que en caso de duda se resuelva a favor del trabajador.</li>
+      <li><strong>Alteridad/bilateralidad</strong>: consideración simultánea de diversos sujetos en igual plano.</li>
+      <li><strong>Paridad/igualdad</strong>: no deben establecerse diferencias injustificadas para relaciones humanas idénticas.</li>
+      <li><strong>Reciprocidad/correlación</strong>: a toda exigencia corresponde una obligación.</li>
+      <li><strong>Contracambio/compensación</strong>: valoración de cada acto como medio de comunicación entre sujetos.</li>
+      <li><strong>Remuneración</strong>: cada sujeto debe ser retribuido conforme a lo que vale.</li>
+    </ul>
+    <p>Valores conexos: <strong>Orden</strong> (organización para que la sociedad cumpla sus fines) y <strong>Seguridad</strong> (medidas para que el orden jurídico sea estable y duradero).</p>
+  </div>
+
+  <!-- 27 -->
+  <div class="cartilla">
+    <div class="cartilla-header">
+      <span class="num-cartilla">27</span>
+      <h2>Especies de justicia y símbolos</h2>
+    </div>
+    <ul>
+      <li><strong>Distributiva</strong>: distribución proporcional según capacidad y méritos.</li>
+      <li><strong>Igualadora/sinalagmática</strong>: igualdad en prestaciones que se dan o reciben.</li>
+      <li><strong>Conmutativa</strong>: igualdad en relaciones contractuales.</li>
+      <li><strong>Judicial</strong>: intervención del juez para reparar daños.</li>
+      <li><strong>De subordinación</strong>: respeto a la ley y servicios a favor de la colectividad.</li>
+      <li><strong>Social</strong>: solidaridad para el bien común; dar más a quienes tienen menos.</li>
+    </ul>
+    <div class="concepto-clave">
+      <div class="etiqueta">Símbolos de la Justicia</div>
+      ⚖️ <strong>Balanza</strong> (nivelación) · 🗡️ <strong>Espada</strong> (potencia) · 👁️ <strong>Venda</strong> (imparcialidad) · Diosas <strong>Temis</strong> y <strong>Astrea</strong>.
+    </div>
+    <div class="quiz-section" data-correcta="1">
+      <div class="quiz-titulo">✏️ Comprobá tu comprensión</div>
+      <div class="quiz-pregunta">¿Qué especie de justicia se aplica en relaciones contractuales buscando igualdad entre lo que se da y se recibe?</div>
+      <div class="quiz-opciones">
+        <button class="quiz-btn" data-idx="0">Justicia distributiva</button>
+        <button class="quiz-btn" data-idx="1">Justicia conmutativa</button>
+        <button class="quiz-btn" data-idx="2">Justicia social</button>
+      </div>
+      <div class="quiz-feedback"></div>
+      <button class="quiz-btn-reset">Reintentar</button>
+    </div>
+  </div>
+
+  <!-- 28 -->
+  <div class="cartilla">
+    <div class="cartilla-header">
+      <span class="num-cartilla">28</span>
+      <h2>Equidad: etimología, historia, definición y funciones</h2>
+    </div>
+    <p>Del latín <em>aequitas</em> (igualdad). En Grecia: <em>epiqueya</em>, estudiada por Aristóteles como mitigación de la ley escrita según circunstancias de personas, cosas, tiempo y lugar. En Roma: sinónimo de justicia y prudencia.</p>
+    <div class="concepto-clave">
+      <div class="etiqueta">Definición</div>
+      Criterio de justicia no necesariamente recibido por el derecho escrito, que se aplica para <strong>moderar el rigor legal</strong> y adaptar las normas generales a los casos particulares.
+    </div>
+    <p>Funciones de la equidad:</p>
+    <ul>
+      <li>🔧 <strong>Correctora</strong>: adapta la norma general a circunstancias particulares.</li>
+      <li>📝 <strong>Supletiva</strong>: suple la ausencia de normas en lagunas del Derecho.</li>
+      <li>🔍 <strong>Interpretativa</strong>: ayuda a desentrañar el sentido de las normas, evitando consecuencias injustas.</li>
+    </ul>
+    <div class="quiz-section" data-correcta="0">
+      <div class="quiz-titulo">✏️ Comprobá tu comprensión</div>
+      <div class="quiz-pregunta">¿Quién estudió la equidad como "epiqueya" en la Antigua Grecia?</div>
+      <div class="quiz-opciones">
+        <button class="quiz-btn" data-idx="0">Aristóteles</button>
+        <button class="quiz-btn" data-idx="1">Platón</button>
+        <button class="quiz-btn" data-idx="2">Sócrates</button>
+      </div>
+      <div class="quiz-feedback"></div>
+      <button class="quiz-btn-reset">Reintentar</button>
+    </div>
+  </div>
+
+  <!-- 29 -->
+  <div class="cartilla">
+    <div class="cartilla-header">
+      <span class="num-cartilla">29</span>
+      <h2>Equidad en el Derecho paraguayo</h2>
+    </div>
+    <p>La equidad aparece en múltiples códigos del ordenamiento paraguayo:</p>
+    <ul>
+      <li>🏛️ <strong>Constitución Nacional</strong>: amnistías, indultos y soluciones equitativas.</li>
+      <li>📗 <strong>Código Civil</strong>: pauta de interpretación de contratos y criterio para fijar retribuciones.</li>
+      <li>👷 <strong>Código del Trabajo</strong>: fuente formal del Derecho.</li>
+      <li>🚫 <strong>Código Penal / Procesal Penal</strong>: se prohíbe usar equidad para integrar la ley (principio de legalidad).</li>
+      <li>👨‍⚖️ <strong>Código Procesal Civil</strong>: jueces como amigables componedores; vinculado a arbitraje y mediación.</li>
+      <li>👷 <strong>Código Procesal del Trabajo</strong>: interpretación e integración según la equidad; duda a favor del trabajador.</li>
+    </ul>
+    <div class="quiz-section" data-correcta="2">
+      <div class="quiz-titulo">✏️ Comprobá tu comprensión</div>
+      <div class="quiz-pregunta">¿En qué código paraguayo se PROHÍBE usar la equidad para integrar la ley?</div>
+      <div class="quiz-opciones">
+        <button class="quiz-btn" data-idx="0">Código Civil</button>
+        <button class="quiz-btn" data-idx="1">Código del Trabajo</button>
+        <button class="quiz-btn" data-idx="2">Código Penal</button>
+      </div>
+      <div class="quiz-feedback"></div>
+      <button class="quiz-btn-reset">Reintentar</button>
+    </div>
+  </div>
+
+  <!-- 30 -->
+    <!-- PORTADA AUTOGENERADA -->
+  <div class="cartilla">
+    <div class="cartilla-header">
+      <span class="num-cartilla" style="background:#1565c0;">Lección 5</span>
+      <h2>Lección 5 — Principios Generales del Derecho y Derecho Natural</h2>
+    </div>
+    <div class="concepto-clave">
+      <div class="etiqueta">Temas de esta lección</div>
+      Los <strong>principios generales del Derecho</strong>: origen (Código Albertino 1837), concepto, métodos para determinarlos (sistema legalista vs. sistema filosófico). Sus principales principios. Las <strong>medidas de seguridad</strong> del ordenamiento jurídico. El <strong>Derecho Natural</strong>.
+    </div>
+    <ul>
+      <li>"Verdades jurídicas de validez universal que sirven de fundamento y límite a toda legislación positiva."</li>
+      <li>En Paraguay: art. 6 C.C. — aplicación subsidiaria tras la analogía.</li>
+      <li>Principales principios: respeto a la personalidad humana · libertad (natural y jurídica) · igualdad.</li>
+      <li>Medidas de seguridad: cosa juzgada · irretroactividad · prescripción · soberanía del pueblo · división de poderes.</li>
     </ul>
   </div>
 
-  <!-- CARTILLA 30 -->
-  <div class="cartilla">
-    <h2>Principios generales del Derecho: concepto, origen y métodos</h2>
-    <p>Los <strong>principios generales del Derecho</strong> son verdades jurídicas de validez universal, elaboradas por la filosofía jurídica, que sirven de fundamento y límite a toda legislación positiva.</p>
-    <p>La fórmula de los principios generales se remonta al Código Civil sardo de 1837 (Código Albertino), influido por la escuela clásica del Derecho natural que tenía a la naturaleza humana como fundamento de las instituciones jurídicas.</p>
-    <p>En Paraguay, rigen desde la adopción del Código Civil argentino, que permitió acudir a principios generales del Derecho cuando una cuestión no podía resolverse por las palabras ni el espíritu de la ley ni por analogía. Su inclusión en el sistema de fuentes muestra el propósito de asegurar la plenitud del ordenamiento jurídico, evitando lagunas.</p>
-    <p>El estudio de estos principios puede abordarse en dos planos: su <strong>naturaleza</strong> y su función como <strong>medio de integración de la ley</strong>. Los racionalistas parten de la razón y, por vía deductiva, elaboran principios generales desde principios particulares; los positivistas parten de normas particulares y, por vía inductiva, llegan a principios generales.</p>
+<div class="cartilla">
+    <div class="cartilla-header">
+      <span class="num-cartilla">30</span>
+      <h2>Principios generales del Derecho: concepto, origen y métodos</h2>
+    </div>
+    <div class="concepto-clave">
+      <div class="etiqueta">Definición</div>
+      Verdades jurídicas de validez universal, elaboradas por la filosofía jurídica, que sirven de <strong>fundamento y límite</strong> a toda legislación positiva.
+    </div>
+    <p>La fórmula se remonta al Código Civil sardo de 1837 (Código Albertino), influido por la escuela clásica del Derecho natural. En Paraguay rigen desde la adopción del Código Civil argentino.</p>
+    <table class="tabla-comp">
+      <thead><tr><th>Escuela</th><th>Punto de partida</th><th>Método</th></tr></thead>
+      <tbody>
+        <tr><td>Racionalista</td><td>La razón</td><td>Deductivo: de principios generales a particulares</td></tr>
+        <tr><td>Positivista</td><td>Normas particulares</td><td>Inductivo: de normas particulares a principios generales</td></tr>
+      </tbody>
+    </table>
   </div>
 
-  <!-- CARTILLA 31 -->
+  <!-- 31 -->
   <div class="cartilla">
-    <h2>Naturaleza de los principios y principales principios</h2>
-    <p>En cuanto a su naturaleza, se distinguen dos sistemas:</p>
+    <div class="cartilla-header">
+      <span class="num-cartilla">31</span>
+      <h2>Naturaleza de los principios y principales principios</h2>
+    </div>
+    <table class="tabla-comp">
+      <thead><tr><th>Sistema</th><th>Postura</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Legalista</strong></td><td>Los principios inspiran una legislación positiva concreta y no deben rebasar su marco.</td></tr>
+        <tr><td><strong>Filosófico</strong></td><td>Los principios se identifican con el Derecho natural, superiores al Derecho legislado.</td></tr>
+      </tbody>
+    </table>
+    <p>Principales principios:</p>
     <ul>
-      <li><strong>Sistema legalista</strong>: sostiene que los principios generales del Derecho inspiran una determinada legislación positiva y no deben rebasar su marco.</li>
-      <li><strong>Sistema filosófico</strong>: identifica los principios generales con los principios del Derecho natural, superiores al Derecho legislado, como verdades jurídicas universales que expresan el elemento constante y permanente del Derecho.</li>
+      <li>👤 <strong>Respeto a la personalidad humana</strong>: todo ser humano es persona, titular de derechos y obligaciones.</li>
+      <li>🗽 <strong>Libertad</strong>: natural (autodeterminación) y jurídica (facultad de hacer lo no prohibido ni ordenado).</li>
+      <li>⚖️ <strong>Igualdad</strong>: igual trato ante la ley para quienes se encuentren en las mismas circunstancias.</li>
     </ul>
-    <p>Aunque es difícil estructurar los principios generales en un cuerpo orgánico, puede reducirse su numeración a algunos principales:</p>
-    <ul>
-      <li><strong>Respeto a la personalidad humana</strong>: el ser humano, por el solo hecho de existir, es persona y titular de derechos y obligaciones; el Derecho debe proteger su dignidad física y moral.</li>
-      <li><strong>Libertad</strong>: como libertad natural (poder de autodeterminación de la voluntad, limitada por la libertad ajena) y como libertad jurídica (facultad derivada de una norma para hacer u omitir lo que no está ordenado ni prohibido).</li>
-      <li><strong>Igualdad</strong>: reconocimiento de desigualdades subjetivas en las relaciones concretas, pero exigencia de igualdad ante la ley para quienes se encuentren en las mismas circunstancias.</li>
-    </ul>
+    <div class="quiz-section" data-correcta="1">
+      <div class="quiz-titulo">✏️ Comprobá tu comprensión</div>
+      <div class="quiz-pregunta">¿Qué sistema sostiene que los principios generales equivalen al Derecho natural, superior al Derecho legislado?</div>
+      <div class="quiz-opciones">
+        <button class="quiz-btn" data-idx="0">Sistema legalista</button>
+        <button class="quiz-btn" data-idx="1">Sistema filosófico</button>
+        <button class="quiz-btn" data-idx="2">Sistema positivista</button>
+      </div>
+      <div class="quiz-feedback"></div>
+      <button class="quiz-btn-reset">Reintentar</button>
+    </div>
   </div>
 
-  <!-- CARTILLA 32 -->
+  <!-- 32 -->
   <div class="cartilla">
-    <h2>Principios en la Constitución y medidas de seguridad del ordenamiento</h2>
-    <p>La Constitución paraguaya consagra estos principios generales en normas concretas: igualdad en dignidad y derechos, no discriminación, libertad de expresión, intimidad personal y familiar, defensa en juicio, legalidad penal, inviolabilidad de la propiedad privada, entre otros. Estas disposiciones orientan la interpretación del ordenamiento y garantizan derechos fundamentales.</p>
-    <p>Las <strong>medidas de seguridad del ordenamiento jurídico</strong> son los arbitrios establecidos para dar certeza y duración al sistema de normas creado. Se diferencian de los principios generales porque se refieren al Derecho ya estructurado, no a su fundamento general.</p>
-    <p>Un ejemplo es la <strong>cosa juzgada</strong>: efecto de la sentencia que impide un nuevo pronunciamiento entre las mismas partes, por la misma causa y sobre el mismo objeto respecto a lo ya decidido en un proceso concluido. Requiere triple identidad de partes, objeto y causa, y protege al vencedor contra la reapertura indefinida del litigio, asegurando estabilidad y seguridad jurídica.</p>
+    <div class="cartilla-header">
+      <span class="num-cartilla">32</span>
+      <h2>Principios en la Constitución y cosa juzgada</h2>
+    </div>
+    <p>La Constitución paraguaya consagra los principios generales en normas concretas: igualdad en dignidad y derechos, no discriminación, libertad de expresión, intimidad personal, defensa en juicio, legalidad penal, inviolabilidad de la propiedad privada.</p>
+    <div class="concepto-clave">
+      <div class="etiqueta">Cosa juzgada</div>
+      Efecto de la sentencia que impide un nuevo pronunciamiento entre las mismas partes, por la misma causa y sobre el mismo objeto respecto a lo ya decidido. Requiere <strong>triple identidad</strong>: partes + objeto + causa. Garantiza la <strong>estabilidad y seguridad jurídica</strong>.
+    </div>
+    <div class="quiz-section" data-correcta="0">
+      <div class="quiz-titulo">✏️ Comprobá tu comprensión</div>
+      <div class="quiz-pregunta">¿Qué requisito NO es necesario para la cosa juzgada?</div>
+      <div class="quiz-opciones">
+        <button class="quiz-btn" data-idx="0">Identidad de jueces</button>
+        <button class="quiz-btn" data-idx="1">Identidad de partes</button>
+        <button class="quiz-btn" data-idx="2">Identidad de causa</button>
+      </div>
+      <div class="quiz-feedback"></div>
+      <button class="quiz-btn-reset">Reintentar</button>
+    </div>
   </div>
 
-  <!-- Navegación -->
+
+  <!-- PORTADA L6 -->
+  <div class="cartilla">
+    <div class="cartilla-header">
+      <span class="num-cartilla" style="background:#6a1b9a;">L6</span>
+      <h2>Lección 6 — Normas Jurídicas: Caracteres Específicos</h2>
+    </div>
+    <div class="concepto-clave">
+      <div class="etiqueta">Temas de esta lección</div>
+      Comparación de las <strong>normas jurídicas</strong> con religiosas, morales y de trato social mediante sus caracteres: <em>autonomía/heteronomía · unilateralidad/bilateralidad · interioridad/exterioridad · incoercibilidad/coercibilidad</em>.
+    </div>
+    <ul>
+      <li><strong>Normas religiosas</strong>: autónomas, unilaterales, interiores, incoercibles.</li>
+      <li><strong>Normas morales</strong>: autónomas, unilaterales, interiores, incoercibles.</li>
+      <li><strong>Normas de trato social</strong>: heterónomas, unilaterales, exteriores, incoercibles.</li>
+      <li><strong>Normas jurídicas</strong>: heterónomas, <em>bilaterales</em>, exteriores, <em>coercibles</em>.</li>
+    </ul>
+  </div>
+
+  <!-- 33 -->
+  <div class="cartilla">
+    <div class="cartilla-header">
+      <span class="num-cartilla">33</span>
+      <h2>Autonomía y Heteronomía</h2>
+    </div>
+    <p>Una norma es <strong>autónoma</strong> cuando el sujeto se la impone a sí mismo por propia convicción (moral, religiosa). Es <strong>heterónoma</strong> cuando proviene de una voluntad exterior, independientemente de que el sujeto la acepte internamente.</p>
+    <div class="concepto-clave">
+      <div class="etiqueta">Kant y esta distinción</div>
+      Kant subrayó que la moral exige que el sujeto se dé su propia ley (<em>autonomía</em>). El Derecho, en cambio, le impone una ley exterior (<em>heteronomía</em>): la norma jurídica vale con independencia del consentimiento del obligado.
+    </div>
+    <p>Las normas de <strong>trato social</strong> también son heterónomas (provienen de la costumbre social), pero a diferencia del Derecho, son <em>incoercibles</em>.</p>
+    <div class="quiz-section" data-correcta="1">
+      <div class="quiz-titulo">Comprobá tu comprensión</div>
+      <div class="quiz-pregunta">¿Qué carácter tiene la norma jurídica respecto de su origen?</div>
+      <div class="quiz-opciones">
+        <button class="quiz-btn" data-idx="0">Autónoma — la dicta el propio sujeto</button>
+        <button class="quiz-btn" data-idx="1">Heterónoma — proviene de una voluntad exterior</button>
+        <button class="quiz-btn" data-idx="2">Autónoma en lo penal; heterónoma en lo civil</button>
+      </div>
+      <div class="quiz-feedback"></div>
+      <button class="quiz-btn-reset">Reintentar</button>
+    </div>
+  </div>
+
+  <!-- 34 -->
+  <div class="cartilla">
+    <div class="cartilla-header">
+      <span class="num-cartilla">34</span>
+      <h2>Unilateralidad y Bilateralidad</h2>
+    </div>
+    <p>Una norma es <strong>unilateral</strong> cuando solo impone deberes, sin otorgar a nadie el derecho de exigirlos. Es <strong>bilateral</strong> cuando frente al deber de uno existe la <em>facultad de otro</em> de exigir su cumplimiento.</p>
+    <table class="tabla-comp">
+      <thead><tr><th>Norma</th><th>Carácter</th><th>Ejemplo</th></tr></thead>
+      <tbody>
+        <tr><td>Religiosa</td><td>Unilateral</td><td>El deber de rezar no le da a nadie el derecho de exigirlo</td></tr>
+        <tr><td>Moral</td><td>Unilateral</td><td>El deber de ser honesto no es exigible judicialmente</td></tr>
+        <tr><td>Trato social</td><td>Unilateral</td><td>Saludar no otorga al otro el derecho de demandar que lo saluden</td></tr>
+        <tr><td><strong>Jurídica</strong></td><td><strong>Bilateral</strong></td><td>Al deber del deudor corresponde el derecho del acreedor de cobrar</td></tr>
+      </tbody>
+    </table>
+    <div class="quiz-section" data-correcta="0">
+      <div class="quiz-titulo">Comprobá tu comprensión</div>
+      <div class="quiz-pregunta">¿Cuál es la única norma ética bilateral?</div>
+      <div class="quiz-opciones">
+        <button class="quiz-btn" data-idx="0">La jurídica</button>
+        <button class="quiz-btn" data-idx="1">La moral</button>
+        <button class="quiz-btn" data-idx="2">La religiosa</button>
+        <button class="quiz-btn" data-idx="3">La de trato social</button>
+      </div>
+      <div class="quiz-feedback"></div>
+      <button class="quiz-btn-reset">Reintentar</button>
+    </div>
+  </div>
+
+  <!-- 35 -->
+  <div class="cartilla">
+    <div class="cartilla-header">
+      <span class="num-cartilla">35</span>
+      <h2>Interioridad, Exterioridad y Coercibilidad</h2>
+    </div>
+    <p>Las normas <strong>interiores</strong> regulan la vida anímica: intenciones y motivaciones. Las normas <strong>exteriores</strong> solo regulan la conducta observable, sin importar las motivaciones internas del sujeto.</p>
+    <p>La <strong>coercibilidad</strong> es la posibilidad de imponer el cumplimiento de la norma por la fuerza cuando el sujeto no la cumple voluntariamente. La <strong>incoercibilidad</strong> implica que no hay aparato de fuerza para exigir el cumplimiento.</p>
+    <table class="tabla-comp">
+      <thead><tr><th>Norma</th><th>Int./Ext.</th><th>Coercibilidad</th></tr></thead>
+      <tbody>
+        <tr><td>Religiosa</td><td>Interior</td><td>Incoercible</td></tr>
+        <tr><td>Moral</td><td>Interior</td><td>Incoercible</td></tr>
+        <tr><td>Trato social</td><td>Exterior</td><td>Incoercible</td></tr>
+        <tr><td><strong>Jurídica</strong></td><td><strong>Exterior</strong></td><td><strong>Coercible</strong></td></tr>
+      </tbody>
+    </table>
+    <div class="concepto-clave">
+      <div class="etiqueta">Distinción moral vs. derecho</div>
+      La moral exige el acto realizado <em>por deber</em> (interioridad); el Derecho solo exige que el acto <em>se realice</em> (exterioridad), independientemente de la motivación.
+    </div>
+    <div class="quiz-section" data-correcta="2">
+      <div class="quiz-titulo">Comprobá tu comprensión</div>
+      <div class="quiz-pregunta">¿Qué rasgo hace que la norma jurídica sea única frente al resto de normas éticas?</div>
+      <div class="quiz-opciones">
+        <button class="quiz-btn" data-idx="0">Es autónoma e interior</button>
+        <button class="quiz-btn" data-idx="1">Es unilateral e incoercible</button>
+        <button class="quiz-btn" data-idx="2">Es bilateral y coercible</button>
+        <button class="quiz-btn" data-idx="3">Es autónoma y exterior</button>
+      </div>
+      <div class="quiz-feedback"></div>
+      <button class="quiz-btn-reset">Reintentar</button>
+    </div>
+  </div>
+
+  <!-- PORTADA L7 -->
+  <div class="cartilla">
+    <div class="cartilla-header">
+      <span class="num-cartilla" style="background:#1565c0;">L7</span>
+      <h2>Lección 7 — Derechos Humanos</h2>
+    </div>
+    <div class="concepto-clave">
+      <div class="etiqueta">Temas de esta lección</div>
+      Antecedentes históricos de los <strong>DD.HH.</strong>, la OEA, la Declaración Universal ONU, el Pacto de San José de Costa Rica, la Comisión y la Corte Interamericana de DD.HH., y la situación del Paraguay en materia de DD.HH. en dictadura y democracia.
+    </div>
+    <ul>
+      <li><strong>1215</strong>: Carta Magna · <strong>1628</strong>: Petición de Derechos · <strong>1776</strong>: Independencia EE.UU.</li>
+      <li><strong>1789</strong>: Declaración del Hombre y del Ciudadano (Francia)</li>
+      <li><strong>1948</strong>: Declaración Universal ONU (10 dic., París) y Declaración Americana OEA (Bogotá)</li>
+      <li><strong>1969/1978</strong>: Pacto de San José suscrito/en vigor · <strong>1989</strong>: Paraguay lo ratifica (Ley N° 189)</li>
+    </ul>
+  </div>
+
+  <!-- 36 -->
+  <div class="cartilla">
+    <div class="cartilla-header">
+      <span class="num-cartilla">36</span>
+      <h2>Antecedentes históricos de los DD.HH.</h2>
+    </div>
+    <p>Los pueblos de la antigüedad no concibieron al ser humano como sujeto de derechos innatos: lo veían como ciudadano subordinado al Estado. El reconocimiento moderno de los DD.HH. es resultado de un largo proceso.</p>
+    <table class="tabla-comp">
+      <thead><tr><th>Año</th><th>Documento</th><th>Aporte principal</th></tr></thead>
+      <tbody>
+        <tr><td>1215</td><td>Carta Magna</td><td>El rey queda sujeto a la ley; primeros derechos a los súbditos</td></tr>
+        <tr><td>1628</td><td>Petición de Derechos</td><td>Establece derechos del pueblo inglés frente al rey</td></tr>
+        <tr><td>1776</td><td>Declaración de Independencia EE.UU.</td><td>Derecho a la vida, libertad y búsqueda de la felicidad</td></tr>
+        <tr><td>1789</td><td>Declaración del Hombre y del Ciudadano</td><td>Igualdad de todos los ciudadanos ante la ley (Francia)</td></tr>
+        <tr><td>1948</td><td>Declaración Universal ONU</td><td>Primer documento que proclama 30 derechos para todo ser humano</td></tr>
+      </tbody>
+    </table>
+    <div class="quiz-section" data-correcta="0">
+      <div class="quiz-titulo">Comprobá tu comprensión</div>
+      <div class="quiz-pregunta">¿Qué documento de 1215 sometió al rey a la ley por primera vez?</div>
+      <div class="quiz-opciones">
+        <button class="quiz-btn" data-idx="0">La Carta Magna</button>
+        <button class="quiz-btn" data-idx="1">La Petición de Derechos</button>
+        <button class="quiz-btn" data-idx="2">La Declaración Universal ONU</button>
+        <button class="quiz-btn" data-idx="3">El Pacto de San José</button>
+      </div>
+      <div class="quiz-feedback"></div>
+      <button class="quiz-btn-reset">Reintentar</button>
+    </div>
+  </div>
+
+  <!-- 37 -->
+  <div class="cartilla">
+    <div class="cartilla-header">
+      <span class="num-cartilla">37</span>
+      <h2>OEA, Declaración Americana y Pacto de San José</h2>
+    </div>
+    <p>La <strong>OEA</strong> fue creada el 30 de abril de 1948 como organización panamericana. Ese mismo año se aprobó en Bogotá la <strong>Declaración Americana de los Derechos y Deberes del Hombre</strong>.</p>
+    <p>En 1969, en San José de Costa Rica, se suscribió la <strong>Convención Americana sobre DD.HH.</strong> (Pacto de San José), que entró en vigor el 18 de julio de <strong>1978</strong>. Creó dos órganos: la <strong>Comisión IDH</strong> y la <strong>Corte IDH</strong> (sede en San José, instalada en 1979).</p>
+    <div class="concepto-clave">
+      <div class="etiqueta">Paraguay y el Pacto</div>
+      Ratificado como <strong>Ley N° 189</strong> el 18 de agosto de 1989 — la primera ley del Congreso en la nueva era democrática. En 1993 Paraguay reconoció la competencia de la Corte IDH.
+    </div>
+    <div class="quiz-section" data-correcta="2">
+      <div class="quiz-titulo">Comprobá tu comprensión</div>
+      <div class="quiz-pregunta">¿En qué año y ciudad se suscribió el Pacto de San José?</div>
+      <div class="quiz-opciones">
+        <button class="quiz-btn" data-idx="0">1948, Bogotá</button>
+        <button class="quiz-btn" data-idx="1">1948, París</button>
+        <button class="quiz-btn" data-idx="2">1969, San José de Costa Rica</button>
+        <button class="quiz-btn" data-idx="3">1978, Washington D.C.</button>
+      </div>
+      <div class="quiz-feedback"></div>
+      <button class="quiz-btn-reset">Reintentar</button>
+    </div>
+  </div>
+
+  <!-- 38 -->
+  <div class="cartilla">
+    <div class="cartilla-header">
+      <span class="num-cartilla">38</span>
+      <h2>Paraguay: dictadura, democracia y CN 1992</h2>
+    </div>
+    <p>Durante la dictadura de <strong>Alfredo Stroessner</strong> (1954–1989) la CIDH documentó tortura sistemática, muertes de opositores y negativa del Poder Judicial a tramitar hábeas corpus bajo estado de sitio.</p>
+    <p>El <strong>3 de febrero de 1989</strong> cayó la dictadura. La CN de 1992 restableció el Estado de Derecho e incorporó nuevas figuras jurídicas de protección.</p>
+    <div class="concepto-clave">
+      <div class="etiqueta">Nuevas figuras jurídicas — CN 1992</div>
+      <ul>
+        <li><strong>Hábeas Data</strong>: derecho de acceder, corregir o suprimir datos personales en registros públicos o privados.</li>
+        <li><strong>Defensor del Pueblo</strong>: delegado parlamentario que defiende DD.HH. sin función jurisdiccional.</li>
+        <li><strong>Vicepresidencia</strong>: reemplaza al Presidente con todas sus atribuciones.</li>
+        <li><strong>Preámbulo</strong>: declaración extranormativa de la voluntad del constituyente.</li>
+      </ul>
+    </div>
+    <div class="quiz-section" data-correcta="1">
+      <div class="quiz-titulo">Comprobá tu comprensión</div>
+      <div class="quiz-pregunta">¿Qué garantía de la CN 1992 protege el acceso y corrección de datos personales?</div>
+      <div class="quiz-opciones">
+        <button class="quiz-btn" data-idx="0">Hábeas Corpus</button>
+        <button class="quiz-btn" data-idx="1">Hábeas Data</button>
+        <button class="quiz-btn" data-idx="2">Amparo</button>
+        <button class="quiz-btn" data-idx="3">Acción Popular</button>
+      </div>
+      <div class="quiz-feedback"></div>
+      <button class="quiz-btn-reset">Reintentar</button>
+    </div>
+  </div>
+
+  <!-- PORTADA L8 -->
+  <div class="cartilla">
+    <div class="cartilla-header">
+      <span class="num-cartilla" style="background:#2e7d32;">L8</span>
+      <h2>Lección 8 — Constitucionalismo Social y Democracia</h2>
+    </div>
+    <div class="concepto-clave">
+      <div class="etiqueta">Temas de esta lección</div>
+      El <strong>constitucionalismo social</strong>, tipos de <strong>democracia</strong>, consenso y disenso, la teoría del <strong>abuso del Derecho</strong>, la sociedad abierta y la autocracia.
+    </div>
+    <ul>
+      <li><strong>Antecedentes</strong>: Revolución Mexicana 1910 · Constitución de Querétaro 1917 · Constitución de Weimar 1919.</li>
+      <li><strong>Democracia</strong>: directa · representativa/indirecta · semidirecta/participativa.</li>
+      <li><strong>Abuso del Derecho</strong>: ejercer un derecho con intención de dañar o excediendo sus fines — arts. 311-312 C.C.</li>
+    </ul>
+  </div>
+
+  <!-- 39 -->
+  <div class="cartilla">
+    <div class="cartilla-header">
+      <span class="num-cartilla">39</span>
+      <h2>Constitucionalismo Social</h2>
+    </div>
+    <p>El <strong>constitucionalismo social</strong> es la corriente que incorpora en las constituciones los derechos sociales (trabajo, salud, educación, seguridad social), subordinando los derechos individuales al bien común sin suprimirlos.</p>
+    <div class="concepto-clave">
+      <div class="etiqueta">Antecedentes históricos</div>
+      Revolución Mexicana (1910) → Constitución de Querétaro (1917), primera en plasmar derechos sociales. Constitución de Weimar, Alemania (1919). Revolución Rusa de Lenin (1917).
+    </div>
+    <p>Los derechos sociales incluyen: empleo y salario justo, seguridad social, vivienda, educación gratuita, sanidad, alimentación y acceso a la cultura.</p>
+    <div class="quiz-section" data-correcta="0">
+      <div class="quiz-titulo">Comprobá tu comprensión</div>
+      <div class="quiz-pregunta">¿Cuál fue la primera constitución en plasmar derechos sociales?</div>
+      <div class="quiz-opciones">
+        <button class="quiz-btn" data-idx="0">Constitución de Querétaro, México (1917)</button>
+        <button class="quiz-btn" data-idx="1">Constitución de Weimar, Alemania (1919)</button>
+        <button class="quiz-btn" data-idx="2">Declaración de Independencia de EE.UU. (1776)</button>
+        <button class="quiz-btn" data-idx="3">Constitución paraguaya de 1992</button>
+      </div>
+      <div class="quiz-feedback"></div>
+      <button class="quiz-btn-reset">Reintentar</button>
+    </div>
+  </div>
+
+  <!-- 40 -->
+  <div class="cartilla">
+    <div class="cartilla-header">
+      <span class="num-cartilla">40</span>
+      <h2>Tipos de Democracia, Consenso y Disenso</h2>
+    </div>
+    <p>La democracia (del griego <em>demos</em> = pueblo + <em>kratos</em> = poder) es la forma de gobierno donde el poder emana del pueblo mediante mecanismos legítimos de participación.</p>
+    <table class="tabla-comp">
+      <thead><tr><th>Tipo</th><th>Descripción</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Directa</strong></td><td>Los ciudadanos participan sin intermediarios (modelo ateniense)</td></tr>
+        <tr><td><strong>Representativa / Indirecta</strong></td><td>Los ciudadanos eligen representantes que deciden en su nombre</td></tr>
+        <tr><td><strong>Semidirecta / Participativa</strong></td><td>Combina representación con mecanismos directos: plebiscito, referéndum, iniciativa popular, destitución</td></tr>
+      </tbody>
+    </table>
+    <p><strong>Consenso</strong>: acuerdo por consentimiento de todos o la mayoría. <strong>Disenso</strong>: postura de una minoría que rechaza lo adoptado mayoritariamente, aspirando a lograr un nuevo consenso.</p>
+    <div class="quiz-section" data-correcta="2">
+      <div class="quiz-titulo">Comprobá tu comprensión</div>
+      <div class="quiz-pregunta">¿Qué tipo de democracia incluye el referéndum y la iniciativa popular?</div>
+      <div class="quiz-opciones">
+        <button class="quiz-btn" data-idx="0">Directa</button>
+        <button class="quiz-btn" data-idx="1">Representativa</button>
+        <button class="quiz-btn" data-idx="2">Semidirecta o participativa</button>
+        <button class="quiz-btn" data-idx="3">Autocrática</button>
+      </div>
+      <div class="quiz-feedback"></div>
+      <button class="quiz-btn-reset">Reintentar</button>
+    </div>
+  </div>
+
+  <!-- 41 -->
+  <div class="cartilla">
+    <div class="cartilla-header">
+      <span class="num-cartilla">41</span>
+      <h2>Abuso del Derecho y Sociedad Abierta</h2>
+    </div>
+    <p>El <strong>abuso del Derecho</strong> ocurre cuando alguien ejerce su derecho sin necesidad y con intención de dañar a otro, o excediendo los límites del fin económico-social para el cual le fue conferido.</p>
+    <div class="concepto-clave">
+      <div class="etiqueta">Consecuencias jurídicas (arts. 311-312 C.C.)</div>
+      1. Obligación de restaurar la situación anterior al abuso. 2. Resarcimiento del daño material o moral causado.
+    </div>
+    <p>La <strong>sociedad abierta</strong> se caracteriza por gobiernos tolerantes, sistemas transparentes, respeto a DD.HH. y posibilidad de crítica pública. La <strong>autocracia</strong> concentra el poder en una sola persona sin control legal ni popular (monarquía absoluta, dictadura).</p>
+    <div class="quiz-section" data-correcta="1">
+      <div class="quiz-titulo">Comprobá tu comprensión</div>
+      <div class="quiz-pregunta">¿Cuándo se configura el abuso del Derecho?</div>
+      <div class="quiz-opciones">
+        <button class="quiz-btn" data-idx="0">Cuando se ejerce un derecho para un fin legítimo</button>
+        <button class="quiz-btn" data-idx="1">Cuando se ejerce un derecho con intención de dañar, excediendo sus límites</button>
+        <button class="quiz-btn" data-idx="2">Cuando el derecho no está reconocido por la ley</button>
+        <button class="quiz-btn" data-idx="3">Cuando hay conflicto entre dos normas jurídicas</button>
+      </div>
+      <div class="quiz-feedback"></div>
+      <button class="quiz-btn-reset">Reintentar</button>
+    </div>
+  </div>
+
+  <!-- PORTADA L9 -->
+  <div class="cartilla">
+    <div class="cartilla-header">
+      <span class="num-cartilla" style="background:#c62828;">L9</span>
+      <h2>Lección 9 — El Estado</h2>
+    </div>
+    <div class="concepto-clave">
+      <div class="etiqueta">Temas de esta lección</div>
+      Definición y <strong>elementos del Estado</strong>, distinción Estado/Nación, <strong>centralización y descentralización</strong>, funciones del Estado, <strong>doble personalidad jurídica</strong> del Estado, y el Estado de Derecho.
+    </div>
+    <ul>
+      <li><strong>Elementos del Estado</strong>: Población · Territorio · Poder soberano.</li>
+      <li><strong>Estado ≠ Nación</strong>: la nación puede existir sin Estado; el Estado requiere organización jurídico-política.</li>
+      <li><strong>Poderes</strong>: Legislativo · Ejecutivo · Judicial — independencia, equilibrio y control recíproco (art. 3 CN).</li>
+    </ul>
+  </div>
+
+  <!-- 42 -->
+  <div class="cartilla">
+    <div class="cartilla-header">
+      <span class="num-cartilla">42</span>
+      <h2>Definición y elementos del Estado</h2>
+    </div>
+    <p>El <strong>Estado</strong> es la organización jurídica de un pueblo bajo un poder soberano ejercido en un territorio determinado. Es la forma más perfecta de organización social.</p>
+    <table class="tabla-comp">
+      <thead><tr><th>Elemento</th><th>Descripción</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Población</strong></td><td>Conjunto de personas (nacionales y extranjeros) sujetas al Estado</td></tr>
+        <tr><td><strong>Territorio</strong></td><td>Porción de espacio donde el Estado ejerce su poder conforme a normas jurídicas (suelo, subsuelo, espacio aéreo, mar territorial)</td></tr>
+        <tr><td><strong>Poder soberano</strong></td><td>Potestad jurídica y política suprema sobre el territorio y la población; no es dominio sino <em>imperio</em></td></tr>
+      </tbody>
+    </table>
+    <div class="quiz-section" data-correcta="2">
+      <div class="quiz-titulo">Comprobá tu comprensión</div>
+      <div class="quiz-pregunta">¿Cuáles son los tres elementos constitutivos del Estado?</div>
+      <div class="quiz-opciones">
+        <button class="quiz-btn" data-idx="0">Nación, soberanía y lengua</button>
+        <button class="quiz-btn" data-idx="1">Constitución, leyes y ciudadanos</button>
+        <button class="quiz-btn" data-idx="2">Población, territorio y poder soberano</button>
+        <button class="quiz-btn" data-idx="3">Gobierno, cultura y religión</button>
+      </div>
+      <div class="quiz-feedback"></div>
+      <button class="quiz-btn-reset">Reintentar</button>
+    </div>
+  </div>
+
+  <!-- 43 -->
+  <div class="cartilla">
+    <div class="cartilla-header">
+      <span class="num-cartilla">43</span>
+      <h2>Estado y Nación: diferencias</h2>
+    </div>
+    <p>La <strong>Nación</strong> es el conjunto de familias unidas por vínculos naturales (raza, idioma, religión, costumbres, cultura) con conciencia de un destino común. Sus elementos son: población, territorio y conciencia nacional.</p>
+    <div class="concepto-clave">
+      <div class="etiqueta">Diferencias clave</div>
+      <ul>
+        <li>La Nación es generalmente <em>anterior</em> al Estado.</li>
+        <li>Pueden coexistir varias naciones dentro de un mismo Estado (ej. Suiza).</li>
+        <li>Un Estado puede carecer de base nacional (ej. Ciudad del Vaticano).</li>
+        <li>El Estado puede crearse rápidamente; la Nación solo por proceso lento y progresivo.</li>
+      </ul>
+    </div>
+    <div class="quiz-section" data-correcta="1">
+      <div class="quiz-titulo">Comprobá tu comprensión</div>
+      <div class="quiz-pregunta">¿Qué ejemplo ilustra un Estado sin base nacional propia?</div>
+      <div class="quiz-opciones">
+        <button class="quiz-btn" data-idx="0">Paraguay</button>
+        <button class="quiz-btn" data-idx="1">Ciudad del Vaticano</button>
+        <button class="quiz-btn" data-idx="2">Francia</button>
+        <button class="quiz-btn" data-idx="3">Suiza</button>
+      </div>
+      <div class="quiz-feedback"></div>
+      <button class="quiz-btn-reset">Reintentar</button>
+    </div>
+  </div>
+
+  <!-- 44 -->
+  <div class="cartilla">
+    <div class="cartilla-header">
+      <span class="num-cartilla">44</span>
+      <h2>Descentralización y Doble Personalidad del Estado</h2>
+    </div>
+    <p>Existe <strong>centralización</strong> cuando el sistema jurídico se aplica uniformemente en todo el territorio. Existe <strong>descentralización</strong> cuando hay campos distintos de aplicación: legislativa, administrativa, o por cuerpos autónomos.</p>
+    <p>El Estado tiene <strong>doble personalidad jurídica</strong>:</p>
+    <table class="tabla-comp">
+      <thead><tr><th>Personalidad</th><th>Cuándo actúa así</th><th>Ejemplo</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Persona de Derecho Público</strong></td><td>Ejerce soberanía o imperium</td><td>Dictar leyes, expropiar, declarar estado de excepción</td></tr>
+        <tr><td><strong>Persona de Derecho Privado</strong></td><td>Actúa en pie de igualdad con particulares</td><td>Alquilar inmuebles, contratar servicios, pagar deudas</td></tr>
+      </tbody>
+    </table>
+    <div class="quiz-section" data-correcta="0">
+      <div class="quiz-titulo">Comprobá tu comprensión</div>
+      <div class="quiz-pregunta">Cuando el Estado expropia un inmueble por utilidad pública, actúa como persona de Derecho…</div>
+      <div class="quiz-opciones">
+        <button class="quiz-btn" data-idx="0">Público</button>
+        <button class="quiz-btn" data-idx="1">Privado</button>
+        <button class="quiz-btn" data-idx="2">Natural</button>
+        <button class="quiz-btn" data-idx="3">Internacional</button>
+      </div>
+      <div class="quiz-feedback"></div>
+      <button class="quiz-btn-reset">Reintentar</button>
+    </div>
+  </div>
+
+
+  <!-- PORTADA L10 -->
+  <div class="cartilla">
+    <div class="cartilla-header">
+      <span class="num-cartilla" style="background:#e65100;">L10</span>
+      <h2>Lección 10 — Regulación Técnica y Ética de la Conducta Humana</h2>
+    </div>
+    <div class="concepto-clave">
+      <div class="etiqueta">Temas de esta lección (Cap. VIII)</div>
+      Las dos categorías de la actividad humana (<strong>técnica y ética</strong>), las reglas técnicas y su definición, las <strong>normas éticas</strong> en general, la relación entre norma y canon, las diferencias entre <strong>ley natural y norma</strong>, la clasificación de las normas éticas y la ética como ciencia de la conducta humana.
+    </div>
+    <ul>
+      <li><strong>Reglas técnicas</strong>: medios idóneos para fines prácticos/científicos/artísticos.</li>
+      <li><strong>Normas éticas</strong>: orientan la conducta hacia la bondad y perfección del sujeto.</li>
+      <li><strong>4 tipos</strong> de normas éticas: religiosas · morales · de trato social · jurídicas.</li>
+      <li><strong>Ley natural</strong> (ser) vs. <strong>Norma</strong> (deber ser).</li>
+    </ul>
+  </div>
+
+  <!-- 45 -->
+  <div class="cartilla">
+    <div class="cartilla-header">
+      <span class="num-cartilla">45</span>
+      <h2>Regulación técnica y ética: origen y distinción</h2>
+    </div>
+    <p>Para satisfacer sus necesidades de subsistencia, el ser humano empleó <strong>reglas técnicas</strong> para perfeccionar herramientas y producción. Simultáneamente estructuró <strong>normas éticas</strong> para orientar su conducta moral.</p>
+    <table class="tabla-comp">
+      <thead><tr><th>Categoría</th><th>Fin que persigue</th><th>Ejemplos</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Reglas técnicas</strong></td><td>Fines científicos, artísticos o de utilidad práctica</td><td>Reglas del arte arquitectónico, reglas lógicas, reglas higiénicas</td></tr>
+        <tr><td><strong>Normas éticas</strong></td><td>La bondad y perfección del sujeto que actúa</td><td>Normas religiosas, morales, de trato social, jurídicas</td></tr>
+      </tbody>
+    </table>
+    <div class="concepto-clave">
+      <div class="etiqueta">Clave diferenciadora</div>
+      Si la actividad busca resultados prácticos → regla técnica. Si busca la bondad y perfección del sujeto → norma ética.
+    </div>
+    <div class="quiz-section" data-correcta="1">
+      <div class="quiz-titulo">Comprobá tu comprensión</div>
+      <div class="quiz-pregunta">¿Cuál es la diferencia fundamental entre reglas técnicas y normas éticas?</div>
+      <div class="quiz-opciones">
+        <button class="quiz-btn" data-idx="0">Las técnicas son escritas; las éticas son consuetudinarias</button>
+        <button class="quiz-btn" data-idx="1">Las técnicas buscan fines prácticos/artísticos; las éticas buscan la bondad y perfección del sujeto</button>
+        <button class="quiz-btn" data-idx="2">Las técnicas son obligatorias; las éticas son optativas</button>
+        <button class="quiz-btn" data-idx="3">Las técnicas regulan la conducta social; las éticas regulan la producción</button>
+      </div>
+      <div class="quiz-feedback"></div>
+      <button class="quiz-btn-reset">Reintentar</button>
+    </div>
+  </div>
+
+  <!-- 46 -->
+  <div class="cartilla">
+    <div class="cartilla-header">
+      <span class="num-cartilla">46</span>
+      <h2>Reglas técnicas: definición y caracteres</h2>
+    </div>
+    <p>Las <strong>reglas técnicas</strong> (del griego <em>techné</em> = arte) prescriben los medios idóneos para la realización de fines determinados. Ejemplo: el cirujano aplica reglas técnicas para que la operación tenga éxito; el conductor aplica reglas técnicas para guiar el auto.</p>
+    <p>Según el campo, las reglas técnicas se clasifican en:</p>
+    <ul>
+      <li><strong>Lógicas</strong>: modos del pensar correcto.</li>
+      <li><strong>Estéticas</strong>: modos de la belleza.</li>
+      <li><strong>Higiénicas</strong>: modos de conservar la salud.</li>
+      <li><strong>Dialécticas</strong>: modos de la discusión argumentada.</li>
+    </ul>
+    <div class="concepto-clave">
+      <div class="etiqueta">Caracteres de las reglas técnicas</div>
+      a) Responden a una necesidad lógica. b) Regulan la actividad para alcanzar la verdad, la belleza o la utilidad práctica. c) Encauzan el <em>hacer</em> humano (actividad práctica). d) Son particulares y adecuadas a cada tipo de resultado posible.
+    </div>
+    <div class="quiz-section" data-correcta="2">
+      <div class="quiz-titulo">Comprobá tu comprensión</div>
+      <div class="quiz-pregunta">¿Qué tipo de regla técnica regula los modos del pensar correcto?</div>
+      <div class="quiz-opciones">
+        <button class="quiz-btn" data-idx="0">Estética</button>
+        <button class="quiz-btn" data-idx="1">Higiénica</button>
+        <button class="quiz-btn" data-idx="2">Lógica</button>
+        <button class="quiz-btn" data-idx="3">Dialéctica</button>
+      </div>
+      <div class="quiz-feedback"></div>
+      <button class="quiz-btn-reset">Reintentar</button>
+    </div>
+  </div>
+
+  <!-- 47 -->
+  <div class="cartilla">
+    <div class="cartilla-header">
+      <span class="num-cartilla">47</span>
+      <h2>Normas éticas: noción, caracteres y el Canon</h2>
+    </div>
+    <p>La palabra <strong>norma</strong> deriva del latín <em>norma</em> (escuadra, cartabón): modelo al que debe ceñirse una operación. En sentido jurídico estricto designa el principio cuya observancia constituye un deber. Toda norma implica un <strong>deber ser</strong>: dado el hecho antecedente A, debe producirse el consecuente B.</p>
+    <p>La norma expresa lo que <em>debe</em> acontecer, aunque no acontezca, pues presupone la libertad del sujeto para incumplirla —con la sanción prevista como consecuencia.</p>
+    <div class="concepto-clave">
+      <div class="etiqueta">Caracteres de las normas éticas</div>
+      1. Son reglas de comportamiento obligatorio: imponen deberes. 2. Contienen un imperativo: prescriben cómo debe ser la conducta. 3. Encauzan el <em>obrar</em> humano hacia la pureza interior, la justicia y el decoro social.
+    </div>
+    <p><strong>Canon</strong>: sinónimo de norma, de origen griego (instrumento para trazar líneas rectas). Predomina en el ámbito religioso: de ahí el nombre <em>Derecho canónico</em>. También tiene sentido económico: <em>canon enfitéutico</em> = pensión anual por transferencia de dominio útil de un bien raíz.</p>
+    <div class="quiz-section" data-correcta="0">
+      <div class="quiz-titulo">Comprobá tu comprensión</div>
+      <div class="quiz-pregunta">¿Qué implica que toda norma sea un "deber ser"?</div>
+      <div class="quiz-opciones">
+        <button class="quiz-btn" data-idx="0">Expresa lo que debe acontecer aunque el sujeto pueda no cumplirla</button>
+        <button class="quiz-btn" data-idx="1">Describe lo que necesariamente ocurrirá en la naturaleza</button>
+        <button class="quiz-btn" data-idx="2">Solo rige para los funcionarios del Estado</button>
+        <button class="quiz-btn" data-idx="3">Su cumplimiento depende del consenso popular</button>
+      </div>
+      <div class="quiz-feedback"></div>
+      <button class="quiz-btn-reset">Reintentar</button>
+    </div>
+  </div>
+
+  <!-- 48 -->
+  <div class="cartilla">
+    <div class="cartilla-header">
+      <span class="num-cartilla">48</span>
+      <h2>Ley natural vs. Norma: concepto y diferencias</h2>
+    </div>
+    <p>La <strong>ley natural</strong> pertenece al reino de la naturaleza: enlaza un hecho antecedente (causa) con un hecho consecuente (efecto) que se produce <em>sin excepción posible</em>. La <strong>norma</strong> es una ley cultural: enlaza los hechos mediante la <em>imputación</em> (deber ser), y puede ser violada por la libertad humana.</p>
+    <table class="tabla-comp">
+      <thead><tr><th>Aspecto</th><th>Ley natural</th><th>Norma (ley cultural)</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Ámbito</strong></td><td>El ser (lo que es)</td><td>El deber ser (lo que debe ser)</td></tr>
+        <tr><td><strong>Cumplimiento</strong></td><td>Indefectible, siempre se cumple</td><td>Contingente, puede ser violada</td></tr>
+        <tr><td><strong>Significado</strong></td><td>Teórico: explica relaciones constantes</td><td>Práctico: indica cómo debe obrar el hombre</td></tr>
+        <tr><td><strong>Fin</strong></td><td>Intelectivo: explicar la naturaleza</td><td>Perfeccionista: indicar la conducta recta</td></tr>
+      </tbody>
+    </table>
+    <div class="quiz-section" data-correcta="1">
+      <div class="quiz-titulo">Comprobá tu comprensión</div>
+      <div class="quiz-pregunta">¿Por qué la norma puede ser violada y la ley natural no?</div>
+      <div class="quiz-opciones">
+        <button class="quiz-btn" data-idx="0">Porque la norma la dicta el Estado y la ley natural Dios</button>
+        <button class="quiz-btn" data-idx="1">Porque la norma presupone la libertad del sujeto; la ley natural se cumple fatalmente</button>
+        <button class="quiz-btn" data-idx="2">Porque la ley natural tiene sanciones más severas</button>
+        <button class="quiz-btn" data-idx="3">Porque la norma solo rige en el fuero interno</button>
+      </div>
+      <div class="quiz-feedback"></div>
+      <button class="quiz-btn-reset">Reintentar</button>
+    </div>
+  </div>
+
+  <!-- 49 -->
+  <div class="cartilla">
+    <div class="cartilla-header">
+      <span class="num-cartilla">49</span>
+      <h2>Clasificación de las normas éticas y la Ética como ciencia</h2>
+    </div>
+    <p>La actividad ética del ser humano es compleja y no puede ser orientada por normas de una sola especie. Los autores clasifican las normas éticas en <strong>cuatro grupos</strong> según la actividad regulada y los fines que persiguen:</p>
+    <table class="tabla-comp">
+      <thead><tr><th>Tipo</th><th>Fin principal</th><th>Caracteres</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Religiosas</strong></td><td>Relación del hombre con Dios</td><td>Autónomas, unilaterales, interiores, incoercibles</td></tr>
+        <tr><td><strong>Morales</strong></td><td>Perfección interior del sujeto</td><td>Autónomas, unilaterales, interiores, incoercibles</td></tr>
+        <tr><td><strong>De trato social</strong></td><td>Armonía y convivencia social (usos, cortesía)</td><td>Heterónomas, unilaterales, exteriores, incoercibles</td></tr>
+        <tr><td><strong>Jurídicas</strong></td><td>Convivencia social con coacción institucional</td><td>Heterónomas, bilaterales, exteriores, coercibles</td></tr>
+      </tbody>
+    </table>
+    <div class="concepto-clave">
+      <div class="etiqueta">La Ética como ciencia — sentido amplio y restringido</div>
+      <strong>Amplio</strong>: la ética es la filosofía práctica o disciplina normativa del obrar en general. Comprende la Religión, la Moral y el Derecho (los tres órdenes normativos fundamentales). <strong>Restringido</strong>: sinónimo de Moral, ciencia del bien y el carácter. Ej: ética profesional del abogado, códigos de ética de los Colegios de Abogados.
+    </div>
+    <div class="quiz-section" data-correcta="3">
+      <div class="quiz-titulo">Comprobá tu comprensión</div>
+      <div class="quiz-pregunta">¿Cuántos grupos de normas éticas distinguen la mayoría de los autores?</div>
+      <div class="quiz-opciones">
+        <button class="quiz-btn" data-idx="0">Dos: morales y jurídicas</button>
+        <button class="quiz-btn" data-idx="1">Tres: religiosas, morales y jurídicas</button>
+        <button class="quiz-btn" data-idx="2">Cinco: religiosas, morales, jurídicas, políticas y económicas</button>
+        <button class="quiz-btn" data-idx="3">Cuatro: religiosas, morales, de trato social y jurídicas</button>
+      </div>
+      <div class="quiz-feedback"></div>
+      <button class="quiz-btn-reset">Reintentar</button>
+    </div>
+  </div>
+
+  <!-- NAV -->
   <div class="nav-buttons">
-    <button class="btn-prev" id="btnPrev">Anterior</button>
-    <button class="btn-next" id="btnNext">Siguiente</button>
+    <button class="btn-nav btn-prev" id="btnPrev">← Anterior</button>
+    <button class="btn-nav btn-next" id="btnNext">Siguiente →</button>
   </div>
 </div>
 
+<!-- ÍNDICE PANEL -->
+<div class="indice-overlay" id="indiceOverlay"></div>
+<div class="indice-panel" id="indicePanel">
+  <div class="indice-titulo">
+    Índice de cartillas
+    <button class="btn-cerrar-indice" id="btnCerrarIndice">✕</button>
+  </div>
+  <div id="indiceContenido"></div>
+</div>
+<button class="menu-toggle" id="menuToggle" title="Abrir índice">☰</button>
+</div>
+
+<!-- ════ VISTA EXAMEN ════ -->
+<div id="vistaExamen" class="vista">
+
+<!-- ════ PANTALLA INICIO ════ -->
+<div id="pantallaInicio" style="display:flex; flex-direction:column; align-items:center; padding:2rem 1rem; min-height:70vh; justify-content:center;">
+  <div style="font-size:3rem; margin-bottom:1rem;">⚖️</div>
+  <h1 style="color:var(--azul); margin-bottom:.5rem;">Modo Examen</h1>
+  <p style="color:#555; text-align:center; max-width:420px; margin-bottom:2rem;">
+    Respondé preguntas aleatorias de todas las cartillas y comprobá cuánto sabés de Introducción a las Ciencias Jurídicas.
+  </p>
+
+  <div class="config-card">
+    <span class="config-label">📝 Cantidad de preguntas</span>
+    <div class="num-selector">
+      <button class="num-btn" data-n="5">5</button>
+      <button class="num-btn sel" data-n="10">10</button>
+      <button class="num-btn" data-n="15">15</button>
+      <button class="num-btn" data-n="20">20</button>
+      <button class="num-btn" data-n="Todas">Todas</button>
+    </div>
+  </div>
+
+  <div class="config-card">
+    <span class="config-label">⏱ Tiempo por pregunta</span>
+    <div class="modo-selector" id="modoSelector">
+      <button class="modo-btn" data-modo="3">⚡ 3 seg</button>
+      <button class="modo-btn sel" data-modo="5">🕐 5 seg</button>
+      <button class="modo-btn" data-modo="8">🔥 8 seg</button>
+    </div>
+  </div>
+
+  <button id="btnEmpezar" class="btn-empezar">🚀 Comenzar examen</button>
+</div>
+
+<!-- ════ PANTALLA EXAMEN ════ -->
+<div id="pantallaExamen" style="display:none; padding:1rem; max-width:680px; margin:0 auto;">
+  <div class="exam-header">
+    <div class="pbar-wrap"><div class="pbar-fill" id="examPbar"></div></div>
+    <div class="exam-meta">
+      <span id="examPbarLabel">1 / 10</span>
+      <span id="timerDisplay" class="timer">⏱ 5s</span>
+      <span id="scoreLive">✅ 0</span>
+    </div>
+  </div>
+  <div id="preguntaCard" class="pregunta-card"></div>
+</div>
+
+<!-- ════ PANTALLA RESULTADO ════ -->
+<div id="pantallaResultado" style="display:none; padding:1.5rem 1rem; max-width:700px; margin:0 auto;">
+  <div class="resultado-hero">
+    <div id="trofeoEmoji" style="font-size:3.5rem;"></div>
+    <h2 id="resultadoTitulo"></h2>
+    <p id="resultadoSubtitulo"></p>
+    <div id="scorePorcentaje" class="score-grande"></div>
+    <div id="scoreDetalle" style="color:#666; font-size:.95rem; margin-top:.3rem;"></div>
+  </div>
+  <div class="stats-row">
+    <div class="stat-box"><span class="stat-num verde" id="statCorrectas">0</span><span class="stat-label">Correctas</span></div>
+    <div class="stat-box"><span class="stat-num rojo"  id="statIncorrectas">0</span><span class="stat-label">Incorrectas</span></div>
+    <div class="stat-box"><span class="stat-num azul"  id="statTiempo">0s</span><span class="stat-label">Tiempo</span></div>
+  </div>
+  <div id="mensajeResultado" class="mensaje-resultado"></div>
+  <button id="detalleToggle" class="btn-detalle-toggle">📋 Ver detalle de respuestas</button>
+  <div id="detalleLista" class="detalle-lista"></div>
+  <div class="btns-resultado">
+    <button id="btnVolverCartillas" class="btn-resultado">📚 Volver a cartillas</button>
+    <button id="btnReintentar"      class="btn-resultado btn-reintentar">🔄 Nuevo examen</button>
+  </div>
+</div>
+
+</div>
+
+
+<nav id="footer-nav">
+  <button class="fnav-tab activo" id="tabCartillas" onclick="cambiarVista('cartillas')">
+    <span class="fnav-icon">📚</span>Cartillas
+  </button>
+  <button class="fnav-tab" id="tabExamen" onclick="cambiarVista('examen')">
+    <span class="fnav-icon">🎯</span>Modo Examen
+  </button>
+</nav>
+
+
 <script>
-  const cartillas = document.querySelectorAll('.cartilla');
-  const btnPrev = document.getElementById('btnPrev');
-  const btnNext = document.getElementById('btnNext');
-  const progressBar = document.getElementById('progressBar');
-  const progressText = document.getElementById('progressText');
 
-  let index = 0;
-  const total = cartillas.length;
+// ═══════════════════════════════════════════════════════
+//  NAVEGACIÓN ENTRE VISTAS
+// ═══════════════════════════════════════════════════════
+function cambiarVista(vista) {
+  document.getElementById('vistaCartillas').classList.toggle('activa', vista === 'cartillas');
+  document.getElementById('vistaExamen').classList.toggle('activa', vista === 'examen');
+  document.getElementById('tabCartillas').classList.toggle('activo', vista === 'cartillas');
+  document.getElementById('tabExamen').classList.toggle('activo', vista === 'examen');
+  if (vista === 'examen') {
+    document.getElementById('pantallaInicio').style.display      = 'flex';
+    document.getElementById('pantallaExamen').style.display      = 'none';
+    document.getElementById('pantallaResultado').style.display   = 'none';
+  }
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
 
-  function actualizarVista() {
-    cartillas.forEach((c, i) => {
-      c.classList.toggle('activa', i === index);
+document.addEventListener('DOMContentLoaded', function () {
+
+  // ═══════════════════════════════════════════════════════
+  //  CARTILLAS
+  // ═══════════════════════════════════════════════════════
+  (function () {
+    const cards    = document.querySelectorAll('.cartilla');
+    const btnPrev  = document.getElementById('btnPrev');
+    const btnNext  = document.getElementById('btnNext');
+    const pBar     = document.getElementById('progressBar');
+    const pText    = document.getElementById('progressText');
+    const indicePanel   = document.getElementById('indicePanel');
+    const indiceOverlay = document.getElementById('indiceOverlay');
+    const indiceContenido = document.getElementById('indiceContenido');
+    const menuToggle    = document.getElementById('menuToggle');
+    const btnCerrarIndice = document.getElementById('btnCerrarIndice');
+
+    let cur = 0;
+    const tot = cards.length;
+
+    // Construir índice
+    cards.forEach(function (c, i) {
+      const h2  = c.querySelector('h2');
+      const titulo = h2 ? h2.textContent : '';
+      const esPortada = /^Lecci[oó]n\s+\d+/i.test(titulo);
+      const btn = document.createElement('button');
+      btn.className = 'indice-item' + (esPortada ? ' indice-portada' : '');
+      btn.innerHTML = '<span class="indice-num">' + (i + 1) + '.</span>' + titulo;
+      btn.addEventListener('click', function () { cur = i; render(); cerrarIndice(); });
+      indiceContenido.appendChild(btn);
     });
 
-    btnPrev.disabled = index === 0;
-    btnNext.disabled = index === total - 1;
+    function render() {
+      cards.forEach(function (c, i) { c.classList.toggle('activa', i === cur); });
+      btnPrev.disabled = cur === 0;
+      btnNext.disabled = cur === tot - 1;
+      pBar.style.width = ((cur + 1) / tot * 100) + '%';
+      pText.textContent = (cur + 1) + ' / ' + tot;
+      document.querySelectorAll('.indice-item').forEach(function (b, i) {
+        b.classList.toggle('activo', i === cur);
+      });
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
 
-    const progreso = ((index + 1) / total) * 100;
-    progressBar.style.width = progreso + '%';
-    progressText.textContent = `Cartilla ${index + 1} de ${total}`;
+    btnPrev.addEventListener('click', function () { if (cur > 0)       { cur--; render(); } });
+    btnNext.addEventListener('click', function () { if (cur < tot - 1) { cur++; render(); } });
+
+    document.addEventListener('keydown', function (e) {
+      if (document.getElementById('vistaCartillas').classList.contains('activa')) {
+        if (e.key === 'ArrowRight' && !btnNext.disabled) { cur++; render(); }
+        if (e.key === 'ArrowLeft'  && !btnPrev.disabled) { cur--; render(); }
+      }
+    });
+
+    function abrirIndice()  { indicePanel.classList.add('abierto'); indiceOverlay.classList.add('visible'); }
+    function cerrarIndice() { indicePanel.classList.remove('abierto'); indiceOverlay.classList.remove('visible'); }
+    menuToggle.addEventListener('click', abrirIndice);
+    btnCerrarIndice.addEventListener('click', cerrarIndice);
+    indiceOverlay.addEventListener('click', cerrarIndice);
+
+    // Mini-quizzes
+    document.querySelectorAll('.quiz-section').forEach(function (section) {
+      const correcta  = parseInt(section.dataset.correcta);
+      const botones   = section.querySelectorAll('.quiz-btn');
+      const feedback  = section.querySelector('.quiz-feedback');
+      const resetBtn  = section.querySelector('.quiz-btn-reset');
+
+      botones.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          const idx = parseInt(btn.dataset.idx);
+          botones.forEach(function (b) { b.disabled = true; });
+          if (idx === correcta) {
+            btn.classList.add('correcto');
+            feedback.textContent  = '✅ ¡Correcto!';
+            feedback.style.color  = '#2e7d32';
+          } else {
+            btn.classList.add('incorrecto');
+            botones[correcta].classList.add('correcto');
+            feedback.textContent  = '❌ Incorrecto. Revisá la explicación.';
+            feedback.style.color  = '#c62828';
+          }
+          resetBtn.style.display = 'inline-block';
+        });
+      });
+
+      resetBtn.addEventListener('click', function () {
+        botones.forEach(function (b) {
+          b.disabled = false;
+          b.classList.remove('correcto', 'incorrecto');
+        });
+        feedback.textContent   = '';
+        resetBtn.style.display = 'none';
+      });
+    });
+
+    render();
+  })();
+
+  // ═══════════════════════════════════════════════════════
+  //  BANCO DE PREGUNTAS
+  // ═══════════════════════════════════════════════════════
+  var BANCO = [
+    { cartilla:2, titulo:"Vocablo Derecho: jus, fas y etimología", pregunta:"¿Qué concepto romano designaba el derecho divino?", opciones:["Jus","Fas","Directus","Rectus"], correcta:1, explicacion:"El fas era el derecho divino. El jus era el derecho humano." },
+    { cartilla:2, titulo:"Vocablo Derecho: jus, fas y etimología", pregunta:"La palabra 'Derecho' del latín medieval deriva de 'directus', que significa:", opciones:["Mandar con fuerza","Guiar, enderezar","Unir y juntar","Sancionar"], correcta:1, explicacion:"Directus es participio de dirigere: guiar, enderezar." },
+    { cartilla:3, titulo:"Acepciones del Derecho", pregunta:"El conjunto de reglas obligatorias cuyo cumplimiento puede imponerse por coacción es el Derecho…", opciones:["Objetivo","Subjetivo","Natural","Divino"], correcta:0, explicacion:"El Derecho objetivo o derecho-norma garantiza su cumplimiento mediante coacción exterior." },
+    { cartilla:3, titulo:"Acepciones del Derecho", pregunta:"El derecho a la legítima defensa es un ejemplo de Derecho…", opciones:["Objetivo","Subjetivo","Positivo","Consuetudinario"], correcta:1, explicacion:"El Derecho subjetivo es el poder o facultad legítima para exigir algo." },
+    { cartilla:4, titulo:"Derecho positivo y natural", pregunta:"¿En qué radica la diferencia central entre Derecho positivo y Derecho natural?", opciones:["Uno está escrito y el otro no","Uno es vigente y el otro histórico","En el fundamento de su validez","En el ámbito territorial"], correcta:2, explicacion:"El positivo vale porque fue creado por el hombre; el natural por su conformidad con la razón." },
+    { cartilla:5, titulo:"Fenómeno jurídico", pregunta:"En la estructura lógica de la norma jurídica, el hecho consecuente…", opciones:["Es siempre un castigo","Es lo que 'debe ser' dado un antecedente","Es lo que causó el acto","Es optativo para el sujeto"], correcta:1, explicacion:"La norma enlaza un hecho antecedente con un consecuente que 'debe ser'." },
+    { cartilla:6, titulo:"Definición del Derecho", pregunta:"¿Quién definió el Derecho como 'sistema de normas coercibles que rigen la conducta humana en su interferencia intersubjetiva'?", opciones:["Abelardo Torré","Rudolf von Ihering","Immanuel Kant","Del Vecchio"], correcta:0, explicacion:"Abelardo Torré es el autor de esta definición." },
+    { cartilla:6, titulo:"Definición del Derecho", pregunta:"Ihering definió el Derecho como 'la suma de condiciones de la vida social aseguradas por el Estado mediante…'", opciones:["Leyes escritas","El consenso popular","Coacción externa","Principios naturales"], correcta:2, explicacion:"Von Ihering pone énfasis en la coacción externa ejercida por el Estado." },
+    { cartilla:7, titulo:"Pirámide de Kelsen", pregunta:"Según Kelsen, ¿qué se ubica en la cúspide del ordenamiento jurídico?", opciones:["Las leyes ordinarias","Los decretos del Ejecutivo","La Constitución","Los tratados internacionales"], correcta:2, explicacion:"La pirámide de Kelsen ubica la Constitución en la cúspide." },
+    { cartilla:7, titulo:"Pirámide de Kelsen", pregunta:"La máxima 'Ubi societas, ibi ius' significa:", opciones:["El Derecho está por encima del Estado","Donde hay sociedad, hay Derecho","El Derecho es igual para todos","Sin ley no hay delito"], correcta:1, explicacion:"Ubi societas, ibi ius: el Derecho es indispensable en toda sociedad." },
+    { cartilla:8, titulo:"Caso Fátima Afif", pregunta:"¿Qué principio justificó el despido de Fátima Afif en Francia?", opciones:["Igualdad de géneros","Laicismo y neutralidad","No discriminación","Seguridad laboral"], correcta:1, explicacion:"La laicidad y la neutralidad en el espacio laboral fueron el fundamento del fallo." },
+    { cartilla:9, titulo:"Disciplinas jurídicas", pregunta:"¿Cuál de estas es una disciplina jurídica auxiliar?", opciones:["Filosofía del Derecho","Historia del Derecho","Sociología Jurídica","Introducción a las Ciencias Jurídicas"], correcta:2, explicacion:"La Sociología Jurídica es auxiliar porque explica el fenómeno jurídico como hecho social." },
+    { cartilla:10, titulo:"Ciencia del Derecho", pregunta:"¿Quién es considerado el padre de la ciencia jurídica moderna?", opciones:["Savigny","Kelsen","Von Ihering","Abelardo Torré"], correcta:0, explicacion:"Savigny estructuró el esquema: hecho → norma → institución → construcción → sistema." },
+    { cartilla:11, titulo:"Recursos técnicos jurídicos", pregunta:"Una presunción que NO admite prueba en contrario se llama…", opciones:["Juris tantum","Juris et de jure","Estándar jurídico","Ficción legal"], correcta:1, explicacion:"Juris et de jure no admite prueba en contrario; juris tantum sí puede desvirtuarse." },
+    { cartilla:13, titulo:"Filosofía del Derecho", pregunta:"¿Qué rama estudia los valores que el orden jurídico debe realizar?", opciones:["Axiología jurídica","Ontología jurídica","Lógica jurídica","Gnoseología jurídica"], correcta:0, explicacion:"La axiología jurídica se ocupa de los valores que el Derecho debe perseguir." },
+    { cartilla:14, titulo:"Ciencia vs. Filosofía del Derecho", pregunta:"¿Cuál va más allá del Derecho positivo y busca fundamentos universales?", opciones:["Ciencia del Derecho","Filosofía del Derecho","Sociología Jurídica","Lógica Jurídica"], correcta:1, explicacion:"La Filosofía del Derecho pregunta qué debería ser el Derecho universalmente." },
+    { cartilla:17, titulo:"Método jurídico", pregunta:"El silogismo jurídico es el método predominante del…", opciones:["Legislador al redactar leyes","Juez al aplicar la ley","Jurista al sistematizar","Filósofo del derecho"], correcta:1, explicacion:"El juez aplica: norma general + caso concreto → sentencia." },
+    { cartilla:20, titulo:"Normas éticas", pregunta:"¿Qué expresa la estructura lógica de toda norma?", opciones:["Una descripción de lo que ocurre","Una ley natural de causa y efecto","Un deber ser: dado A, debe producirse B","Una prohibición absoluta"], correcta:2, explicacion:"La norma expresa: supuesto el hecho antecedente A, debe producirse el consecuente B." },
+    { cartilla:21, titulo:"Ley natural vs. norma", pregunta:"¿Cuál es una diferencia fundamental entre ley natural y norma?", opciones:["La ley natural se cumple siempre; la norma puede ser violada","La norma se cumple siempre; la ley natural puede ser violada","Ambas regulan el deber ser","Ambas son obra del hombre"], correcta:0, explicacion:"La ley natural es infalible; la norma es violable porque presupone libertad." },
+    { cartilla:22, titulo:"Clasificación de normas éticas", pregunta:"¿Qué tipo de normas éticas se imponen mediante coacción institucionalizada?", opciones:["Religiosas","Morales","De trato social","Jurídicas"], correcta:3, explicacion:"Solo las normas jurídicas poseen coacción respaldada por el Estado." },
+    { cartilla:23, titulo:"Los valores", pregunta:"¿Cómo se denomina la intuición no sensible con la que captamos los valores?", opciones:["Deducción","Estimación","Axioma","Percepción"], correcta:1, explicacion:"La estimación es la intuición especial con la que captamos valores." },
+    { cartilla:24, titulo:"Valores jurídicos", pregunta:"¿Cuál es el valor jurídico supremo?", opciones:["Orden","Seguridad","Justicia","Solidaridad"], correcta:2, explicacion:"La justicia es el valor supremo que armoniza a los demás valores jurídicos." },
+    { cartilla:25, titulo:"Justicia", pregunta:"¿A quién se atribuye 'dar a cada uno lo suyo'?", opciones:["Aristóteles","Kelsen","Ulpiano","Savigny"], correcta:2, explicacion:"Ulpiano: 'justicia es la voluntad perpetua y constante de dar a cada uno lo suyo'." },
+    { cartilla:27, titulo:"Especies de justicia", pregunta:"La justicia que distribuye bienes según méritos se llama…", opciones:["Conmutativa","Distributiva","Social","Judicial"], correcta:1, explicacion:"La justicia distributiva distribuye proporcionalmente según capacidad y méritos." },
+    { cartilla:28, titulo:"Equidad", pregunta:"¿Quién estudió la equidad como 'epiqueya' en Grecia?", opciones:["Platón","Sócrates","Aristóteles","Cicerón"], correcta:2, explicacion:"Aristóteles estudió la epiqueya como mitigación de la ley según circunstancias." },
+    { cartilla:29, titulo:"Equidad en el Derecho paraguayo", pregunta:"¿En qué código paraguayo se prohíbe usar la equidad para integrar la ley?", opciones:["Código Civil","Código del Trabajo","Código Penal","Código Procesal Civil"], correcta:2, explicacion:"El Código Penal prohíbe la equidad para integrar la ley (principio de legalidad)." },
+    { cartilla:31, titulo:"Principios generales del Derecho", pregunta:"¿Qué sistema identifica los principios con el Derecho natural, superior al legislado?", opciones:["Sistema legalista","Sistema filosófico","Sistema positivista","Sistema racionalista"], correcta:1, explicacion:"El sistema filosófico identifica los principios con verdades jurídicas universales." },
+    { cartilla:32, titulo:"Cosa juzgada", pregunta:"¿Cuál NO es un elemento de la triple identidad de la cosa juzgada?", opciones:["Identidad de jueces","Identidad de partes","Identidad de causa","Identidad de objeto"], correcta:0, explicacion:"La triple identidad es: partes + objeto + causa. Los jueces no son requisito." },
+
+    // ─── LECCIÓN 6: Normas jurídicas caracteres ───
+    { cartilla:33, titulo:"Autonomía y Heteronomía", pregunta:"¿Qué tipo de norma se auto-impone el sujeto por propia convicción?", opciones:["Heterónoma","Autónoma","Coercible","Bilateral"], correcta:1, explicacion:"Autónoma: el sujeto se da su propia ley. Ej: normas morales y religiosas." },
+    { cartilla:33, titulo:"Autonomía y Heteronomía", pregunta:"La norma jurídica es heterónoma porque…", opciones:["La dicta el propio sujeto","Proviene de una autoridad exterior al sujeto","No admite sanción alguna","Es siempre unilateral"], correcta:1, explicacion:"Heterónoma: el Derecho proviene del Estado, con independencia de que el sujeto la acepte." },
+    { cartilla:34, titulo:"Unilateralidad y Bilateralidad", pregunta:"¿Qué tipo de norma otorga a otro el derecho de exigir su cumplimiento?", opciones:["Unilateral","Autónoma","Bilateral","Interior"], correcta:2, explicacion:"Bilateral: frente al deber de uno existe la facultad de otro de exigirlo." },
+    { cartilla:34, titulo:"Unilateralidad y Bilateralidad", pregunta:"Las normas morales son unilaterales porque…", opciones:["Solo las personas morales pueden violarlas","No generan en otro la facultad de exigir su cumplimiento","Requieren aprobación estatal","Son normas exteriores"], correcta:1, explicacion:"La moral impone deberes pero no otorga a nadie el derecho de exigirlos judicialmente." },
+    { cartilla:35, titulo:"Coercibilidad", pregunta:"¿Qué significa que la norma jurídica sea coercible?", opciones:["Solo puede cumplirse voluntariamente","Su cumplimiento puede imponerse por la fuerza","La dicta el propio sujeto obligado","Solo rige en el fuero interno"], correcta:1, explicacion:"Coercibilidad = posibilidad de aplicar la fuerza para asegurar el cumplimiento." },
+    { cartilla:35, titulo:"Interioridad vs. Exterioridad", pregunta:"¿Qué caracteriza a las normas jurídicas respecto del ámbito que regulan?", opciones:["Regulan la vida anímica e intenciones","Solo regulan la conducta observable, sin importar la motivación interna","Requieren adhesión interior del sujeto","Son siempre autónomas"], correcta:1, explicacion:"Exterioridad: el Derecho solo exige el acto, no que sea realizado por deber interno." },
+
+    // ─── LECCIÓN 7: Derechos Humanos ───
+    { cartilla:36, titulo:"Antecedentes DD.HH.", pregunta:"¿En qué año se aprobó la Declaración Universal de Derechos Humanos?", opciones:["1776","1945","1948","1969"], correcta:2, explicacion:"La Declaración Universal fue adoptada por la ONU el 10 de diciembre de 1948 en París." },
+    { cartilla:36, titulo:"Antecedentes DD.HH.", pregunta:"¿Qué documento de 1789 proclamó que todos los ciudadanos son iguales ante la ley?", opciones:["Carta Magna","Petición de Derechos","Declaración de Independencia EE.UU.","Declaración del Hombre y del Ciudadano"], correcta:3, explicacion:"La Declaración del Hombre y del Ciudadano fue aprobada por la Asamblea Nacional de Francia en 1789." },
+    { cartilla:37, titulo:"Pacto de San José", pregunta:"¿Cuándo entró en vigor el Pacto de San José de Costa Rica?", opciones:["1969","1978","1989","1948"], correcta:1, explicacion:"Fue suscrito en 1969 pero entró en vigor el 18 de julio de 1978." },
+    { cartilla:37, titulo:"Órganos del Sistema Interamericano", pregunta:"¿Cuáles son los dos órganos creados por la Convención Americana para proteger los DD.HH.?", opciones:["Congreso y Senado","ONU y UNESCO","Comisión IDH y Corte IDH","Defensor del Pueblo y Fiscalía"], correcta:2, explicacion:"La Convención Americana creó la Comisión Interamericana y la Corte Interamericana de DD.HH." },
+    { cartilla:38, titulo:"Paraguay y DD.HH.", pregunta:"¿Cuál fue la primera ley aprobada por el Congreso paraguayo en la era democrática?", opciones:["La Constitución de 1992","La Ley N° 189 que ratificó el Pacto de San José","El nuevo Código Civil","La Ley Electoral"], correcta:1, explicacion:"La Ley N° 189 del 18 de agosto de 1989 fue la primera del Congreso en la nueva democracia." },
+    { cartilla:38, titulo:"CN 1992 — nuevas figuras", pregunta:"¿Qué garantía de la CN 1992 permite acceder y corregir datos personales en registros públicos o privados?", opciones:["Hábeas Corpus","Hábeas Data","Amparo","Recurso de apelación"], correcta:1, explicacion:"El Hábeas Data permite conocer, actualizar y rectificar datos personales en registros." },
+
+    // ─── LECCIÓN 8: Constitucionalismo Social y Democracia ───
+    { cartilla:39, titulo:"Constitucionalismo Social", pregunta:"¿Cuál fue la primera constitución en plasmar derechos sociales?", opciones:["Constitución argentina de 1853","Constitución de Weimar (1919)","Constitución de Querétaro, México (1917)","Constitución paraguaya de 1992"], correcta:2, explicacion:"La Constitución mexicana de 1917 fue la primera en incorporar derechos sociales y económicos." },
+    { cartilla:40, titulo:"Tipos de Democracia", pregunta:"¿Qué tipo de democracia se practicaba en la antigua Atenas?", opciones:["Representativa","Semidirecta","Directa","Autocrática"], correcta:2, explicacion:"En Atenas los ciudadanos participaban directamente en las decisiones sin representantes intermediarios." },
+    { cartilla:40, titulo:"Consenso y Disenso", pregunta:"¿Qué es el disenso en el contexto democrático?", opciones:["El acuerdo por mayoría","La postura de una minoría que rechaza lo adoptado, aspirando a un nuevo consenso","La abstención en una votación","El poder de veto del ejecutivo"], correcta:1, explicacion:"El disenso es la actitud crítica de una minoría que busca cambiar el consenso mayoritario." },
+    { cartilla:41, titulo:"Abuso del Derecho", pregunta:"Según el Código Civil paraguayo, ¿qué consecuencias genera el abuso del Derecho?", opciones:["Solo una multa administrativa","Restaurar la situación anterior y resarcir el daño","Nulidad del contrato","Pérdida de la ciudadanía"], correcta:1, explicacion:"Arts. 311-312 C.C.: quien abusa de su derecho debe restaurar la situación y resarcir el daño material o moral." },
+
+    // ─── LECCIÓN 9: El Estado ───
+    { cartilla:42, titulo:"Elementos del Estado", pregunta:"¿Cuál de los siguientes NO es un elemento constitutivo del Estado?", opciones:["Territorio","Idioma oficial","Población","Poder soberano"], correcta:1, explicacion:"Los tres elementos son: población, territorio y poder soberano. El idioma es un atributo cultural." },
+    { cartilla:43, titulo:"Estado y Nación", pregunta:"¿Qué ejemplo ilustra un Estado sin base nacional propia?", opciones:["Brasil","Ciudad del Vaticano","Argentina","Suiza"], correcta:1, explicacion:"Ciudad del Vaticano es un Estado de base religiosa-institucional, no nacional." },
+    { cartilla:43, titulo:"Estado y Nación", pregunta:"¿Qué es la conciencia nacional como elemento de la Nación?", opciones:["La lengua oficial reconocida por el Estado","El sentimiento de unidad y de un destino común entre los miembros del pueblo","El conjunto de leyes que rigen el territorio","El poder soberano del gobierno"], correcta:1, explicacion:"La conciencia nacional es el vínculo subjetivo de identidad y destino compartido que une a los miembros de una nación." },
+    { cartilla:44, titulo:"Doble personalidad del Estado", pregunta:"¿Cuándo actúa el Estado como persona de Derecho Privado?", opciones:["Cuando sanciona leyes","Cuando expropia bienes","Cuando alquila o vende sus inmuebles a particulares","Cuando declara el estado de excepción"], correcta:2, explicacion:"En contratos patrimoniales el Estado actúa en igualdad de condiciones con los particulares (Derecho Privado)." },
+    { cartilla:44, titulo:"Centralización y Descentralización", pregunta:"¿Qué hay cuando el sistema jurídico se aplica uniformemente en todo el territorio sin distinción?", opciones:["Descentralización","Autonomía","Centralización","Federalismo"], correcta:2, explicacion:"La centralización implica que las normas jurídicas tienen aplicación total y uniforme en el territorio." },
+
+    // ─── LECCIÓN 10: Regulación técnica y ética ───
+    { cartilla:45, titulo:"Técnica vs. Ética", pregunta:"Si una actividad busca la bondad y perfección del sujeto que actúa, su regulación corresponde a…", opciones:["Reglas técnicas","Reglas lógicas","Normas éticas","Reglas estéticas"], correcta:2, explicacion:"Cuando el fin es la bondad y perfección del sujeto, la regulación es ética, no técnica." },
+    { cartilla:45, titulo:"Técnica vs. Ética", pregunta:"Las reglas que usa un cirujano para que su operación tenga éxito son…", opciones:["Normas éticas","Normas jurídicas","Reglas técnicas","Normas morales"], correcta:2, explicacion:"Buscan un fin práctico/útil (éxito de la operación), por eso son reglas técnicas." },
+    { cartilla:46, titulo:"Reglas técnicas: caracteres", pregunta:"¿Cuál es el fin de las reglas técnicas?", opciones:["La bondad interior del sujeto","La perfección espiritual","Alcanzar la verdad, la belleza o fines de utilidad práctica","Regular la conducta intersubjetiva"], correcta:2, explicacion:"Las reglas técnicas regulan el hacer humano para lograr verdad, belleza o utilidad práctica." },
+    { cartilla:46, titulo:"Reglas técnicas: tipos", pregunta:"Las reglas que regulan los modos de la discusión argumentada se llaman…", opciones:["Lógicas","Estéticas","Higiénicas","Dialécticas"], correcta:3, explicacion:"Las reglas dialécticas regulan los modos de la discusión y argumentación." },
+    { cartilla:47, titulo:"Norma: deber ser", pregunta:"¿Qué tres elementos comprende la estructura lógica de una norma?", opciones:["Sujeto, verbo y objeto","Hecho antecedente, hecho consecuente y la relación que los une","Norma, sanción y juez","Persona, cosa y causa"], correcta:1, explicacion:"La norma dice: dado A (antecedente), debe ser B (consecuente); el deber ser es el vínculo." },
+    { cartilla:47, titulo:"Norma y Canon", pregunta:"¿Qué nombre recibe el ordenamiento jurídico de la Iglesia Católica?", opciones:["Derecho eclesiástico","Derecho pontificio","Derecho canónico","Derecho sacro"], correcta:2, explicacion:"El Derecho canónico toma su nombre del vocablo 'canon', sinónimo de norma en el ámbito religioso." },
+    { cartilla:48, titulo:"Ley natural vs. Norma", pregunta:"¿Cuál es el fin de la ley natural?", opciones:["Perfeccionar la conducta del hombre","Indicar cómo debe obrar el sujeto","Intelectivo: explicar relaciones constantes en la naturaleza","Sancionar las violaciones al orden jurídico"], correcta:2, explicacion:"La ley natural tiene fin intelectivo: explica las relaciones causales constantes entre fenómenos naturales." },
+    { cartilla:48, titulo:"Ley natural vs. Norma", pregunta:"¿A qué reino pertenece la norma jurídica según esta distinción?", opciones:["Al reino de la naturaleza","Al reino divino","Al reino de la cultura","Al reino de la lógica pura"], correcta:2, explicacion:"La norma es una ley cultural: pertenece al reino de la cultura, no al de la naturaleza." },
+    { cartilla:49, titulo:"Clasificación normas éticas", pregunta:"¿Cuáles son los cuatro grupos de normas éticas?", opciones:["Civiles, penales, laborales y administrativas","Religiosas, morales, de trato social y jurídicas","Públicas, privadas, mixtas e internacionales","Autónomas, heterónomas, bilaterales e incoercibles"], correcta:1, explicacion:"Los cuatro grupos son: religiosas, morales, de trato social y jurídicas." },
+    { cartilla:49, titulo:"Ética como ciencia", pregunta:"En sentido amplio, ¿qué tres órdenes normativos forman parte de la Ética?", opciones:["Derecho, política y economía","Religión, Moral y Derecho","Filosofía, Lógica y Derecho","Moral, costumbre y ley"], correcta:1, explicacion:"En sentido amplio la Ética comprende la Religión, la Moral y el Derecho como órdenes normativos fundamentales." },
+  ];
+
+  // ═══════════════════════════════════════════════════════
+  //  MODO EXAMEN
+  // ═══════════════════════════════════════════════════════
+  (function () {
+    var preguntas = [], cur = 0, aciertos = 0, registros = [];
+    var numP = 10, modoTiempo = '5', segs = 0, tiempoRest = 0;
+    var inicio = null, cuentaReg = null;
+
+    // Config: cantidad
+    document.querySelectorAll('.num-btn').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        document.querySelectorAll('.num-btn').forEach(function (b) { b.classList.remove('sel'); });
+        btn.classList.add('sel');
+        numP = btn.dataset.n === 'Todas' ? BANCO.length : parseInt(btn.dataset.n);
+      });
+    });
+
+    // Config: tiempo
+    document.querySelectorAll('.modo-btn').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        document.querySelectorAll('.modo-btn').forEach(function (b) { b.classList.remove('sel'); });
+        btn.classList.add('sel');
+        modoTiempo = btn.dataset.modo;
+      });
+    });
+
+    // Empezar
+    document.getElementById('btnEmpezar').addEventListener('click', function () {
+      var n    = Math.min(numP, BANCO.length);
+      preguntas = shuffle(BANCO.slice()).slice(0, n);
+      cur = 0; aciertos = 0; registros = [];
+      segs  = parseInt(modoTiempo);
+      inicio = Date.now();
+
+      show('pantallaInicio',    false);
+      show('pantallaExamen',    true);
+      show('pantallaResultado', false);
+      document.getElementById('timerDisplay').style.display = 'block';
+      mostrarPregunta();
+    });
+
+    function mostrarPregunta() {
+      clearInterval(cuentaReg);
+      var p    = preguntas[cur];
+      var tot  = preguntas.length;
+      var lets = ['A','B','C','D'];
+      var ord  = shuffle([0,1,2,3].slice(0, p.opciones.length));
+
+      document.getElementById('examPbar').style.width = ((cur / tot) * 100) + '%';
+      document.getElementById('examPbarLabel').textContent = (cur + 1) + ' / ' + tot;
+      document.getElementById('scoreLive').textContent = '✅ ' + aciertos;
+
+      var html = '<div class="pregunta-num">Pregunta ' + (cur+1) + ' de ' + tot + '</div>' +
+        '<div class="origen-tag">📚 Cartilla ' + p.cartilla + ': ' + p.titulo + '</div>' +
+        '<div class="pregunta-texto">' + p.pregunta + '</div>' +
+        '<div class="opciones" id="opcionesContainer">';
+
+      ord.forEach(function (oi, li) {
+        var esCorr = oi === p.correcta ? 1 : 0;
+        html += '<button class="opcion-btn" data-original="' + oi + '" data-escorr="' + esCorr + '" data-corrIdx="' + p.correcta + '">' +
+          '<span class="letra-opcion">' + lets[li] + '</span>' + p.opciones[oi] + '</button>';
+      });
+
+      html += '</div><div class="feedback-box" id="feedbackBox"></div>' +
+        '<button class="btn-siguiente" id="btnSiguiente">' +
+        (cur === tot - 1 ? 'Ver resultados →' : 'Siguiente →') + '</button>';
+
+      document.getElementById('preguntaCard').innerHTML = html;
+
+      // Listeners de opciones
+      document.querySelectorAll('.opcion-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () { responder(btn); });
+      });
+      document.getElementById('btnSiguiente').addEventListener('click', siguiente);
+
+      // Timer
+      tiempoRest = segs;
+      actualizarTimer();
+      cuentaReg = setInterval(function () {
+        tiempoRest--;
+        actualizarTimer();
+        if (tiempoRest <= 0) { clearInterval(cuentaReg); tiempoAgotado(); }
+      }, 1000);
+    }
+
+    function actualizarTimer() {
+      var el = document.getElementById('timerDisplay');
+      el.textContent = '⏱ ' + tiempoRest + 's';
+      el.classList.toggle('urgente', tiempoRest <= 3);
+    }
+
+    function tiempoAgotado() {
+      var p = preguntas[cur];
+      document.querySelectorAll('.opcion-btn').forEach(function (b) {
+        b.disabled = true;
+        if (parseInt(b.dataset.original) === p.correcta) b.classList.add('correcto');
+      });
+      var fb = document.getElementById('feedbackBox');
+      fb.className = 'feedback-box incorrecto'; fb.style.display = 'block';
+      fb.textContent = '⏰ ¡Tiempo agotado! ' + p.explicacion;
+      document.getElementById('btnSiguiente').style.display = 'block';
+      registros.push({ p:p, elegida:-1, correcto:false });
+    }
+
+    function responder(btn) {
+      clearInterval(cuentaReg);
+      var p       = preguntas[cur];
+      var esCorr  = parseInt(btn.dataset.escorr);
+      var corrIdx = parseInt(btn.dataset.corrIdx);
+      var elegida = parseInt(btn.dataset.original);
+
+      document.querySelectorAll('.opcion-btn').forEach(function (b) {
+        b.disabled = true;
+        if (parseInt(b.dataset.original) === corrIdx) b.classList.add('correcto');
+      });
+
+      var fb = document.getElementById('feedbackBox');
+      fb.style.display = 'block';
+      if (esCorr) {
+        aciertos++;
+        document.getElementById('scoreLive').textContent = '✅ ' + aciertos;
+        btn.classList.add('correcto');
+        fb.className = 'feedback-box correcto';
+        fb.textContent = '✅ ¡Correcto! ' + p.explicacion;
+      } else {
+        btn.classList.add('incorrecto');
+        fb.className = 'feedback-box incorrecto';
+        fb.textContent = '❌ Incorrecto. ' + p.explicacion;
+      }
+      document.getElementById('btnSiguiente').style.display = 'block';
+      registros.push({ p:p, elegida:elegida, correcto:!!esCorr });
+    }
+
+    function siguiente() {
+      cur++;
+      if (cur >= preguntas.length) mostrarResultado();
+      else mostrarPregunta();
+    }
+
+    function mostrarResultado() {
+      clearInterval(cuentaReg);
+      var tiempoTotal = Math.round((Date.now() - inicio) / 1000);
+      show('pantallaExamen',    false);
+      show('pantallaResultado', true);
+
+      var tot  = preguntas.length;
+      var pct  = Math.round((aciertos / tot) * 100);
+      var incorr = tot - aciertos;
+
+      var trofeo, titulo, subtitulo, clase;
+      if (pct >= 90)      { trofeo='🏆'; titulo='¡Excelente!';     subtitulo='Dominás los conceptos de Ciencias Jurídicas.'; clase='excelente'; }
+      else if (pct >= 70) { trofeo='🎯'; titulo='¡Muy bien!';       subtitulo='Buen manejo. Repasá los errores.';            clase='bueno'; }
+      else if (pct >= 50) { trofeo='📚'; titulo='En proceso';       subtitulo='Vas por buen camino. Revisá las cartillas.';  clase='bueno'; }
+      else                { trofeo='💡'; titulo='Hay que repasar';  subtitulo='Volvé a las cartillas e intentalo de nuevo.'; clase='regular'; }
+
+      document.getElementById('trofeoEmoji').textContent      = trofeo;
+      document.getElementById('resultadoTitulo').textContent  = titulo;
+      document.getElementById('resultadoSubtitulo').textContent = subtitulo;
+      var scoreEl = document.getElementById('scorePorcentaje');
+      scoreEl.textContent  = pct + '%';
+      scoreEl.className    = 'score-grande ' + clase;
+      document.getElementById('scoreDetalle').textContent     = aciertos + ' correctas de ' + tot;
+      document.getElementById('statCorrectas').textContent    = aciertos;
+      document.getElementById('statIncorrectas').textContent  = incorr;
+      document.getElementById('statTiempo').textContent       = fmtT(tiempoTotal);
+
+      // Mensaje repaso
+      var fallidas = registros.filter(function (r) { return !r.correcto; });
+      var msgHTML  = '<div class="titulo-mensaje">📌 Temas para repasar</div>';
+      if (!fallidas.length) {
+        msgHTML += 'Respondiste todo correctamente. ¡Revisá igual para consolidar!';
+      } else {
+        var uniq = [];
+        fallidas.forEach(function (r) {
+          var t = 'Cartilla ' + r.p.cartilla + ': ' + r.p.titulo;
+          if (uniq.indexOf(t) === -1) uniq.push(t);
+        });
+        msgHTML += 'Te recomendamos repasar:<ul style="margin-top:.5rem;padding-left:1.3rem">' +
+          uniq.map(function (c) { return '<li>' + c + '</li>'; }).join('') + '</ul>';
+      }
+      document.getElementById('mensajeResultado').innerHTML = msgHTML;
+
+      // Detalle
+      var lista = document.getElementById('detalleLista');
+      lista.innerHTML = registros.map(function (r, i) {
+        var elegTxt  = r.elegida === -1 ? 'Sin respuesta (tiempo agotado)' : r.p.opciones[r.elegida];
+        var corrTxt  = r.p.opciones[r.p.correcta];
+        return '<div class="detalle-item ' + (r.correcto ? 'ok' : 'fail') + '">' +
+          '<div class="detalle-cartilla">Cartilla ' + r.p.cartilla + ' · ' + r.p.titulo + '</div>' +
+          '<div class="detalle-preg">' + (i+1) + '. ' + r.p.pregunta + '</div>' +
+          '<div class="detalle-resp">Tu respuesta: <span class="' + (r.correcto?'ok':'fail') + '">' + elegTxt + '</span>' +
+          (!r.correcto ? '<br>Correcta: <span class="ok">' + corrTxt + '</span>' : '') + '</div></div>';
+      }).join('');
+
+      document.getElementById('detalleToggle').onclick = function () {
+        lista.classList.toggle('visible');
+        this.textContent = lista.classList.contains('visible') ? '🔼 Ocultar detalle' : '📋 Ver detalle de respuestas';
+      };
+    }
+
+    // Botón reintentar
+    document.getElementById('btnReintentar').addEventListener('click', function () {
+      show('pantallaResultado', false);
+      show('pantallaInicio',    true);
+    });
+
+    // Botón volver a cartillas
+    document.getElementById('btnVolverCartillas').addEventListener('click', function () {
+      cambiarVista('cartillas');
+    });
+
+  })();
+
+  // ─── Utilidades ────────────────────────────────────────
+  function show(id, visible) {
+    document.getElementById(id).style.display = visible ? (id === 'pantallaInicio' ? 'flex' : 'block') : 'none';
+  }
+  function shuffle(arr) {
+    for (var i = arr.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var t = arr[i]; arr[i] = arr[j]; arr[j] = t;
+    }
+    return arr;
+  }
+  function fmtT(s) {
+    var m = Math.floor(s / 60), ss = s % 60;
+    return m > 0 ? m + 'm ' + ss + 's' : ss + 's';
   }
 
-  btnPrev.addEventListener('click', () => {
-    if (index > 0) {
-      index--;
-      actualizarVista();
-    }
-  });
+}); // fin DOMContentLoaded
 
-  btnNext.addEventListener('click', () => {
-    if (index < total - 1) {
-      index++;
-      actualizarVista();
-    }
-  });
-
-  actualizarVista();
 </script>
-
 </body>
 </html>
