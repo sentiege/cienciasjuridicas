@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modo Examen – Ciencias Jurídicas</title>
+  <style>
+    :root {
+      --azul: #1565c0;
+      --azul-claro: #e3f0ff;
+      --acento: #f57c00;
+      --verde: #2e7d32;
+      --rojo: #c62828;
+      --fondo: #f0f4f8;
+      --tarjeta: #ffffff;
+      --texto: #1a1a2e;
+      --gris: #6b7280;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--fondo);
+      color: var(--texto);
+      min-height: 100vh;
+    }
+
+    /* ── PANTALLA INICIO ── */
+    #pantallaInicio {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 2rem 1rem;
+      text-align: center;
+    }
+    .logo-examen {
+      font-size: 3.5rem;
+      margin-bottom: 0.5rem;
+    }
+    #pantallaInicio h1 {
+      font-size: 1.7rem;
+      color: var(--azul);
+      margin-bottom: 0.4rem;
+    }
+    #pantallaInicio p {
+      color: var(--gris);
+      margin-bottom: 1.5rem;
+      max-width: 420px;
+      line-height: 1.6;
+    }
+    .config-card {
+      background: white;
+      border-radius: 16px;
+      padding: 1.5rem 2rem;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      max-width: 420px;
+      width: 100%;
+      margin-bottom: 1.5rem;
+    }
+    .config-label {
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--gris);
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+    .num-selector {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 1.2rem;
+    }
+    .num-btn {
+      padding: 0.45rem 1rem;
+      border-radius: 999px;
+      border: 2px solid #dde3ea;
+      background: white;
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--gris);
+      transition: all 0.15s;
+    }
+    .num-btn.sel {
+      border-color: var(--azul);
+      background: var(--azul);
+      color: white;
+    }
+    .modo-selector {
+      display: flex;
+      gap: 0.5rem;
+    }
+    .modo-btn {
+      flex: 1;
+      padding: 0.55rem 0.5rem;
+      border-radius: 8px;
+      border: 2px solid #dde3ea;
+      background: white;
+      cursor: pointer;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--gris);
+      transition: all 0.15s;
+      text-align: center;
+    }
+    .modo-btn.sel {
+      border-color: var(--azul);
+      background: var(--azul-claro);
+      color: var(--azul);
+    }
+    .btn-empezar {
+      background: var(--azul);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      padding: 0.85rem 2.5rem;
+      font-size: 1.05rem;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(21,101,192,0.35);
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .btn-empezar:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(21,101,192,0.4); }
+    .btn-empezar:active { transform: scale(0.97); }
+
+    /* ── PANTALLA EXAMEN ── */
+    #pantallaExamen { display: none; }
+    .exam-header {
+      background: linear-gradient(135deg, #1565c0, #0d47a1);
+      color: white;
+      padding: 1rem 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .exam-header h2 { font-size: 1rem; flex: 1; }
+    .badge-tiempo {
+      background: rgba(255,255,255,0.2);
+      border-radius: 999px;
+      padding: 0.3rem 0.85rem;
+      font-size: 0.85rem;
+      font-weight: 700;
+      min-width: 60px;
+      text-align: center;
+    }
+    .badge-tiempo.urgente { background: rgba(255,100,100,0.4); animation: pulso 1s infinite; }
+    @keyframes pulso { 0%,100%{opacity:1} 50%{opacity:0.6} }
+
+    .exam-container { max-width: 700px; margin: 0 auto; padding: 1.5rem 1rem; }
+
+    .progreso-examen {
+      background: white;
+      border-radius: 10px;
+      padding: 0.75rem 1.1rem;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    }
+    .pbar-bg {
+      flex: 1;
+      height: 8px;
+      background: #dde3ea;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+    .pbar-fill {
+      height: 8px;
+      background: linear-gradient(90deg, #1565c0, #42a5f5);
+      border-radius: 999px;
+      transition: width 0.4s ease;
+    }
+    .pbar-label { font-size: 0.82rem; color: var(--gris); white-space: nowrap; }
+    .score-live {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--verde);
+      white-space: nowrap;
+    }
+
+    .pregunta-card {
+      background: white;
+      border-radius: 14px;
+      padding: 1.5rem 1.6rem;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.07);
+      animation: fadeIn 0.3s ease;
+    }
+    @keyframes fadeIn { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
+
+    .pregunta-num {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--azul);
+      margin-bottom: 0.6rem;
+    }
+    .pregunta-texto {
+      font-size: 1.05rem;
+      font-weight: 600;
+      line-height: 1.5;
+      margin-bottom: 1.1rem;
+      color: var(--texto);
+    }
+    .origen-tag {
+      display: inline-block;
+      font-size: 0.72rem;
+      background: var(--azul-claro);
+      color: var(--azul);
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+      margin-bottom: 1rem;
+      font-weight: 600;
+    }
+    .opciones { display: flex; flex-direction: column; gap: 0.5rem; }
+    .opcion-btn {
+      background: #f8fafc;
+      border: 2px solid #dde3ea;
+      border-radius: 10px;
+      padding: 0.65rem 1rem;
+      text-align: left;
+      cursor: pointer;
+      font-size: 0.92rem;
+      line-height: 1.4;
+      color: var(--texto);
+      transition: background 0.15s, border-color 0.15s, transform 0.1s;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .opcion-btn:hover:not(:disabled) {
+      background: var(--azul-claro);
+      border-color: var(--azul);
+      transform: translateX(3px);
+    }
+    .letra-opcion {
+      font-weight: 700;
+      font-size: 0.82rem;
+      color: var(--azul);
+      min-width: 1.4rem;
+      text-align: center;
+    }
+    .opcion-btn.correcto { background: #e8f5e9; border-color: var(--verde); }
+    .opcion-btn.correcto .letra-opcion { color: var(--verde); }
+    .opcion-btn.incorrecto { background: #ffeaea; border-color: var(--rojo); }
+    .opcion-btn.incorrecto .letra-opcion { color: var(--rojo); }
+
+    .feedback-box {
+      margin-top: 1rem;
+      padding: 0.75rem 1rem;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      display: none;
+    }
+    .feedback-box.correcto { background: #e8f5e9; color: var(--verde); display: block; }
+    .feedback-box.incorrecto { background: #ffeaea; color: var(--rojo); display: block; }
+
+    .btn-siguiente {
+      margin-top: 1rem;
+      width: 100%;
+      background: var(--azul);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      padding: 0.75rem;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: none;
+      transition: opacity 0.2s;
+    }
+    .btn-siguiente:hover { opacity: 0.9; }
+
+    /* ── PANTALLA RESULTADO ── */
+    #pantallaResultado {
+      display: none;
+      min-height: 100vh;
+      padding: 2rem 1rem;
+    }
+    .resultado-container {
+      max-width: 600px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .trofeo { font-size: 5rem; margin-bottom: 0.5rem; }
+    .resultado-titulo {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--azul);
+      margin-bottom: 0.25rem;
+    }
+    .resultado-subtitulo {
+      font-size: 0.95rem;
+      color: var(--gris);
+      margin-bottom: 1.5rem;
+    }
+    .score-grande {
+      font-size: 4.5rem;
+      font-weight: 900;
+      line-height: 1;
+      margin-bottom: 0.25rem;
+    }
+    .score-grande.excelente { color: var(--verde); }
+    .score-grande.bueno { color: #f57c00; }
+    .score-grande.regular { color: var(--rojo); }
+    .score-detalle {
+      font-size: 0.9rem;
+      color: var(--gris);
+      margin-bottom: 1.5rem;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+    .stat-box {
+      background: white;
+      border-radius: 12px;
+      padding: 1rem 0.5rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    }
+    .stat-num { font-size: 1.8rem; font-weight: 800; }
+    .stat-num.verde { color: var(--verde); }
+    .stat-num.rojo { color: var(--rojo); }
+    .stat-num.azul { color: var(--azul); }
+    .stat-label { font-size: 0.75rem; color: var(--gris); margin-top: 0.2rem; }
+
+    .mensaje-resultado {
+      background: white;
+      border-radius: 12px;
+      padding: 1rem 1.5rem;
+      margin-bottom: 1.5rem;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+      text-align: left;
+    }
+    .mensaje-resultado .titulo-mensaje {
+      font-weight: 700;
+      color: var(--azul);
+      margin-bottom: 0.4rem;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    /* Detalle de respuestas */
+    .detalle-section { text-align: left; margin-bottom: 1.5rem; }
+    .detalle-toggle {
+      background: none;
+      border: 2px solid #dde3ea;
+      border-radius: 8px;
+      padding: 0.55rem 1rem;
+      width: 100%;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      color: var(--gris);
+      margin-bottom: 0.75rem;
+      transition: background 0.15s;
+    }
+    .detalle-toggle:hover { background: #f0f4f8; }
+    .detalle-lista { display: none; }
+    .detalle-lista.visible { display: block; }
+    .detalle-item {
+      background: white;
+      border-radius: 10px;
+      padding: 0.85rem 1rem;
+      margin-bottom: 0.5rem;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+      border-left: 4px solid transparent;
+    }
+    .detalle-item.ok { border-left-color: var(--verde); }
+    .detalle-item.fail { border-left-color: var(--rojo); }
+    .detalle-preg { font-size: 0.88rem; font-weight: 600; margin-bottom: 0.35rem; }
+    .detalle-resp { font-size: 0.82rem; color: var(--gris); }
+    .detalle-resp span.ok { color: var(--verde); font-weight: 600; }
+    .detalle-resp span.fail { color: var(--rojo); font-weight: 600; }
+    .detalle-cartilla { font-size: 0.72rem; color: var(--azul); font-weight: 600; }
+
+    .btns-resultado {
+      display: flex;
+      gap: 0.75rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .btn-resultado {
+      padding: 0.75rem 1.5rem;
+      border-radius: 10px;
+      border: none;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.1s;
+    }
+    .btn-resultado:hover { opacity: 0.88; transform: translateY(-1px); }
+    .btn-reintentar { background: var(--azul); color: white; }
+    .btn-volver { background: #e0e7ef; color: var(--texto); }
+  </style>
+</head>
+<body>
+
+<!-- ════ PANTALLA INICIO ════ -->
+<div id="pantallaInicio">
+  <div class="logo-examen">⚖️</div>
+  <h1>Modo Examen</h1>
+  <p>Respondé preguntas aleatorias de todas las cartillas y comprobá cuánto sabés de Introducción a las Ciencias Jurídicas.</p>
+
+  <div class="config-card">
+    <span class="config-label">¿Cuántas preguntas?</span>
+    <div class="num-selector" id="numSelector">
+      <button class="num-btn" data-n="5">5</button>
+      <button class="num-btn sel" data-n="10">10</button>
+      <button class="num-btn" data-n="15">15</button>
+      <button class="num-btn" data-n="20">20</button>
+      <button class="num-btn" data-n="26">Todas</button>
+    </div>
+
+    <span class="config-label">Modo de tiempo</span>
+    <div class="modo-selector" id="modoSelector">
+      <button class="modo-btn sel" data-modo="libre">🕊️ Sin límite</button>
+      <button class="modo-btn" data-modo="30">⚡ 30 seg/preg</button>
+      <button class="modo-btn" data-modo="20">🔥 20 seg/preg</button>
+    </div>
+  </div>
+
+  <button class="btn-empezar" id="btnEmpezar">Comenzar examen →</button>
+</div>
+
+<!-- ════ PANTALLA EXAMEN ════ -->
+<div id="pantallaExamen">
+  <div class="exam-header">
+    <h2>Introducción a las Ciencias Jurídicas</h2>
+    <div class="badge-tiempo" id="timerDisplay" style="display:none">⏱ --</div>
+  </div>
+  <div class="exam-container">
+    <div class="progreso-examen">
+      <div class="pbar-bg"><div class="pbar-fill" id="examPbar"></div></div>
+      <span class="pbar-label" id="examPbarLabel">1 / 10</span>
+      <span class="score-live" id="scoreLive">✅ 0</span>
+    </div>
+    <div class="pregunta-card" id="preguntaCard">
+      <!-- Llenado por JS -->
+    </div>
+  </div>
+</div>
+
+<!-- ════ PANTALLA RESULTADO ════ -->
+<div id="pantallaResultado">
+  <div class="resultado-container">
+    <div class="trofeo" id="trofeoEmoji"></div>
+    <div class="resultado-titulo" id="resultadoTitulo"></div>
+    <div class="resultado-subtitulo" id="resultadoSubtitulo"></div>
+    <div class="score-grande" id="scorePorcentaje"></div>
+    <div class="score-detalle" id="scoreDetalle"></div>
+
+    <div class="stats-grid">
+      <div class="stat-box">
+        <div class="stat-num verde" id="statCorrectas">0</div>
+        <div class="stat-label">Correctas</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num rojo" id="statIncorrectas">0</div>
+        <div class="stat-label">Incorrectas</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num azul" id="statTiempo">--</div>
+        <div class="stat-label">Tiempo total</div>
+      </div>
+    </div>
+
+    <div class="mensaje-resultado" id="mensajeResultado"></div>
+
+    <div class="detalle-section">
+      <button class="detalle-toggle" id="detalleToggle">📋 Ver detalle de respuestas</button>
+      <div class="detalle-lista" id="detalleLista"></div>
+    </div>
+
+    <div class="btns-resultado">
+      <button class="btn-resultado btn-volver" id="btnVolver">← Volver</button>
+      <button class="btn-resultado btn-reintentar" id="btnReintentar">🔄 Nuevo examen</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ═══════════════════════════════════════
+//  BANCO DE PREGUNTAS (26 preguntas)
+// ═══════════════════════════════════════
+const BANCO = [
+  {
+    cartilla: 2,
+    titulo: "Vocablo Derecho: jus, fas y etimología",
+    pregunta: "¿Qué concepto romano designaba el derecho divino?",
+    opciones: ["Jus", "Fas", "Directus", "Rectus"],
+    correcta: 1,
+    explicacion: "El fas era el derecho divino, lo permitido y manifestado por los dioses a través de los sacerdotes. El jus era el derecho humano."
+  },
+  {
+    cartilla: 2,
+    titulo: "Vocablo Derecho: jus, fas y etimología",
+    pregunta: "La palabra 'Derecho' del latín medieval deriva de 'directus', que significa:",
+    opciones: ["Mandar con fuerza", "Guiar, enderezar", "Unir y juntar", "Sancionar"],
+    correcta: 1,
+    explicacion: "Directus es participio de dirigere (guiar, enderezar), vinculado a la influencia cristiana de conducir al hombre hacia el bien."
+  },
+  {
+    cartilla: 3,
+    titulo: "Acepciones del Derecho",
+    pregunta: "El conjunto de reglas obligatorias cuyo cumplimiento puede imponerse por coacción es el Derecho…",
+    opciones: ["Objetivo", "Subjetivo", "Natural", "Divino"],
+    correcta: 0,
+    explicacion: "El Derecho objetivo o derecho-norma es el conjunto de reglas obligatorias de la vida social garantizadas por coacción exterior."
+  },
+  {
+    cartilla: 3,
+    titulo: "Acepciones del Derecho",
+    pregunta: "El derecho a la legítima defensa es un ejemplo de Derecho…",
+    opciones: ["Objetivo", "Subjetivo", "Positivo", "Consuetudinario"],
+    correcta: 1,
+    explicacion: "El Derecho subjetivo es el poder o facultad legítima para exigir algo. La legítima defensa es una facultad del sujeto."
+  },
+  {
+    cartilla: 4,
+    titulo: "Derecho positivo y natural",
+    pregunta: "¿En qué radica la diferencia central entre Derecho positivo y Derecho natural?",
+    opciones: ["Uno está escrito y el otro no", "Uno es vigente y el otro histórico", "En el fundamento de su validez", "En el ámbito de aplicación territorial"],
+    correcta: 2,
+    explicacion: "El positivo vale porque fue creado por el hombre; el natural vale por su conformidad con la razón y la naturaleza humana."
+  },
+  {
+    cartilla: 5,
+    titulo: "Fenómeno jurídico",
+    pregunta: "En la estructura lógica de la norma jurídica, el hecho consecuente…",
+    opciones: ["Es siempre un castigo", "Es lo que 'debe ser' dado un antecedente", "Es lo que causó el acto", "Es optativo para el sujeto"],
+    correcta: 1,
+    explicacion: "La norma enlaza un hecho antecedente con un hecho consecuente que 'debe ser', según la estructura de imputación."
+  },
+  {
+    cartilla: 6,
+    titulo: "Definición del Derecho",
+    pregunta: "¿Quién definió el Derecho como 'sistema de normas coercibles que rigen la conducta humana en su interferencia intersubjetiva'?",
+    opciones: ["Abelardo Torré", "Rudolf von Ihering", "Immanuel Kant", "Del Vecchio"],
+    correcta: 0,
+    explicacion: "Abelardo Torré es el autor de esta definición, que es una de las más usadas en la enseñanza del Derecho en Paraguay y Argentina."
+  },
+  {
+    cartilla: 6,
+    titulo: "Definición del Derecho",
+    pregunta: "Ihering definió el Derecho como 'la suma de condiciones de la vida social aseguradas por el Estado mediante…'",
+    opciones: ["Leyes escritas", "El consenso popular", "Coacción externa", "Principios naturales"],
+    correcta: 2,
+    explicacion: "Von Ihering pone énfasis en la coacción externa ejercida por el Estado como elemento definitorio del Derecho."
+  },
+  {
+    cartilla: 7,
+    titulo: "Pirámide de Kelsen",
+    pregunta: "Según Kelsen, ¿qué se ubica en la cúspide del ordenamiento jurídico?",
+    opciones: ["Las leyes ordinarias", "Los decretos del Ejecutivo", "La Constitución", "Los tratados internacionales"],
+    correcta: 2,
+    explicacion: "La pirámide de Kelsen ubica la Constitución en la cúspide; cada nivel debe ser válido conforme al superior."
+  },
+  {
+    cartilla: 7,
+    titulo: "Pirámide de Kelsen",
+    pregunta: "La máxima 'Ubi societas, ibi ius' significa:",
+    opciones: ["El Derecho está por encima del Estado", "Donde hay sociedad, hay Derecho", "El Derecho es igual para todos", "Sin ley no hay delito"],
+    correcta: 1,
+    explicacion: "Ubi societas, ibi ius expresa que el Derecho es indispensable para regular toda sociedad humana."
+  },
+  {
+    cartilla: 8,
+    titulo: "Caso Fátima Afif",
+    pregunta: "¿Qué principio constitucional francés justificó el despido de Fátima Afif?",
+    opciones: ["Principio de igualdad de géneros", "Principio de laicismo y neutralidad", "Principio de no discriminación", "Principio de seguridad laboral"],
+    correcta: 1,
+    explicacion: "La laicidad (separación Estado-religión) y la neutralidad en el espacio laboral fueron los fundamentos del fallo."
+  },
+  {
+    cartilla: 9,
+    titulo: "Disciplinas jurídicas",
+    pregunta: "¿Cuál de estas es una disciplina jurídica auxiliar?",
+    opciones: ["Filosofía del Derecho", "Historia del Derecho", "Sociología Jurídica", "Introducción a las Ciencias Jurídicas"],
+    correcta: 2,
+    explicacion: "La Sociología Jurídica es auxiliar porque explica el fenómeno jurídico como hecho social, apoyando a las disciplinas fundamentales."
+  },
+  {
+    cartilla: 10,
+    titulo: "Ciencia del Derecho",
+    pregunta: "¿Quién es considerado el padre de la ciencia jurídica moderna?",
+    opciones: ["Savigny", "Kelsen", "Von Ihering", "Abelardo Torré"],
+    correcta: 0,
+    explicacion: "Savigny, con su 'Sistema del Derecho Romano actual', estructuró el esquema: hecho → norma → institución → construcción → sistema."
+  },
+  {
+    cartilla: 11,
+    titulo: "Recursos técnicos jurídicos",
+    pregunta: "Una presunción que NO admite prueba en contrario se llama…",
+    opciones: ["Juris tantum", "Juris et de jure", "Estándar jurídico", "Ficción legal"],
+    correcta: 1,
+    explicacion: "Juris et de jure no admite prueba en contrario, a diferencia de juris tantum que sí puede desvirtuarse."
+  },
+  {
+    cartilla: 13,
+    titulo: "Filosofía del Derecho",
+    pregunta: "¿Qué rama de la Filosofía del Derecho estudia los valores que el orden jurídico debe realizar?",
+    opciones: ["Axiología jurídica", "Ontología jurídica", "Lógica jurídica", "Gnoseología jurídica"],
+    correcta: 0,
+    explicacion: "La axiología jurídica se ocupa de los valores (justicia, bien común, etc.) que el Derecho positivo debe perseguir."
+  },
+  {
+    cartilla: 14,
+    titulo: "Ciencia vs. Filosofía del Derecho",
+    pregunta: "¿Cuál va más allá del Derecho positivo y busca los fundamentos universales del Derecho?",
+    opciones: ["Ciencia del Derecho", "Filosofía del Derecho", "Sociología Jurídica", "Lógica Jurídica"],
+    correcta: 1,
+    explicacion: "La Filosofía del Derecho estudia los elementos universales comunes a todos los sistemas y pregunta qué debería ser el Derecho."
+  },
+  {
+    cartilla: 17,
+    titulo: "Método jurídico",
+    pregunta: "El silogismo jurídico es el método predominante del…",
+    opciones: ["Legislador al redactar leyes", "Juez al aplicar la ley", "Jurista al sistematizar", "Filósofo del derecho"],
+    correcta: 1,
+    explicacion: "El juez aplica: norma general (premisa mayor) + caso concreto (premisa menor) → sentencia (conclusión)."
+  },
+  {
+    cartilla: 20,
+    titulo: "Normas éticas",
+    pregunta: "¿Qué expresa la estructura lógica de toda norma?",
+    opciones: ["Una descripción de lo que ocurre en la realidad", "Una ley natural de causa y efecto", "Un deber ser: dado A, debe producirse B", "Una prohibición absoluta"],
+    correcta: 2,
+    explicacion: "La norma es una fórmula que expresa: supuesto el hecho antecedente A, debe producirse el hecho consecuente B."
+  },
+  {
+    cartilla: 21,
+    titulo: "Ley natural vs. norma",
+    pregunta: "¿Cuál es una diferencia fundamental entre ley natural y norma?",
+    opciones: ["La ley natural se cumple siempre; la norma puede ser violada", "La norma se cumple siempre; la ley natural puede ser violada", "Ambas regulan el deber ser", "Ambas son obra del hombre"],
+    correcta: 0,
+    explicacion: "La ley natural es infalible (causa-efecto); la norma es violable porque presupone la libertad del sujeto."
+  },
+  {
+    cartilla: 22,
+    titulo: "Clasificación de normas éticas",
+    pregunta: "¿Qué tipo de normas éticas se imponen mediante coacción institucionalizada?",
+    opciones: ["Religiosas", "Morales", "De trato social", "Jurídicas"],
+    correcta: 3,
+    explicacion: "Solo las normas jurídicas poseen coacción institucionalizada (respaldada por el Estado). Las demás carecen de esa característica."
+  },
+  {
+    cartilla: 23,
+    titulo: "Los valores",
+    pregunta: "¿Cómo se denomina la intuición no sensible con la que captamos los valores?",
+    opciones: ["Deducción", "Estimación", "Axioma", "Percepción"],
+    correcta: 1,
+    explicacion: "La estimación es la intuición especial, no sensible, que nos permite captar valores como la belleza, la verdad o la justicia."
+  },
+  {
+    cartilla: 24,
+    titulo: "Valores jurídicos",
+    pregunta: "¿Cuál es el valor jurídico supremo que armoniza a los demás?",
+    opciones: ["Orden", "Seguridad", "Justicia", "Solidaridad"],
+    correcta: 2,
+    explicacion: "La justicia es el valor supremo o central del ordenamiento jurídico; determina la armonía y equilibrio de todos los demás valores."
+  },
+  {
+    cartilla: 25,
+    titulo: "Justicia",
+    pregunta: "¿A quién se atribuye la definición clásica 'dar a cada uno lo suyo'?",
+    opciones: ["Aristóteles", "Kelsen", "Ulpiano", "Savigny"],
+    correcta: 2,
+    explicacion: "Ulpiano, jurista romano, formuló: 'justicia es la voluntad perpetua y constante de dar a cada uno lo suyo'."
+  },
+  {
+    cartilla: 27,
+    titulo: "Especies de justicia",
+    pregunta: "La justicia que distribuye bienes y honores según capacidad y méritos se llama…",
+    opciones: ["Justicia conmutativa", "Justicia distributiva", "Justicia social", "Justicia judicial"],
+    correcta: 1,
+    explicacion: "La justicia distributiva se aplica entre el Estado y los ciudadanos, distribuyendo proporcionalmente según capacidad y méritos."
+  },
+  {
+    cartilla: 28,
+    titulo: "Equidad",
+    pregunta: "¿Quién estudió la equidad como 'epiqueya' en la Antigua Grecia?",
+    opciones: ["Platón", "Sócrates", "Aristóteles", "Cicerón"],
+    correcta: 2,
+    explicacion: "Aristóteles estudió la epiqueya como la mitigación de la ley escrita atendiendo a circunstancias particulares de personas, cosas, tiempo y lugar."
+  },
+  {
+    cartilla: 29,
+    titulo: "Equidad en el Derecho paraguayo",
+    pregunta: "¿En qué código paraguayo se PROHÍBE usar la equidad para integrar la ley?",
+    opciones: ["Código Civil", "Código del Trabajo", "Código Penal", "Código Procesal Civil"],
+    correcta: 2,
+    explicacion: "El Código Penal prohíbe la equidad para integrar la ley en virtud del principio de legalidad penal (nullum crimen sine lege)."
+  },
+  {
+    cartilla: 31,
+    titulo: "Principios generales del Derecho",
+    pregunta: "¿Qué sistema sostiene que los principios generales equivalen al Derecho natural, superior al legislado?",
+    opciones: ["Sistema legalista", "Sistema filosófico", "Sistema positivista", "Sistema racionalista"],
+    correcta: 1,
+    explicacion: "El sistema filosófico identifica los principios generales con verdades jurídicas universales del Derecho natural, superiores al legislado."
+  },
+  {
+    cartilla: 32,
+    titulo: "Cosa juzgada",
+    pregunta: "La cosa juzgada requiere triple identidad. ¿Cuál de estos NO es un elemento de esa identidad?",
+    opciones: ["Identidad de jueces", "Identidad de partes", "Identidad de causa", "Identidad de objeto"],
+    correcta: 0,
+    explicacion: "La triple identidad es: partes + objeto + causa. La identidad de jueces no es un requisito de la cosa juzgada."
+  }
+];
+
+// ═══════════════════════════════════════
+//  ESTADO
+// ═══════════════════════════════════════
+let preguntas = [];
+let indice = 0;
+let correctas = 0;
+let tiempoTotal = 0;
+let timerInterval = null;
+let cuentaRegresiva = null;
+let numPreguntas = 10;
+let modoTiempo = "libre";
+let segundosPorPregunta = 0;
+let tiempoRestante = 0;
+let inicioExamen = null;
+let registros = [];
+
+// ─── CONFIG ───
+document.querySelectorAll('.num-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.num-btn').forEach(b => b.classList.remove('sel'));
+    btn.classList.add('sel');
+    numPreguntas = btn.dataset.n === 'Todas' ? BANCO.length : parseInt(btn.dataset.n);
+  });
+});
+document.querySelectorAll('.modo-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.modo-btn').forEach(b => b.classList.remove('sel'));
+    btn.classList.add('sel');
+    modoTiempo = btn.dataset.modo;
+  });
+});
+
+// ─── INICIO ───
+document.getElementById('btnEmpezar').addEventListener('click', iniciarExamen);
+
+function iniciarExamen() {
+  const n = Math.min(numPreguntas, BANCO.length);
+  preguntas = shuffle([...BANCO]).slice(0, n);
+  indice = 0;
+  correctas = 0;
+  tiempoTotal = 0;
+  registros = [];
+  inicioExamen = Date.now();
+
+  segundosPorPregunta = modoTiempo === 'libre' ? 0 : parseInt(modoTiempo);
+
+  document.getElementById('pantallaInicio').style.display = 'none';
+  document.getElementById('pantallaExamen').style.display = 'block';
+  document.getElementById('pantallaResultado').style.display = 'none';
+
+  if (modoTiempo !== 'libre') {
+    document.getElementById('timerDisplay').style.display = 'block';
+  } else {
+    document.getElementById('timerDisplay').style.display = 'none';
+  }
+
+  mostrarPregunta();
+}
+
+function mostrarPregunta() {
+  clearInterval(cuentaRegresiva);
+  const p = preguntas[indice];
+  const total = preguntas.length;
+
+  // Progreso
+  document.getElementById('examPbar').style.width = ((indice / total) * 100) + '%';
+  document.getElementById('examPbarLabel').textContent = `${indice + 1} / ${total}`;
+  document.getElementById('scoreLive').textContent = `✅ ${correctas}`;
+
+  // Opciones barajadas
+  const letras = ['A', 'B', 'C', 'D'];
+  const idxOpciones = shuffle([0, 1, 2, 3].slice(0, p.opciones.length));
+
+  const card = document.getElementById('preguntaCard');
+  card.innerHTML = `
+    <div class="pregunta-num">Pregunta ${indice + 1} de ${total}</div>
+    <div class="origen-tag">📚 Cartilla ${p.cartilla}: ${p.titulo}</div>
+    <div class="pregunta-texto">${p.pregunta}</div>
+    <div class="opciones" id="opcionesContainer">
+      ${idxOpciones.map((oi, li) => `
+        <button class="opcion-btn" data-original="${oi}" onclick="responder(this, ${oi === p.correcta ? 1 : 0}, ${p.correcta}, this.dataset.original)">
+          <span class="letra-opcion">${letras[li]}</span>
+          ${p.opciones[oi]}
+        </button>
+      `).join('')}
+    </div>
+    <div class="feedback-box" id="feedbackBox"></div>
+    <button class="btn-siguiente" id="btnSiguiente" onclick="siguiente()">${indice === total - 1 ? 'Ver resultados →' : 'Siguiente →'}</button>
+  `;
+
+  // Timer
+  if (segundosPorPregunta > 0) {
+    tiempoRestante = segundosPorPregunta;
+    actualizarTimer();
+    cuentaRegresiva = setInterval(() => {
+      tiempoRestante--;
+      actualizarTimer();
+      if (tiempoRestante <= 0) {
+        clearInterval(cuentaRegresiva);
+        tiempoAgotado();
+      }
+    }, 1000);
+  }
+}
+
+function actualizarTimer() {
+  const el = document.getElementById('timerDisplay');
+  el.textContent = '⏱ ' + tiempoRestante + 's';
+  el.classList.toggle('urgente', tiempoRestante <= 5);
+}
+
+function tiempoAgotado() {
+  const p = preguntas[indice];
+  const btns = document.querySelectorAll('.opcion-btn');
+  btns.forEach(b => {
+    b.disabled = true;
+    if (parseInt(b.dataset.original) === p.correcta) b.classList.add('correcto');
+  });
+  const fb = document.getElementById('feedbackBox');
+  fb.className = 'feedback-box incorrecto';
+  fb.textContent = '⏰ ¡Tiempo agotado! ' + p.explicacion;
+  document.getElementById('btnSiguiente').style.display = 'block';
+  registros.push({ p, elegida: -1, correcto: false });
+}
+
+function responder(btn, esCorrecta, idxCorrecta, idxElegida) {
+  clearInterval(cuentaRegresiva);
+  const p = preguntas[indice];
+  const btns = document.querySelectorAll('.opcion-btn');
+  btns.forEach(b => {
+    b.disabled = true;
+    if (parseInt(b.dataset.original) === idxCorrecta) b.classList.add('correcto');
+  });
+
+  const fb = document.getElementById('feedbackBox');
+  if (esCorrecta) {
+    correctas++;
+    document.getElementById('scoreLive').textContent = `✅ ${correctas}`;
+    btn.classList.add('correcto');
+    fb.className = 'feedback-box correcto';
+    fb.textContent = '✅ ¡Correcto! ' + p.explicacion;
+  } else {
+    btn.classList.add('incorrecto');
+    fb.className = 'feedback-box incorrecto';
+    fb.textContent = '❌ Incorrecto. ' + p.explicacion;
+  }
+
+  registros.push({ p, elegida: parseInt(idxElegida), correcto: !!esCorrecta });
+  document.getElementById('btnSiguiente').style.display = 'block';
+}
+
+function siguiente() {
+  indice++;
+  if (indice >= preguntas.length) {
+    mostrarResultado();
+  } else {
+    mostrarPregunta();
+  }
+}
+
+function mostrarResultado() {
+  tiempoTotal = Math.round((Date.now() - inicioExamen) / 1000);
+  clearInterval(cuentaRegresiva);
+  document.getElementById('pantallaExamen').style.display = 'none';
+  document.getElementById('pantallaResultado').style.display = 'block';
+
+  const total = preguntas.length;
+  const pct = Math.round((correctas / total) * 100);
+  const incorrectas = total - correctas;
+
+  // Emoji y título
+  let trofeo, titulo, subtitulo, clase;
+  if (pct >= 90)      { trofeo = '🏆'; titulo = '¡Excelente!'; subtitulo = 'Dominás los conceptos de Ciencias Jurídicas.'; clase = 'excelente'; }
+  else if (pct >= 70) { trofeo = '🎯'; titulo = '¡Muy bien!'; subtitulo = 'Buen manejo de los temas. Repasá los errores.'; clase = 'bueno'; }
+  else if (pct >= 50) { trofeo = '📚'; titulo = 'En proceso'; subtitulo = 'Vas por buen camino. Revisá las cartillas marcadas.'; clase = 'bueno'; }
+  else                { trofeo = '💡'; titulo = 'Hay que repasar'; subtitulo = 'Volvé a las cartillas y volvé a intentarlo.'; clase = 'regular'; }
+
+  document.getElementById('trofeoEmoji').textContent = trofeo;
+  document.getElementById('resultadoTitulo').textContent = titulo;
+  document.getElementById('resultadoSubtitulo').textContent = subtitulo;
+  const scoreEl = document.getElementById('scorePorcentaje');
+  scoreEl.textContent = pct + '%';
+  scoreEl.className = 'score-grande ' + clase;
+  document.getElementById('scoreDetalle').textContent = `${correctas} correctas de ${total} preguntas`;
+  document.getElementById('statCorrectas').textContent = correctas;
+  document.getElementById('statIncorrectas').textContent = incorrectas;
+  document.getElementById('statTiempo').textContent = formatTiempo(tiempoTotal);
+
+  // Mensaje personalizado
+  const fallidas = registros.filter(r => !r.correcto);
+  let msgHTML = `<div class="titulo-mensaje">📌 Temas para repasar</div>`;
+  if (fallidas.length === 0) {
+    msgHTML += 'Respondiste todo correctamente. ¡Revisá igual las cartillas para consolidar!';
+  } else {
+    const cartillasFallidas = [...new Set(fallidas.map(r => `Cartilla ${r.p.cartilla}: ${r.p.titulo}`))];
+    msgHTML += 'Te recomendamos repasar:<ul style="margin-top:0.5rem;padding-left:1.3rem">' +
+      cartillasFallidas.map(c => `<li>${c}</li>`).join('') + '</ul>';
+  }
+  document.getElementById('mensajeResultado').innerHTML = msgHTML;
+
+  // Detalle
+  const lista = document.getElementById('detalleLista');
+  lista.innerHTML = registros.map((r, i) => {
+    const elegidaTexto = r.elegida === -1 ? 'Sin respuesta (tiempo agotado)' : r.p.opciones[r.elegida];
+    const correctaTexto = r.p.opciones[r.p.correcta];
+    return `
+      <div class="detalle-item ${r.correcto ? 'ok' : 'fail'}">
+        <div class="detalle-cartilla">Cartilla ${r.p.cartilla} · ${r.p.titulo}</div>
+        <div class="detalle-preg">${i+1}. ${r.p.pregunta}</div>
+        <div class="detalle-resp">
+          Tu respuesta: <span class="${r.correcto ? 'ok' : 'fail'}">${elegidaTexto}</span><br>
+          ${!r.correcto ? `Correcta: <span class="ok">${correctaTexto}</span>` : ''}
+        </div>
+      </div>`;
+  }).join('');
+
+  document.getElementById('detalleToggle').addEventListener('click', () => {
+    lista.classList.toggle('visible');
+    document.getElementById('detalleToggle').textContent =
+      lista.classList.contains('visible') ? '🔼 Ocultar detalle' : '📋 Ver detalle de respuestas';
+  });
+}
+
+document.getElementById('btnReintentar').addEventListener('click', () => {
+  document.getElementById('pantallaResultado').style.display = 'none';
+  document.getElementById('pantallaInicio').style.display = 'flex';
+});
+document.getElementById('btnVolver').addEventListener('click', () => {
+  document.getElementById('pantallaResultado').style.display = 'none';
+  document.getElementById('pantallaInicio').style.display = 'flex';
+});
+
+// ─── UTILS ───
+function shuffle(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+function formatTiempo(s) {
+  const m = Math.floor(s / 60);
+  const ss = s % 60;
+  return m > 0 ? `${m}m ${ss}s` : `${ss}s`;
+}
+</script>
+</body>
+</html>
