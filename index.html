@@ -2889,6 +2889,23 @@ body { padding-bottom:70px; }
     </table>
   </div>
 
+  <hr class="ec-section-sep">
+  <!-- ══ PANEL: EXÁMENES REALES ══ -->
+  <div class="ec-panel" id="ec-reales">
+    <div class="ec-section-header">📄 Exámenes Reales</div>
+    <p style="font-size:.82rem;color:#6b7280;margin:0 0 1rem">Los exámenes tal como aparecen en los documentos originales. Tocá uno para resolverlo completo con corrección automática.</p>
+    <div style="display:flex;gap:.55rem;flex-wrap:wrap;margin-bottom:1.2rem" id="ecRealSelector"></div>
+    <div id="ecRealViewer" style="display:none">
+      <div id="ecRealHeader" style="background:linear-gradient(135deg,#1565c0,#0d47a1);color:#fff;border-radius:10px 10px 0 0;padding:1rem 1.2rem">
+        <div id="ecRealTitle" style="font-weight:800;font-size:1rem;margin-bottom:.2rem"></div>
+        <div id="ecRealMeta" style="font-size:.75rem;opacity:.82"></div>
+      </div>
+      <div id="ecRealBody" style="border:1px solid #dde3ea;border-top:none;border-radius:0 0 10px 10px;padding:1.2rem;background:#fff"></div>
+      <div style="text-align:right;margin-top:.8rem">
+        <button id="ecRealBack" style="background:#f0f4f8;border:1px solid #dde3ea;border-radius:7px;padding:.45rem 1rem;font-size:.8rem;font-weight:700;cursor:pointer;color:#374151">← Volver a la lista</button>
+      </div>
+    </div>
+  </div>
 </div><!-- /.ec-wrap -->
 </div><!-- /#vistaConceptos -->
 
@@ -4031,6 +4048,859 @@ document.addEventListener('DOMContentLoaded', function () {
   initEcQuiz();
   renderEcExam();
   renderEcTimeline();
+
+
+
+  // ══════════════════════════════════════════════════════════════════
+  // EXÁMENES REALES — datos completos extraídos de los PDFs originales
+  // ══════════════════════════════════════════════════════════════════
+
+  var EC_EXAMENES_REALES = [
+    // ─────────────────────────────────────────────────────────────────
+    // EXAMEN TA — Primer Parcial
+    // ─────────────────────────────────────────────────────────────────
+    {
+      id: 'ta-1p',
+      nombre: 'Examen TA — 1er Parcial',
+      origen: 'EXAMENES-DE-INTRO-TA-2.pdf · Páginas 1–5',
+      tipo: 'Múltiple opción + Preguntas abiertas',
+      color: '#1565c0',
+      preguntas: [
+        {
+          tipo: 'opcion',
+          enunciado: 'El concepto: "aptitud para adquirir derecho o contraer obligaciones por si solo está relacionado con el ejercicio de los derechos, es decir ejercer por sí mismo ese derecho" CORRESPONDE A:',
+          opciones: [
+            'Capacidad de derecho',
+            'Capacidad de hecho',
+            'Capacidad',
+            'Capacidad jurídica',
+            'Aptitud legal'
+          ],
+          correcta: 1,
+          explicacion: 'La capacidad de HECHO es la aptitud para ejercer por sí mismo los derechos. La capacidad de DERECHO es la aptitud para ser titular de derechos (toda persona la tiene por el solo hecho de existir).'
+        },
+        {
+          tipo: 'opcion',
+          enunciado: '¿Cuáles son las características del derecho primitivo? MARCAR LA LETRA QUE CONTIENE EL GRUPO DE RESPUESTAS CORRECTAS:\na) Creación del derecho de forma popular basado en la costumbre\nb) Creación del derecho escrito\nc) Es un derecho que mezcla lo religioso con lo estrictamente jurídico\nd) Se aplica en grupos sociales cerrados, a los que solo se accede por nacimiento\ne) Rige lo estrictamente jurídico',
+          opciones: [
+            'A-C-D',
+            'B-D-E',
+            'A-D-E',
+            'A-B-C',
+            'C-D'
+          ],
+          correcta: 0,
+          explicacion: 'El derecho primitivo: a) es de creación popular basada en la costumbre, c) mezcla lo religioso con lo jurídico, d) se aplica en grupos cerrados (clan, tribu) al que solo se accede por nacimiento.'
+        },
+        {
+          tipo: 'opcion',
+          enunciado: 'El concepto: "Institución más benigna según la cual el daño sufrido, en vez de ser vengado, era resarcido mediante un beneficio establecido por un árbitro o predeterminado según un sistema de tarifas" pertenece a:',
+          opciones: [
+            'Tótem',
+            'Clan',
+            'Composición',
+            'Horda',
+            'Venganza'
+          ],
+          correcta: 2,
+          explicacion: 'La COMPOSICIÓN sustituyó la venganza privada: el daño se resarcía con un pago o compensación, ya sea fijado por árbitro o por tarifas predeterminadas. Es el antecedente de la reparación civil moderna.'
+        },
+        {
+          tipo: 'opcion',
+          enunciado: '¿Quién es el fundador de la Teoría Pura del Derecho?',
+          opciones: [
+            'Carlos Coccio',
+            'Alf Ross',
+            'Hans Kelsen',
+            'La Axiología Jurídica',
+            'Los Romanos'
+          ],
+          correcta: 2,
+          explicacion: 'Hans Kelsen (1881–1973), jurista austriaco, es el creador de la Teoría Pura del Derecho: estudia el derecho como ciencia autónoma, libre de consideraciones morales, políticas o sociológicas.'
+        },
+        {
+          tipo: 'opcion',
+          enunciado: '¿Cuáles son las características de las normas jurídicas? Marcar la que NO corresponde:',
+          opciones: [
+            'Imperativas',
+            'Heterónomas',
+            'No obligatorias',
+            'Generales',
+            'Bilaterales'
+          ],
+          correcta: 2,
+          explicacion: 'Las normas jurídicas son: imperativas, heterónomas, OBLIGATORIAS, generales y bilaterales. "No obligatorias" es la respuesta incorrecta, ya que la obligatoriedad es una característica esencial de la norma jurídica.'
+        },
+        {
+          tipo: 'opcion',
+          enunciado: 'El concepto: "es la institución que nace en el derecho romano, son las personas de existencia ideal, son una creación de la ley o ficción de la ley capaces de adquirir derechos o contraer obligaciones por medio de sus representantes" corresponde a:',
+          opciones: [
+            'Persona física',
+            'Sujeto activo',
+            'Persona jurídica',
+            'Sujeto pasivo',
+            'Atributos de la personalidad'
+          ],
+          correcta: 2,
+          explicacion: 'La PERSONA JURÍDICA es una ficción o creación de la ley: ente de existencia ideal que puede adquirir derechos y contraer obligaciones actuando siempre a través de sus representantes legales.'
+        },
+        {
+          tipo: 'opcion',
+          enunciado: 'El derecho subjetivo es:',
+          opciones: [
+            'Sistema de normas jurídicas creadas por el hombre',
+            'Conjunto de principios intrínsecamente justos concebidos como ideal de superación',
+            'Es la facultad o potestad legítima que tienen las personas para ampararse en la ley y obrar lícitamente',
+            'Es un ordenamiento necesario y racional',
+            'Ninguna de las anteriores'
+          ],
+          correcta: 2,
+          explicacion: 'El derecho SUBJETIVO es la facultad o potestad que el ordenamiento jurídico otorga a la persona para ampararse en la ley y exigir algo (a diferencia del derecho OBJETIVO, que es el ordenamiento jurídico en sí).'
+        },
+        {
+          tipo: 'opcion',
+          enunciado: '¿Cuáles son los atributos de la personalidad jurídica? Marcar la que NO corresponde:',
+          opciones: [
+            'Nombre',
+            'Condición política',
+            'Domicilio',
+            'Estado',
+            'Capacidad'
+          ],
+          correcta: 1,
+          explicacion: 'Los atributos de la personalidad son: Nombre, Domicilio, Estado y Capacidad (también patrimonio y nacionalidad). La "condición política" NO es un atributo de la personalidad.'
+        },
+        {
+          tipo: 'opcion',
+          enunciado: '¿Cuáles son las principales teorías sobre el origen del derecho?',
+          opciones: [
+            'Solo la teoría voluntarista (teológica y contractualista)',
+            'Solo la teoría no voluntarista (escuela histórica y sociológica)',
+            'La teoría interdependencista únicamente',
+            'La voluntarista (teológica y contractualista) Y la no voluntarista (escuela histórica y sociológica)',
+            'Ninguna de las anteriores'
+          ],
+          correcta: 3,
+          explicacion: 'Las dos grandes corrientes: 1) Voluntarista → teológica (el derecho viene de Dios) y contractualista (viene del pacto social). 2) No voluntarista → escuela histórica y escuela sociológica o psicosociológica.'
+        },
+        {
+          tipo: 'opcion',
+          enunciado: '¿Cuál es el orden de prelación según el Art. 137 de la Constitución Nacional?',
+          opciones: [
+            'La CN; las leyes; los tratados internacionales',
+            'La CN; las leyes del Congreso; los acuerdos internacionales',
+            'La CN; los tratados internacionales aprobados y ratificados; las leyes del Congreso y las leyes de inferior jerarquía',
+            'La CN; los tratados; las leyes; las sentencias definitivas',
+            'Ninguna de las anteriores'
+          ],
+          correcta: 2,
+          explicacion: 'Art. 137 CN: Constitución Nacional → Tratados internacionales aprobados y ratificados por Paraguay → Leyes del Congreso → Demás leyes de inferior jerarquía (decretos, ordenanzas, etc.).'
+        },
+        {
+          tipo: 'opcion',
+          enunciado: 'Para la Escuela Sociológica o Psicosociológica el grupo social más primitivo o la forma de organización más primitiva era:',
+          opciones: [
+            'El Clan',
+            'La Tribu',
+            'Tótem',
+            'Un Símbolo',
+            'Ninguna de las anteriores'
+          ],
+          correcta: 0,
+          explicacion: 'Para la escuela sociológica, el CLAN es la forma de organización social más primitiva: grupo cerrado al que solo se accede por nacimiento, con sus propias reglas de conducta y símbolos (tótem).'
+        },
+        {
+          tipo: 'opcion',
+          enunciado: 'El concepto: "es el atributo esencial de la persona para ser sujeto activo o pasivo en la relación jurídica. Consiste en la aptitud para adquirir derecho y contraer obligaciones" corresponde a:',
+          opciones: [
+            'Nombre',
+            'Condición política',
+            'Domicilio',
+            'Estado',
+            'Capacidad'
+          ],
+          correcta: 4,
+          explicacion: 'La CAPACIDAD es el atributo que permite a la persona ser sujeto activo o pasivo en la relación jurídica. Toda persona tiene capacidad de derecho; la capacidad de hecho puede estar limitada (menores, incapaces).'
+        },
+        {
+          tipo: 'opcion',
+          enunciado: '¿Quién fue el máximo representante de la escolástica y autor de la Summa Teológica?',
+          opciones: [
+            'Platón',
+            'Aristóteles',
+            'Santo Tomás de Aquino',
+            'Hans Kelsen',
+            'Ninguna de las anteriores'
+          ],
+          correcta: 2,
+          explicacion: 'Santo Tomás de Aquino (1225–1274) fue el mayor exponente de la escolástica medieval. Su obra cumbre es la Summa Theologica. Definió la ley natural como "participación de la criatura racional en la ley eterna".'
+        },
+        {
+          tipo: 'opcion',
+          enunciado: 'El concepto: "tienen existencia ideal, es una ficción o creación de la ley, solo pueden actuar por medio de sus representantes legales" pertenece a:',
+          opciones: [
+            'Capacidad',
+            'Capacidad jurídica',
+            'Persona jurídica',
+            'Aptitud legal',
+            'Persona física'
+          ],
+          correcta: 2,
+          explicacion: 'Persona jurídica (o de existencia ideal): ente creado por la ley, distinto de las personas físicas, que actúa siempre a través de sus representantes. Ej: sociedades, asociaciones, fundaciones.'
+        },
+        {
+          tipo: 'opcion',
+          enunciado: 'El concepto: "conjunto de normas jurídicas que rigen la vida humana con carácter obligatorio. Se manifiesta en leyes, decretos, reglamentos, sentencias judiciales, tratados..." CORRESPONDE A:',
+          opciones: [
+            'Derecho objetivo o derecho norma',
+            'Derecho subjetivo',
+            'Derecho positivo',
+            'Derecho natural',
+            'Ninguna de las anteriores'
+          ],
+          correcta: 0,
+          explicacion: 'El DERECHO OBJETIVO (o derecho norma) es el conjunto de normas jurídicas vigentes: leyes, decretos, reglamentos, sentencias, tratados. Es el ordenamiento jurídico en sí, independiente de quién lo aplica.'
+        },
+        {
+          tipo: 'abierta',
+          enunciado: 'Define la laguna de la ley.',
+          respuesta: 'Son los vacíos, silencios u obscuridad de la ley en los cuales la legislación no previó todas las situaciones jurídicas. En caso de ocurrir, se debe buscar la solución en leyes análogas o similares, a excepción del Derecho Penal.'
+        },
+        {
+          tipo: 'abierta',
+          enunciado: '¿Cuál es la estructura de las normas jurídicas?',
+          respuesta: 'A) Hipótesis o supuesto jurídico: es el conjunto de condiciones cuya realización ha de originar la consecuencia determinada en la norma.\nB) Disposición o consecuencia jurídica: es el efecto o resultado que ocasiona el cumplimiento de las condiciones hipotéticamente previstas.'
+        },
+        {
+          tipo: 'abierta',
+          enunciado: 'Según los romanos, ¿cómo llamaban a lo lícito y a lo divino?',
+          respuesta: 'FAS: a lo divino (derecho de origen religioso).\nJUS: a lo lícito (derecho humano, laico, coercible).'
+        },
+        {
+          tipo: 'abierta',
+          enunciado: 'Define la plenitud hermética del ordenamiento jurídico.',
+          respuesta: 'Es el ordenamiento jurídico sin laguna de derecho: no existe controversia a la cual no pueda dársele una solución prevista en el derecho positivo.'
+        },
+        {
+          tipo: 'abierta',
+          enunciado: '¿En qué consiste la capacidad de derecho?',
+          respuesta: 'Aptitud para adquirir derecho o contraer obligaciones. Está relacionada con la titularidad de los derechos, no con su ejercicio personal.'
+        },
+        {
+          tipo: 'abierta',
+          enunciado: 'Cita los atributos de la personalidad.',
+          respuesta: '- Nombre\n- Domicilio\n- Capacidad\n- Estado (civil)'
+        },
+        {
+          tipo: 'abierta',
+          enunciado: 'Completa el Art. 28 del Código Civil: "La persona física tiene capacidad de derecho desde su concepción para adquirir bienes por donación, herencia o legado. La irrevocabilidad de la adquisición está subordinada a la condición de que..."',
+          respuesta: '...nazca con vida, aunque fuere por instantes después de estar separada del seno materno.'
+        },
+        {
+          tipo: 'abierta',
+          enunciado: 'Cita 3 diferencias entre la Moral y el Derecho.',
+          respuesta: 'MORAL → DERECHO\n1. No es coercible → Es coercible\n2. Autónoma → Heterónoma\n3. Unilateral → Bilateral'
+        }
+      ]
+    },
+
+    // ─────────────────────────────────────────────────────────────────
+    // 2P — FILA 1 (Segundo Parcial / Primer examen)
+    // ─────────────────────────────────────────────────────────────────
+    {
+      id: '2p-f1',
+      nombre: '2do Parcial — Fila 1',
+      origen: '2P.-INTRODUCCION-1.pdf · Páginas 1–2',
+      tipo: 'Múltiple opción + Preguntas abiertas',
+      color: '#2e7d32',
+      preguntas: [
+        {
+          tipo: 'opcion',
+          enunciado: '¿Cuál es el concepto de ARBITRARIEDAD?',
+          opciones: [
+            'Es la conducta antijurídica propia de los órganos del estado. Es una falta propia de los gobernantes, consiste en el abuso de poder realizado por los gobernantes en el ejercicio de sus cargos, obran por capricho o por interés.',
+            'Es el conjunto de normas que regulan la conducta humana.',
+            'Es el principio que garantiza la seguridad jurídica.',
+            'Es la facultad de proponer proyectos de ley.',
+            'Ninguna de las anteriores.'
+          ],
+          correcta: 0,
+          explicacion: 'La arbitrariedad es la conducta antijurídica de los gobernantes: actuar por capricho o interés personal, abusando del poder del cargo. Lo opuesto al derecho legítimo.'
+        },
+        {
+          tipo: 'opcion',
+          enunciado: '¿Cuál es el concepto de COSA JUZGADA?',
+          opciones: [
+            'Es el proceso de formación de una ley.',
+            'Es un efecto de sentencia que impide un nuevo pronunciamiento entre las mismas partes y por la misma causa, sobre lo que ya ha sido objeto de un proceso judicial ya finiquitado. Requiere 3 identidades: sujeto, objeto, causa.',
+            'Es el conjunto de normas de derecho privado.',
+            'Es la interpretación del derecho por los jueces.',
+            'Ninguna de las anteriores.'
+          ],
+          correcta: 1,
+          explicacion: 'Cosa juzgada = firmeza de la sentencia definitiva. TRIPLE identidad requerida: mismo sujeto + mismo objeto + misma causa. Impide que el mismo asunto sea juzgado nuevamente. ⚠ Dato del profesor.'
+        },
+        {
+          tipo: 'opcion',
+          enunciado: 'La Constitución en su Art. 2do. establece que la soberanía reside en:',
+          opciones: [
+            'El Congreso Nacional',
+            'El Poder Judicial',
+            'El pueblo',
+            'El Poder Ejecutivo',
+            'Los tres poderes del Estado'
+          ],
+          correcta: 2,
+          explicacion: 'Art. 2 CN: "La soberanía reside en el pueblo, que la ejerce conforme a lo dispuesto en esta Constitución." El poder no puede ser arrogado por persona o grupo alguno.'
+        },
+        {
+          tipo: 'opcion',
+          enunciado: 'El concepto "es la facultad de proponer un proyecto de ley al Poder Legislativo, para ser discutido y eventualmente sancionado" pertenece a:',
+          opciones: [
+            'Promulgación',
+            'Discusión',
+            'Sanción',
+            'Iniciativa',
+            'Publicación'
+          ],
+          correcta: 3,
+          explicacion: 'La INICIATIVA es el derecho de proponer un proyecto de ley. Tienen iniciativa: parlamentarios, Poder Ejecutivo, Corte Suprema (en su área), ciudadanos (con las firmas requeridas).'
+        },
+        {
+          tipo: 'opcion',
+          enunciado: 'Toda relación jurídica consta de 3 elementos:\nA) Sujeto activo-pasivo\nB) Objeto sobre el cual recae el vínculo\nC) El hecho generador de la relación\n¿Cuál es la respuesta correcta?',
+          opciones: [
+            'Solo A y B',
+            'Solo B y C',
+            'Solo A y C',
+            'A-B y C (las tres)',
+            'Ninguna de las anteriores'
+          ],
+          correcta: 3,
+          explicacion: 'La relación jurídica tiene 3 elementos: 1) Sujetos (activo y pasivo), 2) Objeto (sobre el que recae el vínculo), 3) Hecho generador (el acto o hecho que origina la relación).'
+        },
+        {
+          tipo: 'opcion',
+          enunciado: 'Dentro de la clasificación de los actos jurídicos, ¿cómo se define a los ACTOS UNILATERALES?',
+          opciones: [
+            'Cuando para formarlo se necesita la voluntad de dos o más partes.',
+            'Cuando son dictados por el Estado.',
+            'Cuando para formarlo basta la voluntad unilateral de una persona.',
+            'Cuando producen efectos solo entre las partes.',
+            'Ninguna de las anteriores.'
+          ],
+          correcta: 2,
+          explicacion: 'Acto unilateral = nace de la voluntad de UNA SOLA parte. Ej: testamento, oferta, reconocimiento de hijo. Opuesto al acto bilateral (contrato), que requiere acuerdo de dos o más partes.'
+        },
+        {
+          tipo: 'opcion',
+          enunciado: 'El concepto de "derecho real de garantía sobre los inmuebles del deudor que continúan en su poder" pertenece a:',
+          opciones: [
+            'Prenda',
+            'Anticresis',
+            'Hipoteca',
+            'Embargo',
+            'Fianza'
+          ],
+          correcta: 2,
+          explicacion: 'La HIPOTECA es el derecho real de garantía sobre INMUEBLES que permanecen en poder del deudor. La PRENDA recae sobre bienes MUEBLES.'
+        },
+        {
+          tipo: 'opcion',
+          enunciado: '¿Cuáles son los elementos de la ley? Marcar el que NO corresponde:',
+          opciones: [
+            'Obligatoriedad',
+            'Generalidad',
+            'Unilateral',
+            'Permanencia',
+            'Autenticidad'
+          ],
+          correcta: 2,
+          explicacion: '"Unilateral" NO es un elemento de la ley. La ley es BILATERAL (regula las relaciones entre partes). Los demás elementos de la ley son: obligatoriedad, generalidad, permanencia, autenticidad, coercitividad.'
+        },
+        {
+          tipo: 'opcion',
+          enunciado: 'El Art. 204 de la CN dice: "Aprobado un proyecto de ley, si el P. Ejecutivo le presta su aprobación, lo promulgará como ley, y dispondrá su publicación en el plazo de:',
+          opciones: [
+            '5 días',
+            '10 días',
+            '15 días',
+            '30 días',
+            '3 meses'
+          ],
+          correcta: 0,
+          explicacion: 'Art. 204 CN: el Poder Ejecutivo tiene 5 días para promulgar y publicar la ley aprobada. Este plazo es una pregunta MUY frecuente en los exámenes.'
+        },
+        {
+          tipo: 'opcion',
+          enunciado: '¿Cuál es el concepto de INTERPRETACIÓN DEL DERECHO?',
+          opciones: [
+            'Es el proceso de creación de nuevas leyes.',
+            'Se llama también hermenéutica jurídica, es el acto de desentrañar el verdadero sentido y alcance de las normas jurídicas para adecuarlas al caso concreto. Es la tarea previa a la aplicación.',
+            'Es el conjunto de fuentes del derecho.',
+            'Es la aplicación directa de la ley sin análisis.',
+            'Ninguna de las anteriores.'
+          ],
+          correcta: 1,
+          explicacion: 'La interpretación del derecho (hermenéutica jurídica) es el proceso de descubrir el verdadero sentido y alcance de una norma. Es PREVIA a la aplicación del derecho al caso concreto.'
+        },
+        {
+          tipo: 'opcion',
+          enunciado: 'El concepto "conjunto de normas jurídicas que establece la estructura y función del Estado como ente soberano y regula las relaciones de este con otros Estados o con los particulares" pertenece a:',
+          opciones: [
+            'Derecho privado',
+            'Derecho público',
+            'Derecho civil',
+            'Derecho comercial',
+            'Ninguna de las anteriores'
+          ],
+          correcta: 1,
+          explicacion: 'DERECHO PÚBLICO: regula la organización y el funcionamiento del Estado y sus relaciones con otros Estados o con particulares. Incluye derecho constitucional, administrativo, penal, procesal, internacional público.'
+        },
+        {
+          tipo: 'opcion',
+          enunciado: '¿Cuáles son las partes de la SENTENCIA?',
+          opciones: [
+            'Demanda, contestación y fallo.',
+            'Proemio, fundamentos y dispositivo.',
+            'Visto, Considerando y Resuelve.',
+            'Antecedentes, debate y resolución.',
+            'Ninguna de las anteriores.'
+          ],
+          correcta: 2,
+          explicacion: 'La sentencia tiene 3 partes: 1) VISTOS: hechos del proceso. 2) CONSIDERANDO: fundamentos jurídicos y razonamiento del juez. 3) RESUELVE (parte dispositiva): la decisión final.'
+        },
+        {
+          tipo: 'opcion',
+          enunciado: 'El concepto "es el procedimiento mediante el cual se aplica al caso no previsto en legislación dada por la ley al caso semejante previsto en el ordenamiento jurídico" pertenece a:',
+          opciones: [
+            'Equidad',
+            'Principios Generales del Derecho',
+            'Costumbre',
+            'Analogía',
+            'Jurisprudencia'
+          ],
+          correcta: 3,
+          explicacion: 'La ANALOGÍA aplica una norma existente a un caso no previsto por similitud con el caso regulado. Está PROHIBIDA en el Derecho Penal para perjudicar al imputado.'
+        },
+        {
+          tipo: 'opcion',
+          enunciado: 'El concepto "son aquellos con los cuales la ley fija una forma determinada; si no se realiza así puede anularse el acto" pertenece a:',
+          opciones: [
+            'Actos unilaterales',
+            'Actos formales',
+            'Actos bilaterales',
+            'Actos simples',
+            'Actos administrativos'
+          ],
+          correcta: 1,
+          explicacion: 'Los ACTOS FORMALES requieren una forma determinada por ley para su validez. Si no se cumple la forma, el acto puede ser anulado. Ej: matrimonio, testamento, escritura pública.'
+        },
+        {
+          tipo: 'opcion',
+          enunciado: 'El principio que sostiene que "las leyes se dictan para el futuro no para el pasado, no pueden afectar derechos adquiridos, tienen rango constitucional" es:',
+          opciones: [
+            'Principio de legalidad',
+            'Principio de igualdad',
+            'Principio de irretroactividad',
+            'Principio de territorialidad',
+            'Principio de temporalidad'
+          ],
+          correcta: 2,
+          explicacion: 'El principio de IRRETROACTIVIDAD establece que la ley rige para el futuro. Tiene rango constitucional y su fundamento es la seguridad jurídica. Excepción: ley penal más favorable al imputado.'
+        },
+        {
+          tipo: 'abierta',
+          enunciado: '¿Cómo se llaman los dos sistemas jurídicos que existen en el mundo?',
+          respuesta: '1. Sistema Romanista o Sistema Continental (basado en ley codificada/escrita).\n2. Common Law (basado en precedentes judiciales; predomina en países anglosajones: UK, USA).'
+        },
+        {
+          tipo: 'abierta',
+          enunciado: '¿Cuáles son los 3 requisitos que debe contener la iniciativa de presentar un proyecto de ley?',
+          respuesta: '1. Por escrito.\n2. En idioma oficial.\n3. Expresión de motivos.'
+        },
+        {
+          tipo: 'abierta',
+          enunciado: 'Define el concepto de territorialidad de la ley.',
+          respuesta: 'Sostiene que las leyes deben regir en el territorio del cual emanan, porque la ley nacional es la expresión de la soberanía ejercida por el Estado sobre su territorio.'
+        },
+        {
+          tipo: 'abierta',
+          enunciado: '¿Cuál es el orden del proceso de formación de la ley?',
+          respuesta: '1. Iniciativa\n2. Discusión\n3. Sanción\n4. Promulgación\n5. Publicación'
+        },
+        {
+          tipo: 'abierta',
+          enunciado: 'Cita los elementos del Estado.',
+          respuesta: '- Población (Pueblo / Nación)\n- Territorio\n- Poder (Gobierno / Soberanía)'
+        }
+      ]
+    },
+
+    // ─────────────────────────────────────────────────────────────────
+    // 2P — FILA 2
+    // ─────────────────────────────────────────────────────────────────
+    {
+      id: '2p-f2',
+      nombre: '2do Parcial — Fila 2',
+      origen: '2P.-INTRODUCCION-1.pdf · Páginas 3–4',
+      tipo: 'Múltiple opción + Preguntas abiertas',
+      color: '#6a1b9a',
+      preguntas: [
+        {
+          tipo: 'opcion',
+          enunciado: '¿Cuál es el concepto de EQUIDAD?',
+          opciones: [
+            'Es el conjunto de normas coercibles del Estado.',
+            'Es el perfeccionamiento de la justicia en su aplicación a los casos que puedan presentarse en la vida. Es la justicia aplicada al caso particular.',
+            'Es el proceso de formación de la ley.',
+            'Es la sanción penal impuesta por el juez.',
+            'Ninguna de las anteriores.'
+          ],
+          correcta: 1,
+          explicacion: 'La EQUIDAD es el perfeccionamiento de la justicia aplicada al caso concreto. Ojo: en materia penal está PROHIBIDA (Art. 1 CP). Solo es fuente formal en el Código del Trabajo (Art. 6).'
+        },
+        {
+          tipo: 'opcion',
+          enunciado: '¿En qué consiste la IRRETROACTIVIDAD DE LA LEY?',
+          opciones: [
+            'Todas las leyes tienen efecto retroactivo siempre.',
+            'Ninguna ley tendrá efecto retroactivo, salvo que sea más favorable al encausado o condenado.',
+            'La ley solo aplica a actos futuros sin ninguna excepción.',
+            'Solo las leyes civiles son irretroactivas.',
+            'Ninguna de las anteriores.'
+          ],
+          correcta: 1,
+          explicacion: 'Irretroactividad: la ley no puede aplicarse a hechos anteriores a su vigencia. EXCEPCIÓN: la ley penal más favorable al encausado o condenado sí puede aplicarse retroactivamente.'
+        },
+        {
+          tipo: 'opcion',
+          enunciado: 'El concepto "acto complejo que solo puede realizarse en el Poder Legislativo, durante el mismo se estudia, aprueba o desaprueba el proyecto de ley, mediante votación afirmativa o negativa, primero en general luego en particular" pertenece a:',
+          opciones: [
+            'Iniciativa',
+            'Promulgación',
+            'Discusión',
+            'Sanción',
+            'Publicación'
+          ],
+          correcta: 2,
+          explicacion: 'La DISCUSIÓN es la etapa del proceso legislativo en la que el proyecto es debatido y votado en el Poder Legislativo. Se realiza primero en general (idea global) y luego en particular (artículo por artículo).'
+        },
+        {
+          tipo: 'opcion',
+          enunciado: '¿Cuál es el sistema jurídico predominantemente jurisprudencial en el que la ley y demás fuentes jurídicas están subordinadas a la jurisprudencia?',
+          opciones: [
+            'Common Law',
+            'Sistema Romano-Germánico',
+            'Sistema Continental',
+            'Sistema Codificado',
+            'Ninguna de las anteriores'
+          ],
+          correcta: 0,
+          explicacion: 'El COMMON LAW (sistema anglosajón) es el que basa su derecho principalmente en los precedentes judiciales (jurisprudencia). Predomina en UK, USA, Australia, Canadá.'
+        },
+        {
+          tipo: 'opcion',
+          enunciado: '¿Cuáles son las formas de derogar una ley? Marcar la que NO corresponde:',
+          opciones: [
+            'Veto',
+            'Derogación expresa',
+            'Derogación tácita',
+            'Abrogación',
+            'Caducidad'
+          ],
+          correcta: 0,
+          explicacion: 'El VETO es el rechazo del Ejecutivo a un proyecto de ley; NO es una forma de derogar una ley ya vigente. Las formas de derogación son: expresa, tácita, abrogación (total) y caducidad.'
+        },
+        {
+          tipo: 'opcion',
+          enunciado: 'Dentro de la clasificación de los actos jurídicos, ¿cómo se define a los ACTOS UNILATERALES?',
+          opciones: [
+            'Cuando para formarlo se necesita la voluntad de dos partes.',
+            'Cuando son dictados por el Estado.',
+            'Cuando para formarlo basta la voluntad unilateral de una persona.',
+            'Cuando producen efectos erga omnes.',
+            'Ninguna de las anteriores.'
+          ],
+          correcta: 2,
+          explicacion: 'Acto unilateral: basta la voluntad de UNA sola parte. Ej: testamento, oferta de promesa, reconocimiento de deuda. Contrario al acto bilateral (contrato) que requiere acuerdo de voluntades.'
+        },
+        {
+          tipo: 'opcion',
+          enunciado: 'Para que se considere como fuente de derecho, la JURISPRUDENCIA debe ser:',
+          opciones: [
+            'Constante, uniforme y ajustada a la ley',
+            'Solo constante',
+            'Solo uniforme',
+            'Solo de la Corte Suprema',
+            'Ninguna de las anteriores'
+          ],
+          correcta: 0,
+          explicacion: 'La jurisprudencia como fuente de derecho debe ser: CONSTANTE (reiterada en el tiempo), UNIFORME (coherente, sin contradicciones) y AJUSTADA A LA LEY (dentro del marco legal vigente).'
+        },
+        {
+          tipo: 'opcion',
+          enunciado: 'El concepto "por el que se afecta una cosa mueble para asegurar el cumplimiento de una obligación" pertenece a:',
+          opciones: [
+            'Hipoteca',
+            'Anticresis',
+            'Prenda',
+            'Embargo',
+            'Fianza'
+          ],
+          correcta: 2,
+          explicacion: 'La PRENDA recae sobre bienes MUEBLES (cosas móviles). La HIPOTECA recae sobre bienes INMUEBLES. Ambas son derechos reales de garantía.'
+        },
+        {
+          tipo: 'opcion',
+          enunciado: 'El Art. 211 de la CN establece que un proyecto aprobado por la Cámara de origen pasará a la Cámara revisora, la cual deberá despacharlo dentro del término improrrogable de:',
+          opciones: [
+            '5 días hábiles',
+            '15 días',
+            '3 meses',
+            '6 meses',
+            '1 año'
+          ],
+          correcta: 2,
+          explicacion: 'Art. 211 CN: la Cámara revisora tiene 3 MESES improrrogables para despachar el proyecto recibido de la Cámara de origen (en sesiones ordinarias).'
+        },
+        {
+          tipo: 'opcion',
+          enunciado: 'El concepto "es el procedimiento por medio del cual se aplica la ley al caso concreto. Puede ser realizada por los particulares o por los órganos jurisdiccionales del Estado" pertenece a:',
+          opciones: [
+            'Interpretación del derecho',
+            'Integración del derecho',
+            'Aplicación del derecho',
+            'Creación del derecho',
+            'Ninguna de las anteriores'
+          ],
+          correcta: 2,
+          explicacion: 'La APLICACIÓN del derecho es el proceso de usar la norma jurídica para resolver un caso concreto. La realizan tanto los particulares (en sus actos) como los jueces y organismos del Estado.'
+        },
+        {
+          tipo: 'opcion',
+          enunciado: 'Los Principios Generales del Derecho son:',
+          opciones: [
+            'Las normas penales aprobadas por el Congreso.',
+            'Las costumbres locales de cada comunidad.',
+            'Los tratados internacionales ratificados.',
+            'Verdades jurídicas de validez universal, elaboradas por la filosofía jurídica que sirven de fundamento y límite a la legislación positiva.',
+            'Ninguna de las anteriores.'
+          ],
+          correcta: 3,
+          explicacion: 'Los PGD son verdades jurídicas universales (ej: buena fe, no causar daño, equidad) que orientan la interpretación e integración del derecho. NO aplican en penal para crear o ampliar responsabilidad.'
+        },
+        {
+          tipo: 'opcion',
+          enunciado: 'El concepto "toda resolución dictada por los órganos jurisdiccionales del Estado que solucionan mediante la aplicación del derecho el conflicto planteado entre las partes" es:',
+          opciones: [
+            'Decreto',
+            'Sentencia',
+            'Ley',
+            'Resolución administrativa',
+            'Ninguna de las anteriores'
+          ],
+          correcta: 1,
+          explicacion: 'La SENTENCIA es la resolución judicial que resuelve el conflicto entre las partes aplicando el derecho. Tiene 3 partes: Vistos, Considerando y Resuelve (parte dispositiva).'
+        },
+        {
+          tipo: 'opcion',
+          enunciado: 'La técnica jurídica es:',
+          opciones: [
+            'El conjunto de normas penales.',
+            'La interpretación de los tratados internacionales.',
+            'El conjunto de reglas que determina el procedimiento adecuado para la elaboración y aplicación del derecho a los casos concretos.',
+            'La costumbre reiterada en el tiempo.',
+            'Ninguna de las anteriores.'
+          ],
+          correcta: 2,
+          explicacion: 'La TÉCNICA JURÍDICA es el conjunto de reglas metodológicas para elaborar las normas jurídicas y aplicarlas correctamente a los casos concretos. Es el "saber hacer" del operador del derecho.'
+        },
+        {
+          tipo: 'opcion',
+          enunciado: 'El concepto "conjunto de normas jurídicas que regulan las relaciones jurídicas entre los particulares o entre estos con el Estado como persona jurídica" pertenece a:',
+          opciones: [
+            'Derecho público',
+            'Derecho privado',
+            'Derecho constitucional',
+            'Derecho administrativo',
+            'Ninguna de las anteriores'
+          ],
+          correcta: 1,
+          explicacion: 'DERECHO PRIVADO: regula las relaciones entre particulares o entre particulares y el Estado cuando este actúa como persona jurídica de derecho privado. Incluye derecho civil, comercial, laboral.'
+        },
+        {
+          tipo: 'opcion',
+          enunciado: '¿Cómo se llama al lugar del domicilio de los padres al momento del nacimiento de los hijos?',
+          opciones: [
+            'Domicilio real',
+            'Domicilio legal',
+            'Domicilio convencional',
+            'Domicilio especial',
+            'Domicilio de origen'
+          ],
+          correcta: 4,
+          explicacion: 'El DOMICILIO DE ORIGEN es el lugar del domicilio de los padres en el momento del nacimiento del hijo. Es uno de los tipos de domicilio contemplados por el Código Civil.'
+        },
+        {
+          tipo: 'abierta',
+          enunciado: 'Define el concepto de Principio de Temporalidad de la Ley.',
+          respuesta: 'Las leyes se mantienen vigentes hasta que no sean derogadas por otras. La ley dura en el tiempo desde su entrada en vigencia hasta su derogación expresa o tácita.'
+        },
+        {
+          tipo: 'abierta',
+          enunciado: '¿Cuáles son los 3 requisitos que debe contener la iniciativa de ley?',
+          respuesta: '1. Escrito (por escrito).\n2. Idioma oficial.\n3. Expresión de motivos.'
+        },
+        {
+          tipo: 'abierta',
+          enunciado: '¿Cómo se llaman los dos sistemas jurídicos que existen?',
+          respuesta: '1. Sistema Continental o Romanista (ley escrita codificada).\n2. Common Law (precedentes judiciales; países anglosajones).'
+        },
+        {
+          tipo: 'abierta',
+          enunciado: 'Cita los elementos del Estado.',
+          respuesta: '- Población (Pueblo / Nación)\n- Territorio\n- Poder (Gobierno / Soberanía)'
+        },
+        {
+          tipo: 'abierta',
+          enunciado: 'Cita los atributos de la personalidad humana.',
+          respuesta: '- Nombre\n- Estado (civil)\n- Domicilio\n- Capacidad\n(también: patrimonio y nacionalidad)'
+        }
+      ]
+    }
+  ];
+
+  // ── LÓGICA EXÁMENES REALES ──────────────────────────────────────────
+  function initEcReales() {
+    var selector = document.getElementById('ecRealSelector');
+    var viewer   = document.getElementById('ecRealViewer');
+    var backBtn  = document.getElementById('ecRealBack');
+    if (!selector) return;
+
+    var currentExam = null;
+    var respuestas = {};
+
+    // Renderizar botones de selección
+    EC_EXAMENES_REALES.forEach(function(ex) {
+      var btn = document.createElement('button');
+      btn.style.cssText = 'background:#fff;border:2px solid ' + ex.color + ';color:' + ex.color + ';border-radius:8px;padding:.55rem 1rem;font-size:.8rem;font-weight:800;cursor:pointer;transition:all .18s';
+      btn.textContent = '📄 ' + ex.nombre;
+      btn.addEventListener('mouseenter', function() { btn.style.background = ex.color; btn.style.color = '#fff'; });
+      btn.addEventListener('mouseleave', function() { btn.style.background = '#fff'; btn.style.color = ex.color; });
+      btn.addEventListener('click', function() { abrirExamen(ex); });
+      selector.appendChild(btn);
+    });
+
+    function abrirExamen(ex) {
+      currentExam = ex;
+      respuestas = {};
+      document.getElementById('ecRealTitle').textContent = ex.nombre;
+      document.getElementById('ecRealMeta').textContent = '📁 Origen: ' + ex.origen + '  ·  Tipo: ' + ex.tipo;
+
+      var body = document.getElementById('ecRealBody');
+      var html = '';
+      var nMC = 0, nA = 0;
+
+      ex.preguntas.forEach(function(p, idx) {
+        if (p.tipo === 'opcion') {
+          nMC++;
+          html += '<div class="ec-real-q" id="ecRQ_' + idx + '" data-idx="' + idx + '" style="margin-bottom:1.2rem;padding:.9rem;border:1px solid #e5e7eb;border-radius:9px;background:#fafbfc">';
+          html += '<div style="font-size:.72rem;font-weight:800;color:#9ca3af;text-transform:uppercase;letter-spacing:.06em;margin-bottom:.4rem">Pregunta ' + nMC + ' — Opción múltiple</div>';
+          html += '<div style="font-size:.85rem;font-weight:700;color:#1a1a2e;margin-bottom:.7rem;white-space:pre-line">' + p.enunciado + '</div>';
+          html += '<div class="ec-real-opts" style="display:flex;flex-direction:column;gap:.35rem">';
+          p.opciones.forEach(function(opt, oi) {
+            html += '<button class="ec-real-opt" data-qidx="' + idx + '" data-oidx="' + oi + '" style="text-align:left;background:#fff;border:1.5px solid #d1d5db;border-radius:7px;padding:.5rem .75rem;font-size:.8rem;cursor:pointer;transition:all .15s;color:#374151">';
+            html += '<span style="font-weight:800;color:#6b7280;margin-right:.4rem">' + String.fromCharCode(65+oi) + ')</span> ' + opt;
+            html += '</button>';
+          });
+          html += '</div>';
+          html += '<div class="ec-real-fb" id="ecRFb_' + idx + '" style="display:none;margin-top:.6rem;font-size:.78rem;padding:.55rem .75rem;border-radius:7px"></div>';
+          html += '</div>';
+        } else {
+          nA++;
+          html += '<div class="ec-real-q" style="margin-bottom:1.2rem;padding:.9rem;border:1px solid #e5e7eb;border-radius:9px;background:#fafbfc">';
+          html += '<div style="font-size:.72rem;font-weight:800;color:#9ca3af;text-transform:uppercase;letter-spacing:.06em;margin-bottom:.4rem">Pregunta ' + (nMC + nA) + ' — Desarrollo</div>';
+          html += '<div style="font-size:.85rem;font-weight:700;color:#1a1a2e;margin-bottom:.6rem;white-space:pre-line">' + p.enunciado + '</div>';
+          html += '<details style="border:1.5px solid #bbdefb;border-radius:7px;overflow:hidden">';
+          html += '<summary style="cursor:pointer;background:#e3f0ff;padding:.45rem .75rem;font-size:.78rem;font-weight:700;color:#1565c0;list-style:none">👁 Ver respuesta correcta</summary>';
+          html += '<div style="padding:.6rem .75rem;font-size:.8rem;color:#1a1a2e;white-space:pre-line;line-height:1.6">' + p.respuesta + '</div>';
+          html += '</details>';
+          html += '</div>';
+        }
+      });
+
+      // Botón corregir
+      html += '<div style="text-align:center;margin-top:1.2rem">';
+      html += '<button id="ecRealCorregir" style="background:#1565c0;color:#fff;border:none;border-radius:8px;padding:.6rem 1.6rem;font-size:.85rem;font-weight:800;cursor:pointer">✓ Corregir examen</button>';
+      html += '</div>';
+      html += '<div id="ecRealResultado" style="display:none;margin-top:1rem;text-align:center;padding:1.2rem;background:#f0f7ff;border:1px solid #90caf9;border-radius:10px"></div>';
+
+      body.innerHTML = html;
+      selector.style.display = 'none';
+      viewer.style.display = 'block';
+
+      // Eventos de opciones
+      body.querySelectorAll('.ec-real-opt').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          var qidx = parseInt(btn.dataset.qidx);
+          var oidx = parseInt(btn.dataset.oidx);
+          // Deselect siblings
+          var parent = body.querySelector('#ecRQ_' + qidx + ' .ec-real-opts');
+          if (parent) parent.querySelectorAll('.ec-real-opt').forEach(function(b){
+            b.style.background = '#fff'; b.style.borderColor = '#d1d5db'; b.style.color = '#374151';
+          });
+          btn.style.background = '#e3f0ff'; btn.style.borderColor = '#1565c0'; btn.style.color = '#1565c0';
+          respuestas[qidx] = oidx;
+        });
+      });
+
+      // Corregir
+      var corregirBtn = document.getElementById('ecRealCorregir');
+      if (corregirBtn) corregirBtn.addEventListener('click', function() {
+        var correctas = 0, total = 0;
+        ex.preguntas.forEach(function(p, idx) {
+          if (p.tipo !== 'opcion') return;
+          total++;
+          var elegida = respuestas[idx];
+          var fb = document.getElementById('ecRFb_' + idx);
+          var qDiv = document.getElementById('ecRQ_' + idx);
+          var opts = qDiv ? qDiv.querySelectorAll('.ec-real-opt') : [];
+          opts.forEach(function(b) { b.disabled = true; });
+          if (elegida === undefined) {
+            if (fb) { fb.style.display = 'block'; fb.style.background = '#fff3e0'; fb.style.color = '#e65100'; fb.style.borderLeft = '4px solid #e65100'; fb.textContent = '⚠ No contestada — Respuesta correcta: ' + String.fromCharCode(65 + p.correcta) + ') — ' + p.explicacion; }
+            if (opts[p.correcta]) { opts[p.correcta].style.borderColor = '#2e7d32'; opts[p.correcta].style.background = '#e8f5e9'; opts[p.correcta].style.color = '#2e7d32'; }
+          } else if (elegida === p.correcta) {
+            correctas++;
+            if (opts[elegida]) { opts[elegida].style.borderColor = '#2e7d32'; opts[elegida].style.background = '#e8f5e9'; opts[elegida].style.color = '#2e7d32'; }
+            if (fb) { fb.style.display = 'block'; fb.style.background = '#e8f5e9'; fb.style.color = '#2e7d32'; fb.style.borderLeft = '4px solid #2e7d32'; fb.textContent = '✓ Correcto — ' + p.explicacion; }
+          } else {
+            if (opts[elegida]) { opts[elegida].style.borderColor = '#c62828'; opts[elegida].style.background = '#ffeaea'; opts[elegida].style.color = '#c62828'; }
+            if (opts[p.correcta]) { opts[p.correcta].style.borderColor = '#2e7d32'; opts[p.correcta].style.background = '#e8f5e9'; opts[p.correcta].style.color = '#2e7d32'; }
+            if (fb) { fb.style.display = 'block'; fb.style.background = '#ffeaea'; fb.style.color = '#c62828'; fb.style.borderLeft = '4px solid #c62828'; fb.textContent = '✗ Incorrecto — ' + p.explicacion; }
+          }
+        });
+        var pct = total > 0 ? Math.round((correctas/total)*100) : 0;
+        var resultDiv = document.getElementById('ecRealResultado');
+        if (resultDiv) {
+          var msg = pct >= 80 ? '¡Excelente! Estás listo para el parcial.' : pct >= 60 ? 'Bien, pero repasá los ítems incorrectos.' : 'Seguí estudiando — revisá los temas marcados en rojo.';
+          resultDiv.style.display = 'block';
+          resultDiv.innerHTML = '<div style="font-size:1.5rem;font-weight:900;color:#1565c0">' + correctas + ' / ' + total + '</div><div style="font-size:.9rem;font-weight:700;color:#374151;margin:.3rem 0">' + pct + '% de acierto (opción múltiple)</div><div style="font-size:.82rem;color:#6b7280">' + msg + '</div>';
+          resultDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+        if (corregirBtn) corregirBtn.style.display = 'none';
+      });
+    }
+
+    if (backBtn) backBtn.addEventListener('click', function() {
+      viewer.style.display = 'none';
+      selector.style.display = 'flex';
+      currentExam = null;
+      respuestas = {};
+    });
+  }
+
+  initEcReales();
 
 
 }); // fin DOMContentLoaded
