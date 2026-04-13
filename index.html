@@ -2485,6 +2485,413 @@ body { padding-bottom:70px; }
 
 </div>
 
+<!-- ════ VISTA EXAMENES ANTERIORES CONCEPTOS ════ -->
+<div id="vistaConceptos" class="vista">
+<style>
+  /* ── CONCEPTOS TAB STYLES ── */
+  .ec-wrap { max-width: 860px; margin: 0 auto; padding: 1rem 1rem 2rem; }
+  .ec-hero {
+    background: linear-gradient(135deg, #1565c0 0%, #0d47a1 100%);
+    color: white; text-align: center;
+    padding: 1.5rem 1rem 1.2rem;
+    border-radius: 12px; margin-bottom: 1.2rem;
+  }
+  .ec-hero h2 { margin: 0 0 .3rem; font-size: 1.3rem; }
+  .ec-hero p  { margin: 0; font-size: .82rem; opacity: .85; }
+  .ec-stats {
+    display: flex; gap: .6rem; justify-content: center;
+    flex-wrap: wrap; margin-top: .9rem;
+  }
+  .ec-stat {
+    background: rgba(255,255,255,.15);
+    border-radius: 8px; padding: .4rem .8rem;
+    font-size: .78rem; font-weight: 700;
+  }
+  /* TABS internos desactivados — todo visible */
+  .ec-panel { display: block; }
+  .ec-section-sep {
+    border: none; border-top: 2px solid #e3f0ff;
+    margin: 1.5rem 0 1.2rem;
+  }
+  .ec-section-header {
+    display: flex; align-items: center; gap: .5rem;
+    font-size: 1.05rem; font-weight: 800; color: #1565c0;
+    margin-bottom: .9rem; padding-bottom: .5rem;
+    border-bottom: 2px solid #e3f0ff;
+  }
+  /* LESSON CARDS */
+  .ec-lesson-card {
+    background: #fff; border: 1px solid #dde3ea;
+    border-radius: 10px; padding: .9rem 1rem;
+    box-shadow: 0 1px 4px rgba(0,0,0,.06);
+    transition: box-shadow .18s, border-color .18s;
+  }
+  .ec-lesson-card:hover { box-shadow: 0 4px 12px rgba(0,0,0,.1); border-color: #90caf9; }
+  .ec-lesson-num {
+    font-size: .65rem; font-weight: 800; text-transform: uppercase;
+    letter-spacing: .08em; color: #1565c0; margin-bottom: .2rem;
+  }
+  .ec-lesson-title {
+    font-size: .92rem; font-weight: 800; color: #1a1a2e; margin-bottom: .4rem;
+  }
+  /* CONCEPT CARDS */
+  .ec-concept-card {
+    background: #fff; border: 1px solid #dde3ea;
+    border-radius: 9px; padding: .75rem .9rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,.05);
+    transition: box-shadow .18s, border-color .18s;
+  }
+  .ec-concept-card:hover { box-shadow: 0 3px 10px rgba(0,0,0,.09); border-color: #90caf9; }
+  .ec-concept-card.ec-warn {
+    border-left: 4px solid #e8a800; background: #fffde7;
+  }
+  .ec-concept-card.ec-exam-flag {
+    border-left: 4px solid #f57c00; background: #fffbf5;
+  }
+  .ec-concept-term {
+    font-weight: 700; font-size: .87rem;
+    color: #1a1a2e; margin-bottom: .35rem;
+    display: flex; align-items: flex-start; gap: .4rem; flex-wrap: wrap;
+  }
+  .ec-concept-def { font-size: .79rem; color: #4b5563; line-height: 1.55; }
+  .ec-concept-def strong { color: #1a1a2e; }
+  /* BADGE EXAM */
+  .ec-badge-exam {
+    background: #fff3e0; color: #e65100; border: 1px solid #ffcc80;
+  }
+  /* QUIZ OPT STATES */
+  .ec-qopt-correct { border-color: #2e7d32 !important; background: #e8f5e9 !important; color: #1b5e20 !important; }
+  .ec-qopt-wrong   { border-color: #c62828 !important; background: #ffeaea !important; color: #b71c1c !important; }
+  /* QUIZ FEEDBACK */
+  .ec-qfb-ok  { display: block !important; background: #e8f5e9; color: #2e7d32; border-left: 4px solid #2e7d32; padding: .6rem .8rem; border-radius: 7px; margin-top: .6rem; font-size: .8rem; }
+  .ec-qfb-err { display: block !important; background: #ffeaea; color: #c62828; border-left: 4px solid #c62828; padding: .6rem .8rem; border-radius: 7px; margin-top: .6rem; font-size: .8rem; }
+  /* QUIZ RESULT */
+  .ec-qresult { text-align: center; padding: 2rem 1rem; background: #fff; border: 1px solid #dde3ea; border-radius: 12px; }
+  /* TIMELINE DOT */
+  .ec-tl-dot {
+    position: absolute; left: -1.3rem; top: .35rem;
+    width: .65rem; height: .65rem; border-radius: 50%;
+    background: #1565c0; border: 2px solid #f0f4f8;
+  }
+  /* EXAM ITEMS */
+  .ec-exam-q { font-weight: 700; color: #1a1a2e; font-size: .83rem; margin-bottom: .2rem; }
+  .ec-exam-a { font-size: .8rem; color: #4b5563; }
+  /* TARJETAS DE CONCEPTO */
+  .ec-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+    gap: .75rem; margin-bottom: 1.2rem;
+  }
+  .ec-card {
+    background: #fff; border: 1px solid #dde3ea;
+    border-radius: 10px; padding: .8rem 1rem;
+    box-shadow: 0 1px 4px rgba(0,0,0,.06);
+    transition: box-shadow .18s, border-color .18s;
+  }
+  .ec-card:hover { box-shadow: 0 4px 12px rgba(0,0,0,.1); border-color: #90caf9; }
+  .ec-card.ec-examen {
+    border-left: 4px solid #f57c00;
+    background: #fffbf5;
+  }
+  .ec-card.ec-warn {
+    border-left: 4px solid #e8a800;
+    background: #fffde7;
+  }
+  .ec-term {
+    font-weight: 700; font-size: .88rem;
+    color: #1a1a2e; margin-bottom: .4rem;
+    display: flex; align-items: flex-start; gap: .4rem; flex-wrap: wrap;
+  }
+  .ec-def { font-size: .8rem; color: #4b5563; line-height: 1.55; }
+  .ec-def strong { color: #1a1a2e; }
+  .ec-badge {
+    display: inline-flex; align-items: center;
+    background: #fff3e0; color: #e65100;
+    border: 1px solid #ffcc80;
+    font-size: .6rem; font-weight: 800;
+    text-transform: uppercase; letter-spacing: .04em;
+    padding: 1px 5px; border-radius: 4px;
+    flex-shrink: 0; margin-top: 1px;
+  }
+  .ec-badge.ec-badge-warn {
+    background: #fff8e1; color: #856404;
+    border-color: #ffd54f;
+  }
+  /* FLASHCARDS */
+  .ec-fc-wrap { max-width: 600px; margin: 0 auto; }
+  .ec-fc-controls {
+    display: flex; align-items: center;
+    justify-content: space-between; margin-bottom: .75rem; gap: .5rem; flex-wrap: wrap;
+  }
+  .ec-fc-controls select {
+    padding: .35rem .6rem;
+    border: 1px solid #dde3ea; border-radius: 6px;
+    font-size: .8rem; background: #fff; color: #1a1a2e;
+  }
+  .ec-fc-counter { font-size: .8rem; color: #6b7280; font-weight: 600; }
+  .ec-fc-scene { perspective: 1000px; height: 220px; margin-bottom: .75rem; cursor: pointer; }
+  .ec-fc-inner {
+    width: 100%; height: 100%;
+    position: relative; transform-style: preserve-3d;
+    transition: transform .5s cubic-bezier(.16,1,.3,1);
+  }
+  .ec-fc-inner.ec-flipped { transform: rotateY(180deg); }
+  .ec-fc-face {
+    position: absolute; inset: 0;
+    backface-visibility: hidden;
+    border-radius: 12px;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    padding: 1.5rem; text-align: center;
+    box-shadow: 0 4px 16px rgba(0,0,0,.1);
+  }
+  .ec-fc-front { background: #fff; border: 2px solid #dde3ea; }
+  .ec-fc-back  { background: linear-gradient(135deg,#1565c0,#0d47a1); color: white; transform: rotateY(180deg); }
+  .ec-fc-label { font-size: .65rem; text-transform: uppercase; letter-spacing: .1em; font-weight: 700; opacity: .5; margin-bottom: .5rem; }
+  .ec-fc-text  { font-size: .9rem; line-height: 1.5; }
+  .ec-fc-hint  { font-size: .65rem; opacity: .45; margin-top: .75rem; }
+  .ec-fc-nav   { display: flex; gap: .5rem; justify-content: center; flex-wrap: wrap; }
+  .ec-btn {
+    padding: .45rem 1.1rem; border-radius: 7px;
+    font-size: .8rem; font-weight: 700; cursor: pointer;
+    border: none; transition: all .18s;
+  }
+  .ec-btn-primary { background: #1565c0; color: white; }
+  .ec-btn-primary:hover { background: #0d47a1; }
+  .ec-btn-outline {
+    background: #fff; border: 1px solid #dde3ea; color: #1a1a2e;
+  }
+  .ec-btn-outline:hover { border-color: #1565c0; color: #1565c0; background: #e3f0ff; }
+  /* QUIZ */
+  .ec-quiz-wrap { max-width: 680px; margin: 0 auto; }
+  .ec-quiz-start { text-align: center; padding: 2.5rem 1rem; }
+  .ec-quiz-start h3 { color: #1565c0; margin-bottom: .4rem; }
+  .ec-quiz-start p  { color: #6b7280; font-size: .85rem; margin-bottom: 1.2rem; }
+  .ec-qpbar-bg { height: 7px; background: #dde3ea; border-radius: 999px; margin-bottom: 1rem; overflow: hidden; }
+  .ec-qpbar-fill { height: 100%; background: linear-gradient(90deg,#1565c0,#42a5f5); border-radius: 999px; transition: width .4s; }
+  .ec-qcard {
+    background: #fff; border: 1px solid #dde3ea;
+    border-radius: 12px; padding: 1.2rem 1.3rem;
+    margin-bottom: .75rem; box-shadow: 0 1px 4px rgba(0,0,0,.06);
+  }
+  .ec-qnum   { font-size: .7rem; color: #1565c0; font-weight: 800; text-transform: uppercase; letter-spacing: .05em; margin-bottom: .4rem; }
+  .ec-qsrc   { font-size: .7rem; color: #6b7280; margin-bottom: .5rem; }
+  .ec-qtext  { font-size: .95rem; font-weight: 700; color: #1a1a2e; margin-bottom: 1rem; line-height: 1.4; }
+  .ec-qopts  { display: flex; flex-direction: column; gap: .5rem; }
+  .ec-qopt {
+    display: flex; align-items: flex-start; gap: .6rem;
+    padding: .55rem .75rem; border: 2px solid #dde3ea;
+    border-radius: 8px; cursor: pointer; font-size: .83rem;
+    background: #fff; text-align: left;
+    transition: all .18s;
+  }
+  .ec-qopt:hover:not([disabled]) { border-color: #1565c0; background: #e3f0ff; }
+  .ec-qopt.ec-correct { border-color: #2e7d32; background: #e8f5e9; color: #1b5e20; }
+  .ec-qopt.ec-wrong   { border-color: #c62828; background: #ffeaea; color: #b71c1c; }
+  .ec-qletter {
+    width: 1.5rem; height: 1.5rem; border-radius: 50%;
+    background: #f0f4f8; display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: .7rem; flex-shrink: 0;
+  }
+  .ec-qfb {
+    padding: .6rem .8rem; border-radius: 7px;
+    margin-top: .6rem; font-size: .8rem;
+    display: none;
+  }
+  .ec-qfb.show { display: block; }
+  .ec-qfb.ec-correct { background: #e8f5e9; color: #2e7d32; border-left: 4px solid #2e7d32; }
+  .ec-qfb.ec-wrong   { background: #ffeaea; color: #c62828; border-left: 4px solid #c62828; }
+  .ec-qresult { text-align: center; padding: 2.5rem 1rem; background: #fff; border: 1px solid #dde3ea; border-radius: 12px; display: none; }
+  .ec-qresult.show { display: block; }
+  .ec-qscore { font-size: 2.2rem; font-weight: 800; color: #1565c0; }
+  /* ACOTACION BOX */
+  .ec-acot {
+    background: #fff8e1; border: 1px solid #ffd54f;
+    border-left: 4px solid #e8a800;
+    border-radius: 8px; padding: .8rem 1rem;
+    margin-bottom: .75rem; font-size: .83rem; color: #4a3000;
+  }
+  .ec-acot strong { color: #856404; display: block; margin-bottom: .3rem; }
+  /* EXAM ITEMS */
+  .ec-exam-section {
+    background: #fff3e0; border: 1px solid #ffcc80;
+    border-radius: 10px; padding: 1rem;
+    margin-bottom: 1rem;
+  }
+  .ec-exam-section h4 { color: #e65100; margin: 0 0 .75rem; font-size: .95rem; }
+  .ec-exam-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: .5rem; }
+  .ec-exam-item {
+    background: #fff; border: 1px solid #ffcc80;
+    border-radius: 7px; padding: .55rem .8rem; font-size: .8rem;
+  }
+  .ec-exam-item strong { color: #e65100; display: block; font-size: .65rem; text-transform: uppercase; letter-spacing: .04em; margin-bottom: 2px; }
+  /* TIMELINE */
+  .ec-tl { padding-left: 1.5rem; position: relative; }
+  .ec-tl::before { content:''; position:absolute; left:.5rem; top:0; bottom:0; width:2px; background:#dde3ea; }
+  .ec-tl-item { position: relative; margin-bottom: 1rem; }
+  .ec-tl-item::before {
+    content:''; position:absolute; left:-1.3rem; top:.35rem;
+    width:.65rem; height:.65rem; border-radius:50%;
+    background:#1565c0; border:2px solid #f0f4f8;
+  }
+  .ec-tl-year  { font-size:.7rem; color:#1565c0; font-weight:800; }
+  .ec-tl-event { font-size:.85rem; font-weight:700; color:#1a1a2e; }
+  .ec-tl-desc  { font-size:.75rem; color:#6b7280; }
+  /* COMPARE TABLE */
+  .ec-table { width:100%; border-collapse:collapse; font-size:.82rem; border-radius:8px; overflow:hidden; box-shadow:0 1px 4px rgba(0,0,0,.06); }
+  .ec-table th { background:#1565c0; color:white; padding:.45rem .7rem; text-align:left; font-size:.75rem; text-transform:uppercase; letter-spacing:.04em; }
+  .ec-table td { padding:.45rem .7rem; border-bottom:1px solid #dde3ea; background:#fff; vertical-align:top; }
+  .ec-table tr:nth-child(even) td { background:#f8fafc; }
+  .ec-table td:first-child { font-weight:700; }
+  .ec-section-title { font-size:1rem; font-weight:800; color:#1565c0; margin:1.2rem 0 .6rem; border-bottom:2px solid #e3f0ff; padding-bottom:.4rem; }
+</style>
+
+<div class="ec-wrap">
+
+  <!-- HERO -->
+  <div class="ec-hero">
+    <h2>⚖️ Exámenes Anteriores — Conceptos</h2>
+    <p>Conceptos clave de los parciales · Flashcards · Simulacro · Foco en lo que se toma</p>
+    <div class="ec-stats">
+      <span class="ec-stat">9 Lecciones</span>
+      <span class="ec-stat">60+ Conceptos</span>
+      <span class="ec-stat">30 Flashcards</span>
+      <span class="ec-stat">25 Preguntas</span>
+    </div>
+  </div>
+
+  <!-- ══ PANEL: RESUMEN LECCIONES ══ -->
+  <div class="ec-panel" id="ec-resumen">
+  <div class="ec-section-header">📋 Resumen por Lección</div>
+    <div class="ec-acot">
+      <strong>⚠ Acotaciones del Profesor (Lecciones 4 y 5)</strong>
+      La <strong>Equidad está PROHIBIDA en materia penal</strong> (Art. 1 CP). En Paraguay es fuente formal solo en el <strong>Código del Trabajo (Art. 6)</strong>. Los Principios Generales del Derecho <strong>no aplican en la rama penal</strong>. Cosa Juzgada requiere <strong>3 identidades: sujeto, objeto, causa</strong>. Soberanía reside en <strong>el pueblo</strong> (Art. 2 CN).
+    </div>
+    <div id="ec-lessons-grid" class="ec-grid"></div>
+  </div>
+
+  <hr class="ec-section-sep">
+  <!-- ══ PANEL: CONCEPTOS CLAVE ══ -->
+  <div class="ec-panel" id="ec-conceptos">
+    <div class="ec-section-header">🔑 Conceptos Clave</div>
+    <div id="ec-concepts-container"></div>
+  </div>
+
+  <hr class="ec-section-sep">
+  <!-- ══ PANEL: FLASHCARDS ══ -->
+  <div class="ec-panel" id="ec-flashcards">
+    <div class="ec-section-header">🃏 Flashcards</div>
+    <div class="ec-fc-wrap">
+      <div class="ec-fc-controls">
+        <select id="ecFcFilter">
+          <option value="all">Todas las lecciones</option>
+          <option value="exam">Solo examen ⭐</option>
+          <option value="l1">Lección 1–2</option>
+          <option value="l3">Lección 3</option>
+          <option value="l4">Lección 4</option>
+          <option value="l5">Lección 5</option>
+          <option value="l67">Lección 6–7</option>
+          <option value="l8">Lección 8</option>
+          <option value="l9">Lección 9</option>
+          <option value="l10">Lección 10</option>
+        </select>
+        <span class="ec-fc-counter" id="ecFcCounter">1 / 30</span>
+      </div>
+      <div class="ec-fc-scene" id="ecFcScene" tabindex="0">
+        <div class="ec-fc-inner" id="ecFcInner">
+          <div class="ec-fc-face ec-fc-front">
+            <div class="ec-fc-label">Pregunta</div>
+            <div class="ec-fc-text" id="ecFcQ">—</div>
+            <div class="ec-fc-hint">Tocá para ver la respuesta</div>
+          </div>
+          <div class="ec-fc-face ec-fc-back">
+            <div class="ec-fc-label">Respuesta</div>
+            <div class="ec-fc-text" id="ecFcA">—</div>
+          </div>
+        </div>
+      </div>
+      <div class="ec-fc-nav">
+        <button class="ec-btn ec-btn-outline" id="ecFcPrev">← Anterior</button>
+        <button class="ec-btn ec-btn-outline" id="ecFcShuffle">⟳ Mezclar</button>
+        <button class="ec-btn ec-btn-primary" id="ecFcNext">Siguiente →</button>
+      </div>
+    </div>
+  </div>
+
+  <hr class="ec-section-sep">
+  <!-- ══ PANEL: SIMULACRO ══ -->
+  <div class="ec-panel" id="ec-quiz">
+    <div class="ec-section-header">🎯 Simulacro de Examen</div>
+    <div class="ec-quiz-wrap">
+      <div id="ecQStart" class="ec-quiz-start">
+        <div style="font-size:2.5rem;margin-bottom:.6rem">⚖️</div>
+        <h3>¿Listo para el parcial?</h3>
+        <p>25 preguntas · Mismo formato que los exámenes reales · Sin límite de tiempo</p>
+        <button class="ec-btn ec-btn-primary" id="ecQStartBtn" style="font-size:.95rem;padding:.6rem 2rem">Comenzar simulacro</button>
+      </div>
+      <div id="ecQGame" style="display:none">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.6rem;flex-wrap:wrap;gap:.4rem">
+          <span class="ec-qnum" id="ecQNum">Pregunta 1 de 25</span>
+          <span style="font-size:.78rem;color:#6b7280" id="ecQScore">Correctas: 0</span>
+        </div>
+        <div class="ec-qpbar-bg"><div class="ec-qpbar-fill" id="ecQPbar" style="width:4%"></div></div>
+        <div class="ec-qcard">
+          <div class="ec-qnum" id="ecQSrc"></div>
+          <div class="ec-qtext" id="ecQText"></div>
+          <div class="ec-qopts" id="ecQOpts"></div>
+          <div class="ec-qfb" id="ecQFb"></div>
+        </div>
+        <div style="text-align:right">
+          <button class="ec-btn ec-btn-primary" id="ecQNext" disabled>Siguiente →</button>
+        </div>
+      </div>
+      <div class="ec-qresult" id="ecQResult">
+        <div class="ec-qscore" id="ecQFinalScore"></div>
+        <p style="color:#6b7280;margin:.5rem 0 1.2rem" id="ecQFinalMsg"></p>
+        <button class="ec-btn ec-btn-primary" id="ecQRestart">Volver a intentar</button>
+      </div>
+    </div>
+  </div>
+
+  <hr class="ec-section-sep">
+  <!-- ══ PANEL: FOCO EXAMEN ══ -->
+  <div class="ec-panel" id="ec-foco">
+    <div class="ec-section-header">⭐ Foco Examen</div>
+    <div class="ec-acot">
+      <strong>⚠ Acotaciones del Profesor — Lecciones 4 y 5</strong>
+      Equidad <strong>PROHIBIDA en penal</strong> (Art. 1 CP). Equidad = fuente formal solo en <strong>Cód. Trabajo Art. 6</strong>. Principios Generales NO aplican en penal. Cosa Juzgada = <strong>3 identidades: sujeto + objeto + causa</strong>. Soberanía reside en el pueblo (Art. 2 CN). Art. 137 CN: CN → Tratados → Leyes del Congreso.
+    </div>
+    <div class="ec-exam-section">
+      <h4>⭐ Preguntas que MÁS se repiten en los exámenes</h4>
+      <ul class="ec-exam-list" id="ecExamList"></ul>
+    </div>
+    <div class="ec-section-title">Cronología DDHH — para memorizar</div>
+    <div class="ec-tl" id="ecTimeline"></div>
+    <div class="ec-section-title" style="margin-top:1.5rem">Moral vs. Derecho</div>
+    <table class="ec-table">
+      <thead><tr><th>Criterio</th><th>Moral</th><th>Derecho</th></tr></thead>
+      <tbody>
+        <tr><td>Coercibilidad</td><td>No es coercible</td><td>Es coercible (fuerza del Estado)</td></tr>
+        <tr><td>Autonomía</td><td>Autónoma (surge del individuo)</td><td>Heterónomo (impuesto desde afuera)</td></tr>
+        <tr><td>Bilateralidad</td><td>Unilateral</td><td>Bilateral (otro puede exigirlo)</td></tr>
+        <tr><td>Sanción</td><td>Remordimiento, rechazo social</td><td>Sanción jurídica coactiva del Estado</td></tr>
+      </tbody>
+    </table>
+    <div class="ec-section-title" style="margin-top:1.2rem">Ley Natural vs. Norma Jurídica</div>
+    <table class="ec-table">
+      <thead><tr><th>Criterio</th><th>Ley Natural</th><th>Norma Jurídica</th></tr></thead>
+      <tbody>
+        <tr><td>Aplicación</td><td>Al <em>ser</em></td><td>Al <em>deber ser</em></td></tr>
+        <tr><td>Cumplimiento</td><td>Indefectible (no puede violarse)</td><td>Contingente y violable</td></tr>
+        <tr><td>Expresión</td><td>Realidades efectivas</td><td>Lo que debe acontecer aunque no ocurra</td></tr>
+        <tr><td>Fin</td><td>Intelectivo (explicar)</td><td>Perfeccionista (orientar conducta)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+</div><!-- /.ec-wrap -->
+</div><!-- /#vistaConceptos -->
+
 
 <nav id="footer-nav">
   <button class="fnav-tab activo" id="tabCartillas" onclick="cambiarVista('cartillas')">
@@ -2492,6 +2899,9 @@ body { padding-bottom:70px; }
   </button>
   <button class="fnav-tab" id="tabExamen" onclick="cambiarVista('examen')">
     <span class="fnav-icon">🎯</span>Modo Examen
+  </button>
+  <button class="fnav-tab" id="tabConceptos" onclick="cambiarVista('conceptos')">
+    <span class="fnav-icon">⚖️</span>Ex. Anteriores
   </button>
 </nav>
 
@@ -2504,8 +2914,10 @@ body { padding-bottom:70px; }
 function cambiarVista(vista) {
   document.getElementById('vistaCartillas').classList.toggle('activa', vista === 'cartillas');
   document.getElementById('vistaExamen').classList.toggle('activa', vista === 'examen');
+  document.getElementById('vistaConceptos').classList.toggle('activa', vista === 'conceptos');
   document.getElementById('tabCartillas').classList.toggle('activo', vista === 'cartillas');
   document.getElementById('tabExamen').classList.toggle('activo', vista === 'examen');
+  document.getElementById('tabConceptos').classList.toggle('activo', vista === 'conceptos');
   if (vista === 'examen') {
     document.getElementById('pantallaInicio').style.display      = 'flex';
     document.getElementById('pantallaExamen').style.display      = 'none';
@@ -2915,6 +3327,711 @@ document.addEventListener('DOMContentLoaded', function () {
     var m = Math.floor(s / 60), ss = s % 60;
     return m > 0 ? m + 'm ' + ss + 's' : ss + 's';
   }
+
+
+  // ══════════════════════════════════════════════════════════════════
+  // PESTAÑA "EXAMENES ANTERIORES CONCEPTOS" — datos y lógica completa
+  // ══════════════════════════════════════════════════════════════════
+
+  // ── DATOS ──────────────────────────────────────────────────────────
+
+  var EC_LESSONS = [
+    {
+      id: 'l1', num: '1–2', titulo: 'Concepto de Derecho',
+      resumen: 'Distinción jus/fas, derecho objetivo vs subjetivo, fuentes del derecho, sistemas jurídicos (Romano-Germánico y Common Law), metodología jurídica.',
+      temas: [
+        { t: 'Jus y Fas', exam: true },
+        { t: 'Derecho objetivo y subjetivo', exam: true },
+        { t: 'Derecho público vs privado', exam: true },
+        { t: 'Fuentes del derecho', exam: true },
+        { t: 'Sistemas jurídicos', exam: true },
+        { t: 'Analogía', exam: true },
+        { t: 'Irretroactividad de la ley', exam: true },
+        { t: 'Proceso de formación de la ley', exam: true },
+        { t: 'Atributos de la personalidad', exam: true },
+        { t: 'Moral vs Derecho', exam: false }
+      ]
+    },
+    {
+      id: 'l3', num: '3', titulo: 'Historia y Metodología',
+      resumen: 'Derecho primitivo (venganza privada, composición), escuela del derecho natural, escuela sociológica, teorías sobre el origen del derecho.',
+      temas: [
+        { t: 'Derecho primitivo y composición', exam: true },
+        { t: 'Escuela sociológica', exam: true },
+        { t: 'Teorías origen del derecho', exam: true },
+        { t: 'Hans Kelsen — Teoría Pura', exam: true },
+        { t: 'Santo Tomás de Aquino', exam: true },
+        { t: 'Derecho canónico', exam: false }
+      ]
+    },
+    {
+      id: 'l4', num: '4', titulo: 'Valores Jurídicos: Justicia y Equidad',
+      resumen: 'Justicia (Ulpiano), equidad como fuente formal (Cód. Trabajo Art. 6), equidad PROHIBIDA en penal (Art. 1 CP), arbitrariedad.',
+      temas: [
+        { t: 'Justicia — Ulpiano', exam: true },
+        { t: 'Equidad (Cód. Trabajo Art. 6)', exam: true },
+        { t: 'Equidad PROHIBIDA en penal ⚠', exam: true },
+        { t: 'Arbitrariedad', exam: true },
+        { t: 'Seguridad jurídica', exam: false }
+      ]
+    },
+    {
+      id: 'l5', num: '5', titulo: 'Principios Generales del Derecho',
+      resumen: 'Principios Generales del Derecho (PGD), lagunas de la ley, analogía, cosa juzgada (3 identidades), irretroactividad, prelación normativa Art. 137 CN.',
+      temas: [
+        { t: 'Principios Generales del Derecho', exam: true },
+        { t: 'PGD prohibidos en penal ⚠', exam: true },
+        { t: 'Laguna de la ley', exam: true },
+        { t: 'Analogía', exam: true },
+        { t: 'Cosa Juzgada (3 identidades) ⚠', exam: true },
+        { t: 'Irretroactividad de la ley', exam: true },
+        { t: 'Art. 137 CN — Prelación ⚠', exam: true }
+      ]
+    },
+    {
+      id: 'l67', num: '6–7', titulo: 'Derecho Natural y DDHH',
+      resumen: 'Iusnaturalismo vs iuspositivismo, generaciones de DDHH, cronología (Magna Carta 1215 → CN Paraguay 1992), Pacto de San José de Costa Rica.',
+      temas: [
+        { t: 'Iusnaturalismo e iuspositivismo', exam: false },
+        { t: 'Generaciones de DDHH', exam: true },
+        { t: 'Cronología DDHH', exam: true },
+        { t: 'Pacto de San José de Costa Rica (1969)', exam: true },
+        { t: 'DDHH en la CN 1992', exam: true },
+        { t: 'Art. 137 CN', exam: true }
+      ]
+    },
+    {
+      id: 'l8', num: '8', titulo: 'Constitucionalismo Social y Democracia',
+      resumen: 'Antecedentes del constitucionalismo social, Constitución de Weimar 1919, Constitución de Querétaro 1917, Art. 128 CN Paraguay, principio democrático.',
+      temas: [
+        { t: 'Constitucionalismo social', exam: true },
+        { t: 'Constitución de Weimar (1919)', exam: true },
+        { t: 'Constitución de Querétaro (1917)', exam: true },
+        { t: 'Art. 128 CN — bien común ⚠', exam: true },
+        { t: 'Democracia representativa', exam: false }
+      ]
+    },
+    {
+      id: 'l9', num: '9', titulo: 'El Estado',
+      resumen: 'Elementos del Estado (territorio, pueblo, soberanía, gobierno), Estado de Derecho, soberanía interna/externa, iniciativa de ley, proceso de formación de la ley.',
+      temas: [
+        { t: 'Elementos del Estado', exam: true },
+        { t: 'Soberanía — Art. 2 CN ⚠', exam: true },
+        { t: 'Estado de Derecho', exam: true },
+        { t: 'Iniciativa de ley (requisitos)', exam: true },
+        { t: 'Proceso de formación de la ley', exam: true },
+        { t: 'Art. 204 CN — 5 días ⚠', exam: true }
+      ]
+    },
+    {
+      id: 'l10', num: '10', titulo: 'Normas Éticas y Técnicas',
+      resumen: 'Estructura de la norma jurídica, tipos de normas éticas (moral, religiosa, de trato social, jurídica), ley natural vs norma positiva, atributos de la personalidad.',
+      temas: [
+        { t: 'Estructura de la norma (Hans Kelsen)', exam: true },
+        { t: '4 tipos de normas éticas', exam: true },
+        { t: 'Ley natural vs norma positiva', exam: false },
+        { t: 'Características normas jurídicas', exam: true },
+        { t: 'Atributos de la personalidad', exam: true },
+        { t: 'Persona jurídica', exam: true },
+        { t: 'Capacidad de hecho y de derecho', exam: true }
+      ]
+    }
+  ];
+
+  var EC_CONCEPTS = {
+    'ecc-l1': [
+      { term: 'Jus', def: 'Término latino para el derecho como norma de conducta obligatoria entre personas (derecho humano, coercible).', exam: true },
+      { term: 'Fas', def: 'Derecho divino o religioso en Roma; reglas de conducta de origen religioso, no coercible por el Estado.', exam: true },
+      { term: 'Derecho Objetivo', def: 'Conjunto de normas jurídicas vigentes en un Estado (el ordenamiento jurídico en sí). Ej: El Código Civil.', exam: true },
+      { term: 'Derecho Subjetivo', def: 'Facultad o poder que el ordenamiento jurídico otorga a una persona para exigir algo. Ej: derecho a cobrar una deuda.', exam: true },
+      { term: 'Derecho Público', def: 'Regula las relaciones entre el Estado y los particulares, o entre entes públicos (Constitucional, Administrativo, Penal, Procesal).', exam: true },
+      { term: 'Derecho Privado', def: 'Regula las relaciones entre particulares (Civil, Comercial, Laboral, Internacional Privado).', exam: true },
+      { term: 'Common Law', def: 'Sistema jurídico anglosajón (UK, USA) basado en precedentes judiciales (jurisprudencia); los jueces crean derecho con sus fallos.', exam: true },
+      { term: 'Sistema Romano-Germánico', def: 'Sistema codificado basado en la ley escrita y en el Derecho Romano; predomina en América Latina y Europa continental.', exam: true },
+      { term: 'Irretroactividad', def: 'Principio: la ley rige para el futuro, no para hechos anteriores a su vigencia. Excepción: ley penal más favorable.', exam: true },
+      { term: 'Territorialidad', def: 'La ley se aplica dentro del territorio del Estado que la dictó. Principio general del Derecho Internacional Privado.', exam: true },
+      { term: 'Jurisprudencia', def: 'Conjunto de decisiones judiciales reiteradas y uniformes sobre un mismo punto de derecho. Fuente principal en el Common Law.', exam: true },
+      { term: 'Relación Jurídica', def: 'Vínculo entre dos o más personas regulado por el Derecho, que genera derechos y obligaciones recíprocas.', exam: true },
+      { term: 'Acto Unilateral', def: 'Acto jurídico que nace de la voluntad de una sola parte. Ej: testamento, oferta de promesa.', exam: true },
+      { term: 'Derogación', def: 'Eliminación total (abrogación) o parcial de una ley por otra posterior.', exam: true }
+    ],
+    'ecc-l3': [
+      { term: 'Derecho Primitivo', def: 'Etapa inicial del derecho en la que predominaba la venganza privada como respuesta al daño causado.', exam: true },
+      { term: 'Composición', def: 'Sustitución de la venganza privada por un pago o compensación acordada entre las partes; antecedente de la reparación civil.', exam: true },
+      { term: 'Hans Kelsen', def: 'Jurista austriaco, autor de la Teoría Pura del Derecho. Concibió el derecho como un sistema de normas jerarquizadas (pirámide de Kelsen).', exam: true },
+      { term: 'Teoría Pura del Derecho', def: 'Corriente iuspositivista de Kelsen que estudia el derecho como ciencia autónoma, libre de consideraciones morales, políticas o sociológicas.', exam: true },
+      { term: 'Santo Tomás de Aquino', def: 'Filósofo y teólogo; define la ley natural como participación de la criatura racional en la ley eterna. Fundamento del iusnaturalismo cristiano.', exam: true },
+      { term: 'Escuela Sociológica', def: 'Corriente que estudia el derecho en su contexto social; el derecho surge de la realidad social y debe adaptarse a ella.', exam: true },
+      { term: 'Escuela del Clan', def: 'Organización primitiva donde las reglas de conducta eran dictadas por el jefe del clan y su incumplimiento generaba venganza grupal.', exam: true },
+      { term: 'Derecho Canónico', def: 'Derecho de la Iglesia Católica; regula la organización y disciplina interna de la Iglesia. Influyó en el Derecho Civil occidental.', exam: false }
+    ],
+    'ecc-l4': [
+      { term: 'Justicia (Ulpiano)', def: '"Dar a cada uno lo suyo de modo constante y perpetuo." Virtud fundamental del derecho según el jurista romano Ulpiano.', exam: true },
+      { term: 'Equidad', def: 'Adaptación de la justicia general al caso concreto; criterio de moderación. FUENTE FORMAL solo en Cód. Trabajo Art. 6.', exam: true, warn: true },
+      { term: 'Equidad PROHIBIDA en Penal', def: 'Art. 1 del Código Penal paraguayo: en materia penal NO se puede aplicar la equidad como fuente del derecho. ⚠ Dato de examen.', exam: true, warn: true },
+      { term: 'Arbitrariedad', def: 'Decisión o acto contrario a la justicia, la razón o las leyes; lo opuesto al derecho legítimo. Sinónimo: abuso de poder.', exam: true },
+      { term: 'Seguridad Jurídica', def: 'Certeza de que el derecho vigente será aplicado correctamente; garantía de previsibilidad para los ciudadanos.', exam: false }
+    ],
+    'ecc-l5': [
+      { term: 'Principios Generales del Derecho (PGD)', def: 'Criterios rectores del sistema jurídico que sirven para integrar lagunas y orientar la interpretación. Ej: buena fe, equidad, no causar daño.', exam: true },
+      { term: 'PGD — prohibición en penal', def: 'Los PGD NO se aplican en materia penal para crear o ampliar responsabilidad. ⚠ Dato del profesor.', exam: true, warn: true },
+      { term: 'Laguna de la Ley', def: 'Ausencia de norma positiva aplicable a un caso concreto. Se integra mediante analogía, equidad o PGD (según la materia).', exam: true },
+      { term: 'Analogía', def: 'Método de integración que aplica una norma a un caso no previsto por similitud con el caso regulado. Prohibida en Derecho Penal.', exam: true },
+      { term: 'Cosa Juzgada', def: 'Efecto de firmeza de una sentencia definitiva. Requiere TRIPLE identidad: mismo sujeto + mismo objeto + misma causa. ⚠', exam: true, warn: true },
+      { term: 'Irretroactividad (Art. CN)', def: 'La ley no puede aplicarse a hechos anteriores a su vigencia. Garantía constitucional de seguridad jurídica.', exam: true },
+      { term: 'Art. 137 CN — Prelación', def: 'Jerarquía normativa: CN → Tratados ratificados → Leyes → Decretos → Ordenanzas. ⚠ Pregunta frecuente.', exam: true, warn: true },
+      { term: 'Interpretación del Derecho', def: 'Proceso de determinar el sentido y alcance de una norma. Métodos: gramatical, lógico, sistemático, histórico, sociológico.', exam: true }
+    ],
+    'ecc-l67': [
+      { term: 'Iusnaturalismo', def: 'Doctrina que sostiene que existe un derecho natural, universal e inmutable, superior al derecho positivo.', exam: false },
+      { term: 'Iuspositivismo', def: 'Doctrina que reconoce como derecho solo el derecho positivo (el creado por el Estado); rechaza el derecho natural.', exam: false },
+      { term: '1ª Generación DDHH', def: 'Derechos civiles y políticos (libertad, igualdad, voto). Surgidos de la Revolución Francesa (1789).', exam: true },
+      { term: '2ª Generación DDHH', def: 'Derechos económicos, sociales y culturales (trabajo, educación, salud). Impulsados con el constitucionalismo social (s. XX).', exam: true },
+      { term: '3ª Generación DDHH', def: 'Derechos de solidaridad (paz, medio ambiente, desarrollo). Reconocidos a partir de la 2ª mitad del s. XX.', exam: true },
+      { term: 'Magna Carta (1215)', def: 'Documento inglés que limitó el poder del rey y reconoció derechos a los nobles; primer antecedente de las libertades individuales.', exam: true },
+      { term: 'Declaración de Independencia USA (1776)', def: 'Primer documento moderno que proclamó derechos inalienables: vida, libertad y búsqueda de la felicidad.', exam: true },
+      { term: 'Declaración Francesa (1789)', def: 'Declaración de los Derechos del Hombre y del Ciudadano; proclamó libertad, igualdad, fraternidad.', exam: true },
+      { term: 'Pacto de San José (1969)', def: 'Convención Americana sobre DDHH firmada en Costa Rica (1969); protege derechos civiles y políticos en América. Ratificada por Paraguay.', exam: true },
+      { term: 'DUDH (1948)', def: 'Declaración Universal de Derechos Humanos adoptada por la ONU el 10/12/1948 tras la 2ª Guerra Mundial.', exam: true }
+    ],
+    'ecc-l8': [
+      { term: 'Constitucionalismo Social', def: 'Movimiento que incorpora derechos económicos y sociales a las constituciones; surgido en el s. XX como respuesta al liberalismo.', exam: true },
+      { term: 'Constitución de Querétaro (1917)', def: 'Primera constitución en incorporar derechos sociales (México). Antecedente clave del constitucionalismo social.', exam: true },
+      { term: 'Constitución de Weimar (1919)', def: 'Constitución alemana que incorporó derechos sociales y económicos; modelo del constitucionalismo social europeo.', exam: true },
+      { term: 'Art. 128 CN Paraguay', def: '"El bien común de la nación está por encima de cualquier interés particular." Fundamento del constitucionalismo social en Paraguay.', exam: true, warn: true },
+      { term: 'Democracia Representativa', def: 'Sistema de gobierno donde el pueblo ejerce el poder a través de representantes elegidos por voto.', exam: false }
+    ],
+    'ecc-l9': [
+      { term: 'Elementos del Estado', def: 'Territorio, Pueblo (Nación), Gobierno y Soberanía. Los 4 son indispensables para la existencia del Estado.', exam: true },
+      { term: 'Soberanía (Art. 2 CN)', def: '"La soberanía reside en el pueblo." Soberanía interna: supremacía sobre el territorio. Soberanía externa: independencia frente a otros estados.', exam: true, warn: true },
+      { term: 'Estado de Derecho', def: 'Estado en que todos, incluyendo los gobernantes, están sometidos al derecho; garantías constitucionales y separación de poderes.', exam: true },
+      { term: 'Iniciativa de Ley', def: 'Derecho a presentar proyectos de ley. Tienen iniciativa: parlamentarios, Poder Ejecutivo, Corte Suprema (en su área), y ciudadanos (con firmas).', exam: true },
+      { term: 'Proceso de Formación de Ley', def: 'Iniciativa → Cámara de origen → Cámara revisora → Poder Ejecutivo (promulgación o veto). Art. 204 CN: 5 días para observar.', exam: true },
+      { term: 'Art. 204 CN — 5 días', def: 'El Poder Ejecutivo tiene 5 días hábiles para promulgar o vetar un proyecto de ley aprobado por el Congreso. ⚠ Pregunta frecuente.', exam: true, warn: true }
+    ],
+    'ecc-l10': [
+      { term: 'Estructura de la Norma (Kelsen)', def: 'Supuesto jurídico (hipótesis) + consecuencia jurídica (sanción). Si se produce el hecho → se aplica la consecuencia.', exam: true },
+      { term: 'Norma Moral', def: 'Regula la conducta interna del individuo; unilateral, incoercible. El incumplimiento genera remordimiento, no sanción estatal.', exam: true },
+      { term: 'Norma Religiosa', def: 'Impuesta por la religión; su sanción es de carácter divino o espiritual. No es coercible por el Estado.', exam: true },
+      { term: 'Norma de Trato Social', def: 'Convenciones sociales (cortesía, protocolo); su incumplimiento genera reprobación social, no sanción jurídica.', exam: true },
+      { term: 'Norma Jurídica', def: 'Dictada por el Estado, bilateral, general, coercible y externa. Su incumplimiento habilita la fuerza del Estado.', exam: true },
+      { term: 'Coercibilidad', def: 'Característica exclusiva de la norma jurídica: el Estado puede imponer su cumplimiento por la fuerza si es necesario.', exam: true },
+      { term: 'Atributos de la Personalidad', def: 'Nombre, estado civil, domicilio, capacidad, patrimonio y nacionalidad. Caracterizan jurídicamente a la persona.', exam: true },
+      { term: 'Capacidad de Derecho', def: 'Aptitud para ser titular de derechos y obligaciones. Toda persona la tiene desde el nacimiento.', exam: true },
+      { term: 'Capacidad de Hecho', def: 'Aptitud para ejercer personalmente los derechos. Puede ser limitada (menores, incapaces declarados).', exam: true },
+      { term: 'Persona Jurídica', def: 'Ente al que el derecho reconoce personalidad jurídica (asociaciones, fundaciones, sociedades). Distinto de la persona física.', exam: true }
+    ]
+  };
+
+  var EC_FLASHCARDS = [
+    { q: '¿Qué es el Jus?', a: 'El derecho humano, laico y coercible; norma de conducta entre personas dictada por el Estado.', cat: 'l1', exam: true },
+    { q: '¿Qué es el Fas?', a: 'El derecho divino romano; reglas de origen religioso no coercibles por el Estado.', cat: 'l1', exam: true },
+    { q: '¿Diferencia entre Derecho Objetivo y Subjetivo?', a: 'Objetivo = el ordenamiento (las leyes vigentes). Subjetivo = la facultad que el ordenamiento da a la persona para exigir algo.', cat: 'l1', exam: true },
+    { q: '¿Cuáles son los sistemas jurídicos principales?', a: 'Romano-Germánico (ley escrita, América Latina) y Common Law (precedentes judiciales, países anglosajones).', cat: 'l1', exam: true },
+    { q: '¿Qué es la arbitrariedad?', a: 'Acto o decisión contraria a la justicia y la razón; lo opuesto al derecho legítimo. Abuso de poder.', cat: 'l4', exam: true },
+    { q: '¿Qué establece el Art. 204 CN?', a: 'El Poder Ejecutivo tiene 5 días hábiles para promulgar o vetar un proyecto de ley aprobado por el Congreso.', cat: 'l9', exam: true },
+    { q: '¿Qué es la cosa juzgada y cuántas identidades requiere?', a: 'Efecto de firmeza de una sentencia definitiva. Requiere triple identidad: mismo sujeto + mismo objeto + misma causa.', cat: 'l5', exam: true },
+    { q: '¿La equidad puede aplicarse en el Derecho Penal?', a: 'NO. El Art. 1 del Código Penal la prohíbe expresamente. Solo es fuente formal en el Cód. de Trabajo (Art. 6).', cat: 'l4', exam: true },
+    { q: '¿Qué es la justicia según Ulpiano?', a: '"Dar a cada uno lo suyo de modo constante y perpetuo."', cat: 'l4', exam: true },
+    { q: '¿Qué son los Principios Generales del Derecho?', a: 'Criterios rectores del sistema jurídico que integran lagunas y orientan la interpretación. Prohibidos en penal para crear responsabilidad.', cat: 'l5', exam: true },
+    { q: '¿Qué es una laguna de la ley?', a: 'Ausencia de norma positiva aplicable al caso concreto. Se integra con analogía, equidad o PGD (excepto en penal).', cat: 'l5', exam: true },
+    { q: '¿Qué es la analogía y dónde está prohibida?', a: 'Aplicar una norma a un caso similar no previsto. Está PROHIBIDA en el Derecho Penal.', cat: 'l5', exam: true },
+    { q: '¿Cuál es la jerarquía normativa según el Art. 137 CN?', a: 'Constitución → Tratados ratificados → Leyes del Congreso → Decretos → Ordenanzas municipales.', cat: 'l5', exam: true },
+    { q: '¿Cuándo se adoptó la DUDH?', a: '10 de diciembre de 1948, por la ONU, tras la 2ª Guerra Mundial.', cat: 'l67', exam: true },
+    { q: '¿Qué es el Pacto de San José de Costa Rica?', a: 'Convención Americana sobre DDHH (1969) que protege derechos civiles y políticos en América. Ratificada por Paraguay.', cat: 'l67', exam: true },
+    { q: '¿Cuáles son las 3 generaciones de DDHH?', a: '1ª: civiles y políticos (1789). 2ª: económicos, sociales y culturales (s. XX). 3ª: solidaridad (paz, ambiente, desarrollo).', cat: 'l67', exam: true },
+    { q: '¿Cuáles son los 4 elementos del Estado?', a: 'Territorio, Pueblo (Nación), Gobierno y Soberanía. Los 4 son indispensables.', cat: 'l9', exam: true },
+    { q: '¿Qué dice el Art. 2 CN sobre la soberanía?', a: '"La soberanía reside en el pueblo." El poder no puede ser atribuido a persona o grupo alguno.', cat: 'l9', exam: true },
+    { q: '¿Qué es el Estado de Derecho?', a: 'Estado donde todos, incluidos los gobernantes, están sometidos al derecho; con garantías constitucionales y separación de poderes.', cat: 'l9', exam: true },
+    { q: '¿Cuáles son los antecedentes del constitucionalismo social?', a: 'Constitución de Querétaro (México, 1917) y Constitución de Weimar (Alemania, 1919).', cat: 'l8', exam: true },
+    { q: '¿Qué establece el Art. 128 CN?', a: '"El bien común de la nación está por encima de cualquier interés particular."', cat: 'l8', exam: true },
+    { q: '¿Cuál es la estructura de la norma jurídica según Kelsen?', a: 'Supuesto jurídico (hipótesis de hecho) + consecuencia jurídica (sanción o efecto).', cat: 'l10', exam: true },
+    { q: '¿Cuáles son los 4 tipos de normas éticas?', a: 'Moral, religiosa, de trato social y jurídica. Solo la jurídica es coercible por el Estado.', cat: 'l10', exam: true },
+    { q: '¿Cuál es la diferencia entre capacidad de hecho y de derecho?', a: 'De derecho: aptitud para ser titular de derechos (toda persona la tiene). De hecho: aptitud para ejercerlos personalmente (puede limitarse).', cat: 'l10', exam: true },
+    { q: '¿Cuáles son los atributos de la personalidad?', a: 'Nombre, estado civil, domicilio, capacidad, patrimonio y nacionalidad.', cat: 'l10', exam: true },
+    { q: '¿Qué es la composición en Derecho primitivo?', a: 'Sustitución de la venganza privada por un pago/compensación acordado entre las partes; antecedente de la reparación civil.', cat: 'l3', exam: true },
+    { q: '¿Qué propuso Hans Kelsen?', a: 'La Teoría Pura del Derecho: estudiar el derecho como ciencia autónoma, libre de moral, política o sociología.', cat: 'l3', exam: true },
+    { q: '¿Cómo define Santo Tomás de Aquino la ley natural?', a: 'Participación de la criatura racional en la ley eterna; base del iusnaturalismo cristiano.', cat: 'l3', exam: true },
+    { q: '¿Qué diferencia a la moral del derecho?', a: 'La moral es unilateral, incoercible e interna. El derecho es bilateral, coercible y externo.', cat: 'l1', exam: false },
+    { q: '¿Qué son los requisitos para la iniciativa de ley?', a: 'Puede ser presentada por parlamentarios, Poder Ejecutivo, Corte Suprema (en su área) y ciudadanos (con número de firmas requerido).', cat: 'l9', exam: true }
+  ];
+
+  var EC_QUIZ_QUESTIONS = [
+    {
+      src: 'Examen 1P — 2024',
+      q: '¿Qué es la arbitrariedad?',
+      opts: ['Decisión justa basada en normas', 'Acto contrario a la razón y la justicia; abuso del poder', 'Sinónimo de equidad', 'Método de integración de lagunas'],
+      correct: 1,
+      exp: 'La arbitrariedad es lo opuesto al derecho legítimo: un acto o decisión contraria a la justicia y la razón, equivalente a abuso de poder.'
+    },
+    {
+      src: 'Examen 1P — 2024',
+      q: '¿Cuántas identidades requiere la cosa juzgada?',
+      opts: ['1 identidad (sujeto)', '2 identidades (sujeto y objeto)', '3 identidades (sujeto, objeto y causa)', '4 identidades'],
+      correct: 2,
+      exp: 'La cosa juzgada exige triple identidad: mismo sujeto, mismo objeto y misma causa. ⚠ Dato del profesor.'
+    },
+    {
+      src: 'Examen 1P — 2024',
+      q: '¿Dónde reside la soberanía según el Art. 2 CN de Paraguay?',
+      opts: ['En el Congreso Nacional', 'En el Poder Judicial', 'En el pueblo', 'En el Poder Ejecutivo'],
+      correct: 2,
+      exp: 'Art. 2 CN: "La soberanía reside en el pueblo, que la ejerce conforme a lo dispuesto en esta Constitución."'
+    },
+    {
+      src: 'Examen 1P — 2024',
+      q: '¿Cuántos días tiene el Poder Ejecutivo para promulgar o vetar una ley (Art. 204 CN)?',
+      opts: ['3 días hábiles', '5 días hábiles', '10 días hábiles', '15 días corridos'],
+      correct: 1,
+      exp: 'Art. 204 CN establece 5 días hábiles para que el Ejecutivo promulgue u observe (vete) el proyecto aprobado.'
+    },
+    {
+      src: 'Examen TA — 2024',
+      q: '¿Qué es la capacidad de hecho?',
+      opts: ['Aptitud para ser titular de derechos', 'Aptitud para ejercer personalmente los derechos', 'Sinónimo de personalidad jurídica', 'Equivale a la capacidad de derecho'],
+      correct: 1,
+      exp: 'La capacidad de hecho es la aptitud para ejercer por sí mismo los derechos. Puede estar limitada (menores, incapaces declarados).'
+    },
+    {
+      src: 'Examen TA — 2024',
+      q: '¿Quién es Hans Kelsen y qué propuso?',
+      opts: ['Jurista romano; definió la justicia como "dar a cada uno lo suyo"', 'Filósofo medieval; fundó el iusnaturalismo cristiano', 'Jurista austriaco; creó la Teoría Pura del Derecho', 'Filósofo griego; definió al hombre como animal político'],
+      correct: 2,
+      exp: 'Hans Kelsen (1881–1973) es el creador de la Teoría Pura del Derecho, que estudia el derecho como ciencia autónoma libre de moral o política.'
+    },
+    {
+      src: 'Examen TA — 2024',
+      q: '¿Cuál es la jerarquía normativa según el Art. 137 CN?',
+      opts: ['Leyes → Tratados → Constitución', 'Constitución → Leyes → Tratados', 'Constitución → Tratados ratificados → Leyes del Congreso', 'Decretos → Leyes → Constitución'],
+      correct: 2,
+      exp: 'Art. 137 CN establece: Constitución → Tratados ratificados → Leyes del Congreso → Decretos → Ordenanzas.'
+    },
+    {
+      src: 'Examen 1P — 2024',
+      q: '¿La equidad puede usarse como fuente del Derecho Penal?',
+      opts: ['Sí, siempre', 'Sí, solo en casos de laguna', 'No, está expresamente prohibida (Art. 1 CP)', 'Sí, junto con los PGD'],
+      correct: 2,
+      exp: 'Art. 1 del Código Penal paraguayo prohíbe expresamente la aplicación de la equidad en materia penal.'
+    },
+    {
+      src: 'Examen 1P — 2024',
+      q: '¿Cuáles son los elementos del Estado?',
+      opts: ['Gobierno, leyes, justicia y policía', 'Territorio, pueblo, gobierno y soberanía', 'Constitución, poderes, territorio y ejército', 'Nación, bandera, idioma y moneda'],
+      correct: 1,
+      exp: 'Los 4 elementos clásicos del Estado son: Territorio, Pueblo (Nación), Gobierno y Soberanía.'
+    },
+    {
+      src: 'Examen 1P — 2024',
+      q: '¿Qué es la analogía en el derecho?',
+      opts: ['Comparar dos leyes vigentes', 'Aplicar una norma a un caso similar no previsto', 'Sinónimo de interpretación literal', 'Método exclusivo del Common Law'],
+      correct: 1,
+      exp: 'La analogía aplica una norma existente a un caso no regulado por similitud. Está prohibida en el Derecho Penal.'
+    },
+    {
+      src: 'Examen TA — 2024',
+      q: '¿Cuáles son los 4 tipos de normas éticas?',
+      opts: ['Civiles, penales, administrativas y constitucionales', 'Moral, religiosa, de trato social y jurídica', 'Positivas, naturales, formales y materiales', 'Internas, externas, bilaterales y unilaterales'],
+      correct: 1,
+      exp: 'Las 4 normas éticas son: moral (interna, incoercible), religiosa (divina), de trato social (convenciones) y jurídica (coercible, estatal).'
+    },
+    {
+      src: 'Examen 1P — 2024',
+      q: '¿Cuál es la diferencia principal entre el sistema Romano-Germánico y el Common Law?',
+      opts: ['Uno usa jueces y el otro no', 'El Romano-Germánico se basa en ley escrita; el Common Law en precedentes judiciales', 'El Common Law es más antiguo', 'Son prácticamente iguales'],
+      correct: 1,
+      exp: 'Sistema Romano-Germánico: ley codificada/escrita (América Latina, Europa continental). Common Law: precedentes judiciales vinculantes (UK, USA).'
+    },
+    {
+      src: 'Examen TA — 2024',
+      q: '¿Qué es la persona jurídica?',
+      opts: ['Solo las personas físicas mayores de edad', 'Ente al que el derecho reconoce personalidad (asociaciones, sociedades, fundaciones)', 'Sinónimo de capacidad de hecho', 'El Estado solamente'],
+      correct: 1,
+      exp: 'Persona jurídica es el ente distinto de las personas físicas al que el derecho reconoce personalidad y capacidad de ser titular de derechos.'
+    },
+    {
+      src: 'Examen 1P — 2024',
+      q: '¿Cuáles son las 3 partes de una sentencia?',
+      opts: ['Iniciativa, debate y resolución', 'Vistos, considerandos y parte dispositiva (fallo)', 'Demanda, contestación y prueba', 'Cargo, defensa y veredicto'],
+      correct: 1,
+      exp: 'La sentencia judicial tiene 3 partes: Vistos (hechos), Considerandos (fundamentos jurídicos) y Parte Dispositiva (el fallo o decisión).'
+    },
+    {
+      src: 'Examen 1P — 2024',
+      q: '¿Qué es el derecho subjetivo?',
+      opts: ['El conjunto de normas vigentes', 'La facultad que el ordenamiento otorga a una persona para exigir algo', 'Sinónimo de moral', 'La interpretación personal de las leyes'],
+      correct: 1,
+      exp: 'Derecho subjetivo = facultad o poder que el ordenamiento jurídico otorga a una persona (ej: derecho a cobrar una deuda, derecho de propiedad).'
+    },
+    {
+      src: 'Examen TA — 2024',
+      q: '¿Cómo define Santo Tomás de Aquino la ley natural?',
+      opts: ['Como la norma positiva del Estado', 'Como la participación de la criatura racional en la ley eterna', 'Como el precedente judicial', 'Como el derecho primitivo de los clanes'],
+      correct: 1,
+      exp: 'Santo Tomás: la ley natural es "la participación de la criatura racional en la ley eterna"; base del iusnaturalismo cristiano medieval.'
+    },
+    {
+      src: 'Examen 1P — 2024',
+      q: '¿Qué es el proceso de formación de la ley en Paraguay?',
+      opts: ['Solo el Poder Ejecutivo puede presentar proyectos', 'Iniciativa → Cámara de origen → Cámara revisora → Ejecutivo (promulga/veta)', 'El presidente aprueba directamente las leyes', 'La Corte Suprema elabora todas las leyes'],
+      correct: 1,
+      exp: 'Proceso: iniciativa de ley → tratamiento en cámara de origen → revisión en otra cámara → sanción → Ejecutivo (promulga o veta en 5 días).'
+    },
+    {
+      src: 'Examen 1P — 2024',
+      q: '¿Qué son los atributos de la personalidad?',
+      opts: ['Cualidades morales del juez', 'Nombre, estado civil, domicilio, capacidad, patrimonio y nacionalidad', 'Solo nombre y domicilio', 'Los derechos políticos de los ciudadanos'],
+      correct: 1,
+      exp: 'Los atributos de la personalidad identifican jurídicamente a la persona: nombre, estado civil, domicilio, capacidad, patrimonio y nacionalidad.'
+    },
+    {
+      src: 'Examen TA — 2024',
+      q: '¿Qué es el derecho primitivo?',
+      opts: ['El primer código escrito de la historia', 'La etapa donde predominaba la venganza privada como respuesta al daño', 'Sinónimo de derecho natural', 'El derecho vigente en la Antigua Roma'],
+      correct: 1,
+      exp: 'El derecho primitivo es la etapa inicial del desarrollo jurídico, caracterizada por la venganza privada ante el daño causado (lex talionis).'
+    },
+    {
+      src: 'Acotaciones del Profesor',
+      q: '¿En qué artículo se basa la prelación normativa en Paraguay?',
+      opts: ['Art. 2 CN', 'Art. 128 CN', 'Art. 137 CN', 'Art. 204 CN'],
+      correct: 2,
+      exp: 'Art. 137 CN establece la supremacía constitucional y la prelación: CN → Tratados → Leyes → Decretos → Ordenanzas.'
+    },
+    {
+      src: 'Examen 1P — 2024',
+      q: '¿Qué es la irretroactividad de la ley?',
+      opts: ['La ley solo aplica al futuro, no a hechos anteriores a su vigencia', 'La ley puede aplicarse retroactivamente siempre', 'Principio exclusivo del Derecho Penal', 'La ley rige desde que se publica en el Diario Oficial'],
+      correct: 0,
+      exp: 'Irretroactividad: la ley no puede aplicarse a hechos ocurridos antes de su entrada en vigencia. Excepción: ley penal más favorable al reo.'
+    },
+    {
+      src: 'Examen TA — 2024',
+      q: '¿Cuáles son las 3 generaciones de DDHH?',
+      opts: ['Civiles, sociales y económicos', 'Individuales, colectivos y globales', 'Civiles y políticos (1789) / Económicos sociales (s.XX) / Solidaridad (s.XX–XXI)', 'Positivos, negativos y mixtos'],
+      correct: 2,
+      exp: '1ª gen: derechos civiles y políticos (Revolución Francesa, 1789). 2ª gen: económicos, sociales, culturales. 3ª gen: solidaridad (paz, ambiente).'
+    },
+    {
+      src: 'Examen 1P — 2024',
+      q: '¿Qué es la relación jurídica?',
+      opts: ['Un contrato entre el Estado y los particulares únicamente', 'Vínculo entre personas regulado por el derecho que genera derechos y obligaciones', 'Sinónimo de proceso judicial', 'La relación entre ley y decreto'],
+      correct: 1,
+      exp: 'La relación jurídica es el vínculo entre dos o más personas (o entre persona y cosa) regulado por el Derecho, que genera derechos y obligaciones.'
+    },
+    {
+      src: 'Examen TA — 2024',
+      q: '¿Qué es la composición en derecho primitivo?',
+      opts: ['La codificación de las leyes', 'La sustitución de la venganza por un pago o compensación acordada', 'El primer tribunal de justicia', 'El sistema de precedentes romanos'],
+      correct: 1,
+      exp: 'La composición reemplazó a la venganza privada: el ofensor pagaba una compensación al ofendido o su familia, en vez de sufrir represalia.'
+    },
+    {
+      src: 'Examen 1P — 2024',
+      q: '¿Cuántos años tiene el Art. 204 CN para el veto presidencial?',
+      opts: ['3 días', '5 días hábiles', '10 días corridos', '30 días'],
+      correct: 1,
+      exp: 'Art. 204 CN: el Presidente tiene 5 días hábiles para promulgar u observar (vetar) un proyecto de ley. Pregunta muy frecuente en los exámenes.'
+    }
+  ];
+
+  var EC_EXAM_ITEMS = [
+    { q: '¿Qué establece el Art. 204 CN?', a: 'El Poder Ejecutivo tiene 5 días hábiles para promulgar o vetar un proyecto de ley aprobado por el Congreso.' },
+    { q: '¿Cuáles son los 3 elementos de la cosa juzgada?', a: 'Identidad de sujeto + identidad de objeto + identidad de causa. (Triple identidad — dato del profesor).' },
+    { q: '¿La equidad puede aplicarse en el Derecho Penal?', a: 'NO. Art. 1 del Código Penal la prohíbe. Solo es fuente formal en el Código del Trabajo (Art. 6).' },
+    { q: '¿Dónde reside la soberanía según la CN?', a: 'En el pueblo (Art. 2 CN). El poder no puede ser arrogado por persona o grupo alguno.' },
+    { q: '¿Cuál es la jerarquía normativa del Art. 137 CN?', a: 'CN → Tratados ratificados → Leyes del Congreso → Decretos del Ejecutivo → Ordenanzas municipales.' },
+    { q: '¿Cuáles son los 4 elementos del Estado?', a: 'Territorio, Pueblo (Nación), Gobierno y Soberanía.' },
+    { q: '¿Qué es la justicia según Ulpiano?', a: '"Dar a cada uno lo suyo de modo constante y perpetuo."' },
+    { q: '¿Cuáles son los antecedentes del constitucionalismo social?', a: 'Constitución de Querétaro, México (1917) y Constitución de Weimar, Alemania (1919).' },
+    { q: '¿Cuáles son los 4 tipos de normas éticas?', a: 'Moral, religiosa, de trato social y jurídica. Solo la jurídica es coercible por el Estado.' },
+    { q: '¿Cuáles son los atributos de la personalidad?', a: 'Nombre, estado civil, domicilio, capacidad, patrimonio y nacionalidad.' },
+    { q: '¿Cuántas partes tiene una sentencia?', a: '3 partes: Vistos (hechos), Considerandos (fundamentos) y Parte Dispositiva (el fallo).' },
+    { q: '¿Cuáles son los sistemas jurídicos estudiados?', a: 'Romano-Germánico (ley codificada, América Latina) y Common Law (precedentes, países anglosajones).' },
+    { q: '¿Los PGD aplican en el Derecho Penal?', a: 'NO. Tampoco la equidad ni la analogía pueden usarse en penal para crear o ampliar responsabilidad.' },
+    { q: '¿Cuál es la estructura de la norma jurídica según Kelsen?', a: 'Supuesto jurídico (hipótesis) + consecuencia jurídica (sanción).' }
+  ];
+
+  var EC_TIMELINE = [
+    { y: '1215', e: 'Magna Carta', d: 'Documento inglés que limitó el poder del rey; primer antecedente de libertades individuales.' },
+    { y: '1628', e: 'Petition of Rights', d: 'Parlamento inglés reafirma derechos y garantías frente a la corona.' },
+    { y: '1776', e: 'Independencia de EE.UU.', d: 'Declara derechos inalienables: vida, libertad y búsqueda de la felicidad.' },
+    { y: '1789', e: 'Revolución Francesa', d: 'Declaración de los DDHH del Hombre y del Ciudadano: 1ª generación de derechos.' },
+    { y: '1917', e: 'Constitución de Querétaro', d: 'México: primera constitución con derechos sociales. Antecedente del constitucionalismo social.' },
+    { y: '1919', e: 'Constitución de Weimar', d: 'Alemania incorpora derechos económicos y sociales; modelo europeo del constitucionalismo social.' },
+    { y: '1948', e: 'DUDH — ONU', d: 'Declaración Universal de Derechos Humanos adoptada el 10/12/1948 tras la 2ª Guerra Mundial.' },
+    { y: '1969', e: 'Pacto de San José', d: 'Convención Americana sobre DDHH (Costa Rica); protege derechos civiles y políticos en América.' },
+    { y: '1989', e: 'Convención del Niño', d: 'ONU adopta la Convención Internacional sobre los Derechos del Niño.' },
+    { y: '1992', e: 'CN Paraguay', d: 'Nueva Constitución de Paraguay incorpora DDHH y el Art. 137 de prelación normativa.' }
+  ];
+
+  // ── RENDER LECCIONES ───────────────────────────────────────────────
+  function renderEcLessons() {
+    var grid = document.getElementById('ec-lessons-grid');
+    if (!grid) return;
+    var html = '';
+    EC_LESSONS.forEach(function(l) {
+      var examTopics = l.temas.filter(function(t){ return t.exam; });
+      var otherTopics = l.temas.filter(function(t){ return !t.exam; });
+      html += '<div class="ec-lesson-card">';
+      html += '<div class="ec-lesson-num">Lección ' + l.num + '</div>';
+      html += '<div class="ec-lesson-title">' + l.titulo + '</div>';
+      html += '<p style="font-size:.82rem;color:#4b5563;margin:.4rem 0 .6rem">' + l.resumen + '</p>';
+      if (examTopics.length) {
+        html += '<div style="margin-bottom:.3rem">';
+        examTopics.forEach(function(t){
+          html += '<span class="ec-badge ec-badge-exam">⭐ ' + t.t + '</span>';
+        });
+        html += '</div>';
+      }
+      if (otherTopics.length) {
+        html += '<div>';
+        otherTopics.forEach(function(t){
+          html += '<span class="ec-badge">📌 ' + t.t + '</span>';
+        });
+        html += '</div>';
+      }
+      html += '</div>';
+    });
+    grid.innerHTML = html;
+  }
+
+  // ── RENDER CONCEPTOS — todo desplegado ─────────────────────────────
+  var EC_LESSON_LABELS = {
+    'ecc-l1': 'Lección 1–2: Concepto de Derecho',
+    'ecc-l3': 'Lección 3: Historia y Metodología',
+    'ecc-l4': 'Lección 4: Justicia y Equidad',
+    'ecc-l5': 'Lección 5: Principios Generales del Derecho',
+    'ecc-l67': 'Lección 6–7: Derecho Natural y DDHH',
+    'ecc-l8': 'Lección 8: Constitucionalismo Social',
+    'ecc-l9': 'Lección 9: El Estado',
+    'ecc-l10': 'Lección 10: Normas Éticas y Técnicas'
+  };
+  function renderEcConcepts() {
+    var container = document.getElementById('ec-concepts-container');
+    if (!container) return;
+    var html = '';
+    var keys = ['ecc-l1','ecc-l3','ecc-l4','ecc-l5','ecc-l67','ecc-l8','ecc-l9','ecc-l10'];
+    keys.forEach(function(key) {
+      var items = EC_CONCEPTS[key] || [];
+      if (!items.length) return;
+      html += '<div style="margin-bottom:1.2rem">';
+      html += '<div style="font-size:.78rem;font-weight:800;color:#1565c0;text-transform:uppercase;letter-spacing:.06em;margin-bottom:.5rem;padding:.3rem .6rem;background:#e3f0ff;border-radius:5px">' + EC_LESSON_LABELS[key] + '</div>';
+      html += '<div class="ec-grid">';
+      items.forEach(function(c){
+        var cls = 'ec-concept-card' + (c.warn ? ' ec-warn' : '') + (c.exam ? ' ec-exam-flag' : '');
+        html += '<div class="' + cls + '">';
+        html += '<div class="ec-concept-term">' + c.term;
+        if (c.exam) html += ' <span class="ec-badge ec-badge-exam" style="font-size:.62rem;padding:.12rem .38rem">⭐ examen</span>';
+        if (c.warn) html += ' <span class="ec-badge" style="font-size:.62rem;padding:.12rem .38rem;background:#fff3cd;color:#856404">⚠ acotación</span>';
+        html += '</div>';
+        html += '<div class="ec-concept-def">' + c.def + '</div>';
+        html += '</div>';
+      });
+      html += '</div></div>';
+    });
+    container.innerHTML = html || '<p style="color:#9ca3af;font-size:.88rem">Sin conceptos.</p>';
+  }
+
+  // ── INIT (todo desplegado, sin tabs) ──────────────────────────────
+  function initEcTabs() {
+    // Todo visible — solo renderizamos conceptos completos
+    renderEcConcepts();
+  }
+
+  // ── FLASHCARDS ────────────────────────────────────────────────────
+  function initEcFlashcards() {
+    var filter = document.getElementById('ecFcFilter');
+    var counter = document.getElementById('ecFcCounter');
+    var scene = document.getElementById('ecFcScene');
+    var inner = document.getElementById('ecFcInner');
+    var qEl = document.getElementById('ecFcQ');
+    var aEl = document.getElementById('ecFcA');
+    var prevBtn = document.getElementById('ecFcPrev');
+    var shuffleBtn = document.getElementById('ecFcShuffle');
+    var nextBtn = document.getElementById('ecFcNext');
+    if (!filter || !qEl) return;
+
+    var deck = [];
+    var idx = 0;
+    var flipped = false;
+
+    function buildDeck() {
+      var val = filter.value;
+      deck = EC_FLASHCARDS.filter(function(c) {
+        if (val === 'all') return true;
+        if (val === 'exam') return c.exam;
+        return c.cat === val;
+      });
+      idx = 0;
+      showCard();
+    }
+
+    function showCard() {
+      flipped = false;
+      if (inner) inner.classList.remove('ec-flipped');
+      if (!deck.length) {
+        if (qEl) qEl.textContent = 'Sin tarjetas.';
+        if (aEl) aEl.textContent = '';
+        if (counter) counter.textContent = '0 / 0';
+        return;
+      }
+      var c = deck[idx];
+      if (qEl) qEl.textContent = c.q;
+      if (aEl) aEl.textContent = c.a;
+      if (counter) counter.textContent = (idx + 1) + ' / ' + deck.length;
+    }
+
+    if (scene) {
+      scene.addEventListener('click', function() {
+        flipped = !flipped;
+        if (inner) inner.classList.toggle('ec-flipped', flipped);
+      });
+    }
+    if (prevBtn) prevBtn.addEventListener('click', function() {
+      if (!deck.length) return;
+      idx = (idx - 1 + deck.length) % deck.length;
+      showCard();
+    });
+    if (nextBtn) nextBtn.addEventListener('click', function() {
+      if (!deck.length) return;
+      idx = (idx + 1) % deck.length;
+      showCard();
+    });
+    if (shuffleBtn) shuffleBtn.addEventListener('click', function() {
+      deck = deck.slice().sort(function() { return Math.random() - 0.5; });
+      idx = 0;
+      showCard();
+    });
+    if (filter) filter.addEventListener('change', buildDeck);
+
+    buildDeck();
+  }
+
+  // ── SIMULACRO (QUIZ) ──────────────────────────────────────────────
+  function initEcQuiz() {
+    var startDiv = document.getElementById('ecQStart');
+    var gameDiv = document.getElementById('ecQGame');
+    var resultDiv = document.getElementById('ecQResult');
+    var startBtn = document.getElementById('ecQStartBtn');
+    var numEl = document.getElementById('ecQNum');
+    var scoreEl = document.getElementById('ecQScore');
+    var pbar = document.getElementById('ecQPbar');
+    var srcEl = document.getElementById('ecQSrc');
+    var textEl = document.getElementById('ecQText');
+    var optsEl = document.getElementById('ecQOpts');
+    var fbEl = document.getElementById('ecQFb');
+    var nextBtn = document.getElementById('ecQNext');
+    var finalScore = document.getElementById('ecQFinalScore');
+    var finalMsg = document.getElementById('ecQFinalMsg');
+    var restartBtn = document.getElementById('ecQRestart');
+    if (!startBtn) return;
+
+    var questions, qIdx, correct;
+
+    function startQuiz() {
+      questions = EC_QUIZ_QUESTIONS.slice().sort(function() { return Math.random() - 0.5; });
+      qIdx = 0; correct = 0;
+      if (startDiv) startDiv.style.display = 'none';
+      if (resultDiv) resultDiv.style.display = 'none';
+      if (gameDiv) gameDiv.style.display = 'block';
+      showQuestion();
+    }
+
+    function showQuestion() {
+      var q = questions[qIdx];
+      var total = questions.length;
+      if (numEl) numEl.textContent = 'Pregunta ' + (qIdx + 1) + ' de ' + total;
+      if (scoreEl) scoreEl.textContent = 'Correctas: ' + correct;
+      if (pbar) pbar.style.width = Math.round(((qIdx + 1) / total) * 100) + '%';
+      if (srcEl) srcEl.textContent = '📄 ' + q.src;
+      if (textEl) textEl.textContent = q.q;
+      if (fbEl) { fbEl.textContent = ''; fbEl.className = 'ec-qfb'; }
+      if (nextBtn) { nextBtn.disabled = true; }
+      if (optsEl) {
+        optsEl.innerHTML = '';
+        q.opts.forEach(function(opt, i) {
+          var btn = document.createElement('button');
+          btn.className = 'ec-qopt';
+          btn.textContent = opt;
+          btn.addEventListener('click', function() {
+            var allOpts = optsEl.querySelectorAll('.ec-qopt');
+            allOpts.forEach(function(b) { b.disabled = true; });
+            if (i === q.correct) {
+              btn.classList.add('ec-qopt-correct');
+              correct++;
+              if (fbEl) { fbEl.textContent = '✓ Correcto — ' + q.exp; fbEl.className = 'ec-qfb ec-qfb-ok'; }
+            } else {
+              btn.classList.add('ec-qopt-wrong');
+              allOpts[q.correct].classList.add('ec-qopt-correct');
+              if (fbEl) { fbEl.textContent = '✗ Incorrecto — ' + q.exp; fbEl.className = 'ec-qfb ec-qfb-err'; }
+            }
+            if (nextBtn) nextBtn.disabled = false;
+          });
+          optsEl.appendChild(btn);
+        });
+      }
+    }
+
+    if (startBtn) startBtn.addEventListener('click', startQuiz);
+
+    if (nextBtn) nextBtn.addEventListener('click', function() {
+      qIdx++;
+      if (qIdx >= questions.length) {
+        if (gameDiv) gameDiv.style.display = 'none';
+        if (resultDiv) resultDiv.style.display = 'block';
+        var pct = Math.round((correct / questions.length) * 100);
+        if (finalScore) finalScore.textContent = correct + ' / ' + questions.length + ' (' + pct + '%)';
+        var msg = pct >= 80 ? '¡Excelente! Estás listo para el parcial.' :
+                  pct >= 60 ? 'Bien, pero repasá los temas marcados con ⭐.' :
+                  'Seguí estudiando, enfocate en los temas de "Foco Examen".';
+        if (finalMsg) finalMsg.textContent = msg;
+      } else {
+        showQuestion();
+      }
+    });
+
+    if (restartBtn) restartBtn.addEventListener('click', function() {
+      if (resultDiv) resultDiv.style.display = 'none';
+      if (startDiv) startDiv.style.display = 'block';
+    });
+  }
+
+  // ── FOCO EXAMEN ───────────────────────────────────────────────────
+  function renderEcExam() {
+    var list = document.getElementById('ecExamList');
+    if (!list) return;
+    var html = '';
+    EC_EXAM_ITEMS.forEach(function(item, i) {
+      html += '<li class="ec-exam-item">';
+      html += '<div class="ec-exam-q"><strong>' + (i + 1) + '. ' + item.q + '</strong></div>';
+      html += '<div class="ec-exam-a">' + item.a + '</div>';
+      html += '</li>';
+    });
+    list.innerHTML = html;
+  }
+
+  function renderEcTimeline() {
+    var tl = document.getElementById('ecTimeline');
+    if (!tl) return;
+    var html = '';
+    EC_TIMELINE.forEach(function(item) {
+      html += '<div class="ec-tl-item">';
+      html += '<div class="ec-tl-dot"></div>';
+      html += '<div class="ec-tl-year">' + item.y + '</div>';
+      html += '<div class="ec-tl-event"><strong>' + item.e + '</strong> — ' + item.d + '</div>';
+      html += '</div>';
+    });
+    tl.innerHTML = html;
+  }
+
+  // ── INICIALIZACIÓN ─────────────────────────────────────────────────
+  renderEcLessons();
+  initEcTabs();
+  initEcFlashcards();
+  initEcQuiz();
+  renderEcExam();
+  renderEcTimeline();
+
 
 }); // fin DOMContentLoaded
 
