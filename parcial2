@@ -1,0 +1,1097 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Introducción a las Ciencias Jurídicas - Lecciones XI a XIX</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.6;
+      margin: 0;
+      padding: 0;
+      background: #f5f5f7;
+      color: #222;
+    }
+    header {
+      background: #1a237e;
+      color: #fff;
+      padding: 1.5rem 1rem;
+      text-align: center;
+    }
+    header h1 {
+      margin: 0 0 .3rem 0;
+      font-size: 1.8rem;
+    }
+    header p {
+      margin: 0;
+      font-size: .95rem;
+      opacity: .9;
+    }
+    main {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 1.5rem 1rem 3rem 1rem;
+    }
+    section {
+      background: #fff;
+      margin-bottom: 1.5rem;
+      padding: 1.2rem 1.4rem;
+      border-radius: 8px;
+      box-shadow: 0 1px 3px rgba(0,0,0,.08);
+    }
+    h2 {
+      margin-top: 0;
+      border-left: 4px solid #1a237e;
+      padding-left: .6rem;
+      font-size: 1.4rem;
+    }
+    h3 {
+      margin-top: 1rem;
+      font-size: 1.1rem;
+      color: #1a237e;
+    }
+    h4 {
+      margin-top: .8rem;
+      font-size: 1rem;
+      color: #303f9f;
+    }
+    ul {
+      margin-top: .3rem;
+      margin-bottom: .6rem;
+      padding-left: 1.2rem;
+    }
+    li {
+      margin-bottom: .2rem;
+    }
+    .leccion-meta {
+      font-size: .85rem;
+      color: #555;
+      margin-bottom: .4rem;
+    }
+    .articulo {
+      font-style: italic;
+      color: #333;
+    }
+    .subrayado {
+      text-decoration: underline;
+    }
+    code {
+      font-family: "SF Mono", Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-size: .9rem;
+      background: #eee;
+      padding: 0 .18rem;
+      border-radius: 3px;
+    }
+    @media (min-width: 768px) {
+      header h1 {
+        font-size: 2rem;
+      }
+      section {
+        padding: 1.5rem 1.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+<header>
+  <h1>Introducción a las Ciencias Jurídicas</h1>
+  <p>Cartillas académicas – Lecciones XI a XIX</p>
+</header>
+<main>
+
+  <!-- LECCIÓN XI -->
+  <section id="leccion-11">
+    <h2>Lección XI – Normas Religiosas, Morales, de Trato Social y Normas Jurídicas</h2>
+    <p class="leccion-meta">Contenido: clases de normas reguladoras de la conducta humana, estructura de la norma jurídica y sanciones.</p>
+
+    <h3>1. Normas Religiosas</h3>
+
+    <h4>Concepto</h4>
+    <p>Las normas religiosas regulan el comportamiento del ser humano en sus relaciones con la divinidad. La palabra <span class="subrayado">religión</span> deriva de la voz latina <span class="subrayado">religio</span>, que significa vínculo de unión del hombre con Dios.</p>
+
+    <h4>Caracteres</h4>
+    <ul>
+      <li>A. La espontaneidad.</li>
+      <li>B. La heteronomía.</li>
+      <li>C. Unilateralidad.</li>
+      <li>D. Interioridad.</li>
+      <li>E. Incoercibilidad.</li>
+      <li>F. Abarcan un amplio ámbito de la vida del creyente.</li>
+    </ul>
+
+    <h4>Clasificación</h4>
+    <ul>
+      <li>a) Normas de fe.</li>
+      <li>b) Normas de la razón.</li>
+    </ul>
+
+    <h4>Sanciones</h4>
+    <ul>
+      <li>1. Terrenales y ultraterrenales.</li>
+      <li>2. Premiales.</li>
+      <li>3. Preventivas y represivas.</li>
+    </ul>
+
+    <h3>2. Normas Morales</h3>
+
+    <h4>Concepto</h4>
+    <p>Las normas morales formulan imperativamente los deberes ordenados al bien personal del hombre, considerándolo individualmente.</p>
+
+    <h4>Caracteres</h4>
+    <ul>
+      <li>A. Autonomía.</li>
+      <li>B. Unilateralidad.</li>
+      <li>C. Subjetivo.</li>
+      <li>D. Interioexterioridad.</li>
+      <li>E. Incoercibilidad.</li>
+      <li>F. Se distinguen por su rigor preceptivo.</li>
+    </ul>
+
+    <h3>3. Normas del Trato Social</h3>
+
+    <h4>Concepto</h4>
+    <p>Las normas de trato social son reglas de naturaleza específicamente social y externa que imponen deberes de comportamiento decoroso, derivados de las circunstancias, independientemente de que la persona pertenezca o no a un determinado grupo o círculo social.</p>
+
+    <h4>Carácter</h4>
+    <ul>
+      <li>Imperativo.</li>
+    </ul>
+
+    <h3>4. Normas Jurídicas</h3>
+
+    <h4>Concepto</h4>
+    <p>La norma jurídica rige la conducta humana en sociedad, y su cumplimiento puede exigirse coactivamente o pedirse que se aplique la sanción por los órganos del Estado, en caso de su inobservancia.</p>
+
+    <h4>Caracteres</h4>
+    <ul>
+      <li>A. Imperatividad.</li>
+      <li>B. Autarquía.</li>
+      <li>C. Heteronomía.</li>
+      <li>D. Generalidad.</li>
+      <li>E. Bilateralidad.</li>
+      <li>F. Exteriointerioridad.</li>
+      <li>G. Coercibilidad.</li>
+    </ul>
+
+    <h3>5. Estructura de las Normas Jurídicas</h3>
+
+    <h4>Concepto</h4>
+    <p>La estructura lógica de la norma jurídica se compone de dos partes:</p>
+    <ul>
+      <li><strong>Hipótesis o supuesto jurídico</strong>.</li>
+      <li><strong>Disposición o consecuencia de derecho</strong>.</li>
+    </ul>
+
+    <h4>Clasificación</h4>
+    <h4>A) Por referencia a las sanciones</h4>
+    <ul>
+      <li>a.1. Leyes perfectas.</li>
+      <li>a.2. Leyes pluscuamperfectas.</li>
+      <li>a.3. Leyes minuscuamperfectas.</li>
+      <li>a.4. Leyes imperfectas.</li>
+    </ul>
+
+    <h4>B) En relación a su ámbito de validez</h4>
+    <ul>
+      <li>Ámbito espacial.</li>
+      <li>Ámbito temporal.</li>
+      <li>Ámbito material.</li>
+      <li>Ámbito personal.</li>
+    </ul>
+
+    <h4>C) Según su aplicación esté o no condicionada a la voluntad de los particulares</h4>
+    <p>Atendiendo a si la eficacia de la norma depende de la voluntad de los sujetos o no.</p>
+
+    <h4>D) Por razón de los términos y sentido del mandato</h4>
+    <p>Atendiendo a la forma en que el mandato jurídico está formulado.</p>
+
+    <h4>E) Según importancia o jerarquía</h4>
+    <ul>
+      <li>e.1. Norma primaria.</li>
+      <li>e.2. Norma secundaria.</li>
+      <li>e.3. Norma de vigencia.</li>
+      <li>e.4. Norma declarativa.</li>
+      <li>e.5. Norma permisiva.</li>
+      <li>e.6. Norma sancionadora.</li>
+    </ul>
+
+    <h3>6. La Sanción</h3>
+    <p>En la norma jurídica se distingue el <strong>precepto</strong> de la <strong>sanción</strong>. El precepto contiene la conducta que debe observarse; la sanción vigoriza el precepto.</p>
+    <p><span class="subrayado">Sancionar</span>, del latín <span class="subrayado">scire</span>, originalmente significó hacer inviolable, reforzar algo. Las sanciones son las seguridades de que se rodean las normas jurídicas, a fin de hacer efectivo su cumplimiento. Si el precepto se cumple, la sanción represiva está de más. En caso contrario, se recurre a la fuerza para aplicarla y lograr la imposición de un deber jurídico.</p>
+
+    <h3>7. Norma Sancionada y Norma Sancionaria</h3>
+    <p>En la vida de una sanción hay siempre dos normas: primaria y secundaria.</p>
+    <ul>
+      <li>La primera, llamada <strong>sancionada</strong>, crea la obligación que debe cumplirse.</li>
+      <li>La segunda, denominada <strong>sancionadora</strong>, complementa a la primera y establece la sanción.</li>
+      <li>Puede integrar el mismo cuerpo de la norma primaria o estar separada de ella.</li>
+    </ul>
+
+    <h3>8. Sanciones Prohibidas por la Constitución Nacional</h3>
+    <p>De modo expreso y categórico, la Constitución paraguaya prohíbe la imposición de las siguientes sanciones punitivas:</p>
+    <ul>
+      <li>Las multas desmedidas (<span class="articulo">Art. 44 CN</span>).</li>
+      <li>La pena de muerte (<span class="articulo">Art. 4° CN</span>).</li>
+      <li>La confiscación de bienes (<span class="articulo">Arts. 109 y 181 CN</span>).</li>
+      <li>Las torturas y los tratos crueles, inhumanos y degradantes (<span class="articulo">Art. 5° CN</span>).</li>
+    </ul>
+    <p>Además, la <span class="subrayado">Ley N° 1557/2000</span> aprueba el Protocolo de la Convención Americana sobre Derechos Humanos relativo a la abolición de la pena de muerte.</p>
+  </section>
+
+  <!-- LECCIÓN XII -->
+  <section id="leccion-12">
+    <h2>Lección XII – Ordenamiento Normativo, Juricidad y Prelación de Normas</h2>
+    <p class="leccion-meta">Contenido: ordenamientos normativos, ordenamiento jurídico, conducta lícita e ilícita, arbitrariedad, ilegalidad, injusticia y pirámide de Kelsen.</p>
+
+    <h3>1. Ordenamiento Normativo: Definición y Especies</h3>
+    <p>Las normas reguladoras de la conducta humana no se encuentran aisladas y en desorden, sino que constituyen conjuntos orgánico-sistematizados de preceptos vinculados entre sí denominados <strong>ordenamientos normativos</strong>.</p>
+    <p><strong>Ordenamiento normativo</strong> es el conjunto sistematizado de normas que regulan el obrar o comportamiento del hombre y tienen la misma razón de validez.</p>
+
+    <h4>Especies</h4>
+    <p>Hay tantos ordenamientos normativos como especies de normas ya estudiadas:</p>
+    <ul>
+      <li>Religioso.</li>
+      <li>Moral.</li>
+      <li>De trato social.</li>
+      <li>Jurídico.</li>
+    </ul>
+
+    <h3>2. El Ordenamiento Jurídico: Noción</h3>
+    <p>Se llama <strong>ordenamiento jurídico</strong> al conjunto sistematizado de normas cuya razón de validez deriva de la misma Constitución o norma superior fundamental. Comprende además el derecho no estructurado constituido por los principios generales.</p>
+
+    <h3>3. Juricidad: Concepto y Conducta Lícita</h3>
+    <p>La <strong>juricidad</strong> está constituida por los hechos o fenómenos de la realidad social regulados por las normas jurídicas. En otros términos, es el acontecer en la vida jurídica, la fenomenología de lo jurídico.</p>
+
+    <h4>Conducta lícita</h4>
+    <p>La conducta lícita es la que corresponde a:</p>
+    <ul>
+      <li>La ejecución de los actos ordenados.</li>
+      <li>La omisión de los actos prohibidos.</li>
+      <li>La ejecución u omisión de los actos que no están ordenados ni prohibidos.</li>
+    </ul>
+
+    <h3>4. Antijuricidad: Noción y Conducta Ilícita</h3>
+    <p>La <strong>antijuricidad</strong> es el conjunto de hechos que de algún modo se oponen al orden jurídico, por estar en contra de lo reglado. Son hechos ilícitos o prohibidos.</p>
+
+    <h4>Conducta ilícita</h4>
+    <p>La conducta ilícita está representada por:</p>
+    <ul>
+      <li>La omisión de los actos ordenados.</li>
+      <li>La ejecución de los actos prohibidos.</li>
+    </ul>
+
+    <h3>5. Arbitrariedad</h3>
+    <p>La arbitrariedad es la conducta antijurídica de los órganos del Estado. Consiste en que el mismo poder público que ha dictado la norma declarándola inviolable para los demás y para sí mismo, es quien la infringe. Por ello constituye la especie más grave de antijuridicidad.</p>
+
+    <h3>6. Ilegalidad</h3>
+    <p>La ilegalidad es la violación de la norma jurídica cometida por un particular o por un funcionario público de jerarquía superable, que puede subsanarse por la vía de los recursos o medios de impugnación.</p>
+
+    <h3>7. Injusticia</h3>
+    <p>La injusticia es el contrapolo de la justicia y consiste en no atribuir a cada uno lo que le corresponde, tanto por el derecho natural como por las normas del derecho positivo.</p>
+    <p>Cuando el derecho positivo entra en conflicto con el derecho natural, por haberse dictado normas contrarias a los postulados fundamentales de este último, tales normas tienen la calificación de <strong>injustas</strong>.</p>
+
+    <h3>8. Prelación de las Normas Jurídicas – La Pirámide de Kelsen</h3>
+    <p>La <strong>prelación de las normas jurídicas</strong> determina la jerarquía e importancia de las mismas a los fines de su correcta aplicación. No todas las normas jurídicas tienen igual jerarquía: unas son primarias o fundamentales, otras secundarias.</p>
+    <p>El filósofo del derecho <strong>Hans Kelsen</strong> estableció la jerarquización de normas jurídicas, que sigue un orden lógico y necesario.</p>
+
+    <h4>La pirámide jurídica de Kelsen</h4>
+    <p>La construcción kelseniana del ordenamiento jurídico, en forma piramidal, enseña que la jerarquía de las normas está determinada por los diferentes órdenes o grados que existen entre las mismas. Cada norma superior constituye la razón de validez de la inferior y, en cierto modo, determina el contenido de esta. Las normas inferiores constituyen siempre la aplicación y el desarrollo de las superiores en que se fundan.</p>
+
+    <h3>9. La Prelación en el Derecho Paraguayo</h3>
+    <p>La jerarquía e importancia de las normas que integran el ordenamiento jurídico vigente en Paraguay se encuentran establecidas en el <span class="articulo">artículo 137 de la Constitución Nacional</span>.</p>
+
+    <h3>10. Fin del Ordenamiento Jurídico: Caducidad de la Norma Fundamental y Modos de Acaecer</h3>
+    <p>El ordenamiento jurídico debe ser estable. Esto no significa que deje de contemplar las exigencias sociales para incorporar modificaciones legítimas aconsejadas por las circunstancias de tiempo y lugar.</p>
+    <p>El fin del ordenamiento jurídico está ligado a la caducidad de la norma fundamental o Constitución. Esta caduca de dos modos:</p>
+    <ul>
+      <li><strong>Muerte natural</strong>: cuando la Constitución vigente es reformada totalmente o se procede a dictar otra nueva de acuerdo con las disposiciones establecidas en aquella.</li>
+      <li><strong>Muerte violenta</strong>: consiste en la ruptura de la lógica de los antecedentes causada por una <strong>revolución</strong>.</li>
+    </ul>
+  </section>
+
+  <!-- LECCIÓN XIII -->
+  <section id="leccion-13">
+    <h2>Lección XIII – Derecho Positivo y Estructura de la Constitución de 1992</h2>
+    <p class="leccion-meta">Contenido: derecho positivo, derecho público y privado, ramas del derecho público interno y estructura de la Constitución paraguaya.</p>
+
+    <h3>1. El Derecho Positivo</h3>
+    <h4>Introducción</h4>
+    <p>El derecho positivo es el conjunto de normas jurídicas que regulan la convivencia de las personas en un determinado territorio. Se desarrolla gracias a la teoría del normativismo planteada y defendida por <strong>Hans Kelsen</strong> en el siglo XX, la cual estructura al derecho según una jerarquía de normas, dando mayor importancia y supremacía a la Constitución de la República, ya que esta organiza al Estado, le atribuye sus funciones, sus formas de actuar y sus límites.</p>
+    <p>En base a lo anterior, los ciudadanos acuerdan cómo quieren regir sus vidas, definen cómo estará organizado el Estado y pasan de ser un <em>poder constituyente</em> de los ciudadanos al <em>poder constituido</em> del Estado, porque ya está formado y establecido, quedando plasmado en la Constitución Nacional todo lo acordado por aquellos.</p>
+
+    <h4>División</h4>
+    <p>El derecho positivo se divide en:</p>
+    <ul>
+      <li>Derecho positivo interno.</li>
+      <li>Derecho positivo externo.</li>
+    </ul>
+    <p>Asimismo se analiza la estructura de la Constitución del Paraguay de 1992, desde el preámbulo, la parte orgánica y la parte dogmática, para finalmente abordar el derecho municipal.</p>
+
+    <h3>2. Características del Derecho Positivo</h3>
+    <ul>
+      <li>Es un tipo de derecho que se expresa y cuya existencia no puede ser discutida bajo ningún aspecto. Podrá ser objeto de discusiones y modificaciones, pero no podrá ser negado.</li>
+      <li>Cada país tiene su propio derecho positivo, por lo que puede decirse que es individual.</li>
+      <li>Está formado por un conjunto de aspectos de carácter obligatorio, establecidos por la autoridad política del pueblo, y rige en un periodo determinado de tiempo.</li>
+      <li>El cumplimiento y la ejecución del derecho positivo pueden suceder de manera espontánea; cuando no sucede así, puede ser impuesto coactivamente en la comunidad, pueblo o país.</li>
+      <li>Tiene <strong>relatividad</strong>, es decir, no se encuentra encerrado únicamente en determinadas normas, sino que puede transformarse con el tiempo, influido por las condiciones políticas, económicas, sociales y culturales de la región donde se aplica, buscando como fin principal la justicia.</li>
+      <li>Es creado por la <strong>voluntad del hombre</strong>, puede ser temporal y tiene la opción de cambiar cuando sea necesario, por lo cual a veces se lo cataloga como un derecho imperfecto.</li>
+    </ul>
+
+    <h3>3. Derecho Público y Derecho Privado</h3>
+    <h4>Derecho público</h4>
+    <p>El derecho público es el conjunto de normas que establecen la estructura y funciones del Estado como ente soberano y regulan las relaciones jurídicas del mismo con los particulares u otros Estados.</p>
+
+    <h4>Derecho privado</h4>
+    <p>El derecho privado es el conjunto de normas que regulan las relaciones jurídicas entre particulares o entre estos y el Estado como persona jurídica.</p>
+
+    <h3>4. Subdivisión en Interno y Externo</h3>
+    <p>El derecho público y el derecho privado se subdividen en:</p>
+    <ul>
+      <li><strong>Interno</strong>: constituido por el conjunto de normas que dicta cada Estado para regir las relaciones del mismo con los particulares o de los particulares entre sí (por ejemplo, el derecho paraguayo).</li>
+      <li><strong>Externo o internacional</strong>: conjunto de normas que rigen las relaciones entre varios Estados o entre individuos de varios Estados.</li>
+    </ul>
+
+    <h3>5. Ramas del Derecho Público Interno</h3>
+    <p>Es tradicional la división del derecho positivo en ramas para su estudio y enseñanza. La enciclopedia jurídica consiste en una exposición orgánica, aunque sintética, de las diversas ramas del derecho positivo.</p>
+
+    <ul>
+      <li><strong>Derecho Político</strong>: rama de la ciencia jurídica que estudia la teoría general del Estado; comprende el concepto de Estado, sus elementos constitutivos, soberanía, organización, funciones, fines, personalidad y formas de Estado y de gobierno.</li>
+      <li><strong>Derecho Constitucional</strong>: rama del derecho público interno que estudia la estructura jurídica de un Estado, establecida en su Constitución, y las relaciones del mismo con los ciudadanos o súbditos. Su objeto principal es la Constitución jurídica suprema que determina la estructura del Estado y las normas y principios rectores a los que deben subordinarse las demás ramas del derecho positivo.</li>
+      <li><strong>Derecho Administrativo</strong>: conjunto de principios y normas positivas que regulan la actividad del Estado para la institución y funcionamiento de los servicios públicos, así como las relaciones del ente gobernante con los particulares por razón de aquellos.</li>
+      <li><strong>Derecho Financiero</strong>: disciplina cuyo objeto es el estudio sistemático de las normas jurídicas que regulan la percepción, gestión y erogación de los medios económicos conferidos al Estado y a los entes públicos para el desarrollo de sus actividades.</li>
+      <li><strong>Derecho Municipal</strong>: conjunto de principios y normas positivas que establecen la organización y el funcionamiento de los servicios públicos de carácter local y regulan las relaciones del Municipio con el Estado y los particulares por razón de aquellos.</li>
+      <li><strong>Derecho Aduanero</strong>: conjunto de normas jurídicas que establecen el régimen de las aduanas en cada país, atendiendo a la naturaleza de su producción económica, las necesidades fiscales y sus particularidades geográficas.</li>
+      <li><strong>Derecho Penal</strong>: conjunto de normas jurídicas establecidas por el Estado que determinan los delitos, las penas y las medidas adecuadas para evitar la criminalidad.</li>
+      <li><strong>Derecho Penal Militar</strong>: conjunto de normas que organizan la represión de las infracciones militares mediante penas.</li>
+      <li><strong>Derecho Procesal</strong>: conjunto de leyes que determinan la forma según la cual han de realizarse las funciones del Estado.</li>
+    </ul>
+
+    <h3>6. Estructura de la Constitución de 1992</h3>
+    <p>La Constitución de la República del Paraguay vigente fue sancionada por la Convención Nacional Constituyente el 20 de junio de 1992. Se compone de:</p>
+    <ul>
+      <li>Preámbulo.</li>
+      <li>Parte dogmática.</li>
+      <li>Parte orgánica.</li>
+    </ul>
+
+    <h4>El Preámbulo</h4>
+    <p>La Constitución paraguaya está precedida de una portada o declaración general de propósitos para establecer un ordenamiento jurídico y, a la vez, un instrumento de gobierno, que se llama <strong>preámbulo</strong>. Este no es la parte dominante de la Constitución, ni una declaración de normas, sino una manifestación extranormativa de la voluntad de sus autores.</p>
+
+    <h4>Parte Dogmática</h4>
+    <p>La parte dogmática de la Constitución trata de los derechos fundamentales del hombre. El Estado paraguayo tiene como finalidad principal, no solo salvaguardar las libertades individuales, sino también realizar el bien común y proteger los intereses generales. El ejercicio de los derechos individuales, reconocidos a todos los habitantes, incumbe al individuo mediante el desarrollo de su iniciativa y capacidad, dentro de un marco legal.</p>
+
+    <h4>Parte Orgánica</h4>
+    <p>La parte orgánica de la Constitución se refiere a la organización y funcionamiento de los poderes del Estado.</p>
+
+    <h3>7. Derecho Municipal</h3>
+    <p>El derecho municipal es el conjunto de principios y normas positivas que establecen la organización y el funcionamiento de los servicios públicos de carácter local y regulan las relaciones del Municipio con el Estado y los particulares por razón de aquellos.</p>
+  </section>
+
+  <!-- LECCIÓN XIV -->
+  <section id="leccion-14">
+    <h2>Lección XIV – Derecho Internacional Público, Bases Constitucionales y Derecho Canónico</h2>
+    <p class="leccion-meta">Contenido: ramas del derecho público externo; derecho internacional público; bases constitucionales del derecho internacional; derecho canónico y su diferencia con el derecho eclesiástico.</p>
+
+    <h3>1. Ramas del Derecho Público Externo</h3>
+    <ul>
+      <li>Derecho Internacional Público:
+        <ul>
+          <li>Noción y denominaciones.</li>
+          <li>Contenido.</li>
+          <li>División.</li>
+        </ul>
+      </li>
+      <li>Bases constitucionales del derecho internacional.</li>
+      <li>Derecho Canónico:
+        <ul>
+          <li>Noción.</li>
+          <li>División.</li>
+          <li>Diferencia con el derecho eclesiástico.</li>
+        </ul>
+      </li>
+    </ul>
+
+    <h3>2. Derecho Internacional Público</h3>
+
+    <h4>A. Noción</h4>
+    <p>El derecho internacional público es el conjunto de principios y normas convencionales y consuetudinarias que regulan las relaciones jurídicas entre los Estados como entes soberanos y la de estos con otras organizaciones internacionales, reconocidas o creadas por ellos. Ejemplos de estas organizaciones son: la Organización de las Naciones Unidas (ONU), la Organización de los Estados Americanos (OEA), la Organización Internacional del Trabajo (OIT) y la Iglesia Católica.</p>
+
+    <h4>Denominaciones</h4>
+    <p>La denominación de “derecho internacional” generalmente admitida ha sido objeto de crítica. El adjetivo “internacional” deriva de “nación”, concepto que se considera inapropiado y que debería ser sustituido por el de “Estado” en el plano jurídico-político. Se han propuesto otros nombres, como:</p>
+    <ul>
+      <li>Derecho interestatal.</li>
+      <li>Derecho supranacional.</li>
+      <li>Derecho de gentes.</li>
+    </ul>
+
+    <h4>B. Contenido</h4>
+    <p>El contenido de esta disciplina está constituido por relaciones de derecho público extendidas en el ámbito extranacional o internacional. Se destacan:</p>
+    <ul>
+      <li>Los derechos y deberes de los Estados.</li>
+      <li>Las formas de las relaciones internacionales mediante tratados, pactos, convenios y acuerdos sobre asuntos tales como:
+        <ul>
+          <li>Comercio.</li>
+          <li>Amistad.</li>
+          <li>Intercambio cultural.</li>
+          <li>Unión o coordinación aduanera.</li>
+          <li>Alianza.</li>
+          <li>Inmigración.</li>
+          <li>Sanidad.</li>
+          <li>Neutralidad.</li>
+          <li>Cooperación internacional, entre otros.</li>
+        </ul>
+      </li>
+    </ul>
+
+    <h4>C. División</h4>
+    <p>Tradicionalmente se han distinguido dos partes en el derecho internacional público:</p>
+    <ul>
+      <li>Relaciones internacionales en tiempo de paz.</li>
+      <li>Relaciones internacionales en tiempo de guerra.</li>
+    </ul>
+    <p>También se ha señalado que el derecho internacional público se divide en:</p>
+    <ul>
+      <li><strong>General</strong>: válido para todos los miembros de la comunidad internacional.</li>
+      <li><strong>Particular</strong>: para algunos de ellos.</li>
+    </ul>
+
+    <h4>C. División – Tendencia moderna</h4>
+    <p>La tendencia moderna en el estudio sistemático de esta disciplina consiste en dividirla formando subramas especializadas, tales como:</p>
+    <ul>
+      <li><strong>Derecho internacional constitucional</strong>: relativo a la organización de la comunidad internacional.</li>
+      <li><strong>Derecho internacional administrativo</strong>: trata de las normas aplicables al funcionamiento de oficinas y comisiones internacionales.</li>
+      <li><strong>Derecho internacional procesal</strong>: se ocupa del procedimiento para administrar justicia en los tribunales internacionales.</li>
+    </ul>
+
+    <h3>3. Bases Constitucionales del Derecho Internacional</h3>
+    <p>Varias normas de la Constitución Nacional vigente enuncian de modo explícito los principios fundamentales que han de regir las relaciones jurídicas del Estado paraguayo con los demás Estados del mundo.</p>
+
+    <h4>Artículo 137 CN</h4>
+    <p>Establece que la ley suprema de la República es la Constitución. Esta, los tratados, convenios y acuerdos internacionales aprobados y ratificados, las leyes dictadas por el Congreso y otras disposiciones jurídicas de inferior jerarquía sancionadas en consecuencia, integran el derecho positivo nacional en el orden de prelación enunciado.</p>
+
+    <h4>Artículo 142 CN</h4>
+    <p>Los tratados internacionales relativos a derechos humanos no podrán ser denunciados sino por los procedimientos que rigen para la enmienda de la Constitución.</p>
+
+    <h4>Artículo 143 CN</h4>
+    <p>La República del Paraguay, en sus relaciones internacionales, acepta el derecho internacional y se ajusta a los siguientes principios:</p>
+    <ul>
+      <li>a) La independencia nacional.</li>
+      <li>b) La autodeterminación de los pueblos.</li>
+      <li>c) La igualdad jurídica entre los Estados.</li>
+      <li>d) La solidaridad y la cooperación internacional.</li>
+      <li>e) La protección internacional de los derechos humanos.</li>
+      <li>f) La libre navegación de los ríos internacionales.</li>
+      <li>g) La no intervención.</li>
+      <li>h) La condena a toda forma de dictadura, colonialismo e imperialismo.</li>
+    </ul>
+
+    <h4>Artículo 144 CN</h4>
+    <p>El Paraguay renuncia a la guerra, pero sustenta el principio de legítima defensa. Esta declaración es compatible con los derechos y obligaciones que, en su carácter de miembro de la Organización de las Naciones Unidas y de la Organización de los Estados Americanos, o como parte en tratados de integración, le corresponden.</p>
+
+    <h4>Artículo 145 CN</h4>
+    <p>El Paraguay admite, en condiciones de igualdad con otros Estados, un orden jurídico supranacional que garantice la vigencia de los derechos humanos, la paz, la justicia, la cooperación y el desarrollo en lo político, económico, social y cultural. Dichas decisiones solo podrán adoptarse por mayoría absoluta de cada Cámara del Congreso.</p>
+
+    <h4>Artículos 202 inc. 9 y 224 inc. 1 CN</h4>
+    <p>El Congreso Nacional, por el artículo 202 inciso 9, tiene facultad de aprobar o rechazar los tratados y demás acuerdos internacionales suscritos por el Poder Ejecutivo. El artículo 224 inciso 1 establece como atribución exclusiva de la Cámara de Senadores iniciar la consideración de los proyectos de ley relativos a la aprobación de tratados y acuerdos internacionales.</p>
+
+    <h3>4. Derecho Canónico</h3>
+
+    <h4>A. Noción</h4>
+    <p>El derecho canónico es el conjunto de leyes dadas por Dios a través de la revelación o establecidas por la potestad eclesiástica para la organización, funcionamiento y disciplina de la Iglesia Católica.</p>
+    <p>La Iglesia Católica crea su estructura jurídica y las relaciones con sus miembros. Su personalidad es originaria y propia, pues no deriva del Estado.</p>
+
+    <h4>La Iglesia Católica en dos aspectos</h4>
+    <ul>
+      <li><strong>En cuanto a su misión espiritual</strong>: es una comunidad universal, sin límites territoriales, y las normas que dicta para llevar a cabo dicha misión tienen vigencia universal.</li>
+      <li><strong>Considerada como Estado</strong>: la Iglesia Católica posee su asiento en la Ciudad del Vaticano. El Papa, que posee carácter de soberano territorial sobre el Estado denominado Ciudad del Vaticano, es la autoridad suprema de la Iglesia, tanto en cuestiones de fe como en las de derecho.</li>
+    </ul>
+
+    <h4>B. División</h4>
+    <p>Desde el punto de vista de la materia considerada, el derecho canónico se divide en:</p>
+    <ul>
+      <li><strong>Público</strong>: sistema de leyes que determinan la constitución de la Iglesia como sociedad perfecta y sus relaciones con el Estado. Se subdivide en:
+        <ul>
+          <li>Interno.</li>
+          <li>Externo.</li>
+        </ul>
+      </li>
+      <li><strong>Privado</strong>: sistema de leyes establecido por la Iglesia que define los derechos y obligaciones de los miembros de la sociedad cristiana para lograr el fin al que están destinados.</li>
+    </ul>
+
+    <h4>C. Diferencia con el Derecho Eclesiástico</h4>
+    <p>La distinción entre derecho canónico y derecho eclesiástico ha suscitado numerosas discusiones entre los autores. Según una opinión, la diferencia radica en las fuentes de producción de dichos órdenes normativos:</p>
+    <ul>
+      <li>El <strong>derecho canónico</strong> es dictado por la propia Iglesia Católica para regir su vida y disciplinar las relaciones con los fieles.</li>
+      <li>El <strong>derecho eclesiástico</strong> emana del Estado y está destinado a regir la vida jurídica de las comunidades religiosas existentes en su territorio.</li>
+    </ul>
+    <p>El principal cuerpo legislativo de la Iglesia Católica es el <strong>Código de Derecho Canónico</strong>, promulgado por la autoridad papal el 25 de enero de 1983.</p>
+  </section>
+
+  <!-- LECCIÓN XV -->
+  <section id="leccion-15">
+    <h2>Lección XV – Derecho Privado: Civil, Laboral y Rural</h2>
+    <p class="leccion-meta">Contenido: derecho privado; ramas del derecho privado interno; derecho civil paraguayo; derecho laboral o del trabajo; derecho rural y legislación rural paraguaya.</p>
+
+    <h3>1. Derecho Privado</h3>
+
+    <h4>¿Qué es el Derecho Privado?</h4>
+    <p>El derecho privado es el conjunto de normas que regulan las relaciones jurídicas entre particulares o entre estos y el Estado como persona jurídica.</p>
+
+    <h3>2. Ramas del Derecho Privado</h3>
+
+    <h4>Subdivisión</h4>
+    <p>El derecho privado se subdivide en:</p>
+    <ul>
+      <li>Derecho privado interno.</li>
+      <li>Derecho privado externo.</li>
+    </ul>
+
+    <h4>Derecho privado interno</h4>
+    <p>Está constituido por el conjunto de normas que dicta cada Estado para regir las relaciones jurídicas entre particulares y entre estos y el Estado como persona jurídica.</p>
+
+    <h4>Derecho privado externo o Derecho internacional privado</h4>
+    <p>Es la rama jurídica que estudia los principios y normas aplicables a las relaciones privadas del hombre cuando se desarrollan en un orden espacial extranacional y contienen elementos extranjeros.</p>
+
+    <h3>3. Ramas del Derecho Privado Interno</h3>
+    <p>El derecho privado comprende las siguientes ramas o categorías, en su aspecto interno:</p>
+    <ul>
+      <li>Derecho civil.</li>
+      <li>Derecho comercial.</li>
+      <li>Derecho laboral o del trabajo.</li>
+      <li>Derecho rural.</li>
+      <li>Derecho industrial.</li>
+      <li>Derecho de minería.</li>
+      <li>Derecho marítimo o de la navegación.</li>
+    </ul>
+
+    <h3>4. Derecho Civil</h3>
+
+    <h4>¿Qué es el Derecho Civil?</h4>
+    <p>El derecho civil es el conjunto de normas jurídicas que regulan la existencia de las personas privadas, sean individuales o colectivas, y sus relaciones familiares y patrimoniales. Constituye la columna vertebral del derecho privado y también se lo denomina <strong>derecho común</strong>, porque comprende a todos los seres humanos sin distinción de nacionalidad, sexo, religión, profesiones u otras circunstancias subjetivas.</p>
+
+    <h4>Importancia</h4>
+    <p>El derecho civil regula, entre otras, las siguientes instituciones:</p>
+    <ul>
+      <li>Las personas.</li>
+      <li>La familia.</li>
+      <li>La propiedad privada.</li>
+      <li>Las obligaciones.</li>
+      <li>Los contratos.</li>
+      <li>Las sucesiones.</li>
+    </ul>
+    <p>Su contenido está circunscrito a la organización de la familia, la propiedad y los requisitos generales de los actos jurídicos privados.</p>
+
+    <h3>5. Derecho Civil Paraguayo</h3>
+
+    <h4>Antecedentes</h4>
+    <p>El 1° de enero de 1877 entró a regir en Paraguay el Código Civil argentino de Dalmacio Vélez Sársfield, que consta de 4051 artículos distribuidos en dos títulos preliminares y cuatro libros. Fue adoptado por ley paraguaya de fecha 19 de agosto de 1876.</p>
+
+    <h4>Proyecto de Código Civil Paraguayo</h4>
+    <p>La Comisión Nacional de la Codificación, creada por la Ley 1080/1929, designó a su insigne miembro titular, el <strong>Prof. civilista Dr. Luis De Gásperi</strong>, ilustre exponente de la ciencia del derecho civil nacional y comparado, por resolución de fecha 27/09/1959, para redactar el proyecto de Código Civil Paraguayo. Este fue presentado por su autor en la sesión plenaria del 30/10/1962.</p>
+
+    <h4>Código Civil Paraguayo actual</h4>
+    <p>El Código Civil argentino de 1876 fue derogado por la <strong>Ley 1183/1985</strong>, que establece el Código Civil Paraguayo, vigente desde el 1° de enero de 1987.</p>
+    <p>El Código Civil Paraguayo cuenta con 2815 artículos, desplegados en cinco libros:</p>
+    <ul>
+      <li><strong>Título preliminar</strong>: de las disposiciones generales.</li>
+      <li><strong>Libro I</strong>: “De las personas y de los derechos personales en las relaciones de familia”.</li>
+      <li><strong>Libro II</strong>: “De los hechos y actos jurídicos y de las obligaciones”.</li>
+      <li><strong>Libro III</strong>: “De los contratos y de otras fuentes de las obligaciones”.</li>
+      <li><strong>Libro IV</strong>: “De los derechos reales sobre las cosas”.</li>
+      <li><strong>Libro V</strong>: “De la sucesión por causa de muerte”.</li>
+    </ul>
+
+    <h3>6. Derecho Laboral o del Trabajo</h3>
+
+    <h4>¿Qué es el Derecho Laboral o del Trabajo?</h4>
+    <p>Es el conjunto de principios teóricos y normas positivas que regulan las relaciones jurídicas entre empleadores y trabajadores, y de ambos con el Estado, originadas por la prestación voluntaria, subordinada y retribuida de la actividad humana, para la producción de bienes o servicios.</p>
+
+    <h4>Ley N° 213/1993 – Código del Trabajo</h4>
+    <p>La <strong>Ley N° 213/1993 “Que establece el Código del Trabajo”</strong> contiene, entre otros, los siguientes artículos:</p>
+
+    <p class="articulo">Artículo 1°.</p>
+    <p>Este Código tiene por objeto establecer normas para regular las relaciones entre los trabajadores y empleadores, concernientes a la prestación subordinada y retribuida de la actividad laboral.</p>
+
+    <p class="articulo">Artículo 2°.</p>
+    <p>Estarán sujetos a las disposiciones del presente Código:</p>
+    <ul>
+      <li>Los trabajadores intelectuales, manuales o técnicos en relación de dependencia, y sus empleadores.</li>
+      <li>Los profesores de institutos de enseñanza privada y quienes ejerzan la práctica deportiva profesional.</li>
+      <li>Los sindicatos de trabajadores y empleadores del sector privado.</li>
+      <li>Los trabajadores de las empresas del Estado y de las empresas municipales.</li>
+      <li>Los demás trabajadores del Estado, sean de la Administración Central o de entes descentralizados, así como los de las municipalidades y departamentos, serán regidos por ley especial.</li>
+      <li>Están excluidos los miembros de las Fuerzas Armadas y de la Policía.</li>
+    </ul>
+
+    <p class="articulo">Artículo 5°.</p>
+    <p>Las disposiciones de este Código contienen el mínimo de garantías y derechos en beneficio de los trabajadores. Ese mínimo no podrá alterarse en detrimento de ellos. Las prestaciones ya reconocidas espontáneamente o mediante convenio por los empleadores, y que fuesen más favorables a los trabajadores, prevalecerán sobre las que esta ley establece.</p>
+
+    <p class="articulo">Artículo 9°.</p>
+    <p>El trabajo es un derecho y un deber social, y goza de la protección del Estado. No debe ser considerado como una mercancía. Exige respeto para las libertades y dignidad de quien lo presta y se efectuará en condiciones que aseguren la vida, la salud y un nivel económico compatible con las responsabilidades del trabajador, padre o madre de familia.</p>
+    <p>No podrán establecerse discriminaciones relativas al trabajador por motivo de raza, color, sexo, religión, opinión política o condición social.</p>
+
+    <p class="articulo">Artículo 90°.</p>
+    <p>El empleador que no haya dado el preaviso, o lo diese sin ajustarse a los requisitos legales, queda obligado a pagar al trabajador una cantidad equivalente a su salario durante el término del preaviso. En caso de que el trabajador omitiese dicho requisito, deberá pagar a su empleador una cantidad equivalente a la mitad del salario que corresponda al término del preaviso.</p>
+
+    <h3>7. Derecho Rural</h3>
+
+    <h4>¿Qué es el Derecho Rural?</h4>
+    <p>Es un conjunto de principios y normas positivas que regulan las relaciones jurídicas derivadas de la producción agrícola, ganadera, agroindustrial y forestal, en cuanto no estén regidas por el derecho común o por el derecho administrativo.</p>
+    <p>Esta rama del derecho positivo tiene como temas principales de estudio:</p>
+    <ul>
+      <li>El régimen de la propiedad agraria o justa distribución de la tierra, para hacerla cumplir sus fines económicos y sociales.</li>
+      <li>La colonización para eliminar la existencia de tierras incultas y despobladas.</li>
+      <li>El régimen de las marcas y señales para justificar la propiedad de los semovientes.</li>
+      <li>La defensa sanitaria de la producción agropecuaria.</li>
+      <li>El derecho de aguas.</li>
+      <li>La regulación de la caza y la pesca.</li>
+      <li>La vialidad y el tránsito rural.</li>
+      <li>El crédito rural.</li>
+    </ul>
+
+    <h4>Legislación Rural Paraguaya</h4>
+
+    <p><strong>Constitución Nacional – Artículo 114. De los objetivos de la reforma agraria.</strong></p>
+    <p>La reforma agraria es uno de los factores fundamentales para lograr el bienestar rural. Consiste en la incorporación efectiva de la población campesina al desarrollo económico y social de la Nación. Se adoptarán sistemas equitativos de distribución, propiedad y tenencia de la tierra; se organizarán el crédito y la asistencia técnica, educacional y sanitaria; se fomentará la creación de cooperativas agrícolas y de otras asociaciones similares; y se promoverá la producción, la industrialización y la racionalización del mercado para el desarrollo integral del agro.</p>
+
+    <p><strong>Constitución Nacional – Artículo 116. De los latifundios improductivos.</strong></p>
+    <p>Con el objeto de eliminar progresivamente los latifundios improductivos, la ley atenderá a la aptitud natural de las tierras, a las necesidades del sector de población vinculado con la agricultura y a las previsiones aconsejables para el desarrollo equilibrado de las actividades agrícolas, agropecuarias, forestales e industriales, así como al aprovechamiento sostenible de los recursos naturales y a la preservación del equilibrio ecológico.</p>
+    <p>La expropiación de los latifundios improductivos destinados a la reforma agraria será establecida en cada caso por la ley, y se abonará en la forma y en el plazo que la misma determine.</p>
+
+    <h4>Ley N° 1248/1931 – Código Rural</h4>
+    <p>El Código Rural consta de 429 artículos divididos en seis libros, en los cuales se comprende el conjunto de disposiciones que reglamentan, limitan y aclaran los principios del derecho civil y administrativo en cuanto se aplican a los intereses rurales.</p>
+    <p>Este Código fue en gran parte derogado y modificado por el Código Laboral y otras leyes especiales más recientes.</p>
+
+    <h4>Leyes agrarias vigentes</h4>
+    <ul>
+      <li><strong>Ley 1863/2002</strong> que establece “El Estatuto Agrario”.</li>
+      <li><strong>Ley 2419/2004</strong> que crea “El Instituto Nacional de Desarrollo Rural y de la Tierra (INDERT)”.</li>
+    </ul>
+  </section>
+
+  <!-- LECCIÓN XVI -->
+  <section id="leccion-16">
+    <h2>Lección XVI – Derecho Subjetivo y Derechos Subjetivos Fundamentales</h2>
+    <p class="leccion-meta">Contenido: concepto, origen, fundamentos y teorías del derecho subjetivo; derechos subjetivos fundamentales de la persona; igualdad, libertad y sus garantías constitucionales.</p>
+
+    <h3>1. Derecho Subjetivo</h3>
+
+    <h4>Concepto</h4>
+    <p>Es efecto de la norma jurídica el atribuir a un sujeto una pretensión o facultad frente a otro sujeto a quien se impone una obligación o deber jurídico. La pretensión o exigencia atribuida por la norma de derecho se llama también <strong>derecho en sentido subjetivo</strong>.</p>
+    <p>El derecho subjetivo es la facultad de querer y exigir atribuida a una persona por el ordenamiento jurídico, a la cual corresponde una obligación por parte de otra. La facultad o poder y la obligación o deber jurídico constituyen el atributo del sujeto activo y pasivo respectivamente y no pueden existir sin dichos sujetos.</p>
+
+    <h4>Origen</h4>
+    <p>Para algunos autores, el derecho subjetivo nació con el derecho natural y siguió el curso de su evolución. Esa facultad que tiene el hombre como persona para hacer su vida jurídica no le viene de la ley, sino de su naturaleza existencial. Reconocida ella por el ordenamiento jurídico, solo puede ser ejercida por personas que reúnan determinadas circunstancias. De este modo, su actuación queda garantizada dentro del respeto a la personalidad humana, en sus atributos esenciales de dignidad y libertad.</p>
+
+    <h3>2. Fundamento del Derecho Subjetivo – Teorías</h3>
+    <p>Existe discrepancia entre los juristas sobre la verdadera naturaleza del derecho subjetivo, es decir, acerca de su fundamento. Se exponen distintas teorías:</p>
+
+    <h4>A) Teoría de la voluntad</h4>
+    <p>Sostiene que el derecho subjetivo es un poder de la voluntad conferido por el ordenamiento jurídico. Lo fundamental en el derecho subjetivo es el reconocimiento de la voluntad individual. Toda vez que una norma jurídica reconoce al sujeto la posibilidad de manifestar o dirigir su voluntad en un sentido determinado, estamos en presencia de un derecho subjetivo.</p>
+    <p><strong>Crítica</strong>: no siempre es necesaria la voluntad del titular para que exista un derecho o se exija al obligado el cumplimiento de la prestación debida. Ejemplos: las personas por nacer, los insanos, las personas jurídicas. Los derechos a la vida, a la libertad y otros existen independientemente de la voluntad del sujeto. Otros ejemplos: los herederos, los trabajadores.</p>
+
+    <h4>B) Teoría del interés</h4>
+    <p>Los derechos subjetivos existen para asegurar al hombre un bien cualquiera, la satisfacción de sus necesidades y el cumplimiento de sus fines en la vida de relación.</p>
+    <p><strong>Crítica</strong>: confunde la naturaleza del concepto con la finalidad. Cuando se deja de ejercer el derecho subjetivo, es decir, cuando no hay interés a su respecto, continúa existiendo el derecho.</p>
+
+    <h4>C) Teoría ecléctica</h4>
+    <p>Afirma que el derecho subjetivo es un interés tutelado por la ley, mediante el reconocimiento de la voluntad individual. Para esta posición, el derecho subjetivo es una potestad de querer reconocida y protegida por el ordenamiento jurídico, en cuanto esté dirigida a la consecución de un bien o interés lícito.</p>
+    <p><strong>Crítica</strong>: es una síntesis de las dos teorías que la han precedido; por ello, las críticas hechas a ambas teorías son válidas respecto de la posición intermedia.</p>
+
+    <h4>D) Doctrina de los juristas italianos modernos</h4>
+    <p>Consideran elemento fundamental la posibilidad de actuar para la satisfacción de un interés lícito que el ordenamiento jurídico reconoce y garantiza. La satisfacción fáctica de ese poder supone una manifestación de voluntad individual, sea a través de su propio titular o de un representante en caso necesario.</p>
+    <p><strong>Crítica</strong>: los comentaristas sostienen que la doctrina italiana ha llegado a resultados satisfactorios. El poder atribuido al ente humano para hacer su vida jurídica es inmanente y la acción, contingente. Esta puede ser o no ejercida, sin perjuicio de la subsistencia de dicho poder.</p>
+
+    <h4>E) Teoría unificadora de Kelsen</h4>
+    <p>Las doctrinas tradicionales confieren al derecho subjetivo una existencia distinta e independiente del derecho objetivo. En oposición a ellas, la teoría unificadora de Hans Kelsen sostiene que el derecho subjetivo no existe como realidad propia, sino que es un mero reflejo del ordenamiento positivo, una subjetivación de la norma en su aplicación al sujeto. El derecho subjetivo es el mismo derecho objetivo en relación con el sujeto, de cuya declaración de voluntad depende la aplicación del acto coactivo estatal que la norma determina. No hay, según esta postura, dos fenómenos diversos: son conceptos interdependientes e inescindibles.</p>
+
+    <h4>Conclusiones</h4>
+    <p>Entre la norma jurídica y la facultad conferida por ella existe una conexidad evidente. Pero este hecho no puede servir de base para identificar ambos elementos ni para negar la realidad de las facultades que tiene el hombre como persona para cumplir sus fines en su vida de relación, dentro de las limitaciones del ordenamiento jurídico. Dichas facultades o poderes inherentes a la persona humana constituyen los derechos subjetivos en sentido estricto.</p>
+
+    <h3>3. Derechos Subjetivos Fundamentales</h3>
+    <p>Los derechos subjetivos fundamentales de la persona humana, comunes a todos los hombres y que todos tienen por el solo hecho de su existencia, son tres:</p>
+    <ul>
+      <li>El derecho a la igualdad.</li>
+      <li>El derecho a la libertad.</li>
+      <li>El derecho de resistencia a la opresión.</li>
+    </ul>
+    <p>La enumeración de estos derechos individuales no es limitativa, tal como lo expresa el <span class="articulo">artículo 45 de la Constitución Nacional</span>:</p>
+    <p>“La enunciación de los derechos y garantías contenidos en esta Constitución no debe entenderse como negación de otros que, siendo inherentes a la personalidad humana, no figuren expresamente en ella. La falta de ley reglamentaria no podrá ser invocada para negar ni menoscabar ningún derecho o garantía”.</p>
+
+    <h3>4. Derecho de Igualdad</h3>
+
+    <h4>Concepto</h4>
+    <p>El derecho de igualdad es la paridad jurídica, fundada en la dignidad de la persona humana, para facilitar a esta su vida de relación.</p>
+
+    <h4>Consagración constitucional</h4>
+    <p>Está consagrado en el <span class="articulo">artículo 46 de la Constitución Nacional</span>:</p>
+    <p>“Todos los habitantes de la República son iguales en dignidad y derechos. No se admiten discriminaciones. El Estado removerá los obstáculos e impedirá los factores que las mantengan o las propicien. Las protecciones que se establezcan sobre desigualdades injustas no serán consideradas como factores discriminatorios, sino igualitarios”.</p>
+
+    <h3>5. Las Cuatro Garantías de Igualdad en la Constitución Nacional</h3>
+    <p><span class="articulo">Artículo 47 CN</span>. El Estado garantizará a todos los habitantes de la República:</p>
+    <ul>
+      <li>1) La igualdad para el acceso a la justicia, a cuyo efecto allanará los obstáculos que la impidiesen.</li>
+      <li>2) La igualdad ante las leyes.</li>
+      <li>3) La igualdad para el acceso a las funciones públicas no electivas, sin más requisitos que la idoneidad.</li>
+      <li>4) La igualdad de oportunidades en la participación de los beneficios de la naturaleza, de los bienes materiales y de la cultura.</li>
+    </ul>
+
+    <h3>6. Derecho de Libertad</h3>
+
+    <h4>Fases de la libertad</h4>
+    <p>El derecho de libertad tiene dos fases:</p>
+    <ul>
+      <li><strong>Libertad natural</strong>: atributo esencial del hombre como persona, poder o facultad de autodeterminación que tienen los seres racionales para obrar por sí. Esta facultad no puede ser ejercida sin limitaciones, porque el hombre no vive solo en la Tierra.</li>
+      <li><strong>Libertad jurídica o normativa</strong>: facultad de hacer u omitir aquello que no está ordenado ni prohibido. En el plano normativo depende directamente de la ley, que predetermina las limitaciones necesarias para establecer el ámbito de su ejercicio lícito.</li>
+    </ul>
+
+    <h4>Consagración constitucional</h4>
+    <p><span class="articulo">Artículo 9 CN – De la libertad y de la seguridad de las personas</span>:</p>
+    <p>“Toda persona tiene el derecho a ser protegida en su libertad y en su seguridad. Nadie está obligado a hacer lo que la ley no ordena ni privado de lo que ella no prohíbe”.</p>
+  </section>
+
+  <!-- LECCIÓN XVII -->
+  <section id="leccion-17">
+    <h2>Lección XVII – Limitaciones de la Libertad Jurídica, Abuso del Derecho y Orden Público</h2>
+    <p class="leccion-meta">Contenido: limitaciones de la libertad jurídica; teoría del abuso del derecho y su consagración legal; noción de orden público y leyes de orden público.</p>
+
+    <h3>1. Limitaciones de la Libertad Jurídica</h3>
+    <p>La libertad, también llamada normativa, no constituye un derecho absoluto. Su ejercicio está sometido a diversas restricciones admitidas por la legislación positiva y la doctrina científica.</p>
+
+    <h4>Principales limitaciones</h4>
+    <ul>
+      <li><strong>La institución</strong>: es el conjunto de normas jurídicas vinculadas por el mismo propósito o finalidad. Ejemplos de instituciones son el matrimonio, la patria potestad, el parentesco, la propiedad, los contratos, etc.</li>
+      <li><strong>La función social</strong>: las libertades no existen exclusivamente para el ser humano, sino también para la sociedad de la que forma parte. El hombre debe hacer uso de sus libertades con miras al bien común.</li>
+    </ul>
+
+    <h4>La propiedad privada y su función social</h4>
+    <p><span class="articulo">Artículo 109 CN – De la propiedad privada</span>:</p>
+    <p>Se garantiza la propiedad privada, cuyo contenido y límites serán establecidos por la ley, atendiendo a su función económica y social, a fin de hacerla accesible para todos.</p>
+    <p>La propiedad privada es inviolable. Nadie puede ser privado de su propiedad sino en virtud de sentencia judicial; se admite la expropiación por causa de utilidad pública o de interés social, que será determinada en cada caso por ley. Esta garantizará el previo pago de una justa indemnización, establecida convencionalmente o por sentencia judicial, salvo los latifundios improductivos destinados a la reforma agraria, conforme con el procedimiento para las expropiaciones a establecerse por ley.</p>
+
+    <h4>Política económica y desarrollo</h4>
+    <p><span class="articulo">Artículo 176 CN – De la política económica y de la promoción del desarrollo</span>:</p>
+    <p>La política económica tendrá como fines fundamentales la promoción del desarrollo económico, social y cultural.</p>
+
+    <h4>Primacía del interés general</h4>
+    <p><span class="articulo">Artículo 128 CN – De la primacía del interés general y del deber de colaborar</span>:</p>
+    <p>En ningún caso el interés de los particulares primará sobre el interés general. Todos los habitantes deben colaborar en bien del país, prestando los servicios y desempeñando las funciones definidas como carga pública, que determinen la Constitución y la ley.</p>
+
+    <h3>2. Teoría del Abuso del Derecho</h3>
+
+    <h4>Noción</h4>
+    <p>Se configura cuando una persona ejerce su derecho sin necesidad y con la intención de dañar a otro, excediendo los límites fijados por el fin en virtud del cual le ha sido conferido. Ejemplos: competencia desleal, oligopolios, abuso de la patria potestad, etc.</p>
+
+    <h4>Fundamento</h4>
+    <p>El ejercicio de todo derecho no debe realizarse con fines ilegítimos. Debe observarse probidad en el ejercicio de los derechos individuales. Ejemplo: actos en fraude de acreedores (arts. 311 y 312 del Código Civil).</p>
+
+    <h4>Consecuencias</h4>
+    <ul>
+      <li>1. Obligación de restaurar la situación anterior al abuso.</li>
+      <li>2. Resarcir el daño material o moral causado intencionalmente o por negligencia.</li>
+    </ul>
+
+    <h3>3. El Abuso del Derecho en la Legislación</h3>
+
+    <h4>Constitución Nacional</h4>
+    <p><span class="articulo">Artículo 33 CN – Del derecho a la intimidad</span>:</p>
+    <p>La intimidad personal y familiar, así como el respeto a la vida privada, son inviolables. La conducta de las personas, en tanto no afecte al orden público establecido en la ley o a los derechos de terceros, está exenta de la autoridad pública.</p>
+
+    <h4>Código Civil</h4>
+    <p><span class="articulo">Artículo 372 CC</span>:</p>
+    <p>“Los derechos deben ser ejercidos de buena fe. El ejercicio abusivo de los derechos no está amparado por la ley y compromete la responsabilidad del agente por el perjuicio que cause, sea cuando lo ejerza con intención de dañar aunque sea sin ventaja propia, o cuando contradiga los fines que la ley tuvo en mira al reconocerlos. La presente disposición no se aplica a los derechos que, por su naturaleza o en virtud de la ley, pueden ejercerse discrecionalmente”.</p>
+
+    <h3>4. Orden Público</h3>
+
+    <h4>Concepto</h4>
+    <p>El orden público es el conjunto de principios superiores de naturaleza política, económica y moral, estructurados en normas jurídicas que determinan la existencia y conservación de una sociedad.</p>
+    <p>Se caracteriza por la prevalencia del interés general público o social sobre el interés individual. Abarca tanto instituciones del derecho público como del derecho privado.</p>
+
+    <h4>Función técnica y específica</h4>
+    <p>Delimitar el ámbito en que los derechos subjetivos pueden ser ejercidos lícitamente, para:</p>
+    <ul>
+      <li>Defender la soberanía del poder estatal.</li>
+      <li>Dar seguridad al orden jurídico.</li>
+      <li>Hacer compatible la autoridad con la libertad.</li>
+    </ul>
+
+    <h4>División</h4>
+    <p>Se distingue entre:</p>
+    <ul>
+      <li>Orden público interno.</li>
+      <li>Orden público internacional (artículos 11 y 12 del Código Civil).</li>
+    </ul>
+
+    <h3>5. Leyes de Orden Público</h3>
+
+    <h4>Noción</h4>
+    <p>Son las leyes que establecen normas cuyo contenido afecta directa o indirectamente el interés vital de un país. Establecen los principios superiores que fundamentan la existencia y conservación de la estructura social.</p>
+
+    <h4>Clasificación</h4>
+    <ul>
+      <li>Las constituciones o leyes fundamentales del Estado que establecen la organización política, administrativa, judicial, económica, financiera y social.</li>
+      <li>Dentro del derecho privado:
+        <ul>
+          <li>a) Las leyes que organizan la familia.</li>
+          <li>b) Las que establecen el régimen jurídico de los derechos reales.</li>
+          <li>c) Las que establecen el régimen hereditario.</li>
+        </ul>
+      </li>
+      <li>Las leyes de procedimiento (civil, penal, laboral, etc.).</li>
+    </ul>
+
+    <h4>Características de las leyes de orden público</h4>
+    <ul>
+      <li>No pueden ser renunciadas, aun con el consentimiento de la parte contraria o del juez.</li>
+      <li>Su violación entraña nulidad absoluta, que puede y debe ser declarada de oficio por el juez en cualquier estado de la instancia.</li>
+      <li>Son imperativas y no meramente supletorias de la voluntad de los sujetos destinatarios.</li>
+      <li>No son retroactivas, salvo las leyes penales más favorables al encausado o condenado (artículo 14 CN).</li>
+      <li>Son aplicables de oficio por el juez.</li>
+    </ul>
+  </section>
+
+  <!-- LECCIÓN XVIII -->
+  <section id="leccion-18">
+    <h2>Lección XVIII – Relación Jurídica, Personas y Atributos de la Personalidad</h2>
+    <p class="leccion-meta">Contenido: relación jurídica y sus elementos; situación jurídica; personas físicas y jurídicas; nombre, capacidad, domicilio.</p>
+
+    <h3>1. Relación Jurídica</h3>
+
+    <h4>Concepto</h4>
+    <p>La relación jurídica es el vínculo existente entre dos o más personas que genera derechos y obligaciones. Surge cuando una norma le da carácter jurídico a una vinculación de hecho establecida entre dos o más personas con finalidad lícita y le asigna consecuencias. Por ello, toda relación jurídica es social, pero no toda vinculación social es jurídica.</p>
+
+    <h4>Elementos de la relación jurídica</h4>
+
+    <h4>a) Sujeto</h4>
+    <ul>
+      <li><strong>Sujeto activo</strong>: es quien puede ejercitar el poder-facultad que le confiere la norma jurídica para exigir algo a otra persona.</li>
+      <li><strong>Sujeto pasivo</strong>: es quien se halla constreñido a cumplir el deber jurídico u obligación.</li>
+    </ul>
+
+    <h4>b) Objeto</h4>
+    <p>Son las cosas inanimadas o animadas sobre las cuales recae el vínculo jurídico.</p>
+
+    <h4>c) Hecho jurígeno o generador de la relación</h4>
+    <p>Son todos los acontecimientos susceptibles de producir alguna adquisición, modificación, transferencia o extinción de derechos y obligaciones.</p>
+
+    <h3>2. Situación de la Persona</h3>
+    <p>La situación jurídica es el conjunto de derechos y obligaciones, determinados o eventuales, que el ordenamiento jurídico atribuye a las personas según su condición de vida (por ejemplo, las que provienen del estado civil: padre, hijo, mayor de edad).</p>
+    <p>Se distingue de la relación jurídica porque en esta quedan determinados de modo preciso los derechos y obligaciones de cada una de las partes vinculadas, mientras que en la situación jurídica el sujeto es centro de una serie de derechos y obligaciones inmediatos y eventuales que pueden o no realizarse.</p>
+
+    <h3>3. Sujeto de la Relación Jurídica – Personas</h3>
+    <p>Los sujetos de la relación jurídica se llaman <strong>personas</strong>. El término remite a la “máscara” o “careta” que utilizaban los actores.</p>
+    <p>Persona es todo ente capaz de adquirir derechos y contraer obligaciones, sea directamente o por intermedio de representantes necesarios. Toda persona es sujeto de derechos y obligaciones.</p>
+
+    <h4>División de las personas</h4>
+    <ul>
+      <li><strong>Personas físicas</strong>: por el solo hecho de existir, el ser humano es persona y sujeto de derechos y obligaciones. Su existencia jurídica comienza desde la concepción en el seno materno y termina con la muerte natural o desaparición con presunción de fallecimiento. Antes del nacimiento puede adquirir algunos derechos a título de donación, herencia o legado.</li>
+      <li><strong>Personas jurídicas</strong>: tuvieron origen en el derecho romano. Son personas de existencia ideal, entidades abstractas desprovistas de existencia material. Son entes no humanos en condiciones de adquirir derechos y contraer obligaciones. Constituyen entidades distintas e independientes de sus miembros, por lo tanto poseen patrimonio propio y sus derechos y obligaciones no se confunden con los de aquellos. La personalidad jurídica solo es ejercida en el ámbito patrimonial; carecen de derechos de familia.</li>
+    </ul>
+
+    <h3>4. Atributos de las Personas – El Nombre</h3>
+
+    <h4>Concepto</h4>
+    <p>El nombre es la designación que lleva una persona de manera habitual para ser conocida e individualizada en la vida social. Es trascendental saber quién puede ejercer un derecho y quién debe cumplir su deber jurídico u obligación.</p>
+
+    <h4>Personas físicas – Composición del nombre</h4>
+    <ul>
+      <li><strong>Nombre de pila, bautismo o prenombre</strong>: sirve para individualizar dentro de la familia.</li>
+      <li><strong>Apellido o nombre patronímico</strong>: individualiza en la sociedad, se transmite a los hijos e indica la filiación y origen de la persona.</li>
+    </ul>
+
+    <h4>Personas jurídicas</h4>
+    <ul>
+      <li><strong>Razón social</strong>: es el nombre de las personas jurídicas.</li>
+      <li><strong>Enseña</strong>: puede ser una determinación emblemática o una designación nominativa.</li>
+    </ul>
+
+    <h3>5. La Capacidad Jurídica</h3>
+
+    <h4>Concepto</h4>
+    <p>La capacidad jurídica es el atributo esencial de la persona, para ser sujeto activo o pasivo en la relación jurídica. Consiste en la aptitud de adquirir derechos y contraer obligaciones. Esta aptitud es diferente en personas físicas y jurídicas.</p>
+    <p>En las personas físicas, la capacidad es la regla y la incapacidad solo puede existir por expresa declaración de la ley. En las personas de existencia ideal, la aptitud de adquirir derechos y contraer obligaciones está limitada por los fines de su institución.</p>
+
+    <h4>Capacidad de derecho</h4>
+    <p>Es la aptitud para la titularidad de facultades y deberes jurídicos. Implica la posibilidad, para el sujeto de la relación jurídica, de ser titular de derechos y obligaciones. La capacidad de derecho de las personas jurídicas emana de la ley, no de sus estatutos. La capacidad de derecho de las personas físicas se adquiere desde la concepción.</p>
+
+    <h4>Capacidad de hecho</h4>
+    <p>Es la aptitud legal de la persona humana para adquirir derechos y contraer obligaciones por sí misma, con entera independencia de una representación necesaria. Está relacionada con el ejercicio de los derechos. Es adquirida paulatinamente y de modo total al cumplirse la mayoría de edad. Una persona incapaz de hecho no puede ejercer libremente sus derechos sino mediante su representante.</p>
+    <p>Las personas jurídicas nunca adquieren la capacidad de obrar; solo son capaces de actuar a través de sus representantes (artículo 36 del Código Civil).</p>
+
+    <h4>Incapacidad de hecho – Código Civil</h4>
+    <p><span class="articulo">Artículo 37 CC</span>: son absolutamente incapaces de hecho:</p>
+    <ul>
+      <li>a) Las personas por nacer.</li>
+      <li>b) Los menores de catorce años de edad.</li>
+      <li>c) Los enfermos mentales.</li>
+      <li>d) Los sordomudos que no saben darse a entender por escrito o por otros medios.</li>
+    </ul>
+    <p><span class="articulo">Artículo 38 CC</span>: tienen incapacidad de hecho relativa los menores que hayan cumplido catorce años de edad y las personas inhabilitadas judicialmente.</p>
+
+    <h3>6. El Domicilio</h3>
+
+    <h4>Concepto</h4>
+    <p>El domicilio es el asiento territorial que debe tener toda persona para el cumplimiento de sus obligaciones y el ejercicio de sus derechos. Es una necesidad. La persona puede cambiar de domicilio a voluntad.</p>
+
+    <h4>Domicilio, residencia y habitación</h4>
+    <ul>
+      <li><strong>Domicilio</strong>: resulta siempre instituido por la ley. Su finalidad principal es dar fijeza al asiento jurídico de las personas.</li>
+      <li><strong>Residencia</strong>: es el lugar de la habitación real de la persona, que puede estar en el lugar del domicilio o en otro, y se prolonga por cierto tiempo, sin la intención de establecerse allí.</li>
+      <li><strong>Habitación</strong>: es la simple ocupación material de una porción de espacio, desprovista de todo efecto jurídico.</li>
+    </ul>
+
+    <h4>Clases de domicilio</h4>
+    <h4>Domicilio real</h4>
+    <p>Es el lugar donde la persona tiene establecido el asiento principal de su residencia o negocios.</p>
+    <p>Tiene dos elementos:</p>
+    <ul>
+      <li>Elemento objetivo o de hecho: constituido por el asiento principal de la residencia o de los negocios de la persona.</li>
+      <li>Elemento subjetivo o intencional: supone el ánimo de permanencia por parte de la persona.</li>
+    </ul>
+
+    <h4>Domicilio legal</h4>
+    <p>Es el lugar donde la ley presume, sin admitir prueba en contrario, que una persona reside de manera permanente para el ejercicio de sus derechos y el cumplimiento de sus obligaciones, aunque de hecho no esté allí presente. Es forzoso porque no está determinado por la voluntad de los particulares. Su duración depende de la existencia del hecho que la motiva (artículo 53 del Código Civil).</p>
+
+    <p><span class="articulo">Artículo 53 CC</span>:</p>
+    <p>“El domicilio legal es el lugar donde la ley presume, sin admitir prueba en contra, que una persona reside de una manera permanente para el ejercicio de sus derechos y cumplimiento de sus obligaciones:</p>
+    <ul>
+      <li>a) Los funcionarios públicos tienen su domicilio en el lugar en que ejerzan sus funciones, no siendo éstas temporarias o periódicas.</li>
+      <li>b) Los militares en servicio activo, en el lugar donde presten servicio.</li>
+      <li>c) Los condenados a pena privativa de libertad lo tienen en el establecimiento donde la estén cumpliendo.</li>
+      <li>d) Los transeúntes o las personas de ejercicio ambulante, como los que no tuviesen domicilio conocido, lo tienen en el lugar de su residencia actual.</li>
+      <li>e) Los incapaces tienen el domicilio de sus representantes legales.”</li>
+    </ul>
+
+    <h4>Domicilio especial y domicilio de origen</h4>
+    <ul>
+      <li><strong>Domicilio especial</strong>: es el designado por los particulares en sus negocios jurídicos, sin importar la jurisdicción.</li>
+      <li><strong>Domicilio de origen</strong>: es el domicilio que le atribuye la ley de pleno derecho desde el nacimiento. Es el lugar del domicilio de los padres el día del nacimiento del hijo.</li>
+    </ul>
+  </section>
+
+  <!-- LECCIÓN XIX -->
+  <section id="leccion-19">
+    <h2>Lección XIX – Objeto y Causa de la Relación Jurídica. Hechos Jurídicos y Actos Jurídicos</h2>
+    <p class="leccion-meta">Contenido: objeto de la relación jurídica; cosas y bienes; hechos naturales y humanos; voluntariedad, error, dolo, violencia; actos lícitos, ilícitos, actos y negocios jurídicos.</p>
+
+    <h3>1. Objeto de la Relación Jurídica</h3>
+    <p>El vínculo existente entre dos o más personas, generador de derechos y obligaciones, constituye la relación jurídica. Todo derecho en sentido subjetivo, como poder reconocido por el ordenamiento jurídico, tiene siempre un objeto determinado que consiste en algún beneficio para su titular.</p>
+    <p>El objeto de la relación jurídica es todo lo que puede estar sometido a la disposición del sujeto activo como medio para un fin lícito. Está constituido por los bienes, expresión genérica que abarca las cosas materiales y los actos humanos o prestaciones voluntarias.</p>
+
+    <h4>Ejemplo</h4>
+    <p>Cuando una persona presta dinero a otra por un plazo determinado, el poder jurídico del acreedor (sujeto activo) consiste en exigir cierto comportamiento al deudor (sujeto pasivo): la devolución de la suma de dinero recibida al vencimiento del plazo estipulado.</p>
+
+    <h3>2. Cosa – Definición del Código Civil</h3>
+    <p>De acuerdo con la definición del Código Civil, son <strong>cosas</strong> los objetos corporales susceptibles de tener un valor (artículo 1872 CC).</p>
+    <p>Para que un objeto pueda ser considerado como cosa, deben concurrir dos condiciones:</p>
+    <ul>
+      <li>1. Que se trate de objetos que caigan bajo la acción directa de nuestros sentidos (podemos verlos o palparlos).</li>
+      <li>2. Que sean susceptibles de tener un valor económico (por ejemplo: un libro, una mesa, una silla, un edificio, un automóvil, etc.).</li>
+    </ul>
+
+    <h3>3. Bienes – Acepción legal restringida y genérica</h3>
+    <p>El vocablo <strong>bienes</strong> tiene doble significado, según se desprende del artículo 1873 primera parte del Código Civil:</p>
+    <p>“Los objetos inmateriales susceptibles de valor e igualmente las cosas, se llaman bienes”.</p>
+
+    <h4>En acepción restringida</h4>
+    <p>La palabra bienes designa a los objetos inmateriales susceptibles de tener un valor. Son inmateriales porque no caen bajo la percepción de nuestros sentidos, pero existen intelectualmente. Ejemplos: los derechos considerados en sí mismos, como el derecho de propiedad, el derecho a la herencia, un crédito, etc.</p>
+    <p>En ese sentido, los bienes propiamente dichos o los derechos considerados en sí mismos se oponen a las cosas.</p>
+
+    <h3>4. Causa de la Relación Jurídica – Hecho Jurígeno o Jurídico</h3>
+    <p>La causa que da nacimiento a la relación jurídica o la fuente productora de derechos se llama <strong>hecho jurídico</strong> o <strong>hecho jurígeno</strong>.</p>
+    <p>Son hechos jurídicos todos los acontecimientos susceptibles de producir alguna adquisición, modificación, transferencia o extinción de los derechos u obligaciones.</p>
+
+    <h3>5. Clasificación Primaria de los Hechos Jurídicos</h3>
+
+    <h4>a) Hechos naturales</h4>
+    <p>Son los producidos por causas completamente extrañas al hombre e independientes de este, sobre los cuales no ha podido influir ni modificarlos, y que determinan la adquisición o pérdida de derechos. Ejemplos:</p>
+    <ul>
+      <li>El nacimiento de una persona humana, que origina los derechos y obligaciones que la ley establece entre padres e hijos.</li>
+      <li>La inundación producida por un río que sale de su cauce, pudiendo tornar imposible el cumplimiento de una obligación civil.</li>
+    </ul>
+    <p>Estos efectos jurídicos solo se verifican cuando la ley los establece expresamente.</p>
+
+    <h4>b) Hechos humanos</h4>
+    <p>Son el resultado de la obra directa o indirecta del hombre, ejecutados o realizados por el mismo. Ejemplo: alguien adopta a otra persona como hijo formalizando el acto ante la Dirección del Registro Civil de las Personas.</p>
+
+    <h3>6. Subdivisión de los Hechos Humanos: Voluntarios e Involuntarios</h3>
+
+    <h4>a) Hechos voluntarios</h4>
+    <p>Son los ejecutados con discernimiento, intención y libertad. Las condiciones necesarias para que un acto tenga el carácter de voluntario son internas y externas:</p>
+    <ul>
+      <li>Condiciones internas: se relacionan con la existencia misma de la voluntad:
+        <ul>
+          <li>Discernimiento.</li>
+          <li>Intención.</li>
+          <li>Libertad.</li>
+        </ul>
+      </li>
+      <li>Condiciones externas: se refieren a la exteriorización de esa voluntad.</li>
+    </ul>
+
+    <h4>a.1) Discernimiento</h4>
+    <p>Consiste en juzgar nuestras acciones, saber lo que se hace y distinguir lo justo de lo injusto, lo útil de lo dañoso.</p>
+    <p><span class="articulo">Artículo 278 CC</span>: los actos se juzgarán ejecutados sin discernimiento:</p>
+    <ul>
+      <li>a) Cuando sus agentes no hubiesen cumplido catorce años.</li>
+      <li>b) Cuando sus autores, por cualquier causa, estuviesen privados de razón.</li>
+      <li>c) Si procediesen de personas sujetas a interdicción o inhabilitación, salvo los casos previstos por el Código.</li>
+    </ul>
+
+    <h4>a.2) Intención</h4>
+    <p>La intención consiste en el propósito de realizar el acto. Una persona obra con intención cuando tiene la idea de ejecutar el acto y su voluntad la lleva hacia la realización del mismo. Son causas que excluyen la intención de ejecutar el acto el error o ignorancia y el dolo.</p>
+
+    <h4>Error</h4>
+    <p><span class="articulo">Artículo 285 CC</span>: la ignorancia de las leyes o el error de derecho no impedirá el efecto de los actos lícitos ni excusará la responsabilidad por los ilícitos.</p>
+    <p><span class="articulo">Artículo 286 CC</span>: no será válida la declaración de voluntad cuando el error recayere sobre alguno de los siguientes puntos:</p>
+    <ul>
+      <li>a) La naturaleza del acto.</li>
+      <li>b) La persona con quien se formó la relación jurídica o a la cual ella se refiere.</li>
+      <li>c) La causa principal del acto o la cualidad que verosímilmente se tuvo en mira como esencial, según la práctica de los negocios.</li>
+      <li>d) El objeto, en el caso de haberse indicado un bien diverso o de distinta especie, o diferente cantidad, extensión o suma, u otro hecho que no sea aquel que se quiso designar.</li>
+      <li>e) Cualquier otra circunstancia que, de buena fe, pudo considerar el agente como elemento necesario del acto celebrado.</li>
+    </ul>
+
+    <h4>Dolo</h4>
+    <p><span class="articulo">Artículo 290 CC</span>:</p>
+    <p>“Acción dolosa para conseguir la ejecución de un acto es toda aserción falsa o disimulación de lo verdadero, cualquier astucia, artificio o maquinación que se emplee con ese fin. Las reglas se aplicarán igualmente a las omisiones dolosas”.</p>
+    <p><span class="articulo">Artículo 291 CC</span>:</p>
+    <p>“Para que el dolo cause la nulidad del acto se requiere que haya determinado la declaración de voluntad y que ocasione daño”.</p>
+
+    <h4>a.3) Libertad</h4>
+    <p>La libertad consiste en el poder que tiene el ser humano para decidir por sí mismo sus propios actos y en la ausencia de coacción exterior que lo presione para determinarse en un sentido u otro. Excluye la libertad para realizar el acto la violencia, que se manifiesta de dos formas: física y moral, denominadas fuerza e intimidación en el Código Civil.</p>
+
+    <p><span class="articulo">Artículo 293 CC</span>:</p>
+    <p>“Habrá falta de libertad en el agente cuando se empleare contra él fuerza irresistible. Se juzgará que hubo intimidación cuando, por injustas amenazas, alguien causare al agente temor fundado de sufrir cualquier mal inminente y grave en su persona, libertad, honra o bienes, o en la de su cónyuge, descendientes, ascendientes o parientes colaterales. Si se tratare de otras personas, corresponderá al juez decidir si ha existido intimidación, según las circunstancias”.</p>
+
+    <h4>b) Hechos involuntarios</h4>
+    <p>Son los ejecutados sin discernimiento, intención o libertad. No producen por sí obligación alguna.</p>
+    <p><span class="articulo">Artículo 277 CC</span>:</p>
+    <p>“Los actos voluntarios previstos en este Código son los que, ejecutados con discernimiento, intención y libertad, determinan una adquisición, modificación o extinción de derechos. Los que no reuniesen tales requisitos no producirán por sí efecto alguno”.</p>
+
+    <h3>7. Clasificación de los Hechos Voluntarios en Lícitos e Ilícitos</h3>
+
+    <h4>a) Actos lícitos</h4>
+    <p>Son las acciones voluntarias no prohibidas por la ley, de las que puede resultar alguna adquisición, modificación o extinción de derechos. Ejemplo: pintar las puertas de mi casa o contratar a otra persona para que pinte mi casa.</p>
+
+    <h4>b) Hechos ilícitos</h4>
+    <p>Son aquellos prohibidos por las leyes, ordenanzas municipales y reglamentos de policía que contienen una sanción penal. Pueden consistir en acciones u omisiones.</p>
+
+    <h3>8. Actos Jurídicos</h3>
+    <p>En la esfera de los actos voluntarios lícitos se encuentran los <strong>actos jurídicos</strong>.</p>
+
+    <h4>Definición</h4>
+    <p>Los actos jurídicos son los actos voluntarios lícitos que tienen por fin inmediato crear, modificar, transferir, conservar o extinguir derechos (artículo 296 del Código Civil). Ejemplos: los contratos, un testamento, el reconocimiento de un hijo.</p>
+
+    <h3>9. El Negocio Jurídico</h3>
+
+    <h4>Concepto</h4>
+    <p>Los negocios jurídicos son declaraciones de voluntad de los particulares, encaminadas a la obtención de fines jurídicamente protegidos.</p>
+    <p>Pertenecen a la categoría genérica de los actos jurídicos, porque en su producción concurre la voluntad consciente. Pero el papel de esta es mayor, porque interviene como elemento de su creación.</p>
+    <p>A través de los negocios jurídicos, la protección de la autonomía volitiva alcanza mayor amplitud.</p>
+  </section>
+
+</main>
+</body>
+</html>
