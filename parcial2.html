@@ -82,21 +82,13 @@
       font-size: 0.95rem;
       color: #333;
     }
-    .resumen, .tip, .preguntas, .definiciones-clave {
+    .resumen, .definiciones-clave {
       background: #f7f8ff;
       border-left: 4px solid #4a5bd4;
       padding: 0.75rem 1rem;
       border-radius: 6px;
       margin: 0.7rem 0;
       font-size: 0.9rem;
-    }
-    .tip {
-      border-left-color: #0a8754;
-      background: #f3fbf7;
-    }
-    .preguntas {
-      border-left-color: #e67e22;
-      background: #fff9f3;
     }
     .definiciones-clave {
       border-left-color: #8e44ad;
@@ -117,13 +109,6 @@
     li {
       margin: 0.2rem 0;
       font-size: 0.9rem;
-    }
-    code {
-      font-family: "SF Mono", Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-      background: #eef0ff;
-      padding: 0.1rem 0.25rem;
-      border-radius: 3px;
-      font-size: 0.85rem;
     }
     .articulo {
       font-size: 0.9rem;
@@ -158,14 +143,63 @@
       border-radius: 10px;
       padding: 1.2rem 1.5rem;
       border: 1px solid #d7d9e7;
-      margin-bottom: 2rem;
+      margin: 1rem 0 2rem;
     }
     .ejercicio {
       margin-bottom: 1rem;
       font-size: 0.95rem;
+      padding: 0.8rem 1rem;
+      border-radius: 8px;
+      background: #f9fafc;
+      border: 1px solid #e0e2f0;
     }
     .ejercicio strong {
       color: #1b2a4a;
+    }
+    .resultado {
+      margin-top: 0.4rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+    .resultado.ok {
+      color: #0a8754;
+    }
+    .resultado.error {
+      color: #c0392b;
+    }
+    button {
+      margin-top: 0.5rem;
+      padding: 0.3rem 0.7rem;
+      font-size: 0.85rem;
+      border-radius: 4px;
+      border: none;
+      cursor: pointer;
+      background: #1b2a4a;
+      color: #fff;
+    }
+    button:hover {
+      background: #243766;
+    }
+    details {
+      margin-top: 0.8rem;
+    }
+    details > summary {
+      cursor: pointer;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #1b2a4a;
+      list-style: none;
+    }
+    details > summary::-webkit-details-marker {
+      display: none;
+    }
+    details > summary::before {
+      content: "▸ ";
+      display: inline-block;
+      transition: transform 0.2s;
+    }
+    details[open] > summary::before {
+      transform: rotate(90deg);
     }
   </style>
 </head>
@@ -189,7 +223,7 @@
       <li><a href="#leccion17">Lección 17 – Abuso del derecho y orden público</a></li>
       <li><a href="#leccion18">Lección 18 – Relación jurídica, personas y capacidad</a></li>
       <li><a href="#leccion19">Lección 19 – Objeto, causa y actos jurídicos</a></li>
-      <li><a href="#ejercicios">Ejercicios de selección múltiple</a></li>
+      <li><a href="#ejercicios-generales">Ejercicios generales</a></li>
     </ul>
   </div>
 
@@ -198,11 +232,11 @@
     <h2>Lección 11 – Normas y sanciones<span class="badge">Lección 11</span></h2>
 
     <div class="resumen">
-      <strong>Idea central:</strong> En esta lección se estudian las <span class="highlight">clases de normas</span> (religiosas, morales, de trato social y jurídicas), sus características y el papel de la <span class="highlight">sanción</span> en el Derecho.
+      <strong>Idea central:</strong> Clases de normas (religiosas, morales, de trato social y jurídicas) y la función de la sanción.
     </div>
 
     <h3>1. Normas religiosas</h3>
-    <p><span class="clave">Concepto</span>: regulan el comportamiento del ser humano en sus relaciones con la divinidad; la palabra religión proviene de <em>religio</em>, vínculo del hombre con Dios.</p>
+    <p><span class="clave">Concepto</span>: regulan el comportamiento del ser humano en sus relaciones con la divinidad; religión proviene de <em>religio</em>, vínculo del hombre con Dios.</p>
     <h4>Caracteres</h4>
     <ul>
       <li>Espontaneidad.</li>
@@ -214,29 +248,27 @@
     <h4>Clasificación y sanciones</h4>
     <ul>
       <li>Normas de fe y normas de razón.</li>
-      <li>Sanciones: terrenales y ultraterrenales, premiales, preventivas y represivas.</li>
+      <li>Sanciones terrenales y ultraterrenales, premiales, preventivas y represivas.</li>
     </ul>
 
     <h3>2. Normas morales</h3>
-    <p><span class="clave">Concepto</span>: formulan imperativamente los deberes ordenados al bien personal del hombre, considerado individualmente.</p>
-    <h4>Rasgos importantes</h4>
+    <p><span class="clave">Concepto</span>: deberes ordenados al bien personal del hombre, considerado individualmente.</p>
+    <h4>Caracteres</h4>
     <ul>
       <li>Autonomía.</li>
       <li>Unilateralidad.</li>
-      <li>Carácter subjetivo.</li>
+      <li>Subjetividad.</li>
       <li>Interio-exterioridad.</li>
       <li>Incoercibilidad.</li>
     </ul>
 
     <h3>3. Normas de trato social</h3>
-    <p><span class="clave">Concepto</span>: reglas específicamente sociales y externas que imponen deberes de comportamiento decoroso según las circunstancias y el medio social.</p>
-    <ul>
-      <li>Carácter: imperativo, pero sin sanción coactiva estatal.</li>
-    </ul>
+    <p><span class="clave">Concepto</span>: reglas sociales externas que exigen un comportamiento decoroso según las circunstancias.</p>
+    <p>Su carácter es imperativo, pero no tienen sanción coactiva estatal.</p>
 
     <h3>4. Normas jurídicas</h3>
     <p><span class="clave">Concepto</span>: rigen la conducta humana en sociedad y su cumplimiento puede exigirse coactivamente por los órganos del Estado.</p>
-    <h4>Caracteres principales</h4>
+    <h4>Caracteres</h4>
     <ul>
       <li>Imperatividad.</li>
       <li>Autarquía.</li>
@@ -247,33 +279,54 @@
       <li>Coercibilidad.</li>
     </ul>
 
-    <h3>5. Estructura y clasificación de la norma jurídica</h3>
-    <p><span class="clave">Estructura lógica</span>: hipótesis o supuesto jurídico + disposición o consecuencia de derecho.</p>
-    <h4>Clasificación (resumen)</h4>
-    <ul>
-      <li>Por relación a la sanción: leyes perfectas, pluscuamperfectas, minuscuamperfectas, imperfectas.</li>
-      <li>Por ámbito de validez: espacial, temporal, material y personal.</li>
-      <li>Por si su aplicación depende o no de la voluntad de las partes.</li>
-      <li>Por jerarquía: normas primarias, secundarias, de vigencia, declarativas, permisivas, sancionadoras.</li>
-    </ul>
+    <h3>5. Estructura y clasificación</h3>
+    <p>Estructura lógica: hipótesis o supuesto jurídico + disposición o consecuencia de derecho.</p>
+    <p>Clasificación: según sanción, ámbito de validez, relación con la voluntad de las partes, formulación del mandato y jerarquía.</p>
 
-    <h3>6. La sanción</h3>
-    <p><span class="clave">Sanción</span>: refuerza el precepto; son las seguridades que rodean a la norma para garantizar su cumplimiento.</p>
-    <p>Si el precepto se cumple, la sanción represiva no se aplica; ante la inobservancia, se recurre a la fuerza para imponer el deber jurídico.</p>
+    <h3>6. Sanción y normas sancionada/sancionaria</h3>
+    <p>La sanción refuerza el precepto; si el precepto se cumple, la sanción represiva no se aplica.</p>
+    <p>Norma sancionada crea la obligación; norma sancionadora establece la sanción.</p>
 
-    <h3>7. Norma sancionada y norma sancionaria</h3>
-    <ul>
-      <li>Norma <span class="clave">sancionada</span>: crea la obligación que debe cumplirse.</li>
-      <li>Norma <span class="clave">sancionadora</span>: complementa a la primera y establece la sanción.</li>
-    </ul>
+    <h3>7. Sanciones prohibidas por la CN</h3>
+    <p>Multas desmedidas, pena de muerte, confiscación de bienes, torturas y tratos crueles.</p>
 
-    <h3>8. Sanciones prohibidas por la Constitución paraguaya</h3>
-    <ul>
-      <li>Multas desmedidas.</li>
-      <li>Pena de muerte.</li>
-      <li>Confiscación de bienes.</li>
-      <li>Torturas y tratos crueles, inhumanos o degradantes.</li>
-    </ul>
+    <!-- Ejercicios Lección 11 -->
+    <details>
+      <summary>Mostrar ejercicios de la Lección 11</summary>
+      <div class="ejercicios">
+        <h3>Ejercicios – Lección 11</h3>
+
+        <div class="ejercicio" data-correcta="c">
+          <strong>11.1. ¿Qué característica es propia de la norma jurídica y no de la moral?</strong><br>
+          <label><input type="radio" name="q11_1" value="a"> a) Interioridad.</label><br>
+          <label><input type="radio" name="q11_1" value="b"> b) Autonomía.</label><br>
+          <label><input type="radio" name="q11_1" value="c"> c) Coercibilidad.</label><br>
+          <label><input type="radio" name="q11_1" value="d"> d) Unilateralidad.</label><br>
+          <button type="button" onclick="corregir(this)">Responder</button>
+          <div class="resultado"></div>
+        </div>
+
+        <div class="ejercicio" data-correcta="b">
+          <strong>11.2. ¿Cuál de estas es una norma de trato social?</strong><br>
+          <label><input type="radio" name="q11_2" value="a"> a) No matar.</label><br>
+          <label><input type="radio" name="q11_2" value="b"> b) Saludar al entrar a un lugar.</label><br>
+          <label><input type="radio" name="q11_2" value="c"> c) No robar.</label><br>
+          <label><input type="radio" name="q11_2" value="d"> d) Pagar impuestos.</label><br>
+          <button type="button" onclick="corregir(this)">Responder</button>
+          <div class="resultado"></div>
+        </div>
+
+        <div class="ejercicio" data-correcta="a">
+          <strong>11.3. En la estructura de la norma jurídica, la “hipótesis” es:</strong><br>
+          <label><input type="radio" name="q11_3" value="a"> a) El supuesto de hecho que, si ocurre, activa la consecuencia jurídica.</label><br>
+          <label><input type="radio" name="q11_3" value="b"> b) La sanción penal prevista.</label><br>
+          <label><input type="radio" name="q11_3" value="c"> c) La parte que define el órgano competente.</label><br>
+          <label><input type="radio" name="q11_3" value="d"> d) Una recomendación moral.</label><br>
+          <button type="button" onclick="corregir(this)">Responder</button>
+          <div class="resultado"></div>
+        </div>
+      </div>
+    </details>
   </section>
 
   <!-- LECCIÓN 12 -->
@@ -281,41 +334,70 @@
     <h2>Lección 12 – Ordenamiento jurídico y pirámide de Kelsen<span class="badge">Lección 12</span></h2>
 
     <div class="resumen">
-      <strong>Idea central:</strong> Las normas no existen aisladas, sino integrando <span class="highlight">ordenamientos normativos</span>, y en el ámbito jurídico forman un <span class="highlight">ordenamiento jerarquizado</span> cuya estructura explica Kelsen mediante la pirámide normativa.
+      <strong>Idea central:</strong> Ordenamiento normativo, ordenamiento jurídico, juricidad/antijuricidad y jerarquía de normas.
     </div>
 
-    <h3>1. Ordenamiento normativo: definición y especies</h3>
-    <p>Conjunto sistematizado de normas que regulan el obrar del hombre y comparten la misma razón de validez.</p>
-    <p>Existen ordenamientos normativos religioso, moral, de trato social y jurídico.</p>
+    <h3>1. Ordenamiento normativo</h3>
+    <p>Conjunto sistematizado de normas que regulan el obrar humano y tienen la misma razón de validez.</p>
+    <p>Hay ordenamientos religioso, moral, de trato social y jurídico.</p>
 
     <h3>2. Ordenamiento jurídico</h3>
-    <p><span class="clave">Concepto</span>: conjunto sistematizado de normas cuya validez deriva de la Constitución o norma fundamental, e incluye principios generales no estructurados.</p>
+    <p>Conjunto sistematizado de normas cuya razón de validez deriva de la Constitución y que incluye principios generales no estructurados.</p>
 
     <h3>3. Juricidad y antijuricidad</h3>
-    <h4>Juricidad</h4>
-    <p>Hechos de la realidad social regulados por normas jurídicas; es el acontecer en la vida jurídica.</p>
-    <p><span class="clave">Conducta lícita</span>: ejecución de actos ordenados, omisión de actos prohibidos o realización/omisión de lo no ordenado ni prohibido.</p>
-
-    <h4>Antijuricidad</h4>
-    <p>Conjunto de hechos que se oponen al orden jurídico por contrariar lo reglado; son hechos ilícitos o prohibidos.</p>
-    <p><span class="clave">Conducta ilícita</span>: omisión de actos ordenados o ejecución de actos prohibidos.</p>
+    <p>Juricidad: hechos de la realidad regulados por normas jurídicas; conducta lícita.</p>
+    <p>Antijuricidad: hechos que se oponen al orden jurídico; conducta ilícita.</p>
 
     <h3>4. Arbitrariedad, ilegalidad e injusticia</h3>
-    <ul>
-      <li><span class="clave">Arbitrariedad</span>: conducta antijurídica de órganos del Estado que infringen la norma que ellos mismos dictaron.</li>
-      <li><span class="clave">Ilegalidad</span>: violación de la norma por particulares o funcionarios de jerarquía menor; puede subsanarse con recursos.</li>
-      <li><span class="clave">Injusticia</span>: no dar a cada uno lo que le corresponde según derecho natural y positivo; normas contrarias al derecho natural son injustas.</li>
-    </ul>
+    <p>Arbitrariedad: violación de normas por el propio órgano estatal que las dictó.</p>
+    <p>Ilegalidad: violación por particulares o funcionarios de menor jerarquía.</p>
+    <p>Injusticia: contradicción entre derecho positivo y derecho natural.</p>
 
-    <h3>5. Prelación de normas jurídicas y pirámide de Kelsen</h3>
-    <p>La prelación determina jerarquía e importancia de las normas; unas son primarias o fundamentales, otras secundarias.</p>
-    <p>Kelsen representa el ordenamiento en forma piramidal: cada norma superior es razón de validez de la inferior; las inferiores desarrollan a las superiores.</p>
+    <h3>5. Prelación de normas y pirámide de Kelsen</h3>
+    <p>No todas las normas tienen igual jerarquía; unas son primarias, otras secundarias.</p>
+    <p>Kelsen representa el ordenamiento en forma piramidal, donde cada norma superior da validez a la inferior.</p>
 
-    <h3>6. Prelación en el derecho paraguayo</h3>
-    <p>El art. 137 CN fija la jerarquía de normas en Paraguay, situando la Constitución como norma suprema.</p>
+    <h3>6. Prelación en Paraguay y fin del ordenamiento</h3>
+    <p>Art. 137 CN fija jerarquía (Constitución, tratados, leyes, normas inferiores).</p>
+    <p>Fin del ordenamiento: caducidad de la norma fundamental por muerte natural o violenta.</p>
 
-    <h3>7. Fin del ordenamiento jurídico</h3>
-    <p>El fin del ordenamiento se vincula con la caducidad de la Constitución: muerte natural (reforma total o nueva Constitución) o muerte violenta (revolución).</p>
+    <!-- Ejercicios Lección 12 -->
+    <details>
+      <summary>Mostrar ejercicios de la Lección 12</summary>
+      <div class="ejercicios">
+        <h3>Ejercicios – Lección 12</h3>
+
+        <div class="ejercicio" data-correcta="c">
+          <strong>12.1. ¿Cuál es la norma de mayor jerarquía en el ordenamiento jurídico paraguayo?</strong><br>
+          <label><input type="radio" name="q12_1" value="a"> a) Las leyes.</label><br>
+          <label><input type="radio" name="q12_1" value="b"> b) Los decretos.</label><br>
+          <label><input type="radio" name="q12_1" value="c"> c) La Constitución Nacional.</label><br>
+          <label><input type="radio" name="q12_1" value="d"> d) Los reglamentos administrativos.</label><br>
+          <button type="button" onclick="corregir(this)">Responder</button>
+          <div class="resultado"></div>
+        </div>
+
+        <div class="ejercicio" data-correcta="a">
+          <strong>12.2. La antijuricidad se configura cuando:</strong><br>
+          <label><input type="radio" name="q12_2" value="a"> a) Un hecho se opone al orden jurídico y está prohibido.</label><br>
+          <label><input type="radio" name="q12_2" value="b"> b) Solo existe una duda sobre la interpretación de la norma.</label><br>
+          <label><input type="radio" name="q12_2" value="c"> c) El hecho es lícito pero impopular.</label><br>
+          <label><input type="radio" name="q12_2" value="d"> d) No hay norma aplicable al caso.</label><br>
+          <button type="button" onclick="corregir(this)">Responder</button>
+          <div class="resultado"></div>
+        </div>
+
+        <div class="ejercicio" data-correcta="d">
+          <strong>12.3. Según Kelsen, las normas inferiores:</strong><br>
+          <label><input type="radio" name="q12_3" value="a"> a) Determinan la validez de las normas superiores.</label><br>
+          <label><input type="radio" name="q12_3" value="b"> b) Son independientes de las superiores.</label><br>
+          <label><input type="radio" name="q12_3" value="c"> c) Son meras recomendaciones sin fuerza obligatoria.</label><br>
+          <label><input type="radio" name="q12_3" value="d"> d) Aplican y desarrollan el contenido de las normas superiores.</label><br>
+          <button type="button" onclick="corregir(this)">Responder</button>
+          <div class="resultado"></div>
+        </div>
+      </div>
+    </details>
   </section>
 
   <!-- LECCIÓN 13 -->
@@ -323,63 +405,69 @@
     <h2>Lección 13 – Derecho positivo y ramas del Derecho<span class="badge">Lección 13</span></h2>
 
     <div class="resumen">
-      <strong>Idea central:</strong> Se define el <span class="highlight">derecho positivo</span>, su división en público y privado, interno y externo, y se presenta el mapa general de las principales ramas del derecho paraguayo.
+      <strong>Idea central:</strong> Derecho positivo, su división y las principales ramas del derecho público interno.
     </div>
 
-    <h3>1. Derecho positivo: concepto y fundamento</h3>
-    <p>Es el conjunto de normas jurídicas que regulan la convivencia en un territorio determinado.</p>
-    <p>Se apoya en la teoría normativista de Hans Kelsen, que jerarquiza normas y establece la supremacía de la Constitución.</p>
+    <h3>1. Derecho positivo</h3>
+    <p>Conjunto de normas jurídicas que regulan la convivencia de las personas en un territorio determinado.</p>
+    <p>Se apoya en la teoría de Kelsen y la supremacía de la Constitución.</p>
 
-    <div class="bloque">
-      <p>Los ciudadanos, como poder constituyente, acuerdan la forma de organización estatal; una vez aprobada la Constitución, el Estado actúa como poder constituido.</p>
-    </div>
-
-    <h3>2. Características del derecho positivo</h3>
+    <h3>2. Características</h3>
     <ul>
-      <li>Es expreso y su existencia no puede negarse.</li>
-      <li>Cada país tiene su propio derecho positivo.</li>
-      <li>Contiene normas obligatorias dictadas por la autoridad política, vigentes en un período.</li>
-      <li>Su cumplimiento puede ser espontáneo o impuesto coactivamente.</li>
-      <li>Es relativo y se transforma con el tiempo según condiciones políticas, económicas, sociales y culturales.</li>
-      <li>Es creado por la voluntad humana y puede cambiar.</li>
+      <li>Expreso e innegable.</li>
+      <li>Propio de cada país.</li>
+      <li>Obligatorio y coactivo.</li>
+      <li>Relativo y cambiante en el tiempo.</li>
+      <li>Creado por la voluntad humana.</li>
     </ul>
 
-    <h3>3. Derecho público y derecho privado</h3>
-    <p><span class="clave">Derecho público</span>: normas que establecen la estructura y funciones del Estado como ente soberano y regulan sus relaciones con particulares u otros Estados.</p>
-    <p><span class="clave">Derecho privado</span>: normas que regulan relaciones entre particulares o entre estos y el Estado como persona jurídica.</p>
+    <h3>3. Derecho público y privado; interno y externo</h3>
+    <p>Derecho público: estructura y funciones del Estado; derecho privado: relaciones entre particulares.</p>
+    <p>Ambos se dividen en interno (derecho nacional) y externo o internacional.</p>
 
-    <h3>4. Subdivisión en interno y externo</h3>
-    <ul>
-      <li><span class="clave">Derecho interno</span>: normas dictadas por cada Estado para regir relaciones entre el propio Estado y particulares, y entre particulares.</li>
-      <li><span class="clave">Derecho externo o internacional</span>: normas que rigen relaciones entre varios Estados o entre individuos de distintos Estados.</li>
-    </ul>
+    <h3>4. Ramas del derecho público interno</h3>
+    <p>Derecho político, constitucional, administrativo, financiero, municipal, aduanero, penal, penal militar y procesal.</p>
 
-    <h3>5. Ramas del derecho público interno</h3>
-    <ul>
-      <li><span class="clave">Derecho Político</span>.</li>
-      <li><span class="clave">Derecho Constitucional</span>.</li>
-      <li><span class="clave">Derecho Administrativo</span>.</li>
-      <li><span class="clave">Derecho Financiero</span>.</li>
-      <li><span class="clave">Derecho Municipal</span>.</li>
-      <li><span class="clave">Derecho Aduanero</span>.</li>
-      <li><span class="clave">Derecho Penal</span>.</li>
-      <li><span class="clave">Derecho Penal Militar</span>.</li>
-      <li><span class="clave">Derecho Procesal</span>.</li>
-    </ul>
+    <h3>5. Estructura de la CN de 1992</h3>
+    <p>Preámbulo (propósitos), parte dogmática (derechos fundamentales) y parte orgánica (organización de poderes).</p>
 
-    <h3>6. Estructura de la Constitución paraguaya de 1992</h3>
-    <ul>
-      <li>Sancionada el 20 de junio de 1992.</li>
-      <li>Preámbulo, parte dogmática y parte orgánica.</li>
-    </ul>
-    <h4>Preámbulo</h4>
-    <p>Declaración general de propósitos; no es parte dominante ni enuncia normas, sino voluntad de los constituyentes.</p>
+    <!-- Ejercicios Lección 13 -->
+    <details>
+      <summary>Mostrar ejercicios de la Lección 13</summary>
+      <div class="ejercicios">
+        <h3>Ejercicios – Lección 13</h3>
 
-    <h4>Parte dogmática</h4>
-    <p>Regula derechos fundamentales del hombre y finalidad del Estado (bien común, intereses generales).</p>
+        <div class="ejercicio" data-correcta="c">
+          <strong>13.1. El derecho positivo se caracteriza por ser:</strong><br>
+          <label><input type="radio" name="q13_1" value="a"> a) Universal e inmutable.</label><br>
+          <label><input type="radio" name="q13_1" value="b"> b) Exclusivamente moral.</label><br>
+          <label><input type="radio" name="q13_1" value="c"> c) Conjunto de normas vigentes en un territorio y tiempo determinados.</label><br>
+          <label><input type="radio" name="q13_1" value="d"> d) Igual en todos los países.</label><br>
+          <button type="button" onclick="corregir(this)">Responder</button>
+          <div class="resultado"></div>
+        </div>
 
-    <h4>Parte orgánica</h4>
-    <p>Regula organización y funcionamiento de los poderes del Estado.</p>
+        <div class="ejercicio" data-correcta="b">
+          <strong>13.2. El derecho público regula principalmente:</strong><br>
+          <label><input type="radio" name="q13_2" value="a"> a) Los contratos entre particulares.</label><br>
+          <label><input type="radio" name="q13_2" value="b"> b) La organización y funciones del Estado y sus relaciones con particulares.</label><br>
+          <label><input type="radio" name="q13_2" value="c"> c) Las relaciones familiares internas.</label><br>
+          <label><input type="radio" name="q13_2" value="d"> d) La moral social.</label><br>
+          <button type="button" onclick="corregir(this)">Responder</button>
+          <div class="resultado"></div>
+        </div>
+
+        <div class="ejercicio" data-correcta="a">
+          <strong>13.3. La parte dogmática de la Constitución trata principalmente de:</strong><br>
+          <label><input type="radio" name="q13_3" value="a"> a) Los derechos fundamentales del hombre.</label><br>
+          <label><input type="radio" name="q13_3" value="b"> b) La organización del Poder Judicial.</label><br>
+          <label><input type="radio" name="q13_3" value="c"> c) El presupuesto general de la Nación.</label><br>
+          <label><input type="radio" name="q13_3" value="d"> d) Los símbolos patrios.</label><br>
+          <button type="button" onclick="corregir(this)">Responder</button>
+          <div class="resultado"></div>
+        </div>
+      </div>
+    </details>
   </section>
 
   <!-- LECCIÓN 14 -->
@@ -387,162 +475,124 @@
     <h2>Lección 14 – Derecho internacional público y derecho canónico<span class="badge">Lección 14</span></h2>
 
     <div class="resumen">
-      <strong>Idea central:</strong> Se analizan las <span class="highlight">ramas del derecho público externo</span>: derecho internacional público y derecho canónico, junto con sus bases constitucionales en Paraguay.
+      <strong>Idea central:</strong> Derecho internacional público, sus bases constitucionales y el derecho canónico.
     </div>
 
     <h3>1. Derecho internacional público</h3>
-    <h4>A. Noción</h4>
-    <p>Conjunto de principios y normas convencionales y consuetudinarias que regulan las relaciones jurídicas entre Estados soberanos y entre estos y organizaciones internacionales.</p>
+    <p>Conjunto de principios y normas que regulan relaciones jurídicas entre Estados y con organizaciones internacionales.</p>
+    <p>Se vincula con tratados, pactos, convenios y principios como independencia, igualdad y no intervención.</p>
 
-    <h4>Denominaciones</h4>
-    <p>Se ha propuesto hablar de derecho interestatal, supranacional o de gentes, en lugar de “internacional”.</p>
-
-    <h4>Contenido</h4>
-    <p>Comprende derechos y deberes de los Estados, tratados, pactos, convenios y acuerdos sobre comercio, amistad, cultura, unión aduanera, inmigración, sanidad, neutralidad, cooperación, etc.</p>
-
-    <h4>División</h4>
-    <ul>
-      <li>Relaciones internacionales en tiempo de paz y en tiempo de guerra.</li>
-      <li>Derecho internacional general (para todos los miembros) y particular (para algunos).</li>
-    </ul>
-
-    <h4>Subramas modernas</h4>
-    <ul>
-      <li>Derecho internacional constitucional.</li>
-      <li>Derecho internacional administrativo.</li>
-      <li>Derecho internacional procesal.</li>
-    </ul>
-
-    <h3>2. Bases constitucionales del Derecho Internacional</h3>
-    <div class="articulo">
-      <strong>Art. 137 CN:</strong> Constitución, tratados, leyes y normas inferiores integran el derecho positivo nacional en orden de prelación.
-    </div>
-    <div class="articulo">
-      <strong>Art. 142 CN:</strong> los tratados de derechos humanos solo se pueden denunciar con el procedimiento de enmienda constitucional.
-    </div>
-    <div class="articulo">
-      <strong>Art. 143 CN:</strong> Paraguay acepta el derecho internacional y se ajusta a principios de independencia, autodeterminación, igualdad, solidaridad, derechos humanos, libre navegación, no intervención y condena de dictaduras.
-    </div>
-    <div class="articulo">
-      <strong>Art. 144 CN:</strong> renuncia a la guerra pero sostiene la legítima defensa.
-    </div>
-    <div class="articulo">
-      <strong>Art. 145 CN:</strong> admite un orden jurídico supranacional para garantizar derechos humanos, paz, justicia y desarrollo.
-    </div>
-    <div class="articulo">
-      <strong>Art. 202 inc. 9 y 224 inc. 1 CN:</strong> el Congreso aprueba o rechaza tratados; el Senado inicia su tratamiento.
-    </div>
+    <h3>2. Bases constitucionales</h3>
+    <p>Art. 137 CN: la Constitución y los tratados integran el derecho positivo nacional.</p>
+    <p>Otros artículos (142, 143, 144, 145) fijan reglas sobre tratados y orden jurídico supranacional.</p>
 
     <h3>3. Derecho canónico</h3>
-    <h4>A. Noción</h4>
-    <p>Conjunto de leyes dadas por Dios mediante revelación o por la potestad eclesiástica para organizar, hacer funcionar y disciplinar la Iglesia Católica.</p>
-    <p>La Iglesia tiene personalidad jurídica originaria, no derivada del Estado.</p>
+    <p>Conjunto de leyes dadas por Dios o por la autoridad eclesiástica para la organización, funcionamiento y disciplina de la Iglesia Católica.</p>
+    <p>Se distingue del derecho eclesiástico, dictado por el Estado para las comunidades religiosas.</p>
 
-    <h4>Iglesia Católica: dos aspectos</h4>
-    <ul>
-      <li>Misión espiritual: comunidad universal sin límites territoriales; sus normas espirituales tienen vigencia universal.</li>
-      <li>Como Estado: asiento en Ciudad del Vaticano; el Papa es soberano territorial y autoridad suprema.</li>
-    </ul>
+    <!-- Ejercicios Lección 14 -->
+    <details>
+      <summary>Mostrar ejercicios de la Lección 14</summary>
+      <div class="ejercicios">
+        <h3>Ejercicios – Lección 14</h3>
 
-    <h4>B. División</h4>
-    <ul>
-      <li>Derecho canónico público: constitución de la Iglesia como sociedad perfecta y sus relaciones con el Estado.</li>
-      <li>Derecho canónico privado: derechos y obligaciones de los fieles.</li>
-    </ul>
+        <div class="ejercicio" data-correcta="d">
+          <strong>14.1. El derecho internacional público regula principalmente:</strong><br>
+          <label><input type="radio" name="q14_1" value="a"> a) Contratos de compraventa entre particulares.</label><br>
+          <label><input type="radio" name="q14_1" value="b"> b) Relaciones laborales dentro de un Estado.</label><br>
+          <label><input type="radio" name="q14_1" value="c"> c) Exclusivamente las relaciones Iglesia-Estado.</label><br>
+          <label><input type="radio" name="q14_1" value="d"> d) Relaciones jurídicas entre Estados y con organizaciones internacionales.</label><br>
+          <button type="button" onclick="corregir(this)">Responder</button>
+          <div class="resultado"></div>
+        </div>
 
-    <h4>C. Diferencia con el derecho eclesiástico</h4>
-    <p>Derecho canónico: dictado por la Iglesia para su vida interna.</p>
-    <p>Derecho eclesiástico: dictado por el Estado para las comunidades religiosas que actúan en su territorio.</p>
-    <p>Cuerpo legislativo principal: Código de Derecho Canónico de 1983.</p>
+        <div class="ejercicio" data-correcta="b">
+          <strong>14.2. El art. 137 CN establece que:</strong><br>
+          <label><input type="radio" name="q14_2" value="a"> a) Solo la Constitución es fuente del derecho.</label><br>
+          <label><input type="radio" name="q14_2" value="b"> b) Constitución, tratados y leyes integran el derecho positivo nacional.</label><br>
+          <label><input type="radio" name="q14_2" value="c"> c) Los tratados no forman parte del orden interno.</label><br>
+          <label><input type="radio" name="q14_2" value="d"> d) Los decretos tienen jerarquía superior a la Constitución.</label><br>
+          <button type="button" onclick="corregir(this)">Responder</button>
+          <div class="resultado"></div>
+        </div>
+
+        <div class="ejercicio" data-correcta="c">
+          <strong>14.3. ¿Cuál es la principal diferencia entre derecho canónico y derecho eclesiástico?</strong><br>
+          <label><input type="radio" name="q14_3" value="a"> a) El primero se aplica solo a laicos.</label><br>
+          <label><input type="radio" name="q14_3" value="b"> b) El segundo se aplica solo en el Vaticano.</label><br>
+          <label><input type="radio" name="q14_3" value="c"> c) El canónico lo dicta la Iglesia; el eclesiástico, el Estado.</label><br>
+          <label><input type="radio" name="q14_3" value="d"> d) No hay diferencia, son sinónimos.</label><br>
+          <button type="button" onclick="corregir(this)">Responder</button>
+          <div class="resultado"></div>
+        </div>
+      </div>
+    </details>
   </section>
 
   <!-- LECCIÓN 15 -->
   <section id="leccion15" class="leccion">
-    <h2>Lección 15 – Derecho privado, derecho civil, laboral y rural<span class="badge">Lección 15</span></h2>
+    <h2>Lección 15 – Derecho privado, civil, laboral y rural<span class="badge">Lección 15</span></h2>
 
     <div class="resumen">
-      <strong>Idea central:</strong> Se detalla el <span class="highlight">derecho privado</span>, sus ramas internas y, en especial, el <span class="highlight">derecho civil paraguayo</span>, el derecho del trabajo y el derecho rural con su legislación básica.
+      <strong>Idea central:</strong> Derecho privado, sus ramas y en especial derecho civil, laboral y rural en Paraguay.
     </div>
 
-    <h3>1. Derecho privado: noción general</h3>
+    <h3>1. Derecho privado</h3>
     <p>Conjunto de normas que regulan relaciones jurídicas entre particulares o entre estos y el Estado como persona jurídica.</p>
 
-    <h3>2. Ramas del derecho privado</h3>
-    <p>Distinción entre derecho privado interno y externo (internacional privado).</p>
-    <ul>
-      <li>Privado interno: normas que dicta cada Estado para regir relaciones entre particulares y entre estos y el Estado como persona jurídica.</li>
-      <li>Privado externo o internacional privado: principios y normas sobre relaciones privadas con elementos extranjeros.</li>
-    </ul>
-
-    <h4>Principales ramas del derecho privado interno</h4>
-    <div class="bloque">
-      <span class="pill">Derecho civil</span>
-      <span class="pill">Derecho comercial</span>
-      <span class="pill">Derecho laboral o del trabajo</span>
-      <span class="pill">Derecho rural</span>
-      <span class="pill">Derecho industrial</span>
-      <span class="pill">Derecho de minería</span>
-      <span class="pill">Derecho marítimo o de la navegación</span>
-    </div>
+    <h3>2. Ramas del derecho privado interno</h3>
+    <p>Derecho civil, comercial, laboral, rural, industrial, de minería y marítimo.</p>
 
     <h3>3. Derecho civil</h3>
-    <p>Conjunto de normas que regulan la existencia de personas privadas, sus relaciones familiares y patrimoniales; es la “columna vertebral” del derecho privado.</p>
-    <p>Regula personas, familia, propiedad privada, obligaciones, contratos y sucesiones.</p>
+    <p>Regula existencia de personas privadas, familia, propiedad, obligaciones, contratos y sucesiones; se lo denomina derecho común.</p>
 
     <h3>4. Derecho civil paraguayo</h3>
-    <h4>Antecedentes</h4>
-    <p>Codificado primero según el Código civil argentino (Vélez Sársfield), vigente en Paraguay desde 1877.</p>
+    <p>Antecedente: Código civil argentino de Vélez Sársfield (1877).</p>
+    <p>Actual: Código Civil Paraguayo (Ley 1183/1985), vigente desde 1987, con 2815 artículos en 5 libros.</p>
 
-    <h4>Proyecto De Gásperi</h4>
-    <p>La Comisión Nacional de Codificación encargó el proyecto al Prof. Dr. Luis De Gásperi, presentado en 1962.</p>
+    <h3>5. Derecho laboral y Código del Trabajo</h3>
+    <p>Regula relaciones entre empleadores, trabajadores y Estado; el Código del Trabajo (Ley 213/1993) fija mínimos de derechos.</p>
 
-    <h4>Código Civil Paraguayo actual</h4>
-    <p>El Código argentino se derogó por la Ley 1183/1985, que rige desde el 1 de enero de 1987.</p>
-    <p>Contiene 2815 artículos distribuidos en:</p>
-    <ul>
-      <li>Título preliminar: disposiciones generales.</li>
-      <li>Libro I: personas y derechos personales en la familia.</li>
-      <li>Libro II: hechos, actos jurídicos y obligaciones.</li>
-      <li>Libro III: contratos y otras fuentes de obligaciones.</li>
-      <li>Libro IV: derechos reales sobre las cosas.</li>
-      <li>Libro V: sucesión por causa de muerte.</li>
-    </ul>
+    <h3>6. Derecho rural y legislación agraria</h3>
+    <p>Regula relaciones derivadas de la producción agraria; CN arts. 114 y 116, Código Rural, Estatuto Agrario e INDERT.</p>
 
-    <h3>5. Derecho laboral o del trabajo</h3>
-    <p>Principios y normas que regulan relaciones entre empleadores, trabajadores y Estado, derivadas de la prestación voluntaria, subordinada y retribuida de la actividad humana.</p>
+    <!-- Ejercicios Lección 15 -->
+    <details>
+      <summary>Mostrar ejercicios de la Lección 15</summary>
+      <div class="ejercicios">
+        <h3>Ejercicios – Lección 15</h3>
 
-    <h4>Código del Trabajo (Ley 213/1993)</h4>
-    <div class="articulo">
-      <strong>Art. 1°:</strong> regula relaciones entre trabajadores y empleadores respecto a la prestación subordinada y retribuida de la actividad laboral.
-    </div>
-    <div class="articulo">
-      <strong>Art. 2°:</strong> determina los sujetos alcanzados (trabajadores dependientes, docentes privados, deportistas profesionales, sindicatos, trabajadores de empresas estatales y municipales, etc.; excluye FF.AA. y Policía).
-    </div>
-    <div class="articulo">
-      <strong>Art. 5°:</strong> el Código contiene un mínimo de garantías y derechos en beneficio de los trabajadores, que no puede alterarse en su perjuicio.
-    </div>
-    <div class="articulo">
-      <strong>Art. 9°:</strong> el trabajo es derecho y deber social, protegido por el Estado, no es mercancía, y exige respeto a libertad, dignidad, vida, salud y un nivel económico adecuado, sin discriminación.
-    </div>
-    <div class="articulo">
-      <strong>Art. 90°:</strong> falta de preaviso del empleador exige pago del salario del periodo; si omite el trabajador, paga la mitad del salario correspondiente.
-    </div>
+        <div class="ejercicio" data-correcta="d">
+          <strong>15.1. ¿Cuál de las siguientes ramas NO pertenece al derecho privado interno?</strong><br>
+          <label><input type="radio" name="q15_1" value="a"> a) Derecho civil.</label><br>
+          <label><input type="radio" name="q15_1" value="b"> b) Derecho comercial.</label><br>
+          <label><input type="radio" name="q15_1" value="c"> c) Derecho rural.</label><br>
+          <label><input type="radio" name="q15_1" value="d"> d) Derecho constitucional.</label><br>
+          <button type="button" onclick="corregir(this)">Responder</button>
+          <div class="resultado"></div>
+        </div>
 
-    <h3>6. Derecho rural</h3>
-    <p>Conjunto de principios y normas que regulan relaciones derivadas de la producción agrícola, ganadera, agroindustrial y forestal, cuando no rigen el derecho común o administrativo.</p>
-    <p>Estudia propiedad agraria, distribución de la tierra, colonización, marcas y señales, defensa sanitaria, derecho de aguas, caza y pesca, vialidad y crédito rural.</p>
+        <div class="ejercicio" data-correcta="b">
+          <strong>15.2. El Código Civil Paraguayo actual se caracteriza por:</strong><br>
+          <label><input type="radio" name="q15_2" value="a"> a) Tener origen en el derecho francés.</label><br>
+          <label><input type="radio" name="q15_2" value="b"> b) Haber derogado al Código civil argentino y regir desde 1987.</label><br>
+          <label><input type="radio" name="q15_2" value="c"> c) Regular solo las relaciones laborales.</label><br>
+          <label><input type="radio" name="q15_2" value="d"> d) Tener aplicación exclusiva en el ámbito penal.</label><br>
+          <button type="button" onclick="corregir(this)">Responder</button>
+          <div class="resultado"></div>
+        </div>
 
-    <h4>Legislación rural paraguaya</h4>
-    <div class="articulo">
-      <strong>Art. 114 CN:</strong> objetivos de la reforma agraria.
-    </div>
-    <div class="articulo">
-      <strong>Art. 116 CN:</strong> eliminación progresiva de latifundios improductivos, expropiación según ley.
-    </div>
-    <div class="articulo">
-      <strong>Código Rural (Ley 1248/1931):</strong> 429 artículos; gran parte derogada por Código Laboral y leyes especiales.
-    </div>
-    <p>Leyes agrarias vigentes: Estatuto Agrario (Ley 1863/2002) e INDERT (Ley 2419/2004).</p>
+        <div class="ejercicio" data-correcta="c">
+          <strong>15.3. El art. 9 del Código del Trabajo establece que el trabajo:</strong><br>
+          <label><input type="radio" name="q15_3" value="a"> a) Es una mercancía sujeta a la libre oferta y demanda.</label><br>
+          <label><input type="radio" name="q15_3" value="b"> b) Carece de protección estatal.</label><br>
+          <label><input type="radio" name="q15_3" value="c"> c) Es un derecho y un deber social y goza de protección del Estado.</label><br>
+          <label><input type="radio" name="q15_3" value="d"> d) Puede discriminar según raza o sexo.</label><br>
+          <button type="button" onclick="corregir(this)">Responder</button>
+          <div class="resultado"></div>
+        </div>
+      </div>
+    </details>
   </section>
 
   <!-- LECCIÓN 16 -->
@@ -550,54 +600,61 @@
     <h2>Lección 16 – Derecho subjetivo, igualdad y libertad<span class="badge">Lección 16</span></h2>
 
     <div class="resumen">
-      <strong>Idea central:</strong> Se explica el <span class="highlight">derecho subjetivo</span>, sus principales teorías y los derechos fundamentales de <span class="highlight">igualdad</span> y <span class="highlight">libertad</span> en la Constitución paraguaya.
+      <strong>Idea central:</strong> Derecho subjetivo y derechos fundamentales de igualdad y libertad.
     </div>
 
-    <h3>1. Derecho subjetivo: concepto</h3>
-    <p>Es efecto de la norma jurídica atribuir a un sujeto una pretensión o facultad frente a otro, a quien se impone una obligación o deber jurídico.</p>
-    <p>El sujeto activo tiene potestad o poder, el pasivo la obligación; ambos elementos van ligados a dichos sujetos.</p>
+    <h3>1. Derecho subjetivo</h3>
+    <p>Facultad de querer y exigir atribuida a una persona por el ordenamiento, a la que corresponde una obligación de otro.</p>
 
-    <h3>2. Origen</h3>
-    <p>Para algunos autores, nace con el derecho natural y es una facultad que el hombre posee por su naturaleza, luego reconocida por el ordenamiento.</p>
+    <h3>2. Teorías principales</h3>
+    <p>Teoría de la voluntad, del interés, ecléctica, doctrina italiana moderna y teoría unificadora de Kelsen.</p>
 
-    <h3>3. Fundamento: teorías</h3>
-    <h4>A) Teoría de la voluntad</h4>
-    <p>El derecho subjetivo es un poder de la voluntad reconocido por el ordenamiento; lo central es la voluntad individual.</p>
+    <h3>3. Derechos subjetivos fundamentales</h3>
+    <p>Igualdad, libertad y resistencia a la opresión (art. 45 CN).</p>
 
-    <h4>B) Teoría del interés</h4>
-    <p>Los derechos subjetivos existen para asegurar bienes al hombre, satisfaciendo necesidades y fines.</p>
+    <h3>4. Derecho de igualdad</h3>
+    <p>Paridad jurídica fundada en la dignidad humana; art. 46 y 47 CN consagran igualdad y sus garantías.</p>
 
-    <h4>C) Teoría ecléctica</h4>
-    <p>Define el derecho subjetivo como interés tutelado por la ley mediante reconocimiento de la voluntad individual.</p>
+    <h3>5. Derecho de libertad</h3>
+    <p>Libertad natural y libertad jurídica; art. 9 CN protege la libertad y seguridad personal.</p>
 
-    <h4>D) Juristas italianos modernos</h4>
-    <p>Elemento esencial: posibilidad de actuar para satisfacer un interés lícito reconocido y garantizado por el ordenamiento.</p>
+    <!-- Ejercicios Lección 16 -->
+    <details>
+      <summary>Mostrar ejercicios de la Lección 16</summary>
+      <div class="ejercicios">
+        <h3>Ejercicios – Lección 16</h3>
 
-    <h4>E) Teoría unificadora de Kelsen</h4>
-    <p>Niega una existencia separada del derecho subjetivo, que sería el mismo derecho objetivo “visto” desde el sujeto al que se aplica la norma.</p>
+        <div class="ejercicio" data-correcta="a">
+          <strong>16.1. El derecho subjetivo en sentido estricto puede definirse como:</strong><br>
+          <label><input type="radio" name="q16_1" value="a"> a) Facultad de querer y exigir atribuida por el ordenamiento jurídico.</label><br>
+          <label><input type="radio" name="q16_1" value="b"> b) Obligación jurídica de dar, hacer o no hacer.</label><br>
+          <label><input type="radio" name="q16_1" value="c"> c) Norma escrita en la Constitución.</label><br>
+          <label><input type="radio" name="q16_1" value="d"> d) Cualquier hecho social relevante.</label><br>
+          <button type="button" onclick="corregir(this)">Responder</button>
+          <div class="resultado"></div>
+        </div>
 
-    <h3>4. Derechos subjetivos fundamentales</h3>
-    <p>Igualdad, libertad y resistencia a la opresión, reconocidos como inherentes a la personalidad humana.</p>
+        <div class="ejercicio" data-correcta="d">
+          <strong>16.2. ¿Cuáles son los tres derechos subjetivos fundamentales mencionados?</strong><br>
+          <label><input type="radio" name="q16_2" value="a"> a) Propiedad, educación y trabajo.</label><br>
+          <label><input type="radio" name="q16_2" value="b"> b) Salud, vivienda y cultura.</label><br>
+          <label><input type="radio" name="q16_2" value="c"> c) Libertad de expresión, sufragio y asociación.</label><br>
+          <label><input type="radio" name="q16_2" value="d"> d) Igualdad, libertad y resistencia a la opresión.</label><br>
+          <button type="button" onclick="corregir(this)">Responder</button>
+          <div class="resultado"></div>
+        </div>
 
-    <h3>5. Derecho de igualdad</h3>
-    <p><span class="clave">Concepto</span>: paridad jurídica fundada en la dignidad humana.</p>
-    <div class="articulo">
-      <strong>Art. 46 CN:</strong> todos los habitantes son iguales en dignidad y derechos; se prohíben discriminaciones; el Estado removerá obstáculos y factores que las mantengan.
-    </div>
-
-    <h4>Cuatro garantías de igualdad (Art. 47 CN)</h4>
-    <ul>
-      <li>Igualdad de acceso a la justicia.</li>
-      <li>Igualdad ante la ley.</li>
-      <li>Igualdad para acceder a funciones públicas no electivas con idoneidad.</li>
-      <li>Igualdad de oportunidades para participar de beneficios de la naturaleza, de los bienes materiales y de la cultura.</li>
-    </ul>
-
-    <h3>6. Derecho de libertad</h3>
-    <p>Tiene dos fases: libertad natural (autodeterminación) y libertad jurídica (facultad de hacer u omitir lo no ordenado ni prohibido).</p>
-    <div class="articulo">
-      <strong>Art. 9 CN:</strong> toda persona tiene derecho a ser protegida en su libertad y seguridad; nadie está obligado a hacer lo que la ley no ordena ni privado de lo que no prohíbe.
-    </div>
+        <div class="ejercicio" data-correcta="b">
+          <strong>16.3. La libertad jurídica o normativa es:</strong><br>
+          <label><input type="radio" name="q16_3" value="a"> a) Hacer lo que uno quiera, aunque la ley lo prohíba.</label><br>
+          <label><input type="radio" name="q16_3" value="b"> b) La facultad de hacer u omitir lo que la ley no ordena ni prohíbe.</label><br>
+          <label><input type="radio" name="q16_3" value="c"> c) Solo la libertad política.</label><br>
+          <label><input type="radio" name="q16_3" value="d"> d) Un concepto puramente moral sin relevancia jurídica.</label><br>
+          <button type="button" onclick="corregir(this)">Responder</button>
+          <div class="resultado"></div>
+        </div>
+      </div>
+    </details>
   </section>
 
   <!-- LECCIÓN 17 -->
@@ -605,68 +662,58 @@
     <h2>Lección 17 – Limitaciones de la libertad, abuso del derecho y orden público<span class="badge">Lección 17</span></h2>
 
     <div class="resumen">
-      <strong>Idea central:</strong> La <span class="highlight">libertad jurídica</span> no es absoluta: está limitada por instituciones y función social; se estudian la <span class="highlight">teoría del abuso del derecho</span> y el <span class="highlight">orden público</span> y sus leyes.
+      <strong>Idea central:</strong> Limitaciones a la libertad jurídica, abuso del derecho y orden público.
     </div>
 
     <h3>1. Limitaciones de la libertad jurídica</h3>
-    <p>La libertad normativa no es absoluta y se limita por la legislación y la doctrina.</p>
-    <ul>
-      <li><span class="clave">Institución</span>: conjunto de normas vinculadas por la misma finalidad (matrimonio, patria potestad, propiedad, contratos, etc.).</li>
-      <li><span class="clave">Función social</span>: las libertades deben ejercerse mirando al bien común y no solo al interés individual.</li>
-    </ul>
-
-    <h4>Constitución paraguaya</h4>
-    <div class="articulo">
-      <strong>Art. 109 CN:</strong> garantiza la propiedad privada, fijando límites por su función económica y social; admite expropiación por utilidad pública o interés social.
-    </div>
-    <div class="articulo">
-      <strong>Art. 176 CN:</strong> fines de la política económica: desarrollo económico, social y cultural.
-    </div>
-    <div class="articulo">
-      <strong>Art. 128 CN:</strong> primacía del interés general sobre el particular; deber de colaborar en bien del país.
-    </div>
+    <p>Institución: conjunto de normas vinculadas por una finalidad (matrimonio, propiedad, etc.).</p>
+    <p>Función social: las libertades deben ejercerse orientadas al bien común.</p>
 
     <h3>2. Teoría del abuso del derecho</h3>
-    <p>Se da cuando alguien ejerce su derecho sin necesidad y con intención de dañar a otro, excediendo los límites fijados por la finalidad del derecho.</p>
+    <p>Se configura cuando se ejerce un derecho sin necesidad y con intención de dañar, excediendo los límites fijados por su fin.</p>
+    <p>Consecuencias: restaurar situación anterior y resarcir daños.</p>
 
-    <h4>Fundamento y consecuencias</h4>
-    <ul>
-      <li>El ejercicio de derechos debe hacerse con fines legítimos y de buena fe.</li>
-      <li>Consecuencias: restaurar la situación anterior y resarcir daños materiales o morales.</li>
-    </ul>
+    <h3>3. Orden público y leyes de orden público</h3>
+    <p>Orden público: principios superiores que sostienen la sociedad; prevalece interés general.</p>
+    <p>Leyes de orden público: no pueden renunciarse; su violación genera nulidad absoluta.</p>
 
-    <h4>Abuso en la legislación</h4>
-    <div class="articulo">
-      <strong>Art. 33 CN:</strong> la intimidad personal y familiar es inviolable; la conducta privada está exenta de la autoridad mientras no afecte orden público ni derechos de terceros.
-    </div>
-    <div class="articulo">
-      <strong>Art. 372 CC:</strong> los derechos deben ejercerse de buena fe; el ejercicio abusivo no está amparado y genera responsabilidad.
-    </div>
+    <!-- Ejercicios Lección 17 -->
+    <details>
+      <summary>Mostrar ejercicios de la Lección 17</summary>
+      <div class="ejercicios">
+        <h3>Ejercicios – Lección 17</h3>
 
-    <h3>3. Orden público</h3>
-    <p><span class="clave">Concepto</span>: principios superiores políticos, económicos y morales, estructurados en normas que sostienen la existencia de la sociedad.</p>
-    <p>Prevalece el interés general sobre el individual; abarca instituciones de derecho público y privado.</p>
+        <div class="ejercicio" data-correcta="c">
+          <strong>17.1. El abuso del derecho se da cuando:</strong><br>
+          <label><input type="radio" name="q17_1" value="a"> a) El derecho no se ejerce en absoluto.</label><br>
+          <label><input type="radio" name="q17_1" value="b"> b) El derecho se ejerce dentro de sus fines legítimos.</label><br>
+          <label><input type="radio" name="q17_1" value="c"> c) Se ejerce sin necesidad y con intención de dañar, fuera de su finalidad.</label><br>
+          <label><input type="radio" name="q17_1" value="d"> d) Se renuncia a un derecho disponible.</label><br>
+          <button type="button" onclick="corregir(this)">Responder</button>
+          <div class="resultado"></div>
+        </div>
 
-    <h4>Función y división</h4>
-    <p>Delimitar el ámbito del ejercicio lícito de los derechos, defender la soberanía del poder estatal y asegurar el orden jurídico.</p>
-    <p>División: orden público interno e internacional.</p>
+        <div class="ejercicio" data-correcta="b">
+          <strong>17.2. Una ley de orden público se caracteriza por ser:</strong><br>
+          <label><input type="radio" name="q17_2" value="a"> a) Renunciable por las partes.</label><br>
+          <label><input type="radio" name="q17_2" value="b"> b) Imperativa e irrenunciable, con nulidad absoluta en caso de violación.</label><br>
+          <label><input type="radio" name="q17_2" value="c"> c) Exclusivamente de carácter penal.</label><br>
+          <label><input type="radio" name="q17_2" value="d"> d) Una recomendación sin fuerza obligatoria.</label><br>
+          <button type="button" onclick="corregir(this)">Responder</button>
+          <div class="resultado"></div>
+        </div>
 
-    <h3>4. Leyes de orden público</h3>
-    <p>Normas cuyo contenido afecta el interés vital del país y la estructura social.</p>
-    <ul>
-      <li>Constituciones y leyes fundamentales sobre organización política, administrativa, judicial, económica, financiera y social.</li>
-      <li>Leyes de familia, derechos reales y sucesiones.</li>
-      <li>Leyes procesales (civil, penal, laboral, etc.).</li>
-    </ul>
-
-    <h4>Características</h4>
-    <ul>
-      <li>Irrenunciables, incluso con acuerdo de las partes.</li>
-      <li>Violación genera nulidad absoluta declarable de oficio.</li>
-      <li>Imperativas, no supletorias.</li>
-      <li>No retroactivas, salvo leyes penales más favorables.</li>
-      <li>Aplicables de oficio por el juez.</li>
-    </ul>
+        <div class="ejercicio" data-correcta="a">
+          <strong>17.3. El orden público se define mejor como:</strong><br>
+          <label><input type="radio" name="q17_3" value="a"> a) Conjunto de principios que aseguran la existencia y conservación de la sociedad.</label><br>
+          <label><input type="radio" name="q17_3" value="b"> b) Un simple conjunto de costumbres sociales.</label><br>
+          <label><input type="radio" name="q17_3" value="c"> c) Solo las normas de tránsito.</label><br>
+          <label><input type="radio" name="q17_3" value="d"> d) Una categoría exclusiva del derecho internacional.</label><br>
+          <button type="button" onclick="corregir(this)">Responder</button>
+          <div class="resultado"></div>
+        </div>
+      </div>
+    </details>
   </section>
 
   <!-- LECCIÓN 18 -->
@@ -674,116 +721,86 @@
     <h2>Lección 18 – Relación jurídica, personas y capacidad<span class="badge">Lección 18</span></h2>
 
     <div class="resumen">
-      <strong>Idea central:</strong> Se estudia la <span class="highlight">relación jurídica</span> y sus elementos, la <span class="highlight">situación jurídica</span> de la persona, las <span class="highlight">clases de personas</span> (físicas y jurídicas) y la <span class="highlight">capacidad jurídica</span> y sus límites.
+      <strong>Idea central:</strong> Relación jurídica, elementos, personas físicas y jurídicas, capacidad y domicilio.
     </div>
 
     <h3>1. Relación jurídica: concepto</h3>
     <p>
       <span class="clave">Relación jurídica</span>
       <span class="badge">Mencionado por el profesor</span>:
-      vínculo existente entre dos o más personas que genera derechos y obligaciones, cuando una norma da carácter jurídico a una vinculación de hecho lícita y le asigna consecuencias.
+      vínculo existente entre dos o más personas que genera derechos y obligaciones, cuando una norma da carácter jurídico a una vinculación de hecho lícita.
     </p>
-    <p>Toda relación jurídica es social, pero no toda vinculación social es jurídica.</p>
 
-    <h3>2. Elementos de la relación jurídica</h3>
-
+    <h3>2. Elementos</h3>
     <div class="definiciones-clave">
       <strong>Elementos de la relación jurídica</strong>
       <span class="badge">Mencionado por el profesor</span><br>
-      • <span class="clave">Sujeto</span>: personas físicas o jurídicas, que pueden ser sujeto activo (titular del derecho) o sujeto pasivo (obligado).<br>
-      • <span class="clave">Objeto</span>: cosas animadas o inanimadas sobre las cuales recae el vínculo jurídico.<br>
-      • <span class="clave">Hecho jurídico (jurígeno)</span>: acontecimiento que produce adquisición, modificación, transferencia o extinción de derechos y obligaciones.
+      • Sujeto (activo y pasivo).<br>
+      • Objeto (cosas animadas o inanimadas sobre las cuales recae el vínculo).<br>
+      • Hecho jurídico o jurígeno.
     </div>
 
-    <h4>a) Sujeto</h4>
-    <ul>
-      <li><span class="clave">Sujeto activo</span>: quien puede ejercitar el poder-facultad que le confiere la norma jurídica para exigir algo a otra persona. <span class="badge">Mencionado por el profesor</span></li>
-      <li><span class="clave">Sujeto pasivo</span>: quien está constreñido a cumplir el deber jurídico u obligación. <span class="badge">Mencionado por el profesor</span></li>
-    </ul>
+    <h3>3. Personas físicas y jurídicas</h3>
+    <p>Personas físicas: seres humanos, sujetos de derechos desde la concepción.</p>
+    <p>Personas jurídicas: entes ideales con patrimonio propio; solo tienen derechos patrimoniales.</p>
 
-    <h4>b) Objeto</h4>
-    <p>
-      <span class="clave">Objeto</span>
-      <span class="badge">Mencionado por el profesor</span>:
-      cosas animadas o inanimadas sobre las cuales recae el vínculo jurídico.
-    </p>
-
-    <h4>c) Hecho jurígeno o generador</h4>
-    <p>
-      <span class="clave">Hecho jurídico o jurígeno</span>
-      <span class="badge">Mencionado por el profesor</span>:
-      todos los acontecimientos susceptibles de producir alguna adquisición, modificación, transferencia o extinción de derechos y obligaciones.
-    </p>
-
-    <h3>3. Situación de la persona</h3>
-    <p>Conjunto de derechos y obligaciones determinados o eventuales que el ordenamiento atribuye a la persona según su condición de vida.</p>
-
-    <h3>4. Sujeto de la relación jurídica: personas</h3>
-    <p>Persona: todo ente capaz de adquirir derechos y contraer obligaciones, directamente o por representantes; toda persona es sujeto de derechos y obligaciones.</p>
-
-    <h4>Clases de personas</h4>
-    <ul>
-      <li><span class="clave">Personas físicas</span>: seres humanos, sujetos de derechos y obligaciones desde la concepción hasta la muerte o presunción de fallecimiento.</li>
-      <li><span class="clave">Personas jurídicas</span>: entes de existencia ideal, con patrimonio propio y personalidad separada; su personalidad se ejerce solo en el ámbito patrimonial.</li>
-    </ul>
-
-    <h3>5. Atributos de la persona: el nombre</h3>
-    <p>Designación habitual que permite conocer e individualizar a una persona en la vida social.</p>
-    <ul>
-      <li>Personas físicas: nombre de pila o prenombre + apellido.</li>
-      <li>Personas jurídicas: razón social y enseña.</li>
-    </ul>
-
-    <h3>6. Capacidad jurídica</h3>
+    <h3>4. Capacidad jurídica</h3>
     <p>
       <span class="clave">Capacidad jurídica</span>
       <span class="badge">Mencionado por el profesor</span>:
-      atributo esencial de la persona para ser sujeto activo o pasivo en la relación jurídica, es decir, aptitud de adquirir derechos y contraer obligaciones.
+      aptitud de la persona para ser sujeto de derechos y obligaciones.
     </p>
-    <p>En personas físicas, la capacidad es la regla; la incapacidad debe estar prevista por la ley. En personas jurídicas, la capacidad se limita a sus fines.</p>
+    <p>Capacidad de derecho: ser titular; capacidad de hecho: ejercer por sí mismo los derechos.</p>
 
-    <h4>Capacidad de derecho y de hecho</h4>
-    <ul>
-      <li>
-        <span class="clave">Capacidad de derecho</span>
-        <span class="badge">Mencionado por el profesor</span>:
-        aptitud para ser titular de derechos y obligaciones; posibilidad de ser titular de facultades y deberes jurídicos.
-      </li>
-      <li>
-        <span class="clave">Capacidad de hecho</span>
-        <span class="badge">Mencionado por el profesor</span>:
-        aptitud legal para ejercer por sí mismo los derechos, adquiriendo derechos y contrayendo obligaciones sin representación.
-      </li>
-    </ul>
-
-    <h4>Incapacidad de hecho</h4>
-    <div class="articulo">
-      <strong>Art. 37 CC:</strong> absolutamente incapaces: personas por nacer, menores de 14 años, enfermos mentales y sordomudos que no puedan darse a entender por escrito u otros medios.
-    </div>
-    <div class="articulo">
-      <strong>Art. 38 CC:</strong> incapaces relativos: menores entre 14 y mayoría de edad y personas inhabilitadas judicialmente.
-    </div>
-
-    <h3>7. Domicilio</h3>
-    <p>Es el asiento territorial que toda persona debe tener para cumplir sus obligaciones y ejercer sus derechos; puede cambiarse libremente.</p>
+    <h3>5. Domicilio</h3>
     <p>
       <span class="clave">Domicilio real</span>
       <span class="badge">Mencionado por el profesor</span>:
-      lugar donde la persona tiene establecido el asiento principal de su residencia o negocios.
+      lugar donde la persona tiene el asiento principal de su residencia o negocios.
     </p>
     <p>
       <span class="clave">Domicilio legal</span>
       <span class="badge">Mencionado por el profesor</span>:
-      lugar donde la ley presume, sin admitir prueba en contrario, que una persona reside de manera permanente para el ejercicio de sus derechos y cumplimiento de sus obligaciones.
+      lugar donde la ley presume que reside de forma permanente para ejercer derechos y cumplir obligaciones.
     </p>
-    <ul>
-      <li>Residencia: lugar de habitación real, que puede coincidir o no con el domicilio, por cierto tiempo y sin ánimo de permanencia.</li>
-      <li>Habitación: simple ocupación material de un espacio, sin efectos jurídicos.</li>
-    </ul>
-    <div class="articulo">
-      <strong>Art. 53 CC:</strong> fija domicilios legales de funcionarios, militares, condenados, transeúntes e incapaces.
-    </div>
-    <p>También se reconoce el domicilio especial (designado en negocios jurídicos) y el domicilio de origen (domicilio de los padres al nacer el hijo).</p>
+
+    <!-- Ejercicios Lección 18 -->
+    <details>
+      <summary>Mostrar ejercicios de la Lección 18</summary>
+      <div class="ejercicios">
+        <h3>Ejercicios – Lección 18</h3>
+
+        <div class="ejercicio" data-correcta="b">
+          <strong>18.1. El sujeto activo de una relación jurídica es:</strong><br>
+          <label><input type="radio" name="q18_1" value="a"> a) Quien está obligado a cumplir el deber jurídico.</label><br>
+          <label><input type="radio" name="q18_1" value="b"> b) Quien puede ejercitar la facultad y exigir la prestación.</label><br>
+          <label><input type="radio" name="q18_1" value="c"> c) La cosa sobre la que recae el vínculo.</label><br>
+          <label><input type="radio" name="q18_1" value="d"> d) El juez que conoce el caso.</label><br>
+          <button type="button" onclick="corregir(this)">Responder</button>
+          <div class="resultado"></div>
+        </div>
+
+        <div class="ejercicio" data-correcta="a">
+          <strong>18.2. La capacidad de hecho se define como:</strong><br>
+          <label><input type="radio" name="q18_2" value="a"> a) Aptitud legal para ejercer por sí mismo los derechos y contraer obligaciones.</label><br>
+          <label><input type="radio" name="q18_2" value="b"> b) Posibilidad de ser titular de derechos y obligaciones.</label><br>
+          <label><input type="radio" name="q18_2" value="c"> c) Facultad de renunciar a los derechos irrenunciables.</label><br>
+          <label><input type="radio" name="q18_2" value="d"> d) Un privilegio de las personas jurídicas.</label><br>
+          <button type="button" onclick="corregir(this)">Responder</button>
+          <div class="resultado"></div>
+        </div>
+
+        <div class="ejercicio" data-correcta="c">
+          <strong>18.3. El domicilio legal se caracteriza por:</strong><br>
+          <label><input type="radio" name="q18_3" value="a"> a) Ser siempre elegido libremente por la persona.</label><br>
+          <label><input type="radio" name="q18_3" value="b"> b) Coincidir necesariamente con la residencia.</label><br>
+          <label><input type="radio" name="q18_3" value="c"> c) Ser fijado por la ley, sin admitir prueba en contrario.</label><br>
+          <label><input type="radio" name="q18_3" value="d"> d) Ser irrelevante para el ejercicio de derechos.</label><br>
+          <button type="button" onclick="corregir(this)">Responder</button>
+          <div class="resultado"></div>
+        </div>
+      </div>
+    </details>
   </section>
 
   <!-- LECCIÓN 19 -->
@@ -791,173 +808,185 @@
     <h2>Lección 19 – Objeto, causa, hechos y actos jurídicos<span class="badge">Lección 19</span></h2>
 
     <div class="resumen">
-      <strong>Idea central:</strong> Se profundiza el <span class="highlight">objeto de la relación jurídica</span> (cosas y bienes), la <span class="highlight">causa</span> o hecho jurígeno, la clasificación de hechos naturales y humanos (voluntarios e involuntarios) y los <span class="highlight">actos y negocios jurídicos</span>.
+      <strong>Idea central:</strong> Objeto de la relación, cosa, bienes, causa, hechos y actos jurídicos.
     </div>
 
     <h3>1. Objeto de la relación jurídica</h3>
     <p>
-      <span class="clave">Objeto de la relación jurídica</span>
+      <span class="clave">Objeto</span>
       <span class="badge">Mencionado por el profesor</span>:
       todo lo que puede estar sometido a la disposición del sujeto activo como medio para un fin lícito.
     </p>
-    <p>Está constituido por los bienes, que abarcan cosas materiales y actos humanos o prestaciones voluntarias.</p>
 
-    <h3>2. Cosa (definición del Código Civil)</h3>
+    <h3>2. Cosa y bienes</h3>
     <p>
       <span class="clave">Cosa</span>
       <span class="badge">Mencionado por el profesor</span>:
       objetos corporales susceptibles de tener un valor económico.
     </p>
-    <p>Para que un objeto sea considerado cosa deben concurrir dos condiciones:
-      <span class="badge">Mencionado por el profesor</span>
-    </p>
-    <ol>
-      <li>Que caiga bajo la acción directa de nuestros sentidos (verlo o palparlo).</li>
-      <li>Que sea susceptible de tener un valor económico (por ejemplo, libro, mesa, silla, edificio, automóvil).</li>
-    </ol>
-
-    <h3>3. Bienes</h3>
     <p>
       <span class="clave">Bienes</span>
       <span class="badge">Mencionado por el profesor</span>:
-      incluyen tanto las cosas materiales como los objetos inmateriales susceptibles de valor (por ejemplo, derechos de propiedad, herencia, créditos).
+      abarcan cosas materiales y objetos inmateriales susceptibles de valor.
     </p>
 
-    <h3>4. Causa de la relación jurídica</h3>
+    <h3>3. Causa y hechos jurídicos</h3>
     <p>
       <span class="clave">Causa de la relación jurídica</span>
       <span class="badge">Mencionado por el profesor</span>:
-      fuente productora de derechos, es decir, el hecho jurídico que da nacimiento a la relación jurídica.
+      hecho jurídico que da nacimiento a la relación.
     </p>
-    <p>Hechos jurídicos: acontecimientos capaces de producir adquisición, modificación, transferencia o extinción de derechos u obligaciones.</p>
+    <p>Hechos naturales y humanos; estos últimos pueden ser voluntarios (con discernimiento, intención y libertad) o involuntarios.</p>
 
-    <h3>5. Hechos naturales y hechos humanos</h3>
-    <h4>a) Hechos naturales</h4>
-    <p>Producidos por causas extrañas al hombre, sin intervención suya, que generan efectos jurídicos solo cuando la ley lo dispone.</p>
+    <h3>4. Error, dolo y libertad</h3>
+    <p>Error puede invalidar la voluntad en ciertos supuestos; el dolo es engaño malicioso para inducir a celebrar un acto.</p>
+    <p>Falta de libertad por fuerza irresistible o intimidación.</p>
 
-    <h4>b) Hechos humanos</h4>
-    <p>Resultado de la acción directa o indirecta del hombre.</p>
+    <h3>5. Actos y negocios jurídicos</h3>
+    <p>Actos jurídicos: actos voluntarios lícitos con fin inmediato de crear, modificar, transferir o extinguir derechos.</p>
+    <p>Negocios jurídicos: declaraciones de voluntad de particulares encaminadas a fines jurídicamente protegidos.</p>
 
-    <h3>6. Hechos humanos voluntarios e involuntarios</h3>
-    <h4>a) Voluntarios</h4>
-    <p>Ejecutados con discernimiento, intención y libertad.</p>
-    <p>
-      <span class="clave">Discernimiento</span>
-      <span class="badge">Mencionado por el profesor</span>:
-      capacidad de juzgar nuestras acciones, saber lo que se hace y distinguir lo justo de lo injusto, lo útil de lo dañoso.
-    </p>
-    <p><span class="clave">Intención</span>: propósito de realizar el acto; se excluye por error o dolo.</p>
-    <p><span class="clave">Libertad</span>: poder de decidir por sí mismo sin coacción; se excluye por fuerza irresistible o intimidación.</p>
+    <!-- Ejercicios Lección 19 -->
+    <details>
+      <summary>Mostrar ejercicios de la Lección 19</summary>
+      <div class="ejercicios">
+        <h3>Ejercicios – Lección 19</h3>
 
-    <h4>Error</h4>
-    <p>La ignorancia de la ley o error de derecho no impide efectos de actos lícitos ni exime de responsabilidad por ilícitos.</p>
-    <p>El error invalida la voluntad cuando recae sobre la naturaleza del acto, la persona, la causa principal, el objeto o una circunstancia esencial.</p>
+        <div class="ejercicio" data-correcta="d">
+          <strong>19.1. Para que un objeto sea “cosa” según el Código Civil, se requiere que:</strong><br>
+          <label><input type="radio" name="q19_1" value="a"> a) Sea siempre inmaterial.</label><br>
+          <label><input type="radio" name="q19_1" value="b"> b) No tenga ningún valor económico.</label><br>
+          <label><input type="radio" name="q19_1" value="c"> c) Solo pueda percibirse intelectualmente.</label><br>
+          <label><input type="radio" name="q19_1" value="d"> d) Sea corporal y susceptible de valor económico.</label><br>
+          <button type="button" onclick="corregir(this)">Responder</button>
+          <div class="resultado"></div>
+        </div>
 
-    <h4>Dolo</h4>
-    <p>
-      <span class="clave">Dolo</span>
-      <span class="badge">Mencionado por el profesor</span>:
-      conducta maliciosa de una parte, que mediante engaño (aserción falsa, disimulación de lo verdadero, artificios o maquinaciones) u omisión dolosa induce al otro a celebrar el acto para causarle daño.
-    </p>
+        <div class="ejercicio" data-correcta="a">
+          <strong>19.2. Los bienes en sentido restringido designan:</strong><br>
+          <label><input type="radio" name="q19_2" value="a"> a) Objetos inmateriales susceptibles de valor, como derechos.</label><br>
+          <label><input type="radio" name="q19_2" value="b"> b) Exclusivamente las cosas muebles.</label><br>
+          <label><input type="radio" name="q19_2" value="c"> c) Solo los inmuebles urbanos.</label><br>
+          <label><input type="radio" name="q19_2" value="d"> d) Bienes del dominio público estatal.</label><br>
+          <button type="button" onclick="corregir(this)">Responder</button>
+          <div class="resultado"></div>
+        </div>
 
-    <h4>b) Hechos involuntarios</h4>
-    <p>Se realizan sin discernimiento, intención o libertad; no producen por sí obligación alguna.</p>
-
-    <h3>7. Hechos voluntarios lícitos e ilícitos</h3>
-    <ul>
-      <li><span class="clave">Actos lícitos</span>: acciones voluntarias no prohibidas por la ley que pueden producir adquisición, modificación o extinción de derechos.</li>
-      <li><span class="clave">Hechos ilícitos</span>: acciones u omisiones prohibidas por leyes, ordenanzas o reglamentos con sanción penal.</li>
-    </ul>
-
-    <h3>8. Actos jurídicos</h3>
-    <p>Son actos voluntarios lícitos que tienen por fin inmediato crear, modificar, transferir, conservar o extinguir derechos.</p>
-
-    <h3>9. Negocio jurídico</h3>
-    <p>Declaraciones de voluntad de particulares orientadas a fines jurídicamente protegidos; la voluntad es central en su creación.</p>
+        <div class="ejercicio" data-correcta="c">
+          <strong>19.3. El dolo, para causar la nulidad del acto, requiere:</strong><br>
+          <label><input type="radio" name="q19_3" value="a"> a) Solo la existencia de un error de cálculo.</label><br>
+          <label><input type="radio" name="q19_3" value="b"> b) Que el engaño no influya en la voluntad.</label><br>
+          <label><input type="radio" name="q19_3" value="c"> c) Que haya determinado la declaración de voluntad y causado daño.</label><br>
+          <label><input type="radio" name="q19_3" value="d"> d) Que sea conocido solo por terceros.</label><br>
+          <button type="button" onclick="corregir(this)">Responder</button>
+          <div class="resultado"></div>
+        </div>
+      </div>
+    </details>
   </section>
 
-  <!-- EJERCICIOS -->
-  <section id="ejercicios" class="ejercicios">
-    <h2>Ejercicios de selección múltiple</h2>
+  <!-- EJERCICIOS GENERALES -->
+  <section id="ejercicios-generales" class="ejercicios">
+    <h2>Ejercicios generales (repaso)</h2>
 
-    <div class="ejercicio">
-      <strong>1. ¿Cuál de las siguientes opciones define mejor la relación jurídica?</strong><br>
-      a) Cualquier vínculo social entre dos personas.<br>
-      b) Vínculo entre dos o más personas que genera derechos y obligaciones y está reconocido por una norma jurídica.<br>
-      c) Cualquier relación económica entre particulares.<br>
-      d) Solo las relaciones entre el Estado y los ciudadanos.
+    <div class="ejercicio" data-correcta="b">
+      <strong>G1. ¿Cuál de las siguientes opciones define mejor la relación jurídica?</strong><br>
+      <label><input type="radio" name="qg1" value="a"> a) Cualquier vínculo social entre dos personas.</label><br>
+      <label><input type="radio" name="qg1" value="b"> b) Vínculo entre dos o más personas que genera derechos y obligaciones y está reconocido por una norma jurídica.</label><br>
+      <label><input type="radio" name="qg1" value="c"> c) Cualquier relación económica entre particulares.</label><br>
+      <label><input type="radio" name="qg1" value="d"> d) Solo las relaciones entre el Estado y los ciudadanos.</label><br>
+      <button type="button" onclick="corregir(this)">Responder</button>
+      <div class="resultado"></div>
     </div>
 
-    <div class="ejercicio">
-      <strong>2. ¿Cuál es el elemento que NO forma parte de los elementos clásicos de la relación jurídica?</strong><br>
-      a) Sujeto.<br>
-      b) Objeto.<br>
-      c) Hecho jurídico (jurígeno).<br>
-      d) Sanción penal.
+    <div class="ejercicio" data-correcta="d">
+      <strong>G2. ¿Cuál es el elemento que NO forma parte de los elementos clásicos de la relación jurídica?</strong><br>
+      <label><input type="radio" name="qg2" value="a"> a) Sujeto.</label><br>
+      <label><input type="radio" name="qg2" value="b"> b) Objeto.</label><br>
+      <label><input type="radio" name="qg2" value="c"> c) Hecho jurídico (jurígeno).</label><br>
+      <label><input type="radio" name="qg2" value="d"> d) Sanción penal.</label><br>
+      <button type="button" onclick="corregir(this)">Responder</button>
+      <div class="resultado"></div>
     </div>
 
-    <div class="ejercicio">
-      <strong>3. La capacidad de derecho se define como:</strong><br>
-      a) La posibilidad de exigir coactivamente un derecho ante los tribunales.<br>
-      b) La aptitud para ser titular de derechos y obligaciones.<br>
-      c) La facultad de celebrar contratos sin representante.<br>
-      d) La suma de derechos políticos de una persona.
+    <div class="ejercicio" data-correcta="b">
+      <strong>G3. La capacidad de derecho se define como:</strong><br>
+      <label><input type="radio" name="qg3" value="a"> a) La posibilidad de exigir coactivamente un derecho ante los tribunales.</label><br>
+      <label><input type="radio" name="qg3" value="b"> b) La aptitud para ser titular de derechos y obligaciones.</label><br>
+      <label><input type="radio" name="qg3" value="c"> c) La facultad de celebrar contratos sin representante.</label><br>
+      <label><input type="radio" name="qg3" value="d"> d) La suma de derechos políticos de una persona.</label><br>
+      <button type="button" onclick="corregir(this)">Responder</button>
+      <div class="resultado"></div>
     </div>
 
-    <div class="ejercicio">
-      <strong>4. El domicilio real de una persona es:</strong><br>
-      a) El lugar donde la ley presume que reside, sin admitir prueba en contrario.<br>
-      b) El lugar donde tiene su asiento principal de residencia o negocios.<br>
-      c) La simple habitación ocasional en un hotel.<br>
-      d) El lugar donde nació.
+    <div class="ejercicio" data-correcta="b">
+      <strong>G4. El domicilio real de una persona es:</strong><br>
+      <label><input type="radio" name="qg4" value="a"> a) El lugar donde la ley presume que reside, sin admitir prueba en contrario.</label><br>
+      <label><input type="radio" name="qg4" value="b"> b) El lugar donde tiene su asiento principal de residencia o negocios.</label><br>
+      <label><input type="radio" name="qg4" value="c"> c) La simple habitación ocasional en un hotel.</label><br>
+      <label><input type="radio" name="qg4" value="d"> d) El lugar donde nació.</label><br>
+      <button type="button" onclick="corregir(this)">Responder</button>
+      <div class="resultado"></div>
     </div>
 
-    <div class="ejercicio">
-      <strong>5. Según el Código Civil, una “cosa” es:</strong><br>
-      a) Cualquier objeto, material o inmaterial, sin importar su valor.<br>
-      b) Solo los bienes inmuebles.<br>
-      c) Los objetos corporales susceptibles de tener un valor económico.<br>
-      d) Cualquier derecho incorporal de contenido patrimonial.
+    <div class="ejercicio" data-correcta="c">
+      <strong>G5. Según el Código Civil, una “cosa” es:</strong><br>
+      <label><input type="radio" name="qg5" value="a"> a) Cualquier objeto, material o inmaterial, sin importar su valor.</label><br>
+      <label><input type="radio" name="qg5" value="b"> b) Solo los bienes inmuebles.</label><br>
+      <label><input type="radio" name="qg5" value="c"> c) Los objetos corporales susceptibles de tener un valor económico.</label><br>
+      <label><input type="radio" name="qg5" value="d"> d) Cualquier derecho incorporal de contenido patrimonial.</label><br>
+      <button type="button" onclick="corregir(this)">Responder</button>
+      <div class="resultado"></div>
     </div>
 
-    <div class="ejercicio">
-      <strong>6. ¿Cuál de las siguientes alternativas describe mejor el concepto de bienes en sentido restringido?</strong><br>
-      a) Únicamente las cosas corporales.<br>
-      b) Los objetos inmateriales susceptibles de valor, como los derechos de crédito.<br>
-      c) Solo los bienes muebles registrables.<br>
-      d) Únicamente los bienes del Estado.
+    <div class="ejercicio" data-correcta="b">
+      <strong>G6. ¿Cuál describe mejor los bienes en sentido restringido?</strong><br>
+      <label><input type="radio" name="qg6" value="a"> a) Únicamente las cosas corporales.</label><br>
+      <label><input type="radio" name="qg6" value="b"> b) Objetos inmateriales susceptibles de valor, como créditos.</label><br>
+      <label><input type="radio" name="qg6" value="c"> c) Solo los bienes muebles registrables.</label><br>
+      <label><input type="radio" name="qg6" value="d"> d) Solo los bienes del Estado.</label><br>
+      <button type="button" onclick="corregir(this)">Responder</button>
+      <div class="resultado"></div>
     </div>
 
-    <div class="ejercicio">
-      <strong>7. El dolo, en un acto jurídico, consiste en:</strong><br>
-      a) El simple error sobre la persona con quien se contrata.<br>
-      b) La falta total de discernimiento del agente.<br>
-      c) Toda aserción falsa, disimulación de lo verdadero o maquinación para inducir al otro a celebrar un acto y causarle daño.<br>
-      d) El incumplimiento involuntario de un contrato por caso fortuito.
+    <div class="ejercicio" data-correcta="c">
+      <strong>G7. El dolo, en un acto jurídico, consiste en:</strong><br>
+      <label><input type="radio" name="qg7" value="a"> a) El simple error sobre la persona con quien se contrata.</label><br>
+      <label><input type="radio" name="qg7" value="b"> b) La falta total de discernimiento del agente.</label><br>
+      <label><input type="radio" name="qg7" value="c"> c) Toda aserción falsa, disimulación de lo verdadero o maquinación para inducir al otro a celebrar un acto y causarle daño.</label><br>
+      <label><input type="radio" name="qg7" value="d"> d) El incumplimiento involuntario de un contrato por caso fortuito.</label><br>
+      <button type="button" onclick="corregir(this)">Responder</button>
+      <div class="resultado"></div>
     </div>
 
-    <div class="ejercicio">
-      <strong>8. ¿Cuál de las siguientes afirmaciones sobre la libertad jurídica es correcta?</strong><br>
-      a) Es ilimitada porque deriva de la naturaleza humana.<br>
-      b) Es la facultad de hacer u omitir todo lo que no está ordenado ni prohibido por la ley.<br>
-      c) Es únicamente la libertad de expresión.<br>
-      d) Es una libertad de carácter puramente moral, sin vínculo con la ley.
+    <div class="ejercicio" data-correcta="b">
+      <strong>G8. La libertad jurídica se entiende como:</strong><br>
+      <label><input type="radio" name="qg8" value="a"> a) Poder hacer cualquier cosa, aunque la ley la prohíba.</label><br>
+      <label><input type="radio" name="qg8" value="b"> b) Facultad de hacer u omitir lo que la ley no ordena ni prohíbe.</label><br>
+      <label><input type="radio" name="qg8" value="c"> c) Solo la libertad de expresión.</label><br>
+      <label><input type="radio" name="qg8" value="d"> d) Una libertad puramente moral sin relevancia jurídica.</label><br>
+      <button type="button" onclick="corregir(this)">Responder</button>
+      <div class="resultado"></div>
     </div>
 
-    <div class="ejercicio">
-      <strong>9. El abuso del derecho se configura cuando:</strong><br>
-      a) El titular no ejerce el derecho durante un tiempo prolongado.<br>
-      b) Se ejerce el derecho en forma necesaria y prudente.<br>
-      c) Se ejerce el derecho sin necesidad, con intención de dañar, y fuera de la finalidad para la cual se concedió.<br>
-      d) Se reclama judicialmente un derecho legítimo.
+    <div class="ejercicio" data-correcta="c">
+      <strong>G9. El abuso del derecho se configura cuando:</strong><br>
+      <label><input type="radio" name="qg9" value="a"> a) El titular no ejerce su derecho durante años.</label><br>
+      <label><input type="radio" name="qg9" value="b"> b) El titular ejerce el derecho con cuidado y prudencia.</label><br>
+      <label><input type="radio" name="qg9" value="c"> c) El titular ejerce su derecho sin necesidad, con intención de dañar y fuera de su fin.</label><br>
+      <label><input type="radio" name="qg9" value="d"> d) El titular hace valer su derecho en juicio.</label><br>
+      <button type="button" onclick="corregir(this)">Responder</button>
+      <div class="resultado"></div>
     </div>
 
-    <div class="ejercicio">
-      <strong>10. Son leyes de orden público, entre otras:</strong><br>
-      a) Las normas puramente contractuales que las partes pueden modificar libremente.<br>
-      b) Las leyes que organizan la familia, los derechos reales y las sucesiones.<br>
-      c) Únicamente las normas procesales penales.<br>
-      d) Solo las ordenanzas municipales.
+    <div class="ejercicio" data-correcta="b">
+      <strong>G10. Son leyes de orden público, entre otras:</strong><br>
+      <label><input type="radio" name="qg10" value="a"> a) Solo las normas contractuales libremente modificables.</label><br>
+      <label><input type="radio" name="qg10" value="b"> b) Las que organizan la familia, los derechos reales y las sucesiones.</label><br>
+      <label><input type="radio" name="qg10" value="c"> c) Únicamente las normas procesales penales.</label><br>
+      <label><input type="radio" name="qg10" value="d"> d) Solo las ordenanzas municipales.</label><br>
+      <button type="button" onclick="corregir(this)">Responder</button>
+      <div class="resultado"></div>
     </div>
   </section>
 
@@ -965,5 +994,32 @@
     Cartilla elaborada para fines de estudio personal en Introducción a las Ciencias Jurídicas – UNA.
   </footer>
 </main>
+
+<script>
+function corregir(boton) {
+  const contenedor = boton.closest('.ejercicio');
+  const correcta = contenedor.getAttribute('data-correcta');
+  const radios = contenedor.querySelectorAll('input[type="radio"]');
+  let seleccionada = null;
+
+  radios.forEach(r => { if (r.checked) seleccionada = r; });
+
+  const resultado = contenedor.querySelector('.resultado');
+
+  if (!seleccionada) {
+    resultado.textContent = 'Seleccioná una opción antes de responder.';
+    resultado.className = 'resultado error';
+    return;
+  }
+
+  if (seleccionada.value === correcta) {
+    resultado.textContent = '¡Correcto!';
+    resultado.className = 'resultado ok';
+  } else {
+    resultado.textContent = 'Respuesta incorrecta. Volvé a revisar la teoría.';
+    resultado.className = 'resultado error';
+  }
+}
+</script>
 </body>
 </html>
