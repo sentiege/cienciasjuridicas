@@ -31,7 +31,6 @@
     :focus-visible{outline:2px solid var(--color-primary);outline-offset:3px;border-radius:4px;}
     .container{width:min(calc(100% - 1.5rem),var(--content));margin:0 auto;}
 
-    /* HEADER */
     header{
       position:sticky;top:0;z-index:50;
       backdrop-filter:blur(14px);
@@ -49,10 +48,8 @@
     .brand-text small{display:block;color:var(--color-text-muted);font-size:.6rem;text-transform:uppercase;letter-spacing:.08em;}
     .brand-text strong{font-size:.85rem;}
 
-    /* MAIN */
     main{padding:1.25rem 0 4rem;}
 
-    /* HERO */
     .hero{
       display:grid;grid-template-columns:1.3fr .7fr;
       gap:1.25rem;align-items:start;margin-bottom:1.25rem;
@@ -89,7 +86,6 @@
       font-size:.68rem;font-weight:700;
     }
 
-    /* TOPBAR */
     .study-topbar{margin-bottom:1.1rem;}
     .study-topbar-inner{
       display:grid;gap:.55rem;padding:.65rem;
@@ -126,7 +122,6 @@
     }
     .btn-secondary:hover{background:var(--color-surface-offset);}
 
-    /* STATS */
     .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:.5rem;}
     .stat{
       padding:.5rem .6rem;background:var(--color-surface);
@@ -135,7 +130,6 @@
     .stat span{display:block;font-size:.54rem;color:var(--color-text-muted);text-transform:uppercase;letter-spacing:.07em;margin-bottom:.08rem;}
     .stat strong{font-size:1.1rem;line-height:1;}
 
-    /* QUESTIONS */
     .questions{display:grid;gap:1.1rem;}
     .question-card{padding:1.1rem;}
     .question-top{display:flex;justify-content:space-between;gap:.6rem;align-items:center;margin-bottom:.65rem;}
@@ -178,19 +172,14 @@
     }
     footer{padding:2rem 0 0;color:var(--color-text-muted);font-size:.75rem;}
 
-    /* DESKTOP: sticky topbar */
     @media(min-width:641px){
       .study-topbar{position:sticky;top:57px;z-index:35;}
       .study-topbar-inner{backdrop-filter:blur(12px);}
     }
-
-    /* TABLET */
     @media(max-width:860px){
       .hero{grid-template-columns:1fr;}
       .panel{display:none;}
     }
-
-    /* MÓVIL */
     @media(max-width:640px){
       .study-topbar{position:static;margin-bottom:.85rem;}
       .study-topbar-inner{gap:.4rem;padding:.5rem;border-radius:.75rem;}
@@ -211,14 +200,8 @@
       .option span:last-child{font-size:.85rem;}
       main{padding:.85rem 0 3rem;}
     }
-
-    @media(max-width:380px){
-      .stats{grid-template-columns:repeat(2,1fr);}
-    }
-
-    @media(prefers-reduced-motion:reduce){
-      *,*::before,*::after{transition-duration:.01ms !important;}
-    }
+    @media(max-width:380px){.stats{grid-template-columns:repeat(2,1fr);}}
+    @media(prefers-reduced-motion:reduce){*,*::before,*::after{transition-duration:.01ms !important;}}
   </style>
 </head>
 <body>
@@ -245,11 +228,11 @@
 
       <section class="hero" aria-labelledby="titulo">
         <article class="hero-card">
-          <div class="eyebrow">50 preguntas explicadas</div>
-          <h1 id="titulo">Práctica interactiva para repasar el temario.</h1>
-          <p>Selección múltiple con feedback basado en las Lecciones 11–19. Al elegir una opción se explica por qué está bien o mal.</p>
+          <div class="eyebrow">75 preguntas explicadas</div>
+          <h1 id="titulo">Práctica interactiva para repasar el temario completo.</h1>
+          <p>Selección múltiple con feedback basado en las Lecciones 11–19. Temario completo incluyendo normas religiosas, actos jurídicos, dolo, domicilio y ramas del derecho.</p>
           <div class="meta-grid">
-            <div class="meta-item"><span>Preguntas</span><strong>50</strong></div>
+            <div class="meta-item"><span>Preguntas</span><strong>75</strong></div>
             <div class="meta-item"><span>Lecciones</span><strong>11–19</strong></div>
             <div class="meta-item"><span>Modo</span><strong>Interactivo</strong></div>
             <div class="meta-item"><span>Feedback</span><strong>Explicado</strong></div>
@@ -258,13 +241,19 @@
         <aside class="panel" aria-labelledby="panel-titulo">
           <h2 id="panel-titulo">Temas incluidos</h2>
           <div class="topics">
-            <span class="chip">Normas y sanciones</span><span class="chip">Pirámide de Kelsen</span>
-            <span class="chip">Derecho positivo</span><span class="chip">Derecho internacional</span>
-            <span class="chip">Derecho privado</span><span class="chip">Igualdad y libertad</span>
-            <span class="chip">Abuso del derecho</span><span class="chip">Relación jurídica</span>
-            <span class="chip">Hechos y actos jurídicos</span>
+            <span class="chip">Normas religiosas y morales</span>
+            <span class="chip">Pirámide de Kelsen</span>
+            <span class="chip">Plenitud hermética</span>
+            <span class="chip">Arbitrariedad e injusticia</span>
+            <span class="chip">Ramas derecho público</span>
+            <span class="chip">Derecho internacional</span>
+            <span class="chip">Derecho privado</span>
+            <span class="chip">Igualdad y libertad</span>
+            <span class="chip">Abuso del derecho</span>
+            <span class="chip">Clases de domicilio</span>
+            <span class="chip">Actos jurídicos</span>
+            <span class="chip">Dolo</span>
           </div>
-          <p style="font-size:.85rem;color:var(--color-text-muted);">Al elegir una opción la web indica si está bien o mal y explica el fundamento conceptual.</p>
         </aside>
       </section>
 
@@ -282,7 +271,7 @@
             <button class="btn btn-primary btn-ver" id="mostrarTodas">Ver respuestas</button>
           </div>
           <div class="stats">
-            <div class="stat"><span>Total</span><strong id="stat-total">50</strong></div>
+            <div class="stat"><span>Total</span><strong id="stat-total">75</strong></div>
             <div class="stat"><span>Respondidas</span><strong id="stat-answered">0</strong></div>
             <div class="stat"><span>Correctas</span><strong id="stat-correct">0</strong></div>
             <div class="stat"><span>Progreso</span><strong id="stat-progress">0%</strong></div>
@@ -301,46 +290,76 @@
 
   <script>
     const questions=[
+      // ── LECCIÓN 11 ──
       {lesson:'Lección 11',topic:'Normas',question:'¿Qué característica distingue a la norma jurídica frente a la norma moral?',options:['La autonomía','La coercibilidad','La interioridad','La espontaneidad'],correct:1,explanation:'La norma jurídica se distingue porque su cumplimiento puede ser exigido coactivamente por los órganos del Estado. La moral influye en la conducta, pero no cuenta con coercibilidad estatal.'},
       {lesson:'Lección 11',topic:'Normas',question:'¿Cuál de las siguientes es una norma de trato social?',options:['No robar','Pagar impuestos','Saludar al entrar a un lugar','Cumplir un contrato'],correct:2,explanation:'Las normas de trato social regulan comportamientos externos y decorosos en la convivencia. Saludar al entrar a un lugar es un ejemplo típico porque responde a usos sociales y no a una imposición estatal.'},
       {lesson:'Lección 11',topic:'Estructura de la norma',question:'En la estructura lógica de la norma jurídica, la hipótesis es:',options:['La sanción prevista por el juez','El supuesto de hecho que activa la consecuencia jurídica','El órgano que dicta la norma','Una recomendación ética'],correct:1,explanation:'La hipótesis o supuesto jurídico es el hecho previsto por la norma. Cuando ese supuesto ocurre, se activa la disposición o consecuencia jurídica correspondiente.'},
       {lesson:'Lección 11',topic:'Sanciones',question:'La norma sancionada es aquella que:',options:['Establece la pena aplicable','Crea la obligación o precepto principal','Deroga una ley anterior','Suprime la coercibilidad'],correct:1,explanation:'La norma sancionada contiene el mandato principal u obligación. La norma sancionadora, en cambio, es la que prevé la sanción ante el incumplimiento.'},
-      {lesson:'Lección 11',topic:'Constitución',question:'¿Cuál de estas sanciones está prohibida por la Constitución Nacional?',options:['La multa proporcional','La pena de muerte','La suspensión administrativa','La amonestación'],correct:1,explanation:'El temario menciona entre las sanciones prohibidas por la Constitución a la pena de muerte, junto con torturas, confiscación de bienes y tratos crueles.'},
+      {lesson:'Lección 11',topic:'Constitución',question:'¿Cuál de estas sanciones está prohibida por la Constitución Nacional?',options:['La multa proporcional','La pena de muerte','La suspensión administrativa','La amonestación'],correct:1,explanation:'Entre las sanciones prohibidas por la CN están la pena de muerte, las torturas, la confiscación de bienes, los tratos crueles y las multas desmedidas.'},
+      {lesson:'Lección 11',topic:'Normas religiosas',question:'¿Cuál es un carácter propio de las normas religiosas?',options:['Coercibilidad estatal','Bilateralidad','Espontaneidad','Generalidad'],correct:2,explanation:'Las normas religiosas se caracterizan por la espontaneidad: el creyente las acepta libremente. A diferencia de las jurídicas, no tienen coercibilidad estatal ni bilateralidad en sentido jurídico.'},
+      {lesson:'Lección 11',topic:'Normas religiosas',question:'Las normas religiosas se clasifican en:',options:['Normas premiales y represivas únicamente','Normas de fe y normas de razón','Normas bilaterales y unilaterales','Normas positivas y negativas'],correct:1,explanation:'Las normas religiosas se dividen en normas de fe (basadas en la revelación divina) y normas de razón (alcanzables por la razón humana). Ambas regulan la relación del hombre con Dios.'},
+      {lesson:'Lección 11',topic:'Normas morales',question:'¿Cuál es un carácter exclusivo de las normas morales?',options:['Coercibilidad','Heteronomía','Autonomía','Bilateralidad'],correct:2,explanation:'La autonomía es el carácter central de las normas morales: el sujeto se da a sí mismo sus propias normas de conducta mediante la razón. Las normas jurídicas, en cambio, son heterónomas porque provienen de un legislador externo.'},
+      {lesson:'Lección 11',topic:'Normas morales',question:'Las normas morales son incoercibles porque:',options:['No tienen contenido normativo','No pueden imponerse por la fuerza estatal','Son iguales para todos los países','El Estado siempre las respalda'],correct:1,explanation:'La incoercibilidad moral significa que no existe un aparato estatal que fuerce su cumplimiento. A diferencia del derecho, la moral solo puede influir en la conciencia del sujeto, no compelerlo físicamente.'},
+      {lesson:'Lección 11',topic:'Clasificación de normas',question:'¿Cuál es el criterio que diferencia la norma jurídica de las demás normas de conducta?',options:['Que es escrita y codificada','Que es imperativa, heterónoma, bilateral y coercible','Que proviene de la costumbre','Que se aplica solo al Estado'],correct:1,explanation:'La norma jurídica se distingue por reunir imperatividad, heteronomía (viene de afuera del sujeto), bilateralidad (hay un sujeto activo y uno pasivo) y coercibilidad (puede imponerse por la fuerza).'},
+
+      // ── LECCIÓN 12 ──
       {lesson:'Lección 12',topic:'Jerarquía normativa',question:'¿Cuál es la norma de mayor jerarquía en el ordenamiento jurídico paraguayo?',options:['Los decretos','La Constitución Nacional','Los reglamentos','Las resoluciones ministeriales'],correct:1,explanation:'La Constitución ocupa la cúspide del ordenamiento jurídico paraguayo. Todas las normas inferiores deben ajustarse a ella para ser válidas.'},
       {lesson:'Lección 12',topic:'Antijuricidad',question:'La antijuricidad se presenta cuando:',options:['Un hecho se opone al orden jurídico','Existe una costumbre social discutida','No hay juicio moral suficiente','Un hecho es solo impopular'],correct:0,explanation:'La antijuricidad consiste en la oposición al orden jurídico. Se identifica con los hechos ilícitos o prohibidos por las normas jurídicas.'},
       {lesson:'Lección 12',topic:'Kelsen',question:'Según la pirámide de Kelsen, las normas inferiores:',options:['Fundamentan la validez de las superiores','Son independientes del sistema','Aplican y desarrollan las superiores','No tienen fuerza obligatoria'],correct:2,explanation:'En la teoría de Kelsen, las normas inferiores derivan su validez de las superiores. Por eso cumplen una función de aplicación y desarrollo del contenido de las normas jerárquicamente más altas.'},
       {lesson:'Lección 12',topic:'Ordenamiento jurídico',question:'¿Qué es el ordenamiento jurídico?',options:['Un conjunto ocasional de costumbres','El conjunto sistematizado de normas cuya validez deriva de la Constitución','Solo las leyes dictadas por el Congreso','Una suma de decisiones judiciales aisladas'],correct:1,explanation:'El ordenamiento jurídico es un sistema de normas articuladas cuya razón de validez deriva de la Constitución. No se reduce solo a leyes ni a decisiones aisladas.'},
       {lesson:'Lección 12',topic:'Fin del ordenamiento',question:'La "muerte violenta" del ordenamiento jurídico ocurre cuando:',options:['Se reforma parcialmente una ley','La Constitución caduca por reforma prevista en ella','Se produce una ruptura revolucionaria o de hecho','Se dicta un nuevo reglamento'],correct:2,explanation:'La muerte violenta del ordenamiento se da cuando se rompe la lógica constitucional por una revolución o ruptura de hecho.'},
       {lesson:'Lección 12',topic:'Prelación',question:'Después de la Constitución, el art. 137 CN ubica en la prelación a:',options:['Las costumbres','Los tratados, convenios y acuerdos internacionales aprobados y ratificados','Los contratos privados','Los fallos doctrinarios'],correct:1,explanation:'Tras la Constitución, siguen los tratados, convenios y acuerdos internacionales aprobados y ratificados. Luego vienen las leyes y demás disposiciones inferiores.'},
+      {lesson:'Lección 12',topic:'Arbitrariedad',question:'La arbitrariedad, en el contexto del ordenamiento jurídico, consiste en:',options:['La violación de normas por particulares','La violación de normas por el propio órgano estatal que las dictó','Un conflicto entre derecho positivo y derecho natural','La reforma total de la Constitución'],correct:1,explanation:'La arbitrariedad es la violación del orden jurídico por el propio órgano estatal que dictó las normas. Se distingue de la ilegalidad, que es la infracción cometida por particulares o funcionarios de menor jerarquía.'},
+      {lesson:'Lección 12',topic:'Injusticia',question:'La injusticia, como concepto jurídico, se produce cuando:',options:['Un funcionario viola la ley','Un juez aplica una norma incorrecta','Existe conflicto entre el derecho positivo y el derecho natural','Una ley es impopular'],correct:2,explanation:'La injusticia se da cuando el derecho positivo vigente entra en conflicto con el derecho natural o con principios superiores de justicia. Es distinta de la ilegalidad y la arbitrariedad.'},
+      {lesson:'Lección 12',topic:'Plenitud hermética',question:'La "plenitud hermética" del ordenamiento jurídico significa que:',options:['Solo el Congreso puede crear normas','El sistema es cerrado y puede responder a todos los casos jurídicamente relevantes','Las normas morales integran el sistema jurídico','No existen lagunas porque el juez puede crear derecho libremente'],correct:1,explanation:'La plenitud hermética es la idea de que el ordenamiento forma un sistema completo y cerrado. Cuando falta una norma expresa, se recurre a los principios generales del derecho y a métodos de integración del propio sistema.'},
+
+      // ── LECCIÓN 13 ──
       {lesson:'Lección 13',topic:'Derecho positivo',question:'El derecho positivo puede definirse como:',options:['El conjunto de normas morales universales','Las normas jurídicas vigentes en un territorio y tiempo determinados','La doctrina de los jueces','La costumbre religiosa predominante'],correct:1,explanation:'El derecho positivo es el conjunto de normas jurídicas vigentes en un lugar y tiempo determinados, efectivamente establecido y aplicable en un Estado.'},
       {lesson:'Lección 13',topic:'Características',question:'¿Cuál de estas es una característica del derecho positivo?',options:['Es inmutable y universal','Es propio de cada país y cambiante en el tiempo','Es puramente interior','No depende de la voluntad humana'],correct:1,explanation:'El derecho positivo es propio de cada país y puede cambiar según las condiciones políticas, sociales, económicas y culturales.'},
       {lesson:'Lección 13',topic:'Derecho público',question:'El derecho público regula principalmente:',options:['La organización del Estado y sus relaciones con particulares','Las relaciones familiares solamente','Las creencias religiosas','Los hábitos de cortesía'],correct:0,explanation:'El derecho público estudia la estructura y funciones del Estado y las relaciones de este con particulares y otros Estados.'},
       {lesson:'Lección 13',topic:'Constitución',question:'La parte dogmática de la Constitución de 1992 trata sobre:',options:['Los derechos fundamentales','La organización presupuestaria municipal','El procedimiento aduanero','Las relaciones laborales privadas'],correct:0,explanation:'La parte dogmática se refiere a los derechos fundamentales del ser humano. La parte orgánica regula la organización del Estado.'},
       {lesson:'Lección 13',topic:'Ramas del derecho público',question:'¿Cuál de estas ramas pertenece al derecho público interno?',options:['Derecho constitucional','Derecho marítimo privado','Derecho industrial','Derecho civil sucesorio'],correct:0,explanation:'El derecho constitucional integra las ramas del derecho público interno junto con administrativo, penal, financiero y procesal.'},
       {lesson:'Lección 13',topic:'Derecho interno y externo',question:'El derecho externo o internacional regula:',options:['Solo relaciones familiares','Relaciones entre varios Estados o entre personas de distintos Estados','Exclusivamente la moral pública','El funcionamiento interno de un municipio'],correct:1,explanation:'El derecho externo o internacional se ocupa de las relaciones entre Estados y también de situaciones entre individuos de distintos Estados.'},
+      {lesson:'Lección 13',topic:'Ramas del derecho público',question:'El derecho administrativo regula:',options:['Las infracciones militares y sus sanciones','La actividad del Estado para la organización de servicios públicos y sus relaciones con particulares','Los recursos económicos del Estado exclusivamente','Los hábitos de cortesía entre funcionarios'],correct:1,explanation:'El derecho administrativo regula la actividad del Estado para organizar y prestar servicios públicos, y las relaciones jurídicas con los particulares por razón de esos servicios.'},
+      {lesson:'Lección 13',topic:'Ramas del derecho público',question:'El derecho financiero estudia:',options:['Solo las multas tributarias','Las normas que regulan la obtención, gestión y gasto de los recursos económicos del Estado','Los tratados comerciales internacionales','Las relaciones laborales del sector público'],correct:1,explanation:'El derecho financiero se ocupa de cómo el Estado obtiene, administra y gasta sus recursos económicos. Incluye tributación, presupuesto y gasto público.'},
+      {lesson:'Lección 13',topic:'Ramas del derecho público',question:'El derecho municipal es el que:',options:['Regula el ejército nacional','Establece la organización y funcionamiento de los servicios públicos locales','Fija los aranceles aduaneros','Define los delitos y penas'],correct:1,explanation:'El derecho municipal organiza los servicios públicos de carácter local y regula las relaciones del municipio con el Estado y con los particulares.'},
+      {lesson:'Lección 13',topic:'Ramas del derecho público',question:'El derecho político estudia:',options:['Las formas de sucesión hereditaria','La teoría general del Estado: concepto, elementos, soberanía y formas de gobierno','Los contratos entre el Estado y proveedores','El régimen aduanero del comercio exterior'],correct:1,explanation:'El derecho político se ocupa de la teoría general del Estado, sus elementos (territorio, pueblo, poder), soberanía, formas de gobierno y fines del Estado.'},
+
+      // ── LECCIÓN 14 ──
       {lesson:'Lección 14',topic:'Derecho internacional público',question:'El derecho internacional público está integrado por:',options:['Normas puramente morales','Principios y normas convencionales y consuetudinarias entre Estados y organizaciones internacionales','Solo decretos presidenciales','Reglas de urbanidad interestatal'],correct:1,explanation:'Se compone de principios y normas convencionales (tratados) y consuetudinarias. Regula relaciones jurídicas entre Estados y con organizaciones internacionales.'},
       {lesson:'Lección 14',topic:'Base constitucional',question:'¿Qué artículo de la Constitución establece la jerarquía general del derecho positivo nacional?',options:['Art. 9','Art. 46','Art. 137','Art. 114'],correct:2,explanation:'El art. 137 CN fija la supremacía constitucional y el orden de prelación de normas dentro del derecho positivo nacional.'},
-      {lesson:'Lección 14',topic:'Política exterior',question:'Según el temario, el art. 143 CN recoge principios como:',options:['No intervención e igualdad jurídica de los Estados','Supremacía de la costumbre local','Privatización absoluta de la justicia','Renuncia al derecho interno'],correct:0,explanation:'El artículo 143 recoge principios como independencia nacional, autodeterminación, igualdad jurídica de los Estados, cooperación y no intervención.'},
+      {lesson:'Lección 14',topic:'Política exterior',question:'Según el art. 143 CN, Paraguay acepta principios como:',options:['No intervención e igualdad jurídica de los Estados','Supremacía de la costumbre local','Privatización absoluta de la justicia','Renuncia al derecho interno'],correct:0,explanation:'El artículo 143 recoge principios como independencia nacional, autodeterminación, igualdad jurídica de los Estados, cooperación y no intervención.'},
       {lesson:'Lección 14',topic:'Supranacionalidad',question:'El art. 145 CN admite:',options:['La desaparición total del Estado paraguayo','Un orden jurídico supranacional bajo ciertas condiciones','La subordinación automática a cualquier costumbre extranjera','La invalidez de los tratados'],correct:1,explanation:'El art. 145 CN admite un orden jurídico supranacional en igualdad con otros Estados y sujeto a aprobación, sin implicar renuncia automática a la soberanía.'},
       {lesson:'Lección 14',topic:'Derecho canónico',question:'El derecho canónico es:',options:['El derecho dictado por el Estado para todas las religiones','El conjunto de leyes que rigen la organización y disciplina interna de la Iglesia Católica','Una rama del derecho penal militar','Un reglamento municipal eclesial'],correct:1,explanation:'El derecho canónico regula la estructura, funcionamiento y disciplina interna de la Iglesia Católica, a diferencia del derecho eclesiástico que emana del Estado.'},
       {lesson:'Lección 14',topic:'Derecho eclesiástico',question:'La diferencia principal entre derecho canónico y derecho eclesiástico es que el segundo:',options:['Es dictado por la Iglesia','Regula únicamente dogmas religiosos','Emerge del Estado para regular la situación jurídica de comunidades religiosas','Es igual al primero'],correct:2,explanation:'El derecho eclesiástico es derecho estatal orientado a regular jurídicamente las comunidades religiosas. El canónico nace de la propia Iglesia.'},
+      {lesson:'Lección 14',topic:'Base constitucional',question:'El art. 142 CN establece que los tratados internacionales sobre derechos humanos:',options:['Pueden ser denunciados por simple decreto del Ejecutivo','Solo tienen rango de ley ordinaria','No pueden ser denunciados sino por el procedimiento de reforma constitucional','Pierden vigencia automáticamente a los 10 años'],correct:2,explanation:'El art. 142 CN otorga una protección especial a los tratados de derechos humanos: para ser denunciados requieren seguir el mismo procedimiento previsto para la reforma de la Constitución.'},
+
+      // ── LECCIÓN 15 ──
       {lesson:'Lección 15',topic:'Derecho privado',question:'El derecho privado regula:',options:['Relaciones entre particulares o entre estos y el Estado como persona jurídica','Solo delitos y penas','La organización de los poderes públicos exclusivamente','Normas de etiqueta social'],correct:0,explanation:'El derecho privado se ocupa de las relaciones jurídicas entre particulares y también de aquellas en que el Estado actúa como persona jurídica, no como poder soberano.'},
       {lesson:'Lección 15',topic:'Ramas del derecho privado',question:'¿Cuál de estas ramas pertenece al derecho privado interno?',options:['Derecho civil','Derecho constitucional','Derecho administrativo','Derecho penal militar'],correct:0,explanation:'El derecho civil es una de las principales ramas del derecho privado interno. Las demás opciones pertenecen al derecho público.'},
       {lesson:'Lección 15',topic:'Derecho civil',question:'El derecho civil es llamado derecho común porque:',options:['Solo se aplica a comerciantes','Regula aspectos centrales de la vida privada: personas, familia, propiedad, obligaciones y sucesiones','Se limita a la actividad del Estado','No admite reformas'],correct:1,explanation:'Se lo llama derecho común porque contiene la regulación básica y general de la vida privada: personas, familia, propiedad, contratos, obligaciones y sucesiones.'},
-      {lesson:'Lección 15',topic:'Código Civil',question:'Según el temario, el actual Código Civil Paraguayo es la Ley:',options:['1183/1985','213/1993','137/1992','114/1987'],correct:0,explanation:'El Código Civil Paraguayo vigente corresponde a la Ley 1183/1985 y rige desde 1987.'},
+      {lesson:'Lección 15',topic:'Código Civil',question:'El actual Código Civil Paraguayo es la Ley:',options:['1183/1985','213/1993','137/1992','114/1987'],correct:0,explanation:'El Código Civil Paraguayo vigente corresponde a la Ley 1183/1985 y rige desde 1987. Su antecedente fue el Código Civil argentino de Vélez Sársfield.'},
       {lesson:'Lección 15',topic:'Derecho laboral',question:'El derecho laboral regula las relaciones entre:',options:['Únicamente jueces y fiscales','Empleadores, trabajadores y Estado','Solo sindicatos internacionales','Iglesia y fieles'],correct:1,explanation:'El derecho laboral se ocupa de las relaciones entre empleadores, trabajadores y Estado, fijando derechos mínimos y protegiendo la dimensión social del trabajo.'},
       {lesson:'Lección 15',topic:'Trabajo',question:'Según el art. 9 del Código del Trabajo, el trabajo es:',options:['Una mercancía sin protección estatal','Un derecho y un deber social con protección del Estado','Una actividad exclusivamente privada','Una prestación libre de toda regulación'],correct:1,explanation:'El trabajo es un derecho y un deber social que goza de protección estatal, reflejando su función social en el ordenamiento jurídico.'},
       {lesson:'Lección 15',topic:'Derecho rural',question:'El derecho rural regula:',options:['La administración de justicia penal','Las relaciones derivadas de la producción agraria','Solo el comercio marítimo','La organización de municipios'],correct:1,explanation:'El derecho rural se relaciona con la producción agraria y las relaciones jurídicas que nacen en ese ámbito, vinculado al Código Rural, el Estatuto Agrario e INDERT.'},
+      {lesson:'Lección 15',topic:'Ramas del derecho privado',question:'El derecho comercial pertenece al derecho privado porque:',options:['Regula la actividad del Estado soberano','Rige las relaciones entre comerciantes y actos de comercio entre particulares','Establece las penas para delitos económicos','Es una rama del derecho constitucional'],correct:1,explanation:'El derecho comercial es una rama del derecho privado interno que regula las relaciones entre comerciantes y los actos de comercio, los cuales se dan entre particulares.'},
+
+      // ── LECCIÓN 16 ──
       {lesson:'Lección 16',topic:'Derecho subjetivo',question:'El derecho subjetivo, en sentido estricto, es:',options:['Una obligación legal general','La facultad de querer y exigir atribuida por el ordenamiento','Una costumbre social aceptada','Una teoría moral del Estado'],correct:1,explanation:'El derecho subjetivo es la facultad reconocida a una persona para exigir algo conforme al ordenamiento, a la que correlativamente le corresponde una obligación en otro sujeto.'},
-      {lesson:'Lección 16',topic:'Teorías',question:'¿Cuál de estas aparece entre las teorías principales del derecho subjetivo?',options:['Teoría de la voluntad','Teoría de la geopolítica','Teoría de la costumbre tácita','Teoría municipalista'],correct:0,explanation:'El temario menciona la teoría de la voluntad, la del interés, la ecléctica, la doctrina italiana moderna y la unificadora de Kelsen.'},
+      {lesson:'Lección 16',topic:'Teorías',question:'¿Cuál de estas aparece entre las teorías principales del derecho subjetivo?',options:['Teoría de la voluntad','Teoría de la geopolítica','Teoría de la costumbre tácita','Teoría municipalista'],correct:0,explanation:'El temario menciona la teoría de la voluntad, la del interés, la ecléctica, la doctrina italiana moderna y la unificadora de Kelsen como principales teorías del derecho subjetivo.'},
       {lesson:'Lección 16',topic:'Derechos fundamentales',question:'¿Cuáles son los tres derechos subjetivos fundamentales señalados en la lección?',options:['Propiedad, salud y educación','Igualdad, libertad y resistencia a la opresión','Sufragio, nacionalidad y matrimonio','Honor, imagen y nombre'],correct:1,explanation:'La lección identifica como derechos subjetivos fundamentales la igualdad, la libertad y la resistencia a la opresión.'},
       {lesson:'Lección 16',topic:'Igualdad',question:'El derecho de igualdad se funda en:',options:['La superioridad del Estado','La dignidad humana','La autoridad religiosa','La costumbre mercantil'],correct:1,explanation:'El temario define la igualdad como paridad jurídica fundada en la dignidad humana, consagrada en los arts. 46 y 47 de la Constitución Nacional.'},
       {lesson:'Lección 16',topic:'Libertad',question:'La libertad jurídica o normativa consiste en:',options:['Hacer cualquier cosa sin límite alguno','Hacer u omitir lo que la ley no ordena ni prohíbe','No obedecer ninguna norma','Actuar solo por costumbre'],correct:1,explanation:'La libertad jurídica no significa ausencia de límites, sino facultad de actuar dentro del marco normativo: puede hacerse u omitirse lo que la ley no manda ni prohíbe.'},
+
+      // ── LECCIÓN 17 ──
       {lesson:'Lección 17',topic:'Limitaciones',question:'Las instituciones jurídicas limitan la libertad porque:',options:['Eliminan toda autonomía personal','Encauzan el ejercicio de la libertad individual','Reemplazan a la moral por completo','Suprimen toda relación social'],correct:1,explanation:'Instituciones como el matrimonio o la propiedad encauzan y delimitan el ejercicio de la libertad individual. No la anulan, sino que la ordenan.'},
       {lesson:'Lección 17',topic:'Abuso del derecho',question:'Hay abuso del derecho cuando:',options:['Se ejerce un derecho conforme a su finalidad','Se ejerce sin necesidad y con intención de dañar, fuera de su finalidad','No se ejerce ningún derecho','Se firma un contrato válido'],correct:1,explanation:'El abuso del derecho aparece cuando alguien usa una facultad jurídica de manera desviada, sin necesidad y con intención de dañar, apartándose del fin para el cual fue reconocido.'},
       {lesson:'Lección 17',topic:'Orden público',question:'El orden público puede definirse como:',options:['Una costumbre opcional','El conjunto de principios superiores que aseguran la existencia y conservación de la sociedad','Un reglamento deportivo','Una sanción administrativa'],correct:1,explanation:'El orden público alude a principios superiores indispensables para la vida social y jurídica, operando como límite frente a conductas contrarias al interés general.'},
       {lesson:'Lección 17',topic:'Leyes de orden público',question:'Las leyes de orden público son:',options:['Disponibles y renunciables','Imperativas e irrenunciables','Solo recomendaciones doctrinarias','Aplicables únicamente al derecho internacional'],correct:1,explanation:'Las leyes de orden público son imperativas e irrenunciables. Su violación genera nulidad absoluta porque protegen intereses que trascienden a las partes.'},
       {lesson:'Lección 17',topic:'Nulidad',question:'La violación de una ley de orden público genera:',options:['Nulidad absoluta','Validez relativa','Una mera observación ética','Solo una sanción social'],correct:0,explanation:'Cuando se infringe una ley de orden público el acto queda afectado por nulidad absoluta, porque el interés protegido trasciende la voluntad de las partes.'},
+      {lesson:'Lección 17',topic:'Leyes de orden público',question:'Son ejemplos de leyes de orden público, entre otras:',options:['Los contratos libremente modificables por las partes','Las normas que organizan la familia, los derechos reales y las sucesiones','Solo las ordenanzas municipales','Los reglamentos internos de empresas privadas'],correct:1,explanation:'Las normas sobre familia, derechos reales y sucesiones son de orden público porque su contenido no puede ser alterado por la voluntad individual: protegen intereses superiores de la sociedad.'},
+
+      // ── LECCIÓN 18 ──
       {lesson:'Lección 18',topic:'Relación jurídica',question:'La relación jurídica es:',options:['Un vínculo social sin consecuencias legales','Un vínculo entre dos o más personas que genera derechos y obligaciones cuando una norma jurídica se aplica a un hecho lícito','Una simple relación moral','Una costumbre reiterada'],correct:1,explanation:'La relación jurídica nace cuando una norma jurídica se proyecta sobre un hecho y vincula sujetos con derechos y obligaciones.'},
       {lesson:'Lección 18',topic:'Elementos',question:'¿Cuál de estos es un elemento de la relación jurídica?',options:['Sujeto','Dogma religioso','Sanción moral','Tradición familiar'],correct:0,explanation:'Los elementos de la relación jurídica son el sujeto, el objeto y el hecho jurídico o jurígeno.'},
       {lesson:'Lección 18',topic:'Personas',question:'Las personas físicas son:',options:['Entes ideales con patrimonio propio','Los seres humanos, sujetos de derechos desde la concepción','Solo los mayores de edad','Los órganos del Estado'],correct:1,explanation:'Las personas físicas son seres humanos reconocidos como sujetos de derechos desde la concepción.'},
@@ -350,14 +369,26 @@
       {lesson:'Lección 18',topic:'Domicilio',question:'El domicilio es:',options:['La simple ocupación pasajera de un lugar','El asiento territorial necesario para ejercer derechos y cumplir obligaciones','Un sinónimo de habitación','Solo el lugar donde uno duerme'],correct:1,explanation:'El domicilio fija un lugar cierto para imputar efectos legales como notificaciones y competencia. No equivale a habitación ni a mera presencia física.'},
       {lesson:'Lección 18',topic:'Residencia y habitación',question:'La habitación se distingue de la residencia porque es:',options:['El lugar principal de los negocios','La simple ocupación material de un espacio sin efecto jurídico estable','Un domicilio legal forzoso','La sede de una persona jurídica'],correct:1,explanation:'La habitación es una ocupación material y pasajera, como una pieza de hotel, sin la estabilidad y consecuencias jurídicas del domicilio.'},
       {lesson:'Lección 18',topic:'Clases de domicilio',question:'El domicilio convencional o especial es:',options:['El atribuido por la ley desde el nacimiento','El fijado por la ley para funcionarios públicos','El designado por las partes para ciertos efectos en sus negocios jurídicos','El lugar de residencia del transeúnte'],correct:2,explanation:'El domicilio especial o convencional surge de la voluntad de las partes en un negocio jurídico, como en un contrato, para efectos concretos.'},
+      {lesson:'Lección 18',topic:'Clases de domicilio',question:'El domicilio real tiene dos elementos: uno objetivo y uno subjetivo. ¿Cuál es el elemento subjetivo?',options:['El asiento principal de la residencia o negocios','El ánimo de permanencia en ese lugar','La inscripción registral del domicilio','El certificado de residencia policial'],correct:1,explanation:'El elemento objetivo del domicilio real es el asiento principal de residencia o negocios. El subjetivo es el ánimo o intención de permanecer en ese lugar, lo que lo distingue de la mera residencia.'},
+      {lesson:'Lección 18',topic:'Clases de domicilio',question:'El domicilio legal es forzoso porque:',options:['Lo elige libremente la persona','Lo fija la ley sin depender de la voluntad del sujeto','Lo designan las partes en un contrato','Coincide siempre con el lugar de nacimiento'],correct:1,explanation:'El domicilio legal es establecido por la ley sin que importe la voluntad de la persona. Ejemplos típicos son el de funcionarios públicos (donde ejercen funciones) y el de los condenados (el establecimiento penitenciario).'},
+      {lesson:'Lección 18',topic:'Clases de domicilio',question:'El domicilio de origen es:',options:['El lugar donde la persona trabaja habitualmente','El domicilio que la ley atribuye desde el nacimiento, coincidiendo con el de los padres','El primer domicilio legal que el juez asigna','El domicilio convencional del primer contrato'],correct:1,explanation:'El domicilio de origen es el que la ley atribuye de pleno derecho al nacer, coincidiendo con el domicilio que tenían los padres el día del nacimiento del hijo.'},
+
+      // ── LECCIÓN 19 ──
       {lesson:'Lección 19',topic:'Objeto',question:'El objeto de la relación jurídica es:',options:['Todo lo que puede someterse a la disposición del sujeto activo como medio para un fin lícito','Solo las cosas materiales inmuebles','La voluntad del juez','La costumbre social válida'],correct:0,explanation:'El objeto es todo aquello que puede quedar sometido a la disposición del sujeto activo con miras a un fin lícito, incluyendo bienes y prestaciones.'},
       {lesson:'Lección 19',topic:'Cosa',question:'Según el art. 1872 CC, la cosa es:',options:['Todo valor moral','Un objeto corporal susceptible de valor económico','Toda creencia protegida por la ley','Un derecho subjetivo en abstracto'],correct:1,explanation:'El Código Civil define cosa como un objeto corporal susceptible de tener valor económico.'},
       {lesson:'Lección 19',topic:'Bienes',question:'En sentido amplio, los bienes comprenden:',options:['Solo objetos inmateriales','Las cosas y también objetos inmateriales susceptibles de valor','Solo tierras rurales','Únicamente derechos políticos'],correct:1,explanation:'Bienes abarca tanto cosas materiales como objetos inmateriales susceptibles de valor. En sentido restringido el término refiere solo a los inmateriales.'},
       {lesson:'Lección 19',topic:'Hecho jurídico',question:'El hecho jurídico o jurígeno es:',options:['La fuente productora de derechos que da nacimiento a la relación jurídica','Una simple opinión doctrinaria','Toda conducta moralmente aprobada','Una sanción procesal'],correct:0,explanation:'El hecho jurídico es el acontecimiento capaz de producir adquisición, modificación, transferencia o extinción de derechos y obligaciones.'},
-      {lesson:'Lección 19',topic:'Clasificación',question:'¿Cuál de estos es un hecho jurídico natural?',options:['La celebración de un contrato','La adopción','Una inundación','La firma de un testamento'],correct:2,explanation:'Los hechos naturales provienen de causas ajenas al hombre, como el nacimiento o una inundación. Los otros ejemplos son hechos humanos.'}
+      {lesson:'Lección 19',topic:'Clasificación',question:'¿Cuál de estos es un hecho jurídico natural?',options:['La celebración de un contrato','La adopción','Una inundación','La firma de un testamento'],correct:2,explanation:'Los hechos naturales provienen de causas ajenas al hombre, como el nacimiento o una inundación. Los otros ejemplos son hechos humanos.'},
+      {lesson:'Lección 19',topic:'Hechos voluntarios',question:'Un hecho jurídico es involuntario cuando:',options:['Se ejecuta con discernimiento, intención y libertad','Le falta alguno de estos elementos: discernimiento, intención o libertad','Es contrario a la ley','Es realizado por una persona jurídica'],correct:1,explanation:'Los hechos voluntarios requieren discernimiento, intención y libertad. Si falta cualquiera de estos tres elementos, el hecho es involuntario y no genera los efectos propios de un acto jurídico.'},
+      {lesson:'Lección 19',topic:'Hechos ilícitos',question:'Los hechos ilícitos son:',options:['Acciones no prohibidas de las que nace un derecho','Acciones u omisiones prohibidas por la ley que prevén una sanción','Solo los delitos penales graves','Actos realizados sin intención'],correct:1,explanation:'Los hechos ilícitos son acciones u omisiones prohibidas por leyes, ordenanzas o reglamentos a los que el ordenamiento asocia una sanción. Se oponen a los hechos voluntarios lícitos.'},
+      {lesson:'Lección 19',topic:'Actos jurídicos',question:'El acto jurídico, según el art. 296 CC, es:',options:['Todo acontecimiento natural con efectos legales','Un acto voluntario lícito que tiene por fin inmediato crear, modificar, transferir, conservar o extinguir derechos','Una resolución judicial obligatoria','Un hecho involuntario con consecuencias económicas'],correct:1,explanation:'El art. 296 del Código Civil define el acto jurídico como un acto voluntario lícito cuyo fin inmediato es producir efectos jurídicos: crear, modificar, transferir, conservar o extinguir derechos.'},
+      {lesson:'Lección 19',topic:'Actos jurídicos',question:'La diferencia entre acto jurídico y negocio jurídico es que el negocio jurídico:',options:['Prescinde totalmente de la voluntad','Es una declaración de voluntad de particulares encaminada a obtener fines jurídicamente protegidos','Solo lo pueden celebrar entidades del Estado','No produce efectos jurídicos por sí solo'],correct:1,explanation:'El negocio jurídico es una especie dentro de los actos jurídicos: es la declaración de voluntad de particulares orientada a obtener fines reconocidos y protegidos por el derecho, como un contrato de compraventa.'},
+      {lesson:'Lección 19',topic:'Dolo',question:'El dolo, como vicio del acto jurídico, consiste en:',options:['El simple error sobre la identidad del contratante','La falta total de discernimiento del agente','Toda aserción falsa, disimulación de lo verdadero o maquinación para inducir al otro a celebrar un acto causándole daño','El incumplimiento involuntario por caso fortuito'],correct:2,explanation:'El dolo es el engaño intencional que vicia la voluntad: puede ser por afirmaciones falsas, ocultamiento de la verdad o maniobras fraudulentas para inducir a otro a celebrar un acto jurídico que le causará daño.'},
+      {lesson:'Lección 19',topic:'Dolo',question:'¿Cuál es la consecuencia jurídica del dolo en un acto jurídico?',options:['El acto queda automáticamente perfeccionado','El acto puede ser anulado porque la voluntad fue viciada','Solo genera una sanción moral','El acto es válido pero el autor paga una multa administrativa'],correct:1,explanation:'El dolo vicia la voluntad del agente, por lo que el acto jurídico puede ser declarado nulo a pedido del afectado. La voluntad libre y consciente es un requisito esencial del acto jurídico válido.'}
     ];
 
     let activeQuestions=[];
+    const TOTAL=questions.length;
     function shuffleArray(l){const c=[...l];for(let i=c.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[c[i],c[j]]=[c[j],c[i]];}return c;}
     function buildShuffled(){activeQuestions=shuffleArray(questions).map((item,idx)=>({...item,originalIndex:questions.indexOf(item),orderIndex:idx+1}));}
 
@@ -365,6 +396,8 @@
     const questionsEl=document.getElementById('questions');
     const emptyEl=document.getElementById('emptyState');
     const searchInput=document.getElementById('busqueda');
+
+    document.getElementById('stat-total').textContent=TOTAL;
 
     function getFiltered(){
       const q=state.query.trim().toLowerCase();
@@ -377,7 +410,7 @@
       const cor=[...state.answered.values()].filter(v=>v.isCorrect).length;
       document.getElementById('stat-answered').textContent=ans;
       document.getElementById('stat-correct').textContent=cor;
-      document.getElementById('stat-progress').textContent=`${Math.round(ans/questions.length*100)}%`;
+      document.getElementById('stat-progress').textContent=`${Math.round(ans/TOTAL*100)}%`;
     }
 
     function renderQuestions(){
