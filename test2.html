@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    :root,[data-theme="light"]{
+    :root{
       --color-bg:#f7f6f2;--color-surface:#f9f8f5;--color-surface-2:#fbfbf9;
       --color-surface-offset:#edeae5;--color-text:#28251d;--color-text-muted:#6c6a64;
       --color-text-inverse:#f9f8f4;--color-primary:#01696f;--color-primary-hover:#0c4e54;
@@ -19,14 +19,6 @@
       --font-display:'Instrument Serif',Georgia,serif;
       --font-body:'Inter',system-ui,sans-serif;
       --content:1100px;
-    }
-    [data-theme="dark"]{
-      --color-bg:#171614;--color-surface:#1c1b19;--color-surface-2:#201f1d;
-      --color-surface-offset:#2a2926;--color-text:#e0dfdb;--color-text-muted:#b0aea8;
-      --color-text-inverse:#171614;--color-primary:#5fa9b3;--color-primary-hover:#87c0c8;
-      --color-primary-highlight:#213338;--color-success:#8fc26e;--color-success-bg:#273523;
-      --color-error:#dd83bc;--color-error-bg:#382635;
-      --shadow-sm:0 1px 3px rgba(0,0,0,.3);
     }
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
     html{scroll-behavior:smooth;}
@@ -46,7 +38,7 @@
       background:color-mix(in srgb,var(--color-bg) 85%,transparent);
       border-bottom:1px solid rgba(122,121,116,.18);
     }
-    .nav{display:flex;align-items:center;justify-content:space-between;gap:.75rem;padding:.65rem 0;}
+    .nav{display:flex;align-items:center;padding:.65rem 0;}
     .brand{display:flex;align-items:center;gap:.6rem;}
     .logo{
       width:34px;height:34px;border-radius:8px;flex-shrink:0;
@@ -56,12 +48,6 @@
     .logo svg{width:18px;height:18px;}
     .brand-text small{display:block;color:var(--color-text-muted);font-size:.6rem;text-transform:uppercase;letter-spacing:.08em;}
     .brand-text strong{font-size:.85rem;}
-    .theme-toggle{
-      width:36px;height:36px;border-radius:50%;flex-shrink:0;
-      border:1px solid rgba(122,121,116,.25);display:grid;place-items:center;
-      background:var(--color-surface);
-    }
-    .theme-toggle:hover{background:var(--color-surface-offset);}
 
     /* MAIN */
     main{padding:1.25rem 0 4rem;}
@@ -103,7 +89,7 @@
       font-size:.68rem;font-weight:700;
     }
 
-    /* TOPBAR — sticky solo en desktop */
+    /* TOPBAR */
     .study-topbar{margin-bottom:1.1rem;}
     .study-topbar-inner{
       display:grid;gap:.55rem;padding:.65rem;
@@ -111,8 +97,6 @@
       border:1px solid rgba(122,121,116,.18);
       border-radius:.9rem;box-shadow:var(--shadow-sm);
     }
-
-    /* TOOLBAR: una fila en desktop */
     .toolbar{
       display:grid;
       grid-template-columns:minmax(0,1fr) auto auto auto;
@@ -194,52 +178,29 @@
     }
     footer{padding:2rem 0 0;color:var(--color-text-muted);font-size:.75rem;}
 
-    /* ── DESKTOP: sticky topbar ── */
+    /* DESKTOP: sticky topbar */
     @media(min-width:641px){
-      .study-topbar{
-        position:sticky;
-        top:57px;
-        z-index:35;
-        margin-bottom:1.1rem;
-      }
-      .study-topbar-inner{
-        backdrop-filter:blur(12px);
-      }
+      .study-topbar{position:sticky;top:57px;z-index:35;}
+      .study-topbar-inner{backdrop-filter:blur(12px);}
     }
 
-    /* ── TABLET ── */
+    /* TABLET */
     @media(max-width:860px){
       .hero{grid-template-columns:1fr;}
       .panel{display:none;}
     }
 
-    /* ── MÓVIL: topbar estática, compacta, 2 columnas ── */
+    /* MÓVIL */
     @media(max-width:640px){
-      .study-topbar{
-        position:static;   /* ← clave: deja de ser sticky */
-        margin-bottom:.85rem;
-      }
-      .study-topbar-inner{
-        gap:.4rem;padding:.5rem;border-radius:.75rem;
-      }
-      .toolbar{
-        grid-template-columns:1fr 1fr;
-        gap:.4rem;
-      }
+      .study-topbar{position:static;margin-bottom:.85rem;}
+      .study-topbar-inner{gap:.4rem;padding:.5rem;border-radius:.75rem;}
+      .toolbar{grid-template-columns:1fr 1fr;gap:.4rem;}
       .toolbar .search-wrap{grid-column:1 / -1;}
       .btn-ver{grid-column:1 / -1;}
-      .btn{
-        width:100%;min-height:36px;
-        padding:.48rem .5rem;font-size:.8rem;
-      }
-      .search-wrap input{
-        padding:.6rem .8rem .6rem 1.9rem;font-size:.84rem;
-      }
+      .btn{width:100%;min-height:36px;padding:.48rem .5rem;font-size:.8rem;}
+      .search-wrap input{padding:.6rem .8rem .6rem 1.9rem;font-size:.84rem;}
       .search-wrap svg{width:13px;height:13px;left:.62rem;}
-      .stats{
-        grid-template-columns:repeat(4,1fr);
-        gap:.35rem;
-      }
+      .stats{grid-template-columns:repeat(4,1fr);gap:.35rem;}
       .stat{padding:.38rem .4rem;border-radius:.55rem;}
       .stat span{font-size:.5rem;}
       .stat strong{font-size:.95rem;}
@@ -276,7 +237,6 @@
           <strong>Introducción a las Ciencias Jurídicas</strong>
         </div>
       </div>
-      <button class="theme-toggle" data-theme-toggle aria-label="Cambiar tema"></button>
     </div>
   </header>
 
@@ -363,7 +323,7 @@
       {lesson:'Lección 14',topic:'Política exterior',question:'Según el temario, el art. 143 CN recoge principios como:',options:['No intervención e igualdad jurídica de los Estados','Supremacía de la costumbre local','Privatización absoluta de la justicia','Renuncia al derecho interno'],correct:0,explanation:'El artículo 143 recoge principios como independencia nacional, autodeterminación, igualdad jurídica de los Estados, cooperación y no intervención.'},
       {lesson:'Lección 14',topic:'Supranacionalidad',question:'El art. 145 CN admite:',options:['La desaparición total del Estado paraguayo','Un orden jurídico supranacional bajo ciertas condiciones','La subordinación automática a cualquier costumbre extranjera','La invalidez de los tratados'],correct:1,explanation:'El art. 145 CN admite un orden jurídico supranacional en igualdad con otros Estados y sujeto a aprobación, sin implicar renuncia automática a la soberanía.'},
       {lesson:'Lección 14',topic:'Derecho canónico',question:'El derecho canónico es:',options:['El derecho dictado por el Estado para todas las religiones','El conjunto de leyes que rigen la organización y disciplina interna de la Iglesia Católica','Una rama del derecho penal militar','Un reglamento municipal eclesial'],correct:1,explanation:'El derecho canónico regula la estructura, funcionamiento y disciplina interna de la Iglesia Católica, a diferencia del derecho eclesiástico que emana del Estado.'},
-      {lesson:'Lección 14',topic:'Derecho eclesiástico',question:'La diferencia principal entre derecho canónico y derecho eclesiástico es que el segundo:',options:['Es dictado por la Iglesia','Regula únicamente dogmas religiosos','Emerge del Estado para regular la situación jurídica de comunidades religiosas','Es igual al primero'],correct:2,explanation:'El derecho eclesiástico es derecho estatal orientado a regular jurídicamente las comunidades religiosas dentro del territorio. El canónico nace de la propia Iglesia.'},
+      {lesson:'Lección 14',topic:'Derecho eclesiástico',question:'La diferencia principal entre derecho canónico y derecho eclesiástico es que el segundo:',options:['Es dictado por la Iglesia','Regula únicamente dogmas religiosos','Emerge del Estado para regular la situación jurídica de comunidades religiosas','Es igual al primero'],correct:2,explanation:'El derecho eclesiástico es derecho estatal orientado a regular jurídicamente las comunidades religiosas. El canónico nace de la propia Iglesia.'},
       {lesson:'Lección 15',topic:'Derecho privado',question:'El derecho privado regula:',options:['Relaciones entre particulares o entre estos y el Estado como persona jurídica','Solo delitos y penas','La organización de los poderes públicos exclusivamente','Normas de etiqueta social'],correct:0,explanation:'El derecho privado se ocupa de las relaciones jurídicas entre particulares y también de aquellas en que el Estado actúa como persona jurídica, no como poder soberano.'},
       {lesson:'Lección 15',topic:'Ramas del derecho privado',question:'¿Cuál de estas ramas pertenece al derecho privado interno?',options:['Derecho civil','Derecho constitucional','Derecho administrativo','Derecho penal militar'],correct:0,explanation:'El derecho civil es una de las principales ramas del derecho privado interno. Las demás opciones pertenecen al derecho público.'},
       {lesson:'Lección 15',topic:'Derecho civil',question:'El derecho civil es llamado derecho común porque:',options:['Solo se aplica a comerciantes','Regula aspectos centrales de la vida privada: personas, familia, propiedad, obligaciones y sucesiones','Se limita a la actividad del Estado','No admite reformas'],correct:1,explanation:'Se lo llama derecho común porque contiene la regulación básica y general de la vida privada: personas, familia, propiedad, contratos, obligaciones y sucesiones.'},
@@ -372,7 +332,7 @@
       {lesson:'Lección 15',topic:'Trabajo',question:'Según el art. 9 del Código del Trabajo, el trabajo es:',options:['Una mercancía sin protección estatal','Un derecho y un deber social con protección del Estado','Una actividad exclusivamente privada','Una prestación libre de toda regulación'],correct:1,explanation:'El trabajo es un derecho y un deber social que goza de protección estatal, reflejando su función social en el ordenamiento jurídico.'},
       {lesson:'Lección 15',topic:'Derecho rural',question:'El derecho rural regula:',options:['La administración de justicia penal','Las relaciones derivadas de la producción agraria','Solo el comercio marítimo','La organización de municipios'],correct:1,explanation:'El derecho rural se relaciona con la producción agraria y las relaciones jurídicas que nacen en ese ámbito, vinculado al Código Rural, el Estatuto Agrario e INDERT.'},
       {lesson:'Lección 16',topic:'Derecho subjetivo',question:'El derecho subjetivo, en sentido estricto, es:',options:['Una obligación legal general','La facultad de querer y exigir atribuida por el ordenamiento','Una costumbre social aceptada','Una teoría moral del Estado'],correct:1,explanation:'El derecho subjetivo es la facultad reconocida a una persona para exigir algo conforme al ordenamiento, a la que correlativamente le corresponde una obligación en otro sujeto.'},
-      {lesson:'Lección 16',topic:'Teorías',question:'¿Cuál de estas aparece entre las teorías principales del derecho subjetivo?',options:['Teoría de la voluntad','Teoría de la geopolítica','Teoría de la costumbre tácita','Teoría municipalista'],correct:0,explanation:'El temario menciona la teoría de la voluntad, la del interés, la ecléctica, la doctrina italiana moderna y la unificadora de Kelsen como principales teorías del derecho subjetivo.'},
+      {lesson:'Lección 16',topic:'Teorías',question:'¿Cuál de estas aparece entre las teorías principales del derecho subjetivo?',options:['Teoría de la voluntad','Teoría de la geopolítica','Teoría de la costumbre tácita','Teoría municipalista'],correct:0,explanation:'El temario menciona la teoría de la voluntad, la del interés, la ecléctica, la doctrina italiana moderna y la unificadora de Kelsen.'},
       {lesson:'Lección 16',topic:'Derechos fundamentales',question:'¿Cuáles son los tres derechos subjetivos fundamentales señalados en la lección?',options:['Propiedad, salud y educación','Igualdad, libertad y resistencia a la opresión','Sufragio, nacionalidad y matrimonio','Honor, imagen y nombre'],correct:1,explanation:'La lección identifica como derechos subjetivos fundamentales la igualdad, la libertad y la resistencia a la opresión.'},
       {lesson:'Lección 16',topic:'Igualdad',question:'El derecho de igualdad se funda en:',options:['La superioridad del Estado','La dignidad humana','La autoridad religiosa','La costumbre mercantil'],correct:1,explanation:'El temario define la igualdad como paridad jurídica fundada en la dignidad humana, consagrada en los arts. 46 y 47 de la Constitución Nacional.'},
       {lesson:'Lección 16',topic:'Libertad',question:'La libertad jurídica o normativa consiste en:',options:['Hacer cualquier cosa sin límite alguno','Hacer u omitir lo que la ley no ordena ni prohíbe','No obedecer ninguna norma','Actuar solo por costumbre'],correct:1,explanation:'La libertad jurídica no significa ausencia de límites, sino facultad de actuar dentro del marco normativo: puede hacerse u omitirse lo que la ley no manda ni prohíbe.'},
@@ -405,23 +365,6 @@
     const questionsEl=document.getElementById('questions');
     const emptyEl=document.getElementById('emptyState');
     const searchInput=document.getElementById('busqueda');
-
-    function themeIcon(t){
-      return t==='dark'
-        ?`<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>`
-        :`<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>`;
-    }
-    (function(){
-      const t=document.querySelector('[data-theme-toggle]');
-      let theme=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';
-      document.documentElement.setAttribute('data-theme',theme);
-      t.innerHTML=themeIcon(theme);
-      t.addEventListener('click',()=>{
-        theme=theme==='dark'?'light':'dark';
-        document.documentElement.setAttribute('data-theme',theme);
-        t.innerHTML=themeIcon(theme);
-      });
-    })();
 
     function getFiltered(){
       const q=state.query.trim().toLowerCase();
