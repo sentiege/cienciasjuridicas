@@ -485,6 +485,98 @@
   .quiz-result-bar.ok-result { background: rgba(255,152,0,0.15); border: 1px solid #ff9800; color: #ffb74d; }
   .quiz-result-bar.fail-result { background: rgba(244,67,54,0.15); border: 1px solid #f44336; color: #ef9a9a; }
 
+
+  /* ===== PROGRESO GLOBAL ===== */
+  .global-progress-wrap {
+    background: linear-gradient(135deg, #0f1f3d, #16213e);
+    border-bottom: 1px solid rgba(212,175,55,0.25);
+    padding: 1rem 1.5rem;
+  }
+  .global-progress-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    flex-wrap: wrap;
+  }
+  .gp-label { color: var(--gold2); font-size: 0.85rem; white-space: nowrap; }
+  .gp-bar-track {
+    flex: 1;
+    min-width: 120px;
+    height: 10px;
+    background: rgba(255,255,255,0.07);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .gp-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--gold), var(--gold2));
+    border-radius: 10px;
+    transition: width 0.5s ease;
+    width: 0%;
+  }
+  .gp-stats {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  .gp-stat {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.8rem;
+    color: #a89060;
+    white-space: nowrap;
+  }
+  .gp-stat span { color: var(--gold2); font-weight: bold; }
+  .gp-reset-btn {
+    background: transparent;
+    border: 1px solid rgba(212,175,55,0.3);
+    color: #5a4e35;
+    font-size: 0.7rem;
+    padding: 0.2rem 0.6rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.2s;
+  }
+  .gp-reset-btn:hover { border-color: var(--gold); color: var(--gold2); }
+
+  /* Card state badges */
+  .card-state-row {
+    display: flex;
+    gap: 0.4rem;
+    margin-bottom: 0.5rem;
+    flex-wrap: wrap;
+    min-height: 1.4rem;
+  }
+  .state-badge {
+    font-size: 0.65rem;
+    padding: 0.15rem 0.5rem;
+    border-radius: 10px;
+    font-weight: bold;
+    letter-spacing: 0.3px;
+  }
+  .state-badge.visited {
+    background: rgba(33,150,243,0.2);
+    border: 1px solid #2196f3;
+    color: #90caf9;
+  }
+  .state-badge.quiz-pass {
+    background: rgba(76,175,80,0.2);
+    border: 1px solid #4caf50;
+    color: #a5d6a7;
+  }
+  .state-badge.quiz-fail {
+    background: rgba(255,152,0,0.15);
+    border: 1px solid #ff9800;
+    color: #ffb74d;
+  }
+  /* Card dim if not visited */
+  .lesson-card.not-visited { opacity: 0.72; }
+  .lesson-card.visited-card { opacity: 1; }
+
 </style>
 </head>
 <body>
@@ -502,11 +594,25 @@
       <span class="badge">🇵🇾 Derecho Paraguayo</span>
     </div>
   </div>
+
+  <!-- GLOBAL PROGRESS BAR -->
+  <div class="global-progress-wrap" id="global-progress-wrap">
+    <div class="global-progress-inner">
+      <div class="gp-label">📊 Tu progreso:</div>
+      <div class="gp-bar-track"><div class="gp-bar-fill" id="gp-bar-fill"></div></div>
+      <div class="gp-stats">
+        <div class="gp-stat">👁 Visitadas: <span id="gp-visited">0</span>/20</div>
+        <div class="gp-stat">✅ Quiz aprobado: <span id="gp-passed">0</span>/20</div>
+      </div>
+      <button class="gp-reset-btn" onclick="resetAllProgress()">↺ Reiniciar</button>
+    </div>
+  </div>
   <div class="lessons-grid">
     
       <div class="lesson-card" onclick="showLesson(11)">
         <div class="card-emoji">📜</div>
         <div class="card-number">Lección 11</div>
+        <div class="card-state-row" id="card-state-11"></div>
         <div class="card-title">Normas Jurídicas</div>
         <div class="card-sub">Normas Religiosas, Morales, del Trato Social y Jurídicas</div>
         <div class="card-arrow">&#8594;</div>
@@ -514,6 +620,7 @@
       <div class="lesson-card" onclick="showLesson(12)">
         <div class="card-emoji">🏛️</div>
         <div class="card-number">Lección 12</div>
+        <div class="card-state-row" id="card-state-12"></div>
         <div class="card-title">Ordenamiento Jurídico</div>
         <div class="card-sub">Juricidad, Antijuricidad y Pirámide de Kelsen</div>
         <div class="card-arrow">&#8594;</div>
@@ -521,6 +628,7 @@
       <div class="lesson-card" onclick="showLesson(13)">
         <div class="card-emoji">⚖️</div>
         <div class="card-number">Lección 13</div>
+        <div class="card-state-row" id="card-state-13"></div>
         <div class="card-title">El Derecho Positivo</div>
         <div class="card-sub">Ramas, Estructura de la Constitución 1992</div>
         <div class="card-arrow">&#8594;</div>
@@ -528,6 +636,7 @@
       <div class="lesson-card" onclick="showLesson(14)">
         <div class="card-emoji">🌐</div>
         <div class="card-number">Lección 14</div>
+        <div class="card-state-row" id="card-state-14"></div>
         <div class="card-title">Derecho Internacional Público y Canónico</div>
         <div class="card-sub">Ramas del Derecho Público Externo</div>
         <div class="card-arrow">&#8594;</div>
@@ -535,6 +644,7 @@
       <div class="lesson-card" onclick="showLesson(15)">
         <div class="card-emoji">📋</div>
         <div class="card-number">Lección 15</div>
+        <div class="card-state-row" id="card-state-15"></div>
         <div class="card-title">El Derecho Privado</div>
         <div class="card-sub">Ramas del Derecho Privado Interno</div>
         <div class="card-arrow">&#8594;</div>
@@ -542,6 +652,7 @@
       <div class="lesson-card" onclick="showLesson(16)">
         <div class="card-emoji">👤</div>
         <div class="card-number">Lección 16</div>
+        <div class="card-state-row" id="card-state-16"></div>
         <div class="card-title">Derecho Subjetivo</div>
         <div class="card-sub">Concepto, Fundamento y Derechos Fundamentales</div>
         <div class="card-arrow">&#8594;</div>
@@ -549,6 +660,7 @@
       <div class="lesson-card" onclick="showLesson(17)">
         <div class="card-emoji">🔏</div>
         <div class="card-number">Lección 17</div>
+        <div class="card-state-row" id="card-state-17"></div>
         <div class="card-title">Libertad Jurídica y Orden Público</div>
         <div class="card-sub">Abuso del Derecho y Leyes de Orden Público</div>
         <div class="card-arrow">&#8594;</div>
@@ -556,6 +668,7 @@
       <div class="lesson-card" onclick="showLesson(18)">
         <div class="card-emoji">🔗</div>
         <div class="card-number">Lección 18</div>
+        <div class="card-state-row" id="card-state-18"></div>
         <div class="card-title">Relación Jurídica</div>
         <div class="card-sub">Personas, Capacidad y Domicilio</div>
         <div class="card-arrow">&#8594;</div>
@@ -563,6 +676,7 @@
       <div class="lesson-card" onclick="showLesson(19)">
         <div class="card-emoji">📝</div>
         <div class="card-number">Lección 19</div>
+        <div class="card-state-row" id="card-state-19"></div>
         <div class="card-title">Hechos y Actos Jurídicos</div>
         <div class="card-sub">Objeto de la Relación Jurídica y Negocio Jurídico</div>
         <div class="card-arrow">&#8594;</div>
@@ -570,6 +684,7 @@
       <div class="lesson-card exam-card" onclick="showLesson(20)">
         <div class="card-emoji">🗳️</div>
         <div class="card-number">Lección 20</div>
+        <div class="card-state-row" id="card-state-20"></div>
         <div class="card-title">Democracia Participativa</div>
         <div class="card-sub">Referéndum, Iniciativa Popular y Estado Unitario</div>
         <div class="card-arrow">&#8594;</div>
@@ -577,6 +692,7 @@
       <div class="lesson-card exam-card" onclick="showLesson(21)">
         <div class="card-emoji">🏠</div>
         <div class="card-number">Lección 21</div>
+        <div class="card-state-row" id="card-state-21"></div>
         <div class="card-title">Derechos Reales</div>
         <div class="card-sub">Dominio, Usufructo, Hipoteca y Servidumbre</div>
         <div class="card-arrow">&#8594;</div>
@@ -584,6 +700,7 @@
       <div class="lesson-card exam-card" onclick="showLesson(22)">
         <div class="card-emoji">💼</div>
         <div class="card-number">Lección 22</div>
+        <div class="card-state-row" id="card-state-22"></div>
         <div class="card-title">Derechos Obligacionales y Derecho Intelectual</div>
         <div class="card-sub">Derechos de Crédito, Fuentes de Obligaciones y Derecho de Autor</div>
         <div class="card-arrow">&#8594;</div>
@@ -591,6 +708,7 @@
       <div class="lesson-card" onclick="showLesson(23)">
         <div class="card-emoji">™️</div>
         <div class="card-number">Lección 23</div>
+        <div class="card-state-row" id="card-state-23"></div>
         <div class="card-title">Derecho Marcario y Propiedad Intelectual</div>
         <div class="card-sub">Marcas Comerciales, Propiedad Industrial y Derecho de Autor</div>
         <div class="card-arrow">&#8594;</div>
@@ -598,6 +716,7 @@
       <div class="lesson-card" onclick="showLesson(24)">
         <div class="card-emoji">🏺</div>
         <div class="card-number">Lección 24</div>
+        <div class="card-state-row" id="card-state-24"></div>
         <div class="card-title">Derecho Hereditario</div>
         <div class="card-sub">Sucesión, Herederos Forzosos y Testamento</div>
         <div class="card-arrow">&#8594;</div>
@@ -605,6 +724,7 @@
       <div class="lesson-card" onclick="showLesson(25)">
         <div class="card-emoji">⚖️</div>
         <div class="card-number">Lección 25</div>
+        <div class="card-state-row" id="card-state-25"></div>
         <div class="card-title">Función Jurisdiccional</div>
         <div class="card-sub">Derecho de Acción, Excepción y Poder Judicial</div>
         <div class="card-arrow">&#8594;</div>
@@ -612,6 +732,7 @@
       <div class="lesson-card exam-card" onclick="showLesson(26)">
         <div class="card-emoji">📚</div>
         <div class="card-number">Lección 26</div>
+        <div class="card-state-row" id="card-state-26"></div>
         <div class="card-title">Fuentes del Derecho</div>
         <div class="card-sub">La Ley, Costumbre, Jurisprudencia, Doctrina y Codificación</div>
         <div class="card-arrow">&#8594;</div>
@@ -619,6 +740,7 @@
       <div class="lesson-card exam-card" onclick="showLesson(27)">
         <div class="card-emoji">🔍</div>
         <div class="card-number">Lección 27</div>
+        <div class="card-state-row" id="card-state-27"></div>
         <div class="card-title">Técnica Jurídica e Interpretación</div>
         <div class="card-sub">Hermenéutica, Métodos de Interpretación y Derecho Paraguayo</div>
         <div class="card-arrow">&#8594;</div>
@@ -626,6 +748,7 @@
       <div class="lesson-card" onclick="showLesson(28)">
         <div class="card-emoji">🧩</div>
         <div class="card-number">Lección 28</div>
+        <div class="card-state-row" id="card-state-28"></div>
         <div class="card-title">Técnica Judicial e Integración</div>
         <div class="card-sub">Silogismo Jurídico, Lagunas y Analogía</div>
         <div class="card-arrow">&#8594;</div>
@@ -633,6 +756,7 @@
       <div class="lesson-card exam-card" onclick="showLesson(29)">
         <div class="card-emoji">⏳</div>
         <div class="card-number">Lección 29</div>
+        <div class="card-state-row" id="card-state-29"></div>
         <div class="card-title">Aplicación de la Ley en el Tiempo</div>
         <div class="card-sub">Irretroactividad, Derecho Intertemporal y Excepciones</div>
         <div class="card-arrow">&#8594;</div>
@@ -640,6 +764,7 @@
       <div class="lesson-card exam-card" onclick="showLesson(30)">
         <div class="card-emoji">🗺️</div>
         <div class="card-number">Lección 30</div>
+        <div class="card-state-row" id="card-state-30"></div>
         <div class="card-title">Aplicación de la Ley en el Territorio</div>
         <div class="card-sub">Territorialidad, Extraterritorialidad y Orden Público Internacional</div>
         <div class="card-arrow">&#8594;</div>
@@ -2897,6 +3022,117 @@ function selectOpt(num, qi, oi) {
   opts.forEach(o => o.classList.remove('selected'));
   opts[oi].classList.add('selected');
 }
+
+
+// ===== PROGRESS SYSTEM (localStorage) =====
+const STORAGE_KEY = 'cj_progress_v1';
+const ALL_LESSONS = [11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30];
+
+function getProgress() {
+  try {
+    return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
+  } catch(e) { return {}; }
+}
+
+function saveProgress(data) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+}
+
+function markVisited(num) {
+  const p = getProgress();
+  if (!p[num]) p[num] = {};
+  p[num].visited = true;
+  saveProgress(p);
+  refreshProgressUI();
+}
+
+function markQuizResult(num, pct) {
+  const p = getProgress();
+  if (!p[num]) p[num] = {};
+  p[num].quizPct = pct;
+  p[num].quizPassed = pct >= 75;
+  saveProgress(p);
+  refreshProgressUI();
+}
+
+function refreshProgressUI() {
+  const p = getProgress();
+  let visited = 0, passed = 0;
+
+  ALL_LESSONS.forEach(num => {
+    const data = p[num] || {};
+    const card = document.querySelector(`[onclick="showLesson(${num})"]`);
+    const stateRow = document.getElementById('card-state-' + num);
+
+    if (card) {
+      if (data.visited) {
+        card.classList.remove('not-visited');
+        card.classList.add('visited-card');
+        visited++;
+      } else {
+        card.classList.add('not-visited');
+        card.classList.remove('visited-card');
+      }
+    }
+
+    if (stateRow) {
+      let badges = '';
+      if (data.visited) badges += '<span class="state-badge visited">👁 Visitada</span>';
+      if (data.quizPassed === true) {
+        badges += `<span class="state-badge quiz-pass">✅ Quiz ${data.quizPct}%</span>`;
+        passed++;
+      } else if (data.quizPct !== undefined) {
+        badges += `<span class="state-badge quiz-fail">📖 Quiz ${data.quizPct}%</span>`;
+      }
+      stateRow.innerHTML = badges;
+    }
+  });
+
+  // Update global bar
+  const fillEl = document.getElementById('gp-bar-fill');
+  const visitedEl = document.getElementById('gp-visited');
+  const passedEl = document.getElementById('gp-passed');
+  if (fillEl) fillEl.style.width = Math.round((visited / 20) * 100) + '%';
+  if (visitedEl) visitedEl.textContent = visited;
+  if (passedEl) passedEl.textContent = passed;
+}
+
+function resetAllProgress() {
+  if (confirm('¿Reiniciar todo el progreso? Se borrarán las visitas y resultados de quizzes.')) {
+    localStorage.removeItem(STORAGE_KEY);
+    refreshProgressUI();
+  }
+}
+
+// ── Hook into existing showLesson to mark visited ──────────────────────
+const _origShowLesson = showLesson;
+showLesson = function(num) {
+  _origShowLesson(num);
+  markVisited(num);
+};
+
+// ── Hook into submitQuiz to save result ───────────────────────────────
+const _origSubmitQuiz = submitQuiz;
+submitQuiz = function(num) {
+  _origSubmitQuiz(num);
+  // Read result from badge text
+  setTimeout(() => {
+    const badge = document.getElementById('quiz-score-' + num);
+    if (badge && badge.style.display !== 'none') {
+      const match = badge.textContent.match(/(\d+)%/);
+      if (match) markQuizResult(num, parseInt(match[1]));
+    }
+  }, 100);
+};
+
+// Init on page load
+document.addEventListener('DOMContentLoaded', () => {
+  ALL_LESSONS.forEach(num => {
+    const card = document.querySelector(`[onclick="showLesson(${num})"]`);
+    if (card) card.classList.add('not-visited');
+  });
+  refreshProgressUI();
+});
 
 </script>
 </body>
