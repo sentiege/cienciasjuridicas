@@ -330,6 +330,161 @@
   }
   .lesson-card.exam-card .card-number { color: #ffb74d; }
 
+
+  /* ===== QUIZ STYLES ===== */
+  .quiz-section {
+    max-width: 900px;
+    margin: 0 auto 2rem;
+    padding: 0 1.5rem;
+  }
+  .quiz-toggle-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: linear-gradient(135deg, #0f3460, #16213e);
+    border: 1.5px solid var(--gold);
+    color: var(--gold2);
+    padding: 0.75rem 1.5rem;
+    border-radius: 10px;
+    font-family: inherit;
+    font-size: 1rem;
+    cursor: pointer;
+    width: 100%;
+    justify-content: center;
+    transition: all 0.2s;
+    margin-top: 0.5rem;
+  }
+  .quiz-toggle-btn:hover {
+    background: linear-gradient(135deg, #1a4a7a, #1e2a45);
+    box-shadow: 0 4px 15px rgba(212,175,55,0.2);
+  }
+  .quiz-box {
+    display: none;
+    background: #131b2e;
+    border: 1px solid rgba(212,175,55,0.3);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-top: 1rem;
+    animation: fadeIn 0.3s ease;
+  }
+  .quiz-box.open { display: block; }
+  .quiz-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.2rem;
+    padding-bottom: 0.8rem;
+    border-bottom: 1px solid rgba(212,175,55,0.2);
+  }
+  .quiz-title {
+    color: var(--gold2);
+    font-size: 1.1rem;
+    font-weight: bold;
+  }
+  .quiz-score-badge {
+    background: rgba(212,175,55,0.15);
+    border: 1px solid var(--gold);
+    color: var(--gold2);
+    padding: 0.25rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    display: none;
+  }
+  .quiz-question-block { margin-bottom: 1.4rem; }
+  .quiz-question-text {
+    color: var(--text);
+    font-size: 0.95rem;
+    margin-bottom: 0.7rem;
+    line-height: 1.5;
+  }
+  .quiz-question-num {
+    color: var(--gold);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 0.3rem;
+  }
+  .quiz-options { display: flex; flex-direction: column; gap: 0.5rem; }
+  .quiz-opt {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(212,175,55,0.2);
+    color: var(--text);
+    padding: 0.6rem 1rem;
+    border-radius: 8px;
+    text-align: left;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 0.88rem;
+    transition: all 0.15s;
+    line-height: 1.4;
+  }
+  .quiz-opt:hover:not(:disabled) {
+    background: rgba(212,175,55,0.12);
+    border-color: var(--gold);
+    color: var(--gold2);
+  }
+  .quiz-opt.correct {
+    background: rgba(76,175,80,0.2);
+    border-color: #4caf50;
+    color: #a5d6a7;
+  }
+  .quiz-opt.wrong {
+    background: rgba(244,67,54,0.2);
+    border-color: #f44336;
+    color: #ef9a9a;
+  }
+  .quiz-opt:disabled { cursor: default; }
+  .quiz-feedback {
+    font-size: 0.8rem;
+    margin-top: 0.4rem;
+    padding: 0.3rem 0.6rem;
+    border-radius: 5px;
+    display: none;
+  }
+  .quiz-feedback.show { display: block; }
+  .quiz-feedback.ok { color: #81c784; background: rgba(76,175,80,0.1); }
+  .quiz-feedback.fail { color: #e57373; background: rgba(244,67,54,0.1); }
+  .quiz-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+    flex-wrap: wrap;
+  }
+  .quiz-submit-btn, .quiz-reset-btn {
+    padding: 0.6rem 1.4rem;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: 1.5px solid;
+  }
+  .quiz-submit-btn {
+    background: linear-gradient(135deg, var(--dark3), var(--dark2));
+    border-color: var(--gold);
+    color: var(--gold2);
+  }
+  .quiz-submit-btn:hover { background: rgba(212,175,55,0.2); }
+  .quiz-reset-btn {
+    background: transparent;
+    border-color: rgba(212,175,55,0.3);
+    color: #a89060;
+  }
+  .quiz-reset-btn:hover { border-color: var(--gold); color: var(--gold2); }
+  .quiz-result-bar {
+    display: none;
+    margin-top: 1rem;
+    padding: 1rem;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 1rem;
+    font-weight: bold;
+  }
+  .quiz-result-bar.show { display: block; }
+  .quiz-result-bar.great { background: rgba(76,175,80,0.15); border: 1px solid #4caf50; color: #a5d6a7; }
+  .quiz-result-bar.ok-result { background: rgba(255,152,0,0.15); border: 1px solid #ff9800; color: #ffb74d; }
+  .quiz-result-bar.fail-result { background: rgba(244,67,54,0.15); border: 1px solid #f44336; color: #ef9a9a; }
+
 </style>
 </head>
 <body>
@@ -540,7 +695,73 @@
       <button class="ctrl-btn" onclick="nextSlide(11)">&#8594;</button>
     </div>
     <div class="progress-bar-wrap"><div class="progress-bar" id="prog-11"></div></div>
-  </section>
+  
+  <div class="quiz-section" id="quiz-section-11">
+    <button class="quiz-toggle-btn" id="quiz-toggle-btn-11" onclick="toggleQuiz(11)">
+      📝 Quiz de esta lección
+    </button>
+    <div class="quiz-box" id="quiz-box-11">
+      <div class="quiz-header">
+        <span class="quiz-title">🧠 Quiz — Lección 11</span>
+        <span class="quiz-score-badge" id="quiz-score-11"></span>
+      </div>
+      
+          <div class="quiz-question-block">
+            <div class="quiz-question-num">Pregunta 1</div>
+            <div class="quiz-question-text">¿Qué regula principalmente la norma jurídica?</div>
+            <div class="quiz-options quiz-opts-0">
+              <button class="quiz-opt" onclick="selectOpt(11,0,0)">Las relaciones del hombre con Dios</button>
+              <button class="quiz-opt" onclick="selectOpt(11,0,1)">La conducta humana en sociedad de forma coercible</button>
+              <button class="quiz-opt" onclick="selectOpt(11,0,2)">El comportamiento decoroso en la vida social</button>
+              <button class="quiz-opt" onclick="selectOpt(11,0,3)">Los deberes ordenados al bien personal</button>
+              
+            </div>
+            <div class="quiz-feedback" id="quiz-fb-11-0"></div>
+          </div>
+          <div class="quiz-question-block">
+            <div class="quiz-question-num">Pregunta 2</div>
+            <div class="quiz-question-text">¿Cuál es el carácter principal de las normas del trato social?</div>
+            <div class="quiz-options quiz-opts-1">
+              <button class="quiz-opt" onclick="selectOpt(11,1,0)">Autónomo</button>
+              <button class="quiz-opt" onclick="selectOpt(11,1,1)">Coercible</button>
+              <button class="quiz-opt" onclick="selectOpt(11,1,2)">Imperativo</button>
+              <button class="quiz-opt" onclick="selectOpt(11,1,3)">Bilateral</button>
+              
+            </div>
+            <div class="quiz-feedback" id="quiz-fb-11-1"></div>
+          </div>
+          <div class="quiz-question-block">
+            <div class="quiz-question-num">Pregunta 3</div>
+            <div class="quiz-question-text">¿Qué prohíbe expresamente el Art. 4° de la CN paraguaya?</div>
+            <div class="quiz-options quiz-opts-2">
+              <button class="quiz-opt" onclick="selectOpt(11,2,0)">Las multas desmedidas</button>
+              <button class="quiz-opt" onclick="selectOpt(11,2,1)">La confiscación de bienes</button>
+              <button class="quiz-opt" onclick="selectOpt(11,2,2)">La pena de muerte</button>
+              <button class="quiz-opt" onclick="selectOpt(11,2,3)">Las torturas</button>
+              
+            </div>
+            <div class="quiz-feedback" id="quiz-fb-11-2"></div>
+          </div>
+          <div class="quiz-question-block">
+            <div class="quiz-question-num">Pregunta 4</div>
+            <div class="quiz-question-text">¿Cómo se llama la norma que crea la obligación que debe cumplirse?</div>
+            <div class="quiz-options quiz-opts-3">
+              <button class="quiz-opt" onclick="selectOpt(11,3,0)">Norma secundaria</button>
+              <button class="quiz-opt" onclick="selectOpt(11,3,1)">Norma sancionadora</button>
+              <button class="quiz-opt" onclick="selectOpt(11,3,2)">Norma primaria o sancionada</button>
+              <button class="quiz-opt" onclick="selectOpt(11,3,3)">Norma declarativa</button>
+              
+            </div>
+            <div class="quiz-feedback" id="quiz-fb-11-3"></div>
+          </div>
+      <div class="quiz-actions">
+        <button class="quiz-submit-btn" id="quiz-submit-11" onclick="submitQuiz(11)">✔ Verificar respuestas</button>
+        <button class="quiz-reset-btn" onclick="resetQuiz(11)">🔄 Reintentar</button>
+      </div>
+      <div class="quiz-result-bar" id="quiz-result-11"></div>
+    </div>
+  </div>
+</section>
   <section class="lesson-page" id="lesson-12" style="display:none">
     <header class="lesson-header">
       <button class="back-btn" onclick="showHome()">&#8592; Volver al inicio</button>
@@ -584,7 +805,73 @@
       <button class="ctrl-btn" onclick="nextSlide(12)">&#8594;</button>
     </div>
     <div class="progress-bar-wrap"><div class="progress-bar" id="prog-12"></div></div>
-  </section>
+  
+  <div class="quiz-section" id="quiz-section-12">
+    <button class="quiz-toggle-btn" id="quiz-toggle-btn-12" onclick="toggleQuiz(12)">
+      📝 Quiz de esta lección
+    </button>
+    <div class="quiz-box" id="quiz-box-12">
+      <div class="quiz-header">
+        <span class="quiz-title">🧠 Quiz — Lección 12</span>
+        <span class="quiz-score-badge" id="quiz-score-12"></span>
+      </div>
+      
+          <div class="quiz-question-block">
+            <div class="quiz-question-num">Pregunta 1</div>
+            <div class="quiz-question-text">¿Qué es la pirámide de Kelsen?</div>
+            <div class="quiz-options quiz-opts-0">
+              <button class="quiz-opt" onclick="selectOpt(12,0,0)">Una clasificación de los delitos</button>
+              <button class="quiz-opt" onclick="selectOpt(12,0,1)">La jerarquización piramidal de las normas jurídicas</button>
+              <button class="quiz-opt" onclick="selectOpt(12,0,2)">Un método de interpretación de leyes</button>
+              <button class="quiz-opt" onclick="selectOpt(12,0,3)">La organización de los poderes del Estado</button>
+              
+            </div>
+            <div class="quiz-feedback" id="quiz-fb-12-0"></div>
+          </div>
+          <div class="quiz-question-block">
+            <div class="quiz-question-num">Pregunta 2</div>
+            <div class="quiz-question-text">¿Cuál norma encabeza la pirámide jurídica en Paraguay según el Art. 137 CN?</div>
+            <div class="quiz-options quiz-opts-1">
+              <button class="quiz-opt" onclick="selectOpt(12,1,0)">Los tratados internacionales</button>
+              <button class="quiz-opt" onclick="selectOpt(12,1,1)">Las leyes del Congreso</button>
+              <button class="quiz-opt" onclick="selectOpt(12,1,2)">La Constitución Nacional</button>
+              <button class="quiz-opt" onclick="selectOpt(12,1,3)">Los decretos del Poder Ejecutivo</button>
+              
+            </div>
+            <div class="quiz-feedback" id="quiz-fb-12-1"></div>
+          </div>
+          <div class="quiz-question-block">
+            <div class="quiz-question-num">Pregunta 3</div>
+            <div class="quiz-question-text">¿Cómo caduca violentamente un ordenamiento jurídico?</div>
+            <div class="quiz-options quiz-opts-2">
+              <button class="quiz-opt" onclick="selectOpt(12,2,0)">Por reforma parcial de la Constitución</button>
+              <button class="quiz-opt" onclick="selectOpt(12,2,1)">Por una revolución</button>
+              <button class="quiz-opt" onclick="selectOpt(12,2,2)">Por vencimiento del plazo constitucional</button>
+              <button class="quiz-opt" onclick="selectOpt(12,2,3)">Por decisión del Poder Judicial</button>
+              
+            </div>
+            <div class="quiz-feedback" id="quiz-fb-12-2"></div>
+          </div>
+          <div class="quiz-question-block">
+            <div class="quiz-question-num">Pregunta 4</div>
+            <div class="quiz-question-text">¿Qué es la antijuridicidad?</div>
+            <div class="quiz-options quiz-opts-3">
+              <button class="quiz-opt" onclick="selectOpt(12,3,0)">El conjunto de hechos que se ajustan al orden jurídico</button>
+              <button class="quiz-opt" onclick="selectOpt(12,3,1)">Los hechos que se oponen al orden jurídico por ser ilícitos o prohibidos</button>
+              <button class="quiz-opt" onclick="selectOpt(12,3,2)">La conducta lícita de los órganos del Estado</button>
+              <button class="quiz-opt" onclick="selectOpt(12,3,3)">La interpretación de normas ambiguas</button>
+              
+            </div>
+            <div class="quiz-feedback" id="quiz-fb-12-3"></div>
+          </div>
+      <div class="quiz-actions">
+        <button class="quiz-submit-btn" id="quiz-submit-12" onclick="submitQuiz(12)">✔ Verificar respuestas</button>
+        <button class="quiz-reset-btn" onclick="resetQuiz(12)">🔄 Reintentar</button>
+      </div>
+      <div class="quiz-result-bar" id="quiz-result-12"></div>
+    </div>
+  </div>
+</section>
   <section class="lesson-page" id="lesson-13" style="display:none">
     <header class="lesson-header">
       <button class="back-btn" onclick="showHome()">&#8592; Volver al inicio</button>
@@ -623,7 +910,73 @@
       <button class="ctrl-btn" onclick="nextSlide(13)">&#8594;</button>
     </div>
     <div class="progress-bar-wrap"><div class="progress-bar" id="prog-13"></div></div>
-  </section>
+  
+  <div class="quiz-section" id="quiz-section-13">
+    <button class="quiz-toggle-btn" id="quiz-toggle-btn-13" onclick="toggleQuiz(13)">
+      📝 Quiz de esta lección
+    </button>
+    <div class="quiz-box" id="quiz-box-13">
+      <div class="quiz-header">
+        <span class="quiz-title">🧠 Quiz — Lección 13</span>
+        <span class="quiz-score-badge" id="quiz-score-13"></span>
+      </div>
+      
+          <div class="quiz-question-block">
+            <div class="quiz-question-num">Pregunta 1</div>
+            <div class="quiz-question-text">¿En qué fecha fue sancionada la Constitución vigente del Paraguay?</div>
+            <div class="quiz-options quiz-opts-0">
+              <button class="quiz-opt" onclick="selectOpt(13,0,0)">15 de agosto de 1992</button>
+              <button class="quiz-opt" onclick="selectOpt(13,0,1)">20 de junio de 1992</button>
+              <button class="quiz-opt" onclick="selectOpt(13,0,2)">1° de marzo de 1992</button>
+              <button class="quiz-opt" onclick="selectOpt(13,0,3)">3 de noviembre de 1992</button>
+              
+            </div>
+            <div class="quiz-feedback" id="quiz-fb-13-0"></div>
+          </div>
+          <div class="quiz-question-block">
+            <div class="quiz-question-num">Pregunta 2</div>
+            <div class="quiz-question-text">¿Qué estudia el Derecho Constitucional?</div>
+            <div class="quiz-options quiz-opts-1">
+              <button class="quiz-opt" onclick="selectOpt(13,1,0)">Las relaciones entre particulares</button>
+              <button class="quiz-opt" onclick="selectOpt(13,1,1)">La estructura jurídica de un Estado establecida en su Constitución</button>
+              <button class="quiz-opt" onclick="selectOpt(13,1,2)">Las normas del comercio internacional</button>
+              <button class="quiz-opt" onclick="selectOpt(13,1,3)">Los servicios públicos municipales</button>
+              
+            </div>
+            <div class="quiz-feedback" id="quiz-fb-13-1"></div>
+          </div>
+          <div class="quiz-question-block">
+            <div class="quiz-question-num">Pregunta 3</div>
+            <div class="quiz-question-text">¿Cuál es la parte de la Constitución que trata los derechos fundamentales del hombre?</div>
+            <div class="quiz-options quiz-opts-2">
+              <button class="quiz-opt" onclick="selectOpt(13,2,0)">El Preámbulo</button>
+              <button class="quiz-opt" onclick="selectOpt(13,2,1)">La parte dogmática</button>
+              <button class="quiz-opt" onclick="selectOpt(13,2,2)">La parte orgánica</button>
+              <button class="quiz-opt" onclick="selectOpt(13,2,3)">Los artículos transitorios</button>
+              
+            </div>
+            <div class="quiz-feedback" id="quiz-fb-13-2"></div>
+          </div>
+          <div class="quiz-question-block">
+            <div class="quiz-question-num">Pregunta 4</div>
+            <div class="quiz-question-text">¿Qué es el Derecho Penal?</div>
+            <div class="quiz-options quiz-opts-3">
+              <button class="quiz-opt" onclick="selectOpt(13,3,0)">Normas que regulan los servicios públicos</button>
+              <button class="quiz-opt" onclick="selectOpt(13,3,1)">Normas que determinan los delitos, las penas y medidas para evitar la criminalidad</button>
+              <button class="quiz-opt" onclick="selectOpt(13,3,2)">Normas que regulan la actividad financiera del Estado</button>
+              <button class="quiz-opt" onclick="selectOpt(13,3,3)">Normas que organizan la familia</button>
+              
+            </div>
+            <div class="quiz-feedback" id="quiz-fb-13-3"></div>
+          </div>
+      <div class="quiz-actions">
+        <button class="quiz-submit-btn" id="quiz-submit-13" onclick="submitQuiz(13)">✔ Verificar respuestas</button>
+        <button class="quiz-reset-btn" onclick="resetQuiz(13)">🔄 Reintentar</button>
+      </div>
+      <div class="quiz-result-bar" id="quiz-result-13"></div>
+    </div>
+  </div>
+</section>
   <section class="lesson-page" id="lesson-14" style="display:none">
     <header class="lesson-header">
       <button class="back-btn" onclick="showHome()">&#8592; Volver al inicio</button>
@@ -662,7 +1015,73 @@
       <button class="ctrl-btn" onclick="nextSlide(14)">&#8594;</button>
     </div>
     <div class="progress-bar-wrap"><div class="progress-bar" id="prog-14"></div></div>
-  </section>
+  
+  <div class="quiz-section" id="quiz-section-14">
+    <button class="quiz-toggle-btn" id="quiz-toggle-btn-14" onclick="toggleQuiz(14)">
+      📝 Quiz de esta lección
+    </button>
+    <div class="quiz-box" id="quiz-box-14">
+      <div class="quiz-header">
+        <span class="quiz-title">🧠 Quiz — Lección 14</span>
+        <span class="quiz-score-badge" id="quiz-score-14"></span>
+      </div>
+      
+          <div class="quiz-question-block">
+            <div class="quiz-question-num">Pregunta 1</div>
+            <div class="quiz-question-text">¿Qué regula el Derecho Internacional Público?</div>
+            <div class="quiz-options quiz-opts-0">
+              <button class="quiz-opt" onclick="selectOpt(14,0,0)">Relaciones entre particulares de distintos países</button>
+              <button class="quiz-opt" onclick="selectOpt(14,0,1)">Relaciones jurídicas entre Estados soberanos y organizaciones internacionales</button>
+              <button class="quiz-opt" onclick="selectOpt(14,0,2)">Normas de la Iglesia Católica</button>
+              <button class="quiz-opt" onclick="selectOpt(14,0,3)">Relaciones laborales internacionales</button>
+              
+            </div>
+            <div class="quiz-feedback" id="quiz-fb-14-0"></div>
+          </div>
+          <div class="quiz-question-block">
+            <div class="quiz-question-num">Pregunta 2</div>
+            <div class="quiz-question-text">Según el Art. 144 CN, ¿qué declara Paraguay respecto a la guerra?</div>
+            <div class="quiz-options quiz-opts-1">
+              <button class="quiz-opt" onclick="selectOpt(14,1,0)">Acepta la guerra preventiva</button>
+              <button class="quiz-opt" onclick="selectOpt(14,1,1)">Renuncia a la guerra pero sustenta el principio de legítima defensa</button>
+              <button class="quiz-opt" onclick="selectOpt(14,1,2)">Prohíbe cualquier tipo de defensa armada</button>
+              <button class="quiz-opt" onclick="selectOpt(14,1,3)">Acepta la guerra solo con autorización de la ONU</button>
+              
+            </div>
+            <div class="quiz-feedback" id="quiz-fb-14-1"></div>
+          </div>
+          <div class="quiz-question-block">
+            <div class="quiz-question-num">Pregunta 3</div>
+            <div class="quiz-question-text">¿Qué es el Derecho Canónico?</div>
+            <div class="quiz-options quiz-opts-2">
+              <button class="quiz-opt" onclick="selectOpt(14,2,0)">Leyes del Estado para regular las religiones</button>
+              <button class="quiz-opt" onclick="selectOpt(14,2,1)">Conjunto de leyes dadas por Dios o por la potestad eclesiástica para la organización de la Iglesia</button>
+              <button class="quiz-opt" onclick="selectOpt(14,2,2)">Normas internacionales sobre libertad religiosa</button>
+              <button class="quiz-opt" onclick="selectOpt(14,2,3)">Acuerdos entre el Vaticano y los Estados</button>
+              
+            </div>
+            <div class="quiz-feedback" id="quiz-fb-14-2"></div>
+          </div>
+          <div class="quiz-question-block">
+            <div class="quiz-question-num">Pregunta 4</div>
+            <div class="quiz-question-text">¿Quién promulgó el Código de Derecho Canónico vigente?</div>
+            <div class="quiz-options quiz-opts-3">
+              <button class="quiz-opt" onclick="selectOpt(14,3,0)">El Concilio Vaticano II en 1965</button>
+              <button class="quiz-opt" onclick="selectOpt(14,3,1)">La autoridad Papal el 25 de enero de 1983</button>
+              <button class="quiz-opt" onclick="selectOpt(14,3,2)">La OEA en 1990</button>
+              <button class="quiz-opt" onclick="selectOpt(14,3,3)">El Papa Juan Pablo II en 2000</button>
+              
+            </div>
+            <div class="quiz-feedback" id="quiz-fb-14-3"></div>
+          </div>
+      <div class="quiz-actions">
+        <button class="quiz-submit-btn" id="quiz-submit-14" onclick="submitQuiz(14)">✔ Verificar respuestas</button>
+        <button class="quiz-reset-btn" onclick="resetQuiz(14)">🔄 Reintentar</button>
+      </div>
+      <div class="quiz-result-bar" id="quiz-result-14"></div>
+    </div>
+  </div>
+</section>
   <section class="lesson-page" id="lesson-15" style="display:none">
     <header class="lesson-header">
       <button class="back-btn" onclick="showHome()">&#8592; Volver al inicio</button>
@@ -706,7 +1125,73 @@
       <button class="ctrl-btn" onclick="nextSlide(15)">&#8594;</button>
     </div>
     <div class="progress-bar-wrap"><div class="progress-bar" id="prog-15"></div></div>
-  </section>
+  
+  <div class="quiz-section" id="quiz-section-15">
+    <button class="quiz-toggle-btn" id="quiz-toggle-btn-15" onclick="toggleQuiz(15)">
+      📝 Quiz de esta lección
+    </button>
+    <div class="quiz-box" id="quiz-box-15">
+      <div class="quiz-header">
+        <span class="quiz-title">🧠 Quiz — Lección 15</span>
+        <span class="quiz-score-badge" id="quiz-score-15"></span>
+      </div>
+      
+          <div class="quiz-question-block">
+            <div class="quiz-question-num">Pregunta 1</div>
+            <div class="quiz-question-text">¿Cuántos artículos tiene el Código Civil Paraguayo (Ley 1183/1985)?</div>
+            <div class="quiz-options quiz-opts-0">
+              <button class="quiz-opt" onclick="selectOpt(15,0,0)">1500 artículos</button>
+              <button class="quiz-opt" onclick="selectOpt(15,0,1)">2000 artículos</button>
+              <button class="quiz-opt" onclick="selectOpt(15,0,2)">2815 artículos</button>
+              <button class="quiz-opt" onclick="selectOpt(15,0,3)">3200 artículos</button>
+              
+            </div>
+            <div class="quiz-feedback" id="quiz-fb-15-0"></div>
+          </div>
+          <div class="quiz-question-block">
+            <div class="quiz-question-num">Pregunta 2</div>
+            <div class="quiz-question-text">¿Qué ley regula el Derecho Laboral en Paraguay?</div>
+            <div class="quiz-options quiz-opts-1">
+              <button class="quiz-opt" onclick="selectOpt(15,1,0)">Ley 1183/1985</button>
+              <button class="quiz-opt" onclick="selectOpt(15,1,1)">Ley 213/1993</button>
+              <button class="quiz-opt" onclick="selectOpt(15,1,2)">Ley 1863/2002</button>
+              <button class="quiz-opt" onclick="selectOpt(15,1,3)">Ley 1294/1998</button>
+              
+            </div>
+            <div class="quiz-feedback" id="quiz-fb-15-1"></div>
+          </div>
+          <div class="quiz-question-block">
+            <div class="quiz-question-num">Pregunta 3</div>
+            <div class="quiz-question-text">¿Cuál es la principal diferencia entre Derecho Público y Derecho Privado?</div>
+            <div class="quiz-options quiz-opts-2">
+              <button class="quiz-opt" onclick="selectOpt(15,2,0)">El público regula solo penales; el privado solo civiles</button>
+              <button class="quiz-opt" onclick="selectOpt(15,2,1)">El público regula la estructura del Estado y sus relaciones; el privado regula relaciones entre particulares</button>
+              <button class="quiz-opt" onclick="selectOpt(15,2,2)">El público es escrito; el privado es consuetudinario</button>
+              <button class="quiz-opt" onclick="selectOpt(15,2,3)">No hay diferencia real entre ambos</button>
+              
+            </div>
+            <div class="quiz-feedback" id="quiz-fb-15-2"></div>
+          </div>
+          <div class="quiz-question-block">
+            <div class="quiz-question-num">Pregunta 4</div>
+            <div class="quiz-question-text">¿Qué crea el INDERT según la Ley 2419/2004?</div>
+            <div class="quiz-options quiz-opts-3">
+              <button class="quiz-opt" onclick="selectOpt(15,3,0)">El Instituto Nacional de Desarrollo Rural y Tierras</button>
+              <button class="quiz-opt" onclick="selectOpt(15,3,1)">El Instituto Nacional de Derecho y Trabajo</button>
+              <button class="quiz-opt" onclick="selectOpt(15,3,2)">El Instituto de Derecho Rural y Territorial</button>
+              <button class="quiz-opt" onclick="selectOpt(15,3,3)">El Instituto Nacional de Recursos Tributarios</button>
+              
+            </div>
+            <div class="quiz-feedback" id="quiz-fb-15-3"></div>
+          </div>
+      <div class="quiz-actions">
+        <button class="quiz-submit-btn" id="quiz-submit-15" onclick="submitQuiz(15)">✔ Verificar respuestas</button>
+        <button class="quiz-reset-btn" onclick="resetQuiz(15)">🔄 Reintentar</button>
+      </div>
+      <div class="quiz-result-bar" id="quiz-result-15"></div>
+    </div>
+  </div>
+</section>
   <section class="lesson-page" id="lesson-16" style="display:none">
     <header class="lesson-header">
       <button class="back-btn" onclick="showHome()">&#8592; Volver al inicio</button>
@@ -740,7 +1225,73 @@
       <button class="ctrl-btn" onclick="nextSlide(16)">&#8594;</button>
     </div>
     <div class="progress-bar-wrap"><div class="progress-bar" id="prog-16"></div></div>
-  </section>
+  
+  <div class="quiz-section" id="quiz-section-16">
+    <button class="quiz-toggle-btn" id="quiz-toggle-btn-16" onclick="toggleQuiz(16)">
+      📝 Quiz de esta lección
+    </button>
+    <div class="quiz-box" id="quiz-box-16">
+      <div class="quiz-header">
+        <span class="quiz-title">🧠 Quiz — Lección 16</span>
+        <span class="quiz-score-badge" id="quiz-score-16"></span>
+      </div>
+      
+          <div class="quiz-question-block">
+            <div class="quiz-question-num">Pregunta 1</div>
+            <div class="quiz-question-text">¿Qué establece el Art. 46 CN sobre la igualdad?</div>
+            <div class="quiz-options quiz-opts-0">
+              <button class="quiz-opt" onclick="selectOpt(16,0,0)">Solo los ciudadanos paraguayos son iguales ante la ley</button>
+              <button class="quiz-opt" onclick="selectOpt(16,0,1)">Todos los habitantes son iguales en dignidad y derechos, sin discriminaciones</button>
+              <button class="quiz-opt" onclick="selectOpt(16,0,2)">La igualdad aplica solo en materia penal</button>
+              <button class="quiz-opt" onclick="selectOpt(16,0,3)">La igualdad es un principio relativo según la condición social</button>
+              
+            </div>
+            <div class="quiz-feedback" id="quiz-fb-16-0"></div>
+          </div>
+          <div class="quiz-question-block">
+            <div class="quiz-question-num">Pregunta 2</div>
+            <div class="quiz-question-text">Según Kelsen, ¿qué es el derecho subjetivo?</div>
+            <div class="quiz-options quiz-opts-1">
+              <button class="quiz-opt" onclick="selectOpt(16,1,0)">Un poder natural del hombre independiente del derecho objetivo</button>
+              <button class="quiz-opt" onclick="selectOpt(16,1,1)">El mismo derecho objetivo en relación con el sujeto</button>
+              <button class="quiz-opt" onclick="selectOpt(16,1,2)">Un interés protegido por la voluntad individual</button>
+              <button class="quiz-opt" onclick="selectOpt(16,1,3)">Una facultad exclusiva de las personas jurídicas</button>
+              
+            </div>
+            <div class="quiz-feedback" id="quiz-fb-16-1"></div>
+          </div>
+          <div class="quiz-question-block">
+            <div class="quiz-question-num">Pregunta 3</div>
+            <div class="quiz-question-text">¿Qué garantiza el Art. 9 CN?</div>
+            <div class="quiz-options quiz-opts-2">
+              <button class="quiz-opt" onclick="selectOpt(16,2,0)">El derecho a la propiedad privada</button>
+              <button class="quiz-opt" onclick="selectOpt(16,2,1)">El derecho a la libertad y seguridad de las personas</button>
+              <button class="quiz-opt" onclick="selectOpt(16,2,2)">El derecho al trabajo</button>
+              <button class="quiz-opt" onclick="selectOpt(16,2,3)">El derecho a la educación</button>
+              
+            </div>
+            <div class="quiz-feedback" id="quiz-fb-16-2"></div>
+          </div>
+          <div class="quiz-question-block">
+            <div class="quiz-question-num">Pregunta 4</div>
+            <div class="quiz-question-text">¿Cuáles son los tres derechos subjetivos fundamentales?</div>
+            <div class="quiz-options quiz-opts-3">
+              <button class="quiz-opt" onclick="selectOpt(16,3,0)">Propiedad, libertad y trabajo</button>
+              <button class="quiz-opt" onclick="selectOpt(16,3,1)">Igualdad, libertad y resistencia a la opresión</button>
+              <button class="quiz-opt" onclick="selectOpt(16,3,2)">Vida, salud y educación</button>
+              <button class="quiz-opt" onclick="selectOpt(16,3,3)">Voto, expresión y asociación</button>
+              
+            </div>
+            <div class="quiz-feedback" id="quiz-fb-16-3"></div>
+          </div>
+      <div class="quiz-actions">
+        <button class="quiz-submit-btn" id="quiz-submit-16" onclick="submitQuiz(16)">✔ Verificar respuestas</button>
+        <button class="quiz-reset-btn" onclick="resetQuiz(16)">🔄 Reintentar</button>
+      </div>
+      <div class="quiz-result-bar" id="quiz-result-16"></div>
+    </div>
+  </div>
+</section>
   <section class="lesson-page" id="lesson-17" style="display:none">
     <header class="lesson-header">
       <button class="back-btn" onclick="showHome()">&#8592; Volver al inicio</button>
@@ -774,7 +1325,73 @@
       <button class="ctrl-btn" onclick="nextSlide(17)">&#8594;</button>
     </div>
     <div class="progress-bar-wrap"><div class="progress-bar" id="prog-17"></div></div>
-  </section>
+  
+  <div class="quiz-section" id="quiz-section-17">
+    <button class="quiz-toggle-btn" id="quiz-toggle-btn-17" onclick="toggleQuiz(17)">
+      📝 Quiz de esta lección
+    </button>
+    <div class="quiz-box" id="quiz-box-17">
+      <div class="quiz-header">
+        <span class="quiz-title">🧠 Quiz — Lección 17</span>
+        <span class="quiz-score-badge" id="quiz-score-17"></span>
+      </div>
+      
+          <div class="quiz-question-block">
+            <div class="quiz-question-num">Pregunta 1</div>
+            <div class="quiz-question-text">¿Qué establece el Art. 372 del Código Civil sobre el ejercicio de los derechos?</div>
+            <div class="quiz-options quiz-opts-0">
+              <button class="quiz-opt" onclick="selectOpt(17,0,0)">Los derechos pueden ejercerse de cualquier forma</button>
+              <button class="quiz-opt" onclick="selectOpt(17,0,1)">Los derechos deben ser ejercidos de buena fe</button>
+              <button class="quiz-opt" onclick="selectOpt(17,0,2)">El Estado garantiza el ejercicio irrestricto de todo derecho</button>
+              <button class="quiz-opt" onclick="selectOpt(17,0,3)">Los derechos vencen si no se ejercen en 10 años</button>
+              
+            </div>
+            <div class="quiz-feedback" id="quiz-fb-17-0"></div>
+          </div>
+          <div class="quiz-question-block">
+            <div class="quiz-question-num">Pregunta 2</div>
+            <div class="quiz-question-text">¿Cuándo se configura el abuso del derecho?</div>
+            <div class="quiz-options quiz-opts-1">
+              <button class="quiz-opt" onclick="selectOpt(17,1,0)">Cuando alguien ejerce un derecho para beneficio propio</button>
+              <button class="quiz-opt" onclick="selectOpt(17,1,1)">Cuando se ejerce un derecho sin necesidad y con intención de dañar a otro</button>
+              <button class="quiz-opt" onclick="selectOpt(17,1,2)">Cuando se ejerce un derecho sin asesoramiento legal</button>
+              <button class="quiz-opt" onclick="selectOpt(17,1,3)">Cuando el Estado ejerce sus atribuciones coactivamente</button>
+              
+            </div>
+            <div class="quiz-feedback" id="quiz-fb-17-1"></div>
+          </div>
+          <div class="quiz-question-block">
+            <div class="quiz-question-num">Pregunta 3</div>
+            <div class="quiz-question-text">¿Cuál es una característica de las leyes de orden público?</div>
+            <div class="quiz-options quiz-opts-2">
+              <button class="quiz-opt" onclick="selectOpt(17,2,0)">Pueden renunciarse con consentimiento de partes</button>
+              <button class="quiz-opt" onclick="selectOpt(17,2,1)">Su violación produce nulidad relativa</button>
+              <button class="quiz-opt" onclick="selectOpt(17,2,2)">Son aplicables de oficio por el juez</button>
+              <button class="quiz-opt" onclick="selectOpt(17,2,3)">Son supletorias de la voluntad de las partes</button>
+              
+            </div>
+            <div class="quiz-feedback" id="quiz-fb-17-2"></div>
+          </div>
+          <div class="quiz-question-block">
+            <div class="quiz-question-num">Pregunta 4</div>
+            <div class="quiz-question-text">¿Qué protege el Art. 33 CN?</div>
+            <div class="quiz-options quiz-opts-3">
+              <button class="quiz-opt" onclick="selectOpt(17,3,0)">La propiedad privada</button>
+              <button class="quiz-opt" onclick="selectOpt(17,3,1)">El derecho a la intimidad personal y familiar</button>
+              <button class="quiz-opt" onclick="selectOpt(17,3,2)">La libertad de expresión</button>
+              <button class="quiz-opt" onclick="selectOpt(17,3,3)">El derecho al trabajo</button>
+              
+            </div>
+            <div class="quiz-feedback" id="quiz-fb-17-3"></div>
+          </div>
+      <div class="quiz-actions">
+        <button class="quiz-submit-btn" id="quiz-submit-17" onclick="submitQuiz(17)">✔ Verificar respuestas</button>
+        <button class="quiz-reset-btn" onclick="resetQuiz(17)">🔄 Reintentar</button>
+      </div>
+      <div class="quiz-result-bar" id="quiz-result-17"></div>
+    </div>
+  </div>
+</section>
   <section class="lesson-page" id="lesson-18" style="display:none">
     <header class="lesson-header">
       <button class="back-btn" onclick="showHome()">&#8592; Volver al inicio</button>
@@ -813,7 +1430,73 @@
       <button class="ctrl-btn" onclick="nextSlide(18)">&#8594;</button>
     </div>
     <div class="progress-bar-wrap"><div class="progress-bar" id="prog-18"></div></div>
-  </section>
+  
+  <div class="quiz-section" id="quiz-section-18">
+    <button class="quiz-toggle-btn" id="quiz-toggle-btn-18" onclick="toggleQuiz(18)">
+      📝 Quiz de esta lección
+    </button>
+    <div class="quiz-box" id="quiz-box-18">
+      <div class="quiz-header">
+        <span class="quiz-title">🧠 Quiz — Lección 18</span>
+        <span class="quiz-score-badge" id="quiz-score-18"></span>
+      </div>
+      
+          <div class="quiz-question-block">
+            <div class="quiz-question-num">Pregunta 1</div>
+            <div class="quiz-question-text">¿Desde cuándo comienza la existencia jurídica de las personas físicas?</div>
+            <div class="quiz-options quiz-opts-0">
+              <button class="quiz-opt" onclick="selectOpt(18,0,0)">Desde el nacimiento</button>
+              <button class="quiz-opt" onclick="selectOpt(18,0,1)">Desde los 14 años</button>
+              <button class="quiz-opt" onclick="selectOpt(18,0,2)">Desde la concepción en el seno materno</button>
+              <button class="quiz-opt" onclick="selectOpt(18,0,3)">Desde la inscripción en el Registro Civil</button>
+              
+            </div>
+            <div class="quiz-feedback" id="quiz-fb-18-0"></div>
+          </div>
+          <div class="quiz-question-block">
+            <div class="quiz-question-num">Pregunta 2</div>
+            <div class="quiz-question-text">¿Qué es el domicilio legal según el Art. 53 del Código Civil?</div>
+            <div class="quiz-options quiz-opts-1">
+              <button class="quiz-opt" onclick="selectOpt(18,1,0)">El lugar elegido por la persona para sus negocios</button>
+              <button class="quiz-opt" onclick="selectOpt(18,1,1)">El lugar donde la ley presume que una persona reside de manera permanente</button>
+              <button class="quiz-opt" onclick="selectOpt(18,1,2)">El domicilio del lugar de nacimiento</button>
+              <button class="quiz-opt" onclick="selectOpt(18,1,3)">El lugar donde la persona pasa más de 6 meses al año</button>
+              
+            </div>
+            <div class="quiz-feedback" id="quiz-fb-18-1"></div>
+          </div>
+          <div class="quiz-question-block">
+            <div class="quiz-question-num">Pregunta 3</div>
+            <div class="quiz-question-text">¿Qué son absolutamente incapaces de hecho según el Art. 37 CC?</div>
+            <div class="quiz-options quiz-opts-2">
+              <button class="quiz-opt" onclick="selectOpt(18,2,0)">Personas mayores de 70 años</button>
+              <button class="quiz-opt" onclick="selectOpt(18,2,1)">Menores de 14 años, personas por nacer, enfermos mentales y sordomudos que no saben darse a entender</button>
+              <button class="quiz-opt" onclick="selectOpt(18,2,2)">Solo los menores de edad</button>
+              <button class="quiz-opt" onclick="selectOpt(18,2,3)">Las personas declaradas en quiebra</button>
+              
+            </div>
+            <div class="quiz-feedback" id="quiz-fb-18-2"></div>
+          </div>
+          <div class="quiz-question-block">
+            <div class="quiz-question-num">Pregunta 4</div>
+            <div class="quiz-question-text">¿Cuál es la diferencia entre relación jurídica y situación jurídica?</div>
+            <div class="quiz-options quiz-opts-3">
+              <button class="quiz-opt" onclick="selectOpt(18,3,0)">No hay diferencia, son sinónimos</button>
+              <button class="quiz-opt" onclick="selectOpt(18,3,1)">En la relación jurídica los derechos y obligaciones están determinados; en la situación son eventuales</button>
+              <button class="quiz-opt" onclick="selectOpt(18,3,2)">La situación es más específica que la relación</button>
+              <button class="quiz-opt" onclick="selectOpt(18,3,3)">La relación jurídica solo aplica a personas jurídicas</button>
+              
+            </div>
+            <div class="quiz-feedback" id="quiz-fb-18-3"></div>
+          </div>
+      <div class="quiz-actions">
+        <button class="quiz-submit-btn" id="quiz-submit-18" onclick="submitQuiz(18)">✔ Verificar respuestas</button>
+        <button class="quiz-reset-btn" onclick="resetQuiz(18)">🔄 Reintentar</button>
+      </div>
+      <div class="quiz-result-bar" id="quiz-result-18"></div>
+    </div>
+  </div>
+</section>
   <section class="lesson-page" id="lesson-19" style="display:none">
     <header class="lesson-header">
       <button class="back-btn" onclick="showHome()">&#8592; Volver al inicio</button>
@@ -852,7 +1535,73 @@
       <button class="ctrl-btn" onclick="nextSlide(19)">&#8594;</button>
     </div>
     <div class="progress-bar-wrap"><div class="progress-bar" id="prog-19"></div></div>
-  </section>
+  
+  <div class="quiz-section" id="quiz-section-19">
+    <button class="quiz-toggle-btn" id="quiz-toggle-btn-19" onclick="toggleQuiz(19)">
+      📝 Quiz de esta lección
+    </button>
+    <div class="quiz-box" id="quiz-box-19">
+      <div class="quiz-header">
+        <span class="quiz-title">🧠 Quiz — Lección 19</span>
+        <span class="quiz-score-badge" id="quiz-score-19"></span>
+      </div>
+      
+          <div class="quiz-question-block">
+            <div class="quiz-question-num">Pregunta 1</div>
+            <div class="quiz-question-text">¿Qué son los hechos voluntarios según el Código Civil?</div>
+            <div class="quiz-options quiz-opts-0">
+              <button class="quiz-opt" onclick="selectOpt(19,0,0)">Los ejecutados con discernimiento, intención y libertad</button>
+              <button class="quiz-opt" onclick="selectOpt(19,0,1)">Los producidos solo por causas naturales</button>
+              <button class="quiz-opt" onclick="selectOpt(19,0,2)">Los actos que no generan obligaciones</button>
+              <button class="quiz-opt" onclick="selectOpt(19,0,3)">Los ejecutados por representantes legales</button>
+              
+            </div>
+            <div class="quiz-feedback" id="quiz-fb-19-0"></div>
+          </div>
+          <div class="quiz-question-block">
+            <div class="quiz-question-num">Pregunta 2</div>
+            <div class="quiz-question-text">¿Qué excluye la intención al momento de realizar un acto jurídico?</div>
+            <div class="quiz-options quiz-opts-1">
+              <button class="quiz-opt" onclick="selectOpt(19,1,0)">La fuerza y la intimidación</button>
+              <button class="quiz-opt" onclick="selectOpt(19,1,1)">El error o ignorancia y el dolo</button>
+              <button class="quiz-opt" onclick="selectOpt(19,1,2)">La minoría de edad y la insanía</button>
+              <button class="quiz-opt" onclick="selectOpt(19,1,3)">La representación y el mandato</button>
+              
+            </div>
+            <div class="quiz-feedback" id="quiz-fb-19-1"></div>
+          </div>
+          <div class="quiz-question-block">
+            <div class="quiz-question-num">Pregunta 3</div>
+            <div class="quiz-question-text">¿Cómo define el Art. 296 CC a los actos jurídicos?</div>
+            <div class="quiz-options quiz-opts-2">
+              <button class="quiz-opt" onclick="selectOpt(19,2,0)">Actos involuntarios que transfieren derechos</button>
+              <button class="quiz-opt" onclick="selectOpt(19,2,1)">Actos voluntarios lícitos con fin inmediato de crear, modificar, transferir, conservar o extinguir derechos</button>
+              <button class="quiz-opt" onclick="selectOpt(19,2,2)">Declaraciones de voluntad solo entre comerciantes</button>
+              <button class="quiz-opt" onclick="selectOpt(19,2,3)">Actos procesales ante el juez</button>
+              
+            </div>
+            <div class="quiz-feedback" id="quiz-fb-19-2"></div>
+          </div>
+          <div class="quiz-question-block">
+            <div class="quiz-question-num">Pregunta 4</div>
+            <div class="quiz-question-text">¿Qué dice el Art. 1872 CC sobre las 'cosas'?</div>
+            <div class="quiz-options quiz-opts-3">
+              <button class="quiz-opt" onclick="selectOpt(19,3,0)">Cosas son todos los derechos patrimoniales</button>
+              <button class="quiz-opt" onclick="selectOpt(19,3,1)">Cosas son los objetos corporales susceptibles de tener un valor</button>
+              <button class="quiz-opt" onclick="selectOpt(19,3,2)">Cosas son todos los bienes materiales e inmateriales</button>
+              <button class="quiz-opt" onclick="selectOpt(19,3,3)">Cosas son solo los bienes raíces</button>
+              
+            </div>
+            <div class="quiz-feedback" id="quiz-fb-19-3"></div>
+          </div>
+      <div class="quiz-actions">
+        <button class="quiz-submit-btn" id="quiz-submit-19" onclick="submitQuiz(19)">✔ Verificar respuestas</button>
+        <button class="quiz-reset-btn" onclick="resetQuiz(19)">🔄 Reintentar</button>
+      </div>
+      <div class="quiz-result-bar" id="quiz-result-19"></div>
+    </div>
+  </div>
+</section>
   <section class="lesson-page" id="lesson-20" style="display:none">
     <header class="lesson-header">
       <button class="back-btn" onclick="showHome()">&#8592; Volver al inicio</button>
@@ -887,7 +1636,73 @@
       <button class="ctrl-btn" onclick="nextSlide(20)">&#8594;</button>
     </div>
     <div class="progress-bar-wrap"><div class="progress-bar" id="prog-20"></div></div>
-  </section>
+  
+  <div class="quiz-section" id="quiz-section-20">
+    <button class="quiz-toggle-btn" id="quiz-toggle-btn-20" onclick="toggleQuiz(20)">
+      📝 Quiz de esta lección
+    </button>
+    <div class="quiz-box" id="quiz-box-20">
+      <div class="quiz-header">
+        <span class="quiz-title">🧠 Quiz — Lección 20</span>
+        <span class="quiz-score-badge" id="quiz-score-20"></span>
+      </div>
+      
+          <div class="quiz-question-block">
+            <div class="quiz-question-num">Pregunta 1</div>
+            <div class="quiz-question-text">¿Cuántas firmas aproximadas se requieren para la Iniciativa Popular según el Código Electoral?</div>
+            <div class="quiz-options quiz-opts-0">
+              <button class="quiz-opt" onclick="selectOpt(20,0,0)">10.000 firmas</button>
+              <button class="quiz-opt" onclick="selectOpt(20,0,1)">30.000 firmas</button>
+              <button class="quiz-opt" onclick="selectOpt(20,0,2)">70.000 firmas (2% de los electores)</button>
+              <button class="quiz-opt" onclick="selectOpt(20,0,3)">100.000 firmas</button>
+              
+            </div>
+            <div class="quiz-feedback" id="quiz-fb-20-0"></div>
+          </div>
+          <div class="quiz-question-block">
+            <div class="quiz-question-num">Pregunta 2</div>
+            <div class="quiz-question-text">¿Qué materias NO pueden ser objeto de referéndum según el Art. 122 CN?</div>
+            <div class="quiz-options quiz-opts-1">
+              <button class="quiz-opt" onclick="selectOpt(20,1,0)">Educación y salud pública</button>
+              <button class="quiz-opt" onclick="selectOpt(20,1,1)">Relaciones internacionales, defensa nacional y elecciones</button>
+              <button class="quiz-opt" onclick="selectOpt(20,1,2)">Reforma agraria y propiedad privada</button>
+              <button class="quiz-opt" onclick="selectOpt(20,1,3)">Derechos laborales y previsión social</button>
+              
+            </div>
+            <div class="quiz-feedback" id="quiz-fb-20-1"></div>
+          </div>
+          <div class="quiz-question-block">
+            <div class="quiz-question-num">Pregunta 3</div>
+            <div class="quiz-question-text">¿Qué forma de Estado adopta Paraguay según el Art. 1 CN?</div>
+            <div class="quiz-options quiz-opts-2">
+              <button class="quiz-opt" onclick="selectOpt(20,2,0)">Estado Federal</button>
+              <button class="quiz-opt" onclick="selectOpt(20,2,1)">Estado Confederado</button>
+              <button class="quiz-opt" onclick="selectOpt(20,2,2)">Estado Unitario</button>
+              <button class="quiz-opt" onclick="selectOpt(20,2,3)">Estado Plurinacional</button>
+              
+            </div>
+            <div class="quiz-feedback" id="quiz-fb-20-2"></div>
+          </div>
+          <div class="quiz-question-block">
+            <div class="quiz-question-num">Pregunta 4</div>
+            <div class="quiz-question-text">¿Qué es la democracia participativa?</div>
+            <div class="quiz-options quiz-opts-3">
+              <button class="quiz-opt" onclick="selectOpt(20,3,0)">La forma en que el pueblo vota cada 5 años</button>
+              <button class="quiz-opt" onclick="selectOpt(20,3,1)">Conjunto de instituciones complementarias de la democracia representativa que permiten mayor participación ciudadana</button>
+              <button class="quiz-opt" onclick="selectOpt(20,3,2)">La democracia directa tal como la planteó Rousseau</button>
+              <button class="quiz-opt" onclick="selectOpt(20,3,3)">El sistema de partidos políticos en Paraguay</button>
+              
+            </div>
+            <div class="quiz-feedback" id="quiz-fb-20-3"></div>
+          </div>
+      <div class="quiz-actions">
+        <button class="quiz-submit-btn" id="quiz-submit-20" onclick="submitQuiz(20)">✔ Verificar respuestas</button>
+        <button class="quiz-reset-btn" onclick="resetQuiz(20)">🔄 Reintentar</button>
+      </div>
+      <div class="quiz-result-bar" id="quiz-result-20"></div>
+    </div>
+  </div>
+</section>
   <section class="lesson-page" id="lesson-21" style="display:none">
     <header class="lesson-header">
       <button class="back-btn" onclick="showHome()">&#8592; Volver al inicio</button>
@@ -930,7 +1745,73 @@
       <button class="ctrl-btn" onclick="nextSlide(21)">&#8594;</button>
     </div>
     <div class="progress-bar-wrap"><div class="progress-bar" id="prog-21"></div></div>
-  </section>
+  
+  <div class="quiz-section" id="quiz-section-21">
+    <button class="quiz-toggle-btn" id="quiz-toggle-btn-21" onclick="toggleQuiz(21)">
+      📝 Quiz de esta lección
+    </button>
+    <div class="quiz-box" id="quiz-box-21">
+      <div class="quiz-header">
+        <span class="quiz-title">🧠 Quiz — Lección 21</span>
+        <span class="quiz-score-badge" id="quiz-score-21"></span>
+      </div>
+      
+          <div class="quiz-question-block">
+            <div class="quiz-question-num">Pregunta 1</div>
+            <div class="quiz-question-text">¿Cuál es el derecho real que confiere usar, gozar y disponer de la cosa de modo amplio y exclusivo?</div>
+            <div class="quiz-options quiz-opts-0">
+              <button class="quiz-opt" onclick="selectOpt(21,0,0)">Usufructo</button>
+              <button class="quiz-opt" onclick="selectOpt(21,0,1)">Servidumbre</button>
+              <button class="quiz-opt" onclick="selectOpt(21,0,2)">Dominio</button>
+              <button class="quiz-opt" onclick="selectOpt(21,0,3)">Prenda</button>
+              
+            </div>
+            <div class="quiz-feedback" id="quiz-fb-21-0"></div>
+          </div>
+          <div class="quiz-question-block">
+            <div class="quiz-question-num">Pregunta 2</div>
+            <div class="quiz-question-text">¿En qué se diferencia la propiedad del dominio?</div>
+            <div class="quiz-options quiz-opts-1">
+              <button class="quiz-opt" onclick="selectOpt(21,1,0)">Son exactamente iguales en todos los casos</button>
+              <button class="quiz-opt" onclick="selectOpt(21,1,1)">La propiedad aplica a bienes materiales e inmateriales; el dominio solo a cosas materiales</button>
+              <button class="quiz-opt" onclick="selectOpt(21,1,2)">El dominio es más amplio que la propiedad</button>
+              <button class="quiz-opt" onclick="selectOpt(21,1,3)">La propiedad es solo para personas jurídicas</button>
+              
+            </div>
+            <div class="quiz-feedback" id="quiz-fb-21-1"></div>
+          </div>
+          <div class="quiz-question-block">
+            <div class="quiz-question-num">Pregunta 3</div>
+            <div class="quiz-question-text">¿Qué es la hipoteca?</div>
+            <div class="quiz-options quiz-opts-2">
+              <button class="quiz-opt" onclick="selectOpt(21,2,0)">Derecho real sobre bienes muebles dados en garantía</button>
+              <button class="quiz-opt" onclick="selectOpt(21,2,1)">Derecho real constituido en seguridad de un crédito sobre bienes inmuebles que continúan en poder del deudor</button>
+              <button class="quiz-opt" onclick="selectOpt(21,2,2)">Contrato de arrendamiento de inmuebles</button>
+              <button class="quiz-opt" onclick="selectOpt(21,2,3)">Derecho real de uso y habitación</button>
+              
+            </div>
+            <div class="quiz-feedback" id="quiz-fb-21-2"></div>
+          </div>
+          <div class="quiz-question-block">
+            <div class="quiz-question-num">Pregunta 4</div>
+            <div class="quiz-question-text">¿Cuál es una característica exclusiva de los derechos reales?</div>
+            <div class="quiz-options quiz-opts-3">
+              <button class="quiz-opt" onclick="selectOpt(21,3,0)">Solo pueden versar sobre derechos inmateriales</button>
+              <button class="quiz-opt" onclick="selectOpt(21,3,1)">Solo pueden ser creados por ley</button>
+              <button class="quiz-opt" onclick="selectOpt(21,3,2)">El sujeto pasivo siempre está determinado</button>
+              <button class="quiz-opt" onclick="selectOpt(21,3,3)">No pueden transmitirse por herencia</button>
+              
+            </div>
+            <div class="quiz-feedback" id="quiz-fb-21-3"></div>
+          </div>
+      <div class="quiz-actions">
+        <button class="quiz-submit-btn" id="quiz-submit-21" onclick="submitQuiz(21)">✔ Verificar respuestas</button>
+        <button class="quiz-reset-btn" onclick="resetQuiz(21)">🔄 Reintentar</button>
+      </div>
+      <div class="quiz-result-bar" id="quiz-result-21"></div>
+    </div>
+  </div>
+</section>
   <section class="lesson-page" id="lesson-22" style="display:none">
     <header class="lesson-header">
       <button class="back-btn" onclick="showHome()">&#8592; Volver al inicio</button>
@@ -967,7 +1848,73 @@
       <button class="ctrl-btn" onclick="nextSlide(22)">&#8594;</button>
     </div>
     <div class="progress-bar-wrap"><div class="progress-bar" id="prog-22"></div></div>
-  </section>
+  
+  <div class="quiz-section" id="quiz-section-22">
+    <button class="quiz-toggle-btn" id="quiz-toggle-btn-22" onclick="toggleQuiz(22)">
+      📝 Quiz de esta lección
+    </button>
+    <div class="quiz-box" id="quiz-box-22">
+      <div class="quiz-header">
+        <span class="quiz-title">🧠 Quiz — Lección 22</span>
+        <span class="quiz-score-badge" id="quiz-score-22"></span>
+      </div>
+      
+          <div class="quiz-question-block">
+            <div class="quiz-question-num">Pregunta 1</div>
+            <div class="quiz-question-text">¿Cuáles son los elementos constitutivos de la obligación?</div>
+            <div class="quiz-options quiz-opts-0">
+              <button class="quiz-opt" onclick="selectOpt(22,0,0)">Sujeto, objeto y causa</button>
+              <button class="quiz-opt" onclick="selectOpt(22,0,1)">Relación de derecho, objeto/prestación y forma</button>
+              <button class="quiz-opt" onclick="selectOpt(22,0,2)">Contrato, delito y ley</button>
+              <button class="quiz-opt" onclick="selectOpt(22,0,3)">Acreedor, deudor y plazo</button>
+              
+            </div>
+            <div class="quiz-feedback" id="quiz-fb-22-0"></div>
+          </div>
+          <div class="quiz-question-block">
+            <div class="quiz-question-num">Pregunta 2</div>
+            <div class="quiz-question-text">¿Qué es el cuasidelito como fuente de obligaciones?</div>
+            <div class="quiz-options quiz-opts-1">
+              <button class="quiz-opt" onclick="selectOpt(22,1,0)">Acto ilícito cometido con intención de dañar</button>
+              <button class="quiz-opt" onclick="selectOpt(22,1,1)">Acto lícito realizado sin convenio previo</button>
+              <button class="quiz-opt" onclick="selectOpt(22,1,2)">Acto ilícito sin dolo pero con negligencia o culpa</button>
+              <button class="quiz-opt" onclick="selectOpt(22,1,3)">Obligación nacida directamente de la ley</button>
+              
+            </div>
+            <div class="quiz-feedback" id="quiz-fb-22-1"></div>
+          </div>
+          <div class="quiz-question-block">
+            <div class="quiz-question-num">Pregunta 3</div>
+            <div class="quiz-question-text">¿Qué ley regula el Derecho de Autor en Paraguay?</div>
+            <div class="quiz-options quiz-opts-2">
+              <button class="quiz-opt" onclick="selectOpt(22,2,0)">Ley 1294/1998</button>
+              <button class="quiz-opt" onclick="selectOpt(22,2,1)">Ley 1328/1998</button>
+              <button class="quiz-opt" onclick="selectOpt(22,2,2)">Ley 4798/2012</button>
+              <button class="quiz-opt" onclick="selectOpt(22,2,3)">Ley 1630/2000</button>
+              
+            </div>
+            <div class="quiz-feedback" id="quiz-fb-22-2"></div>
+          </div>
+          <div class="quiz-question-block">
+            <div class="quiz-question-num">Pregunta 4</div>
+            <div class="quiz-question-text">¿Cuáles son los derechos morales del autor?</div>
+            <div class="quiz-options quiz-opts-3">
+              <button class="quiz-opt" onclick="selectOpt(22,3,0)">Cobrar regalías y licenciar la obra</button>
+              <button class="quiz-opt" onclick="selectOpt(22,3,1)">Divulgación, paternidad, integridad y retiro de la obra</button>
+              <button class="quiz-opt" onclick="selectOpt(22,3,2)">Registrar y renovar la marca</button>
+              <button class="quiz-opt" onclick="selectOpt(22,3,3)">Patentar y explotar comercialmente la creación</button>
+              
+            </div>
+            <div class="quiz-feedback" id="quiz-fb-22-3"></div>
+          </div>
+      <div class="quiz-actions">
+        <button class="quiz-submit-btn" id="quiz-submit-22" onclick="submitQuiz(22)">✔ Verificar respuestas</button>
+        <button class="quiz-reset-btn" onclick="resetQuiz(22)">🔄 Reintentar</button>
+      </div>
+      <div class="quiz-result-bar" id="quiz-result-22"></div>
+    </div>
+  </div>
+</section>
   <section class="lesson-page" id="lesson-23" style="display:none">
     <header class="lesson-header">
       <button class="back-btn" onclick="showHome()">&#8592; Volver al inicio</button>
@@ -1001,7 +1948,73 @@
       <button class="ctrl-btn" onclick="nextSlide(23)">&#8594;</button>
     </div>
     <div class="progress-bar-wrap"><div class="progress-bar" id="prog-23"></div></div>
-  </section>
+  
+  <div class="quiz-section" id="quiz-section-23">
+    <button class="quiz-toggle-btn" id="quiz-toggle-btn-23" onclick="toggleQuiz(23)">
+      📝 Quiz de esta lección
+    </button>
+    <div class="quiz-box" id="quiz-box-23">
+      <div class="quiz-header">
+        <span class="quiz-title">🧠 Quiz — Lección 23</span>
+        <span class="quiz-score-badge" id="quiz-score-23"></span>
+      </div>
+      
+          <div class="quiz-question-block">
+            <div class="quiz-question-num">Pregunta 1</div>
+            <div class="quiz-question-text">¿Qué es la marca según el Derecho Marcario?</div>
+            <div class="quiz-options quiz-opts-0">
+              <button class="quiz-opt" onclick="selectOpt(23,0,0)">El nombre de una empresa registrada ante el Estado</button>
+              <button class="quiz-opt" onclick="selectOpt(23,0,1)">Cualquier signo o combinación de signos susceptibles de representación gráfica para distinguir productos o servicios</button>
+              <button class="quiz-opt" onclick="selectOpt(23,0,2)">El logo exclusivo de empresas internacionales</button>
+              <button class="quiz-opt" onclick="selectOpt(23,0,3)">Un contrato de exclusividad comercial</button>
+              
+            </div>
+            <div class="quiz-feedback" id="quiz-fb-23-0"></div>
+          </div>
+          <div class="quiz-question-block">
+            <div class="quiz-question-num">Pregunta 2</div>
+            <div class="quiz-question-text">¿Cómo nace el derecho sobre una marca?</div>
+            <div class="quiz-options quiz-opts-1">
+              <button class="quiz-opt" onclick="selectOpt(23,1,0)">Con el uso público y notorio</button>
+              <button class="quiz-opt" onclick="selectOpt(23,1,1)">Con el registro</button>
+              <button class="quiz-opt" onclick="selectOpt(23,1,2)">Con la declaración ante escribano</button>
+              <button class="quiz-opt" onclick="selectOpt(23,1,3)">Con la publicación en el diario oficial</button>
+              
+            </div>
+            <div class="quiz-feedback" id="quiz-fb-23-1"></div>
+          </div>
+          <div class="quiz-question-block">
+            <div class="quiz-question-num">Pregunta 3</div>
+            <div class="quiz-question-text">¿Qué ley creó la DINAPI en Paraguay?</div>
+            <div class="quiz-options quiz-opts-2">
+              <button class="quiz-opt" onclick="selectOpt(23,2,0)">Ley 1294/1998</button>
+              <button class="quiz-opt" onclick="selectOpt(23,2,1)">Ley 1630/2000</button>
+              <button class="quiz-opt" onclick="selectOpt(23,2,2)">Ley 4798/2012</button>
+              <button class="quiz-opt" onclick="selectOpt(23,2,3)">Ley 1328/1998</button>
+              
+            </div>
+            <div class="quiz-feedback" id="quiz-fb-23-2"></div>
+          </div>
+          <div class="quiz-question-block">
+            <div class="quiz-question-num">Pregunta 4</div>
+            <div class="quiz-question-text">¿Cuál es la diferencia entre Derecho Intelectual y Derecho Marcario?</div>
+            <div class="quiz-options quiz-opts-3">
+              <button class="quiz-opt" onclick="selectOpt(23,3,0)">No hay diferencia, son lo mismo</button>
+              <button class="quiz-opt" onclick="selectOpt(23,3,1)">El intelectual protege creaciones de ingenio; el marcario individualiza productos para evitar confusión</button>
+              <button class="quiz-opt" onclick="selectOpt(23,3,2)">El marcario protege obras artísticas; el intelectual protege productos industriales</button>
+              <button class="quiz-opt" onclick="selectOpt(23,3,3)">El intelectual es público; el marcario es privado</button>
+              
+            </div>
+            <div class="quiz-feedback" id="quiz-fb-23-3"></div>
+          </div>
+      <div class="quiz-actions">
+        <button class="quiz-submit-btn" id="quiz-submit-23" onclick="submitQuiz(23)">✔ Verificar respuestas</button>
+        <button class="quiz-reset-btn" onclick="resetQuiz(23)">🔄 Reintentar</button>
+      </div>
+      <div class="quiz-result-bar" id="quiz-result-23"></div>
+    </div>
+  </div>
+</section>
   <section class="lesson-page" id="lesson-24" style="display:none">
     <header class="lesson-header">
       <button class="back-btn" onclick="showHome()">&#8592; Volver al inicio</button>
@@ -1035,7 +2048,73 @@
       <button class="ctrl-btn" onclick="nextSlide(24)">&#8594;</button>
     </div>
     <div class="progress-bar-wrap"><div class="progress-bar" id="prog-24"></div></div>
-  </section>
+  
+  <div class="quiz-section" id="quiz-section-24">
+    <button class="quiz-toggle-btn" id="quiz-toggle-btn-24" onclick="toggleQuiz(24)">
+      📝 Quiz de esta lección
+    </button>
+    <div class="quiz-box" id="quiz-box-24">
+      <div class="quiz-header">
+        <span class="quiz-title">🧠 Quiz — Lección 24</span>
+        <span class="quiz-score-badge" id="quiz-score-24"></span>
+      </div>
+      
+          <div class="quiz-question-block">
+            <div class="quiz-question-num">Pregunta 1</div>
+            <div class="quiz-question-text">¿Cuál es la legítima de los descendientes según el Art. 2598 CC?</div>
+            <div class="quiz-options quiz-opts-0">
+              <button class="quiz-opt" onclick="selectOpt(24,0,0)">La mitad de la herencia</button>
+              <button class="quiz-opt" onclick="selectOpt(24,0,1)">Dos tercios de la herencia</button>
+              <button class="quiz-opt" onclick="selectOpt(24,0,2)">Cuatro quintas partes de la herencia</button>
+              <button class="quiz-opt" onclick="selectOpt(24,0,3)">Tres cuartas partes de la herencia</button>
+              
+            </div>
+            <div class="quiz-feedback" id="quiz-fb-24-0"></div>
+          </div>
+          <div class="quiz-question-block">
+            <div class="quiz-question-num">Pregunta 2</div>
+            <div class="quiz-question-text">¿Qué es el testamento?</div>
+            <div class="quiz-options quiz-opts-1">
+              <button class="quiz-opt" onclick="selectOpt(24,1,0)">Un contrato bilateral para distribuir bienes</button>
+              <button class="quiz-opt" onclick="selectOpt(24,1,1)">Un acto escrito y solemne por el cual una persona dispone de sus bienes para después de su muerte</button>
+              <button class="quiz-opt" onclick="selectOpt(24,1,2)">Una declaración verbal ante testigos</button>
+              <button class="quiz-opt" onclick="selectOpt(24,1,3)">Un acuerdo entre herederos</button>
+              
+            </div>
+            <div class="quiz-feedback" id="quiz-fb-24-1"></div>
+          </div>
+          <div class="quiz-question-block">
+            <div class="quiz-question-num">Pregunta 3</div>
+            <div class="quiz-question-text">¿Qué diferencia al heredero del legatario?</div>
+            <div class="quiz-options quiz-opts-2">
+              <button class="quiz-opt" onclick="selectOpt(24,2,0)">No hay diferencia legal entre ambos</button>
+              <button class="quiz-opt" onclick="selectOpt(24,2,1)">El heredero es sucesor universal que continúa la persona del causante; el legatario es sucesor singular en bienes específicos</button>
+              <button class="quiz-opt" onclick="selectOpt(24,2,2)">El legatario siempre es familiar; el heredero puede ser cualquier persona</button>
+              <button class="quiz-opt" onclick="selectOpt(24,2,3)">El heredero recibe solo bienes muebles; el legatario recibe inmuebles</button>
+              
+            </div>
+            <div class="quiz-feedback" id="quiz-fb-24-2"></div>
+          </div>
+          <div class="quiz-question-block">
+            <div class="quiz-question-num">Pregunta 4</div>
+            <div class="quiz-question-text">¿Qué es la sucesión intestada o legítima?</div>
+            <div class="quiz-options quiz-opts-3">
+              <button class="quiz-opt" onclick="selectOpt(24,3,0)">La que se hace por testamento válido</button>
+              <button class="quiz-opt" onclick="selectOpt(24,3,1)">La diferida solo por voluntad de la ley a los parientes del extinto</button>
+              <button class="quiz-opt" onclick="selectOpt(24,3,2)">La que ocurre solo entre cónyuges</button>
+              <button class="quiz-opt" onclick="selectOpt(24,3,3)">La sucesión a título singular</button>
+              
+            </div>
+            <div class="quiz-feedback" id="quiz-fb-24-3"></div>
+          </div>
+      <div class="quiz-actions">
+        <button class="quiz-submit-btn" id="quiz-submit-24" onclick="submitQuiz(24)">✔ Verificar respuestas</button>
+        <button class="quiz-reset-btn" onclick="resetQuiz(24)">🔄 Reintentar</button>
+      </div>
+      <div class="quiz-result-bar" id="quiz-result-24"></div>
+    </div>
+  </div>
+</section>
   <section class="lesson-page" id="lesson-25" style="display:none">
     <header class="lesson-header">
       <button class="back-btn" onclick="showHome()">&#8592; Volver al inicio</button>
@@ -1069,7 +2148,73 @@
       <button class="ctrl-btn" onclick="nextSlide(25)">&#8594;</button>
     </div>
     <div class="progress-bar-wrap"><div class="progress-bar" id="prog-25"></div></div>
-  </section>
+  
+  <div class="quiz-section" id="quiz-section-25">
+    <button class="quiz-toggle-btn" id="quiz-toggle-btn-25" onclick="toggleQuiz(25)">
+      📝 Quiz de esta lección
+    </button>
+    <div class="quiz-box" id="quiz-box-25">
+      <div class="quiz-header">
+        <span class="quiz-title">🧠 Quiz — Lección 25</span>
+        <span class="quiz-score-badge" id="quiz-score-25"></span>
+      </div>
+      
+          <div class="quiz-question-block">
+            <div class="quiz-question-num">Pregunta 1</div>
+            <div class="quiz-question-text">¿Qué garantiza el Art. 248 CN sobre el Poder Judicial?</div>
+            <div class="quiz-options quiz-opts-0">
+              <button class="quiz-opt" onclick="selectOpt(25,0,0)">La dependencia del Poder Judicial al Ejecutivo</button>
+              <button class="quiz-opt" onclick="selectOpt(25,0,1)">La independencia del Poder Judicial — solo él puede conocer actos contenciosos</button>
+              <button class="quiz-opt" onclick="selectOpt(25,0,2)">La posibilidad de que el Ejecutivo revise sentencias</button>
+              <button class="quiz-opt" onclick="selectOpt(25,0,3)">La gratuidad de todos los procesos judiciales</button>
+              
+            </div>
+            <div class="quiz-feedback" id="quiz-fb-25-0"></div>
+          </div>
+          <div class="quiz-question-block">
+            <div class="quiz-question-num">Pregunta 2</div>
+            <div class="quiz-question-text">¿Qué es el derecho de acción?</div>
+            <div class="quiz-options quiz-opts-1">
+              <button class="quiz-opt" onclick="selectOpt(25,1,0)">El derecho del juez a resolver casos de oficio</button>
+              <button class="quiz-opt" onclick="selectOpt(25,1,1)">La facultad de toda persona para solicitar legalmente la intervención de los órganos jurisdiccionales</button>
+              <button class="quiz-opt" onclick="selectOpt(25,1,2)">El derecho del demandado a oponerse a la demanda</button>
+              <button class="quiz-opt" onclick="selectOpt(25,1,3)">La facultad de apelar todas las sentencias</button>
+              
+            </div>
+            <div class="quiz-feedback" id="quiz-fb-25-1"></div>
+          </div>
+          <div class="quiz-question-block">
+            <div class="quiz-question-num">Pregunta 3</div>
+            <div class="quiz-question-text">¿Qué es una excepción perentoria?</div>
+            <div class="quiz-options quiz-opts-2">
+              <button class="quiz-opt" onclick="selectOpt(25,2,0)">La que tiende a postergar la contestación sobre el mérito</button>
+              <button class="quiz-opt" onclick="selectOpt(25,2,1)">La que extingue la acción deducida y pone fin al litigio</button>
+              <button class="quiz-opt" onclick="selectOpt(25,2,2)">La que paraliza momentáneamente el proceso</button>
+              <button class="quiz-opt" onclick="selectOpt(25,2,3)">La excepción de incompetencia territorial</button>
+              
+            </div>
+            <div class="quiz-feedback" id="quiz-fb-25-2"></div>
+          </div>
+          <div class="quiz-question-block">
+            <div class="quiz-question-num">Pregunta 4</div>
+            <div class="quiz-question-text">¿Por qué medios procesales se extingue una acción?</div>
+            <div class="quiz-options quiz-opts-3">
+              <button class="quiz-opt" onclick="selectOpt(25,3,0)">Solo por prescripción</button>
+              <button class="quiz-opt" onclick="selectOpt(25,3,1)">Por sentencia del juez o desistimiento del actor</button>
+              <button class="quiz-opt" onclick="selectOpt(25,3,2)">Por acuerdo privado entre partes sin intervención judicial</button>
+              <button class="quiz-opt" onclick="selectOpt(25,3,3)">Por el simple paso del tiempo</button>
+              
+            </div>
+            <div class="quiz-feedback" id="quiz-fb-25-3"></div>
+          </div>
+      <div class="quiz-actions">
+        <button class="quiz-submit-btn" id="quiz-submit-25" onclick="submitQuiz(25)">✔ Verificar respuestas</button>
+        <button class="quiz-reset-btn" onclick="resetQuiz(25)">🔄 Reintentar</button>
+      </div>
+      <div class="quiz-result-bar" id="quiz-result-25"></div>
+    </div>
+  </div>
+</section>
   <section class="lesson-page" id="lesson-26" style="display:none">
     <header class="lesson-header">
       <button class="back-btn" onclick="showHome()">&#8592; Volver al inicio</button>
@@ -1109,7 +2254,73 @@
       <button class="ctrl-btn" onclick="nextSlide(26)">&#8594;</button>
     </div>
     <div class="progress-bar-wrap"><div class="progress-bar" id="prog-26"></div></div>
-  </section>
+  
+  <div class="quiz-section" id="quiz-section-26">
+    <button class="quiz-toggle-btn" id="quiz-toggle-btn-26" onclick="toggleQuiz(26)">
+      📝 Quiz de esta lección
+    </button>
+    <div class="quiz-box" id="quiz-box-26">
+      <div class="quiz-header">
+        <span class="quiz-title">🧠 Quiz — Lección 26</span>
+        <span class="quiz-score-badge" id="quiz-score-26"></span>
+      </div>
+      
+          <div class="quiz-question-block">
+            <div class="quiz-question-num">Pregunta 1</div>
+            <div class="quiz-question-text">¿Cuál es la fórmula de sanción de las leyes según el Art. 214 CN?</div>
+            <div class="quiz-options quiz-opts-0">
+              <button class="quiz-opt" onclick="selectOpt(26,0,0)">'El Poder Ejecutivo decreta con fuerza de ley'</button>
+              <button class="quiz-opt" onclick="selectOpt(26,0,1)">'El Congreso de la Nación paraguaya sanciona con fuerza de ley'</button>
+              <button class="quiz-opt" onclick="selectOpt(26,0,2)">'La Corte Suprema de Justicia aprueba con fuerza de ley'</button>
+              <button class="quiz-opt" onclick="selectOpt(26,0,3)">'La Convención Nacional Constituyente promulga'</button>
+              
+            </div>
+            <div class="quiz-feedback" id="quiz-fb-26-0"></div>
+          </div>
+          <div class="quiz-question-block">
+            <div class="quiz-question-num">Pregunta 2</div>
+            <div class="quiz-question-text">¿Qué son las fuentes reales o materiales del Derecho?</div>
+            <div class="quiz-options quiz-opts-1">
+              <button class="quiz-opt" onclick="selectOpt(26,1,0)">Los requisitos formales que debe reunir una norma jurídica</button>
+              <button class="quiz-opt" onclick="selectOpt(26,1,1)">Los factores y elementos que producen normas jurídicas (políticos, sociales, económicos)</button>
+              <button class="quiz-opt" onclick="selectOpt(26,1,2)">Las sentencias judiciales firmes</button>
+              <button class="quiz-opt" onclick="selectOpt(26,1,3)">Los tratados internacionales ratificados</button>
+              
+            </div>
+            <div class="quiz-feedback" id="quiz-fb-26-1"></div>
+          </div>
+          <div class="quiz-question-block">
+            <div class="quiz-question-num">Pregunta 3</div>
+            <div class="quiz-question-text">¿Qué Decreto-Ley creó la Comisión Nacional de Codificación en Paraguay?</div>
+            <div class="quiz-options quiz-opts-2">
+              <button class="quiz-opt" onclick="selectOpt(26,2,0)">Decreto-Ley N° 1183 del 18 de diciembre de 1985</button>
+              <button class="quiz-opt" onclick="selectOpt(26,2,1)">Decreto-Ley N° 200 del 2 de julio de 1959</button>
+              <button class="quiz-opt" onclick="selectOpt(26,2,2)">Decreto-Ley N° 213 del 9 de octubre de 1993</button>
+              <button class="quiz-opt" onclick="selectOpt(26,2,3)">Decreto-Ley N° 1294 del 6 de agosto de 1998</button>
+              
+            </div>
+            <div class="quiz-feedback" id="quiz-fb-26-2"></div>
+          </div>
+          <div class="quiz-question-block">
+            <div class="quiz-question-num">Pregunta 4</div>
+            <div class="quiz-question-text">¿Cuáles son las etapas del proceso formativo de las leyes?</div>
+            <div class="quiz-options quiz-opts-3">
+              <button class="quiz-opt" onclick="selectOpt(26,3,0)">Propuesta, debate, votación y archivo</button>
+              <button class="quiz-opt" onclick="selectOpt(26,3,1)">Iniciativa, discusión, sanción, promulgación y publicación</button>
+              <button class="quiz-opt" onclick="selectOpt(26,3,2)">Presentación, comisión, plenario y decreto</button>
+              <button class="quiz-opt" onclick="selectOpt(26,3,3)">Redacción, revisión, aprobación y vigencia</button>
+              
+            </div>
+            <div class="quiz-feedback" id="quiz-fb-26-3"></div>
+          </div>
+      <div class="quiz-actions">
+        <button class="quiz-submit-btn" id="quiz-submit-26" onclick="submitQuiz(26)">✔ Verificar respuestas</button>
+        <button class="quiz-reset-btn" onclick="resetQuiz(26)">🔄 Reintentar</button>
+      </div>
+      <div class="quiz-result-bar" id="quiz-result-26"></div>
+    </div>
+  </div>
+</section>
   <section class="lesson-page" id="lesson-27" style="display:none">
     <header class="lesson-header">
       <button class="back-btn" onclick="showHome()">&#8592; Volver al inicio</button>
@@ -1152,7 +2363,73 @@
       <button class="ctrl-btn" onclick="nextSlide(27)">&#8594;</button>
     </div>
     <div class="progress-bar-wrap"><div class="progress-bar" id="prog-27"></div></div>
-  </section>
+  
+  <div class="quiz-section" id="quiz-section-27">
+    <button class="quiz-toggle-btn" id="quiz-toggle-btn-27" onclick="toggleQuiz(27)">
+      📝 Quiz de esta lección
+    </button>
+    <div class="quiz-box" id="quiz-box-27">
+      <div class="quiz-header">
+        <span class="quiz-title">🧠 Quiz — Lección 27</span>
+        <span class="quiz-score-badge" id="quiz-score-27"></span>
+      </div>
+      
+          <div class="quiz-question-block">
+            <div class="quiz-question-num">Pregunta 1</div>
+            <div class="quiz-question-text">¿Qué es la hermenéutica jurídica?</div>
+            <div class="quiz-options quiz-opts-0">
+              <button class="quiz-opt" onclick="selectOpt(27,0,0)">La ciencia que estudia la creación de normas</button>
+              <button class="quiz-opt" onclick="selectOpt(27,0,1)">El arte de interpretar, desentrañando el significado de vocablos o fenómenos jurídicos</button>
+              <button class="quiz-opt" onclick="selectOpt(27,0,2)">El método para aplicar sanciones penales</button>
+              <button class="quiz-opt" onclick="selectOpt(27,0,3)">La técnica de redactar contratos</button>
+              
+            </div>
+            <div class="quiz-feedback" id="quiz-fb-27-0"></div>
+          </div>
+          <div class="quiz-question-block">
+            <div class="quiz-question-num">Pregunta 2</div>
+            <div class="quiz-question-text">¿Cuáles son los elementos de la interpretación legal?</div>
+            <div class="quiz-options quiz-opts-1">
+              <button class="quiz-opt" onclick="selectOpt(27,1,0)">Formal, informal, histórico y comparado</button>
+              <button class="quiz-opt" onclick="selectOpt(27,1,1)">Gramatical, lógico, histórico y sistemático</button>
+              <button class="quiz-opt" onclick="selectOpt(27,1,2)">Literal, extensivo, restrictivo y abrogante</button>
+              <button class="quiz-opt" onclick="selectOpt(27,1,3)">Subjetivo, objetivo, teleológico y analógico</button>
+              
+            </div>
+            <div class="quiz-feedback" id="quiz-fb-27-1"></div>
+          </div>
+          <div class="quiz-question-block">
+            <div class="quiz-question-num">Pregunta 3</div>
+            <div class="quiz-question-text">¿Qué establece el principio de legalidad del Art. 1 del Código Penal?</div>
+            <div class="quiz-options quiz-opts-2">
+              <button class="quiz-opt" onclick="selectOpt(27,2,0)">Todo delito debe ser juzgado por un juez natural</button>
+              <button class="quiz-opt" onclick="selectOpt(27,2,1)">Nadie será sancionado sin que los presupuestos de punibilidad estén descritos en una ley vigente anterior al hecho</button>
+              <button class="quiz-opt" onclick="selectOpt(27,2,2)">La ley penal es siempre retroactiva</button>
+              <button class="quiz-opt" onclick="selectOpt(27,2,3)">El juez puede sancionar conductas por analogía</button>
+              
+            </div>
+            <div class="quiz-feedback" id="quiz-fb-27-2"></div>
+          </div>
+          <div class="quiz-question-block">
+            <div class="quiz-question-num">Pregunta 4</div>
+            <div class="quiz-question-text">¿Qué establece el Art. 6 del Código Civil respecto al silencio de la ley?</div>
+            <div class="quiz-options quiz-opts-3">
+              <button class="quiz-opt" onclick="selectOpt(27,3,0)">El juez puede negarse a juzgar si la ley es oscura</button>
+              <button class="quiz-opt" onclick="selectOpt(27,3,1)">Los jueces no pueden dejar de juzgar en caso de silencio, oscuridad o insuficiencia de las leyes</button>
+              <button class="quiz-opt" onclick="selectOpt(27,3,2)">Solo el legislador puede suplir las lagunas de la ley</button>
+              <button class="quiz-opt" onclick="selectOpt(27,3,3)">El silencio legal equivale a prohibición</button>
+              
+            </div>
+            <div class="quiz-feedback" id="quiz-fb-27-3"></div>
+          </div>
+      <div class="quiz-actions">
+        <button class="quiz-submit-btn" id="quiz-submit-27" onclick="submitQuiz(27)">✔ Verificar respuestas</button>
+        <button class="quiz-reset-btn" onclick="resetQuiz(27)">🔄 Reintentar</button>
+      </div>
+      <div class="quiz-result-bar" id="quiz-result-27"></div>
+    </div>
+  </div>
+</section>
   <section class="lesson-page" id="lesson-28" style="display:none">
     <header class="lesson-header">
       <button class="back-btn" onclick="showHome()">&#8592; Volver al inicio</button>
@@ -1191,7 +2468,73 @@
       <button class="ctrl-btn" onclick="nextSlide(28)">&#8594;</button>
     </div>
     <div class="progress-bar-wrap"><div class="progress-bar" id="prog-28"></div></div>
-  </section>
+  
+  <div class="quiz-section" id="quiz-section-28">
+    <button class="quiz-toggle-btn" id="quiz-toggle-btn-28" onclick="toggleQuiz(28)">
+      📝 Quiz de esta lección
+    </button>
+    <div class="quiz-box" id="quiz-box-28">
+      <div class="quiz-header">
+        <span class="quiz-title">🧠 Quiz — Lección 28</span>
+        <span class="quiz-score-badge" id="quiz-score-28"></span>
+      </div>
+      
+          <div class="quiz-question-block">
+            <div class="quiz-question-num">Pregunta 1</div>
+            <div class="quiz-question-text">¿Cómo se llama el proceso lógico por el que se aplica el derecho a un caso concreto?</div>
+            <div class="quiz-options quiz-opts-0">
+              <button class="quiz-opt" onclick="selectOpt(28,0,0)">Hermenéutica jurídica</button>
+              <button class="quiz-opt" onclick="selectOpt(28,0,1)">Silogismo jurídico</button>
+              <button class="quiz-opt" onclick="selectOpt(28,0,2)">Analogía legal</button>
+              <button class="quiz-opt" onclick="selectOpt(28,0,3)">Integración normativa</button>
+              
+            </div>
+            <div class="quiz-feedback" id="quiz-fb-28-0"></div>
+          </div>
+          <div class="quiz-question-block">
+            <div class="quiz-question-num">Pregunta 2</div>
+            <div class="quiz-question-text">¿Qué son las lagunas de la ley?</div>
+            <div class="quiz-options quiz-opts-1">
+              <button class="quiz-opt" onclick="selectOpt(28,1,0)">Contradicciones entre normas de igual jerarquía</button>
+              <button class="quiz-opt" onclick="selectOpt(28,1,1)">Casos imprevistos o espacios vacíos que la ley dejó al ser sancionada</button>
+              <button class="quiz-opt" onclick="selectOpt(28,1,2)">Artículos derogados que siguen aplicándose</button>
+              <button class="quiz-opt" onclick="selectOpt(28,1,3)">Normas que el juez considera injustas</button>
+              
+            </div>
+            <div class="quiz-feedback" id="quiz-fb-28-1"></div>
+          </div>
+          <div class="quiz-question-block">
+            <div class="quiz-question-num">Pregunta 3</div>
+            <div class="quiz-question-text">¿En qué consiste la integración interna de la ley?</div>
+            <div class="quiz-options quiz-opts-2">
+              <button class="quiz-opt" onclick="selectOpt(28,2,0)">Aplicar los principios generales del Derecho</button>
+              <button class="quiz-opt" onclick="selectOpt(28,2,1)">Aplicar la analogía jurídica — descubrir la norma aplicable a un supuesto imprevisto semejante al legislado</button>
+              <button class="quiz-opt" onclick="selectOpt(28,2,2)">Recurrir a tratados internacionales</button>
+              <button class="quiz-opt" onclick="selectOpt(28,2,3)">Consultar la doctrina científica extranjera</button>
+              
+            </div>
+            <div class="quiz-feedback" id="quiz-fb-28-2"></div>
+          </div>
+          <div class="quiz-question-block">
+            <div class="quiz-question-num">Pregunta 4</div>
+            <div class="quiz-question-text">¿Cuál es el tercer y último recurso de integración en el Derecho paraguayo?</div>
+            <div class="quiz-options quiz-opts-3">
+              <button class="quiz-opt" onclick="selectOpt(28,3,0)">Las leyes análogas</button>
+              <button class="quiz-opt" onclick="selectOpt(28,3,1)">La jurisprudencia de la Corte Suprema</button>
+              <button class="quiz-opt" onclick="selectOpt(28,3,2)">Los principios generales del Derecho</button>
+              <button class="quiz-opt" onclick="selectOpt(28,3,3)">Los tratados de Montevideo</button>
+              
+            </div>
+            <div class="quiz-feedback" id="quiz-fb-28-3"></div>
+          </div>
+      <div class="quiz-actions">
+        <button class="quiz-submit-btn" id="quiz-submit-28" onclick="submitQuiz(28)">✔ Verificar respuestas</button>
+        <button class="quiz-reset-btn" onclick="resetQuiz(28)">🔄 Reintentar</button>
+      </div>
+      <div class="quiz-result-bar" id="quiz-result-28"></div>
+    </div>
+  </div>
+</section>
   <section class="lesson-page" id="lesson-29" style="display:none">
     <header class="lesson-header">
       <button class="back-btn" onclick="showHome()">&#8592; Volver al inicio</button>
@@ -1228,7 +2571,73 @@
       <button class="ctrl-btn" onclick="nextSlide(29)">&#8594;</button>
     </div>
     <div class="progress-bar-wrap"><div class="progress-bar" id="prog-29"></div></div>
-  </section>
+  
+  <div class="quiz-section" id="quiz-section-29">
+    <button class="quiz-toggle-btn" id="quiz-toggle-btn-29" onclick="toggleQuiz(29)">
+      📝 Quiz de esta lección
+    </button>
+    <div class="quiz-box" id="quiz-box-29">
+      <div class="quiz-header">
+        <span class="quiz-title">🧠 Quiz — Lección 29</span>
+        <span class="quiz-score-badge" id="quiz-score-29"></span>
+      </div>
+      
+          <div class="quiz-question-block">
+            <div class="quiz-question-num">Pregunta 1</div>
+            <div class="quiz-question-text">¿Qué establece el Art. 14 CN sobre la retroactividad?</div>
+            <div class="quiz-options quiz-opts-0">
+              <button class="quiz-opt" onclick="selectOpt(29,0,0)">Todas las leyes son retroactivas</button>
+              <button class="quiz-opt" onclick="selectOpt(29,0,1)">Ninguna ley tendrá efecto retroactivo, salvo que sea más favorable al encausado o condenado</button>
+              <button class="quiz-opt" onclick="selectOpt(29,0,2)">Solo las leyes civiles son irretroactivas</button>
+              <button class="quiz-opt" onclick="selectOpt(29,0,3)">La retroactividad es siempre facultad del juez</button>
+              
+            </div>
+            <div class="quiz-feedback" id="quiz-fb-29-0"></div>
+          </div>
+          <div class="quiz-question-block">
+            <div class="quiz-question-num">Pregunta 2</div>
+            <div class="quiz-question-text">¿Qué establece el Art. 2 del Código Civil sobre la retroactividad?</div>
+            <div class="quiz-options quiz-opts-1">
+              <button class="quiz-opt" onclick="selectOpt(29,1,0)">Las leyes pueden alterar derechos adquiridos si es por razones de orden público</button>
+              <button class="quiz-opt" onclick="selectOpt(29,1,1)">Las leyes disponen para el futuro, no tienen efecto retroactivo ni pueden alterar derechos adquiridos</button>
+              <button class="quiz-opt" onclick="selectOpt(29,1,2)">Las leyes nuevas se aplican inmediatamente a todos los casos pendientes</button>
+              <button class="quiz-opt" onclick="selectOpt(29,1,3)">La retroactividad es la regla y la irretroactividad la excepción</button>
+              
+            </div>
+            <div class="quiz-feedback" id="quiz-fb-29-1"></div>
+          </div>
+          <div class="quiz-question-block">
+            <div class="quiz-question-num">Pregunta 3</div>
+            <div class="quiz-question-text">¿Cuál es el fundamento racional del principio de irretroactividad?</div>
+            <div class="quiz-options quiz-opts-2">
+              <button class="quiz-opt" onclick="selectOpt(29,2,0)">Que las leyes viejas son mejores que las nuevas</button>
+              <button class="quiz-opt" onclick="selectOpt(29,2,1)">No se concibe que una ley sea obligatoria antes de existir</button>
+              <button class="quiz-opt" onclick="selectOpt(29,2,2)">Que los jueces deben aplicar siempre la ley más antigua</button>
+              <button class="quiz-opt" onclick="selectOpt(29,2,3)">Que la retroactividad favorece siempre al más débil</button>
+              
+            </div>
+            <div class="quiz-feedback" id="quiz-fb-29-2"></div>
+          </div>
+          <div class="quiz-question-block">
+            <div class="quiz-question-num">Pregunta 4</div>
+            <div class="quiz-question-text">¿Qué dice el Art. 5 del Código Penal si la ley cambia antes de la sentencia?</div>
+            <div class="quiz-options quiz-opts-3">
+              <button class="quiz-opt" onclick="selectOpt(29,3,0)">Se aplica siempre la ley vigente al momento del hecho</button>
+              <button class="quiz-opt" onclick="selectOpt(29,3,1)">Se aplica la ley más favorable al encausado</button>
+              <button class="quiz-opt" onclick="selectOpt(29,3,2)">Se suspende el proceso hasta nueva legislación</button>
+              <button class="quiz-opt" onclick="selectOpt(29,3,3)">Se aplica la ley vigente al momento de la sentencia</button>
+              
+            </div>
+            <div class="quiz-feedback" id="quiz-fb-29-3"></div>
+          </div>
+      <div class="quiz-actions">
+        <button class="quiz-submit-btn" id="quiz-submit-29" onclick="submitQuiz(29)">✔ Verificar respuestas</button>
+        <button class="quiz-reset-btn" onclick="resetQuiz(29)">🔄 Reintentar</button>
+      </div>
+      <div class="quiz-result-bar" id="quiz-result-29"></div>
+    </div>
+  </div>
+</section>
   <section class="lesson-page" id="lesson-30" style="display:none">
     <header class="lesson-header">
       <button class="back-btn" onclick="showHome()">&#8592; Volver al inicio</button>
@@ -1265,7 +2674,73 @@
       <button class="ctrl-btn" onclick="nextSlide(30)">&#8594;</button>
     </div>
     <div class="progress-bar-wrap"><div class="progress-bar" id="prog-30"></div></div>
-  </section>
+  
+  <div class="quiz-section" id="quiz-section-30">
+    <button class="quiz-toggle-btn" id="quiz-toggle-btn-30" onclick="toggleQuiz(30)">
+      📝 Quiz de esta lección
+    </button>
+    <div class="quiz-box" id="quiz-box-30">
+      <div class="quiz-header">
+        <span class="quiz-title">🧠 Quiz — Lección 30</span>
+        <span class="quiz-score-badge" id="quiz-score-30"></span>
+      </div>
+      
+          <div class="quiz-question-block">
+            <div class="quiz-question-num">Pregunta 1</div>
+            <div class="quiz-question-text">¿Qué establece el principio de territorialidad de la ley?</div>
+            <div class="quiz-options quiz-opts-0">
+              <button class="quiz-opt" onclick="selectOpt(30,0,0)">Las leyes rigen en todo el mundo si el Estado es soberano</button>
+              <button class="quiz-opt" onclick="selectOpt(30,0,1)">Las leyes deben regir en el territorio del Estado soberano de que emanan</button>
+              <button class="quiz-opt" onclick="selectOpt(30,0,2)">Las leyes de un Estado no pueden aplicarse fuera de su territorio nunca</button>
+              <button class="quiz-opt" onclick="selectOpt(30,0,3)">Las leyes del domicilio de la persona siempre prevalecen</button>
+              
+            </div>
+            <div class="quiz-feedback" id="quiz-fb-30-0"></div>
+          </div>
+          <div class="quiz-question-block">
+            <div class="quiz-question-num">Pregunta 2</div>
+            <div class="quiz-question-text">¿Qué establece el principio Lex Rei Sitae (Art. 16 CC)?</div>
+            <div class="quiz-options quiz-opts-1">
+              <button class="quiz-opt" onclick="selectOpt(30,1,0)">La forma de los actos jurídicos se rige por la ley del lugar de celebración</button>
+              <button class="quiz-opt" onclick="selectOpt(30,1,1)">Los bienes se regirán por la ley del lugar donde están situados</button>
+              <button class="quiz-opt" onclick="selectOpt(30,1,2)">La capacidad de las personas se rige por la ley de su nacionalidad</button>
+              <button class="quiz-opt" onclick="selectOpt(30,1,3)">Los contratos se rigen por la ley del domicilio del deudor</button>
+              
+            </div>
+            <div class="quiz-feedback" id="quiz-fb-30-1"></div>
+          </div>
+          <div class="quiz-question-block">
+            <div class="quiz-question-num">Pregunta 3</div>
+            <div class="quiz-question-text">¿Qué establece el principio Locus Regit Actum (Art. 23 CC)?</div>
+            <div class="quiz-options quiz-opts-2">
+              <button class="quiz-opt" onclick="selectOpt(30,2,0)">Los bienes inmuebles se rigen por la ley del país del propietario</button>
+              <button class="quiz-opt" onclick="selectOpt(30,2,1)">La forma de los actos jurídicos se rige por la ley del lugar de su celebración</button>
+              <button class="quiz-opt" onclick="selectOpt(30,2,2)">La capacidad para contratar se rige por la ley del domicilio</button>
+              <button class="quiz-opt" onclick="selectOpt(30,2,3)">La sucesión se rige por la ley del último domicilio del causante</button>
+              
+            </div>
+            <div class="quiz-feedback" id="quiz-fb-30-2"></div>
+          </div>
+          <div class="quiz-question-block">
+            <div class="quiz-question-num">Pregunta 4</div>
+            <div class="quiz-question-text">¿Cuándo pueden los jueces paraguayos negarse a aplicar una ley extranjera?</div>
+            <div class="quiz-options quiz-opts-3">
+              <button class="quiz-opt" onclick="selectOpt(30,3,0)">Siempre que el juez lo considere inconveniente</button>
+              <button class="quiz-opt" onclick="selectOpt(30,3,1)">Cuando se oponga a las instituciones políticas, leyes de orden público, moral y buenas costumbres</button>
+              <button class="quiz-opt" onclick="selectOpt(30,3,2)">Cuando la parte demandada sea paraguaya</button>
+              <button class="quiz-opt" onclick="selectOpt(30,3,3)">Nunca, siempre deben aplicar la ley extranjera solicitada</button>
+              
+            </div>
+            <div class="quiz-feedback" id="quiz-fb-30-3"></div>
+          </div>
+      <div class="quiz-actions">
+        <button class="quiz-submit-btn" id="quiz-submit-30" onclick="submitQuiz(30)">✔ Verificar respuestas</button>
+        <button class="quiz-reset-btn" onclick="resetQuiz(30)">🔄 Reintentar</button>
+      </div>
+      <div class="quiz-result-bar" id="quiz-result-30"></div>
+    </div>
+  </div>
+</section>
 
 <script>
 const TOTAL = {"11": 5, "12": 5, "13": 4, "14": 4, "15": 5, "16": 3, "17": 3, "18": 4, "19": 4, "20": 3, "21": 4, "22": 3, "23": 3, "24": 3, "25": 3, "26": 4, "27": 4, "28": 4, "29": 3, "30": 3};
@@ -1330,6 +2805,99 @@ document.addEventListener('keydown', e => {
   if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') prevSlide(parseInt(num));
   if (e.key === 'Escape') showHome();
 });
+
+// ===== QUIZ ENGINE =====
+const QUIZ_DATA = {"11": [{"q": "\u00bfQu\u00e9 regula principalmente la norma jur\u00eddica?", "opts": ["Las relaciones del hombre con Dios", "La conducta humana en sociedad de forma coercible", "El comportamiento decoroso en la vida social", "Los deberes ordenados al bien personal"], "a": 1}, {"q": "\u00bfCu\u00e1l es el car\u00e1cter principal de las normas del trato social?", "opts": ["Aut\u00f3nomo", "Coercible", "Imperativo", "Bilateral"], "a": 2}, {"q": "\u00bfQu\u00e9 proh\u00edbe expresamente el Art. 4\u00b0 de la CN paraguaya?", "opts": ["Las multas desmedidas", "La confiscaci\u00f3n de bienes", "La pena de muerte", "Las torturas"], "a": 2}, {"q": "\u00bfC\u00f3mo se llama la norma que crea la obligaci\u00f3n que debe cumplirse?", "opts": ["Norma secundaria", "Norma sancionadora", "Norma primaria o sancionada", "Norma declarativa"], "a": 2}], "12": [{"q": "\u00bfQu\u00e9 es la pir\u00e1mide de Kelsen?", "opts": ["Una clasificaci\u00f3n de los delitos", "La jerarquizaci\u00f3n piramidal de las normas jur\u00eddicas", "Un m\u00e9todo de interpretaci\u00f3n de leyes", "La organizaci\u00f3n de los poderes del Estado"], "a": 1}, {"q": "\u00bfCu\u00e1l norma encabeza la pir\u00e1mide jur\u00eddica en Paraguay seg\u00fan el Art. 137 CN?", "opts": ["Los tratados internacionales", "Las leyes del Congreso", "La Constituci\u00f3n Nacional", "Los decretos del Poder Ejecutivo"], "a": 2}, {"q": "\u00bfC\u00f3mo caduca violentamente un ordenamiento jur\u00eddico?", "opts": ["Por reforma parcial de la Constituci\u00f3n", "Por una revoluci\u00f3n", "Por vencimiento del plazo constitucional", "Por decisi\u00f3n del Poder Judicial"], "a": 1}, {"q": "\u00bfQu\u00e9 es la antijuridicidad?", "opts": ["El conjunto de hechos que se ajustan al orden jur\u00eddico", "Los hechos que se oponen al orden jur\u00eddico por ser il\u00edcitos o prohibidos", "La conducta l\u00edcita de los \u00f3rganos del Estado", "La interpretaci\u00f3n de normas ambiguas"], "a": 1}], "13": [{"q": "\u00bfEn qu\u00e9 fecha fue sancionada la Constituci\u00f3n vigente del Paraguay?", "opts": ["15 de agosto de 1992", "20 de junio de 1992", "1\u00b0 de marzo de 1992", "3 de noviembre de 1992"], "a": 1}, {"q": "\u00bfQu\u00e9 estudia el Derecho Constitucional?", "opts": ["Las relaciones entre particulares", "La estructura jur\u00eddica de un Estado establecida en su Constituci\u00f3n", "Las normas del comercio internacional", "Los servicios p\u00fablicos municipales"], "a": 1}, {"q": "\u00bfCu\u00e1l es la parte de la Constituci\u00f3n que trata los derechos fundamentales del hombre?", "opts": ["El Pre\u00e1mbulo", "La parte dogm\u00e1tica", "La parte org\u00e1nica", "Los art\u00edculos transitorios"], "a": 1}, {"q": "\u00bfQu\u00e9 es el Derecho Penal?", "opts": ["Normas que regulan los servicios p\u00fablicos", "Normas que determinan los delitos, las penas y medidas para evitar la criminalidad", "Normas que regulan la actividad financiera del Estado", "Normas que organizan la familia"], "a": 1}], "14": [{"q": "\u00bfQu\u00e9 regula el Derecho Internacional P\u00fablico?", "opts": ["Relaciones entre particulares de distintos pa\u00edses", "Relaciones jur\u00eddicas entre Estados soberanos y organizaciones internacionales", "Normas de la Iglesia Cat\u00f3lica", "Relaciones laborales internacionales"], "a": 1}, {"q": "Seg\u00fan el Art. 144 CN, \u00bfqu\u00e9 declara Paraguay respecto a la guerra?", "opts": ["Acepta la guerra preventiva", "Renuncia a la guerra pero sustenta el principio de leg\u00edtima defensa", "Proh\u00edbe cualquier tipo de defensa armada", "Acepta la guerra solo con autorizaci\u00f3n de la ONU"], "a": 1}, {"q": "\u00bfQu\u00e9 es el Derecho Can\u00f3nico?", "opts": ["Leyes del Estado para regular las religiones", "Conjunto de leyes dadas por Dios o por la potestad eclesi\u00e1stica para la organizaci\u00f3n de la Iglesia", "Normas internacionales sobre libertad religiosa", "Acuerdos entre el Vaticano y los Estados"], "a": 1}, {"q": "\u00bfQui\u00e9n promulg\u00f3 el C\u00f3digo de Derecho Can\u00f3nico vigente?", "opts": ["El Concilio Vaticano II en 1965", "La autoridad Papal el 25 de enero de 1983", "La OEA en 1990", "El Papa Juan Pablo II en 2000"], "a": 1}], "15": [{"q": "\u00bfCu\u00e1ntos art\u00edculos tiene el C\u00f3digo Civil Paraguayo (Ley 1183/1985)?", "opts": ["1500 art\u00edculos", "2000 art\u00edculos", "2815 art\u00edculos", "3200 art\u00edculos"], "a": 2}, {"q": "\u00bfQu\u00e9 ley regula el Derecho Laboral en Paraguay?", "opts": ["Ley 1183/1985", "Ley 213/1993", "Ley 1863/2002", "Ley 1294/1998"], "a": 1}, {"q": "\u00bfCu\u00e1l es la principal diferencia entre Derecho P\u00fablico y Derecho Privado?", "opts": ["El p\u00fablico regula solo penales; el privado solo civiles", "El p\u00fablico regula la estructura del Estado y sus relaciones; el privado regula relaciones entre particulares", "El p\u00fablico es escrito; el privado es consuetudinario", "No hay diferencia real entre ambos"], "a": 1}, {"q": "\u00bfQu\u00e9 crea el INDERT seg\u00fan la Ley 2419/2004?", "opts": ["El Instituto Nacional de Desarrollo Rural y Tierras", "El Instituto Nacional de Derecho y Trabajo", "El Instituto de Derecho Rural y Territorial", "El Instituto Nacional de Recursos Tributarios"], "a": 0}], "16": [{"q": "\u00bfQu\u00e9 establece el Art. 46 CN sobre la igualdad?", "opts": ["Solo los ciudadanos paraguayos son iguales ante la ley", "Todos los habitantes son iguales en dignidad y derechos, sin discriminaciones", "La igualdad aplica solo en materia penal", "La igualdad es un principio relativo seg\u00fan la condici\u00f3n social"], "a": 1}, {"q": "Seg\u00fan Kelsen, \u00bfqu\u00e9 es el derecho subjetivo?", "opts": ["Un poder natural del hombre independiente del derecho objetivo", "El mismo derecho objetivo en relaci\u00f3n con el sujeto", "Un inter\u00e9s protegido por la voluntad individual", "Una facultad exclusiva de las personas jur\u00eddicas"], "a": 1}, {"q": "\u00bfQu\u00e9 garantiza el Art. 9 CN?", "opts": ["El derecho a la propiedad privada", "El derecho a la libertad y seguridad de las personas", "El derecho al trabajo", "El derecho a la educaci\u00f3n"], "a": 1}, {"q": "\u00bfCu\u00e1les son los tres derechos subjetivos fundamentales?", "opts": ["Propiedad, libertad y trabajo", "Igualdad, libertad y resistencia a la opresi\u00f3n", "Vida, salud y educaci\u00f3n", "Voto, expresi\u00f3n y asociaci\u00f3n"], "a": 1}], "17": [{"q": "\u00bfQu\u00e9 establece el Art. 372 del C\u00f3digo Civil sobre el ejercicio de los derechos?", "opts": ["Los derechos pueden ejercerse de cualquier forma", "Los derechos deben ser ejercidos de buena fe", "El Estado garantiza el ejercicio irrestricto de todo derecho", "Los derechos vencen si no se ejercen en 10 a\u00f1os"], "a": 1}, {"q": "\u00bfCu\u00e1ndo se configura el abuso del derecho?", "opts": ["Cuando alguien ejerce un derecho para beneficio propio", "Cuando se ejerce un derecho sin necesidad y con intenci\u00f3n de da\u00f1ar a otro", "Cuando se ejerce un derecho sin asesoramiento legal", "Cuando el Estado ejerce sus atribuciones coactivamente"], "a": 1}, {"q": "\u00bfCu\u00e1l es una caracter\u00edstica de las leyes de orden p\u00fablico?", "opts": ["Pueden renunciarse con consentimiento de partes", "Su violaci\u00f3n produce nulidad relativa", "Son aplicables de oficio por el juez", "Son supletorias de la voluntad de las partes"], "a": 2}, {"q": "\u00bfQu\u00e9 protege el Art. 33 CN?", "opts": ["La propiedad privada", "El derecho a la intimidad personal y familiar", "La libertad de expresi\u00f3n", "El derecho al trabajo"], "a": 1}], "18": [{"q": "\u00bfDesde cu\u00e1ndo comienza la existencia jur\u00eddica de las personas f\u00edsicas?", "opts": ["Desde el nacimiento", "Desde los 14 a\u00f1os", "Desde la concepci\u00f3n en el seno materno", "Desde la inscripci\u00f3n en el Registro Civil"], "a": 2}, {"q": "\u00bfQu\u00e9 es el domicilio legal seg\u00fan el Art. 53 del C\u00f3digo Civil?", "opts": ["El lugar elegido por la persona para sus negocios", "El lugar donde la ley presume que una persona reside de manera permanente", "El domicilio del lugar de nacimiento", "El lugar donde la persona pasa m\u00e1s de 6 meses al a\u00f1o"], "a": 1}, {"q": "\u00bfQu\u00e9 son absolutamente incapaces de hecho seg\u00fan el Art. 37 CC?", "opts": ["Personas mayores de 70 a\u00f1os", "Menores de 14 a\u00f1os, personas por nacer, enfermos mentales y sordomudos que no saben darse a entender", "Solo los menores de edad", "Las personas declaradas en quiebra"], "a": 1}, {"q": "\u00bfCu\u00e1l es la diferencia entre relaci\u00f3n jur\u00eddica y situaci\u00f3n jur\u00eddica?", "opts": ["No hay diferencia, son sin\u00f3nimos", "En la relaci\u00f3n jur\u00eddica los derechos y obligaciones est\u00e1n determinados; en la situaci\u00f3n son eventuales", "La situaci\u00f3n es m\u00e1s espec\u00edfica que la relaci\u00f3n", "La relaci\u00f3n jur\u00eddica solo aplica a personas jur\u00eddicas"], "a": 1}], "19": [{"q": "\u00bfQu\u00e9 son los hechos voluntarios seg\u00fan el C\u00f3digo Civil?", "opts": ["Los ejecutados con discernimiento, intenci\u00f3n y libertad", "Los producidos solo por causas naturales", "Los actos que no generan obligaciones", "Los ejecutados por representantes legales"], "a": 0}, {"q": "\u00bfQu\u00e9 excluye la intenci\u00f3n al momento de realizar un acto jur\u00eddico?", "opts": ["La fuerza y la intimidaci\u00f3n", "El error o ignorancia y el dolo", "La minor\u00eda de edad y la insan\u00eda", "La representaci\u00f3n y el mandato"], "a": 1}, {"q": "\u00bfC\u00f3mo define el Art. 296 CC a los actos jur\u00eddicos?", "opts": ["Actos involuntarios que transfieren derechos", "Actos voluntarios l\u00edcitos con fin inmediato de crear, modificar, transferir, conservar o extinguir derechos", "Declaraciones de voluntad solo entre comerciantes", "Actos procesales ante el juez"], "a": 1}, {"q": "\u00bfQu\u00e9 dice el Art. 1872 CC sobre las 'cosas'?", "opts": ["Cosas son todos los derechos patrimoniales", "Cosas son los objetos corporales susceptibles de tener un valor", "Cosas son todos los bienes materiales e inmateriales", "Cosas son solo los bienes ra\u00edces"], "a": 1}], "20": [{"q": "\u00bfCu\u00e1ntas firmas aproximadas se requieren para la Iniciativa Popular seg\u00fan el C\u00f3digo Electoral?", "opts": ["10.000 firmas", "30.000 firmas", "70.000 firmas (2% de los electores)", "100.000 firmas"], "a": 2}, {"q": "\u00bfQu\u00e9 materias NO pueden ser objeto de refer\u00e9ndum seg\u00fan el Art. 122 CN?", "opts": ["Educaci\u00f3n y salud p\u00fablica", "Relaciones internacionales, defensa nacional y elecciones", "Reforma agraria y propiedad privada", "Derechos laborales y previsi\u00f3n social"], "a": 1}, {"q": "\u00bfQu\u00e9 forma de Estado adopta Paraguay seg\u00fan el Art. 1 CN?", "opts": ["Estado Federal", "Estado Confederado", "Estado Unitario", "Estado Plurinacional"], "a": 2}, {"q": "\u00bfQu\u00e9 es la democracia participativa?", "opts": ["La forma en que el pueblo vota cada 5 a\u00f1os", "Conjunto de instituciones complementarias de la democracia representativa que permiten mayor participaci\u00f3n ciudadana", "La democracia directa tal como la plante\u00f3 Rousseau", "El sistema de partidos pol\u00edticos en Paraguay"], "a": 1}], "21": [{"q": "\u00bfCu\u00e1l es el derecho real que confiere usar, gozar y disponer de la cosa de modo amplio y exclusivo?", "opts": ["Usufructo", "Servidumbre", "Dominio", "Prenda"], "a": 2}, {"q": "\u00bfEn qu\u00e9 se diferencia la propiedad del dominio?", "opts": ["Son exactamente iguales en todos los casos", "La propiedad aplica a bienes materiales e inmateriales; el dominio solo a cosas materiales", "El dominio es m\u00e1s amplio que la propiedad", "La propiedad es solo para personas jur\u00eddicas"], "a": 1}, {"q": "\u00bfQu\u00e9 es la hipoteca?", "opts": ["Derecho real sobre bienes muebles dados en garant\u00eda", "Derecho real constituido en seguridad de un cr\u00e9dito sobre bienes inmuebles que contin\u00faan en poder del deudor", "Contrato de arrendamiento de inmuebles", "Derecho real de uso y habitaci\u00f3n"], "a": 1}, {"q": "\u00bfCu\u00e1l es una caracter\u00edstica exclusiva de los derechos reales?", "opts": ["Solo pueden versar sobre derechos inmateriales", "Solo pueden ser creados por ley", "El sujeto pasivo siempre est\u00e1 determinado", "No pueden transmitirse por herencia"], "a": 1}], "22": [{"q": "\u00bfCu\u00e1les son los elementos constitutivos de la obligaci\u00f3n?", "opts": ["Sujeto, objeto y causa", "Relaci\u00f3n de derecho, objeto/prestaci\u00f3n y forma", "Contrato, delito y ley", "Acreedor, deudor y plazo"], "a": 1}, {"q": "\u00bfQu\u00e9 es el cuasidelito como fuente de obligaciones?", "opts": ["Acto il\u00edcito cometido con intenci\u00f3n de da\u00f1ar", "Acto l\u00edcito realizado sin convenio previo", "Acto il\u00edcito sin dolo pero con negligencia o culpa", "Obligaci\u00f3n nacida directamente de la ley"], "a": 2}, {"q": "\u00bfQu\u00e9 ley regula el Derecho de Autor en Paraguay?", "opts": ["Ley 1294/1998", "Ley 1328/1998", "Ley 4798/2012", "Ley 1630/2000"], "a": 1}, {"q": "\u00bfCu\u00e1les son los derechos morales del autor?", "opts": ["Cobrar regal\u00edas y licenciar la obra", "Divulgaci\u00f3n, paternidad, integridad y retiro de la obra", "Registrar y renovar la marca", "Patentar y explotar comercialmente la creaci\u00f3n"], "a": 1}], "23": [{"q": "\u00bfQu\u00e9 es la marca seg\u00fan el Derecho Marcario?", "opts": ["El nombre de una empresa registrada ante el Estado", "Cualquier signo o combinaci\u00f3n de signos susceptibles de representaci\u00f3n gr\u00e1fica para distinguir productos o servicios", "El logo exclusivo de empresas internacionales", "Un contrato de exclusividad comercial"], "a": 1}, {"q": "\u00bfC\u00f3mo nace el derecho sobre una marca?", "opts": ["Con el uso p\u00fablico y notorio", "Con el registro", "Con la declaraci\u00f3n ante escribano", "Con la publicaci\u00f3n en el diario oficial"], "a": 1}, {"q": "\u00bfQu\u00e9 ley cre\u00f3 la DINAPI en Paraguay?", "opts": ["Ley 1294/1998", "Ley 1630/2000", "Ley 4798/2012", "Ley 1328/1998"], "a": 2}, {"q": "\u00bfCu\u00e1l es la diferencia entre Derecho Intelectual y Derecho Marcario?", "opts": ["No hay diferencia, son lo mismo", "El intelectual protege creaciones de ingenio; el marcario individualiza productos para evitar confusi\u00f3n", "El marcario protege obras art\u00edsticas; el intelectual protege productos industriales", "El intelectual es p\u00fablico; el marcario es privado"], "a": 1}], "24": [{"q": "\u00bfCu\u00e1l es la leg\u00edtima de los descendientes seg\u00fan el Art. 2598 CC?", "opts": ["La mitad de la herencia", "Dos tercios de la herencia", "Cuatro quintas partes de la herencia", "Tres cuartas partes de la herencia"], "a": 2}, {"q": "\u00bfQu\u00e9 es el testamento?", "opts": ["Un contrato bilateral para distribuir bienes", "Un acto escrito y solemne por el cual una persona dispone de sus bienes para despu\u00e9s de su muerte", "Una declaraci\u00f3n verbal ante testigos", "Un acuerdo entre herederos"], "a": 1}, {"q": "\u00bfQu\u00e9 diferencia al heredero del legatario?", "opts": ["No hay diferencia legal entre ambos", "El heredero es sucesor universal que contin\u00faa la persona del causante; el legatario es sucesor singular en bienes espec\u00edficos", "El legatario siempre es familiar; el heredero puede ser cualquier persona", "El heredero recibe solo bienes muebles; el legatario recibe inmuebles"], "a": 1}, {"q": "\u00bfQu\u00e9 es la sucesi\u00f3n intestada o leg\u00edtima?", "opts": ["La que se hace por testamento v\u00e1lido", "La diferida solo por voluntad de la ley a los parientes del extinto", "La que ocurre solo entre c\u00f3nyuges", "La sucesi\u00f3n a t\u00edtulo singular"], "a": 1}], "25": [{"q": "\u00bfQu\u00e9 garantiza el Art. 248 CN sobre el Poder Judicial?", "opts": ["La dependencia del Poder Judicial al Ejecutivo", "La independencia del Poder Judicial \u2014 solo \u00e9l puede conocer actos contenciosos", "La posibilidad de que el Ejecutivo revise sentencias", "La gratuidad de todos los procesos judiciales"], "a": 1}, {"q": "\u00bfQu\u00e9 es el derecho de acci\u00f3n?", "opts": ["El derecho del juez a resolver casos de oficio", "La facultad de toda persona para solicitar legalmente la intervenci\u00f3n de los \u00f3rganos jurisdiccionales", "El derecho del demandado a oponerse a la demanda", "La facultad de apelar todas las sentencias"], "a": 1}, {"q": "\u00bfQu\u00e9 es una excepci\u00f3n perentoria?", "opts": ["La que tiende a postergar la contestaci\u00f3n sobre el m\u00e9rito", "La que extingue la acci\u00f3n deducida y pone fin al litigio", "La que paraliza moment\u00e1neamente el proceso", "La excepci\u00f3n de incompetencia territorial"], "a": 1}, {"q": "\u00bfPor qu\u00e9 medios procesales se extingue una acci\u00f3n?", "opts": ["Solo por prescripci\u00f3n", "Por sentencia del juez o desistimiento del actor", "Por acuerdo privado entre partes sin intervenci\u00f3n judicial", "Por el simple paso del tiempo"], "a": 1}], "26": [{"q": "\u00bfCu\u00e1l es la f\u00f3rmula de sanci\u00f3n de las leyes seg\u00fan el Art. 214 CN?", "opts": ["'El Poder Ejecutivo decreta con fuerza de ley'", "'El Congreso de la Naci\u00f3n paraguaya sanciona con fuerza de ley'", "'La Corte Suprema de Justicia aprueba con fuerza de ley'", "'La Convenci\u00f3n Nacional Constituyente promulga'"], "a": 1}, {"q": "\u00bfQu\u00e9 son las fuentes reales o materiales del Derecho?", "opts": ["Los requisitos formales que debe reunir una norma jur\u00eddica", "Los factores y elementos que producen normas jur\u00eddicas (pol\u00edticos, sociales, econ\u00f3micos)", "Las sentencias judiciales firmes", "Los tratados internacionales ratificados"], "a": 1}, {"q": "\u00bfQu\u00e9 Decreto-Ley cre\u00f3 la Comisi\u00f3n Nacional de Codificaci\u00f3n en Paraguay?", "opts": ["Decreto-Ley N\u00b0 1183 del 18 de diciembre de 1985", "Decreto-Ley N\u00b0 200 del 2 de julio de 1959", "Decreto-Ley N\u00b0 213 del 9 de octubre de 1993", "Decreto-Ley N\u00b0 1294 del 6 de agosto de 1998"], "a": 1}, {"q": "\u00bfCu\u00e1les son las etapas del proceso formativo de las leyes?", "opts": ["Propuesta, debate, votaci\u00f3n y archivo", "Iniciativa, discusi\u00f3n, sanci\u00f3n, promulgaci\u00f3n y publicaci\u00f3n", "Presentaci\u00f3n, comisi\u00f3n, plenario y decreto", "Redacci\u00f3n, revisi\u00f3n, aprobaci\u00f3n y vigencia"], "a": 1}], "27": [{"q": "\u00bfQu\u00e9 es la hermen\u00e9utica jur\u00eddica?", "opts": ["La ciencia que estudia la creaci\u00f3n de normas", "El arte de interpretar, desentra\u00f1ando el significado de vocablos o fen\u00f3menos jur\u00eddicos", "El m\u00e9todo para aplicar sanciones penales", "La t\u00e9cnica de redactar contratos"], "a": 1}, {"q": "\u00bfCu\u00e1les son los elementos de la interpretaci\u00f3n legal?", "opts": ["Formal, informal, hist\u00f3rico y comparado", "Gramatical, l\u00f3gico, hist\u00f3rico y sistem\u00e1tico", "Literal, extensivo, restrictivo y abrogante", "Subjetivo, objetivo, teleol\u00f3gico y anal\u00f3gico"], "a": 1}, {"q": "\u00bfQu\u00e9 establece el principio de legalidad del Art. 1 del C\u00f3digo Penal?", "opts": ["Todo delito debe ser juzgado por un juez natural", "Nadie ser\u00e1 sancionado sin que los presupuestos de punibilidad est\u00e9n descritos en una ley vigente anterior al hecho", "La ley penal es siempre retroactiva", "El juez puede sancionar conductas por analog\u00eda"], "a": 1}, {"q": "\u00bfQu\u00e9 establece el Art. 6 del C\u00f3digo Civil respecto al silencio de la ley?", "opts": ["El juez puede negarse a juzgar si la ley es oscura", "Los jueces no pueden dejar de juzgar en caso de silencio, oscuridad o insuficiencia de las leyes", "Solo el legislador puede suplir las lagunas de la ley", "El silencio legal equivale a prohibici\u00f3n"], "a": 1}], "28": [{"q": "\u00bfC\u00f3mo se llama el proceso l\u00f3gico por el que se aplica el derecho a un caso concreto?", "opts": ["Hermen\u00e9utica jur\u00eddica", "Silogismo jur\u00eddico", "Analog\u00eda legal", "Integraci\u00f3n normativa"], "a": 1}, {"q": "\u00bfQu\u00e9 son las lagunas de la ley?", "opts": ["Contradicciones entre normas de igual jerarqu\u00eda", "Casos imprevistos o espacios vac\u00edos que la ley dej\u00f3 al ser sancionada", "Art\u00edculos derogados que siguen aplic\u00e1ndose", "Normas que el juez considera injustas"], "a": 1}, {"q": "\u00bfEn qu\u00e9 consiste la integraci\u00f3n interna de la ley?", "opts": ["Aplicar los principios generales del Derecho", "Aplicar la analog\u00eda jur\u00eddica \u2014 descubrir la norma aplicable a un supuesto imprevisto semejante al legislado", "Recurrir a tratados internacionales", "Consultar la doctrina cient\u00edfica extranjera"], "a": 1}, {"q": "\u00bfCu\u00e1l es el tercer y \u00faltimo recurso de integraci\u00f3n en el Derecho paraguayo?", "opts": ["Las leyes an\u00e1logas", "La jurisprudencia de la Corte Suprema", "Los principios generales del Derecho", "Los tratados de Montevideo"], "a": 2}], "29": [{"q": "\u00bfQu\u00e9 establece el Art. 14 CN sobre la retroactividad?", "opts": ["Todas las leyes son retroactivas", "Ninguna ley tendr\u00e1 efecto retroactivo, salvo que sea m\u00e1s favorable al encausado o condenado", "Solo las leyes civiles son irretroactivas", "La retroactividad es siempre facultad del juez"], "a": 1}, {"q": "\u00bfQu\u00e9 establece el Art. 2 del C\u00f3digo Civil sobre la retroactividad?", "opts": ["Las leyes pueden alterar derechos adquiridos si es por razones de orden p\u00fablico", "Las leyes disponen para el futuro, no tienen efecto retroactivo ni pueden alterar derechos adquiridos", "Las leyes nuevas se aplican inmediatamente a todos los casos pendientes", "La retroactividad es la regla y la irretroactividad la excepci\u00f3n"], "a": 1}, {"q": "\u00bfCu\u00e1l es el fundamento racional del principio de irretroactividad?", "opts": ["Que las leyes viejas son mejores que las nuevas", "No se concibe que una ley sea obligatoria antes de existir", "Que los jueces deben aplicar siempre la ley m\u00e1s antigua", "Que la retroactividad favorece siempre al m\u00e1s d\u00e9bil"], "a": 1}, {"q": "\u00bfQu\u00e9 dice el Art. 5 del C\u00f3digo Penal si la ley cambia antes de la sentencia?", "opts": ["Se aplica siempre la ley vigente al momento del hecho", "Se aplica la ley m\u00e1s favorable al encausado", "Se suspende el proceso hasta nueva legislaci\u00f3n", "Se aplica la ley vigente al momento de la sentencia"], "a": 1}], "30": [{"q": "\u00bfQu\u00e9 establece el principio de territorialidad de la ley?", "opts": ["Las leyes rigen en todo el mundo si el Estado es soberano", "Las leyes deben regir en el territorio del Estado soberano de que emanan", "Las leyes de un Estado no pueden aplicarse fuera de su territorio nunca", "Las leyes del domicilio de la persona siempre prevalecen"], "a": 1}, {"q": "\u00bfQu\u00e9 establece el principio Lex Rei Sitae (Art. 16 CC)?", "opts": ["La forma de los actos jur\u00eddicos se rige por la ley del lugar de celebraci\u00f3n", "Los bienes se regir\u00e1n por la ley del lugar donde est\u00e1n situados", "La capacidad de las personas se rige por la ley de su nacionalidad", "Los contratos se rigen por la ley del domicilio del deudor"], "a": 1}, {"q": "\u00bfQu\u00e9 establece el principio Locus Regit Actum (Art. 23 CC)?", "opts": ["Los bienes inmuebles se rigen por la ley del pa\u00eds del propietario", "La forma de los actos jur\u00eddicos se rige por la ley del lugar de su celebraci\u00f3n", "La capacidad para contratar se rige por la ley del domicilio", "La sucesi\u00f3n se rige por la ley del \u00faltimo domicilio del causante"], "a": 1}, {"q": "\u00bfCu\u00e1ndo pueden los jueces paraguayos negarse a aplicar una ley extranjera?", "opts": ["Siempre que el juez lo considere inconveniente", "Cuando se oponga a las instituciones pol\u00edticas, leyes de orden p\u00fablico, moral y buenas costumbres", "Cuando la parte demandada sea paraguaya", "Nunca, siempre deben aplicar la ley extranjera solicitada"], "a": 1}]};
+
+function toggleQuiz(num) {
+  const box = document.getElementById('quiz-box-' + num);
+  box.classList.toggle('open');
+  const btn = document.getElementById('quiz-toggle-btn-' + num);
+  if (box.classList.contains('open')) {
+    btn.innerHTML = '✖ Cerrar Quiz';
+  } else {
+    btn.innerHTML = '📝 Quiz de esta lección';
+  }
+}
+
+function submitQuiz(num) {
+  const questions = QUIZ_DATA[num];
+  let correct = 0;
+  questions.forEach((q, qi) => {
+    const opts = document.querySelectorAll(`#quiz-box-${num} .quiz-opts-${qi} .quiz-opt`);
+    const fb = document.getElementById(`quiz-fb-${num}-${qi}`);
+    let answered = false;
+    opts.forEach((opt, oi) => {
+      opt.disabled = true;
+      if (opt.classList.contains('selected')) {
+        answered = true;
+        if (oi === q.a) {
+          opt.classList.add('correct');
+          correct++;
+          fb.textContent = '✅ ¡Correcto!';
+          fb.className = 'quiz-feedback show ok';
+        } else {
+          opt.classList.add('wrong');
+          opts[q.a].classList.add('correct');
+          fb.textContent = '❌ Incorrecto. La respuesta correcta está marcada en verde.';
+          fb.className = 'quiz-feedback show fail';
+        }
+      }
+    });
+    if (!answered) {
+      opts[q.a].classList.add('correct');
+      fb.textContent = '⚠️ No respondiste. La respuesta correcta está marcada en verde.';
+      fb.className = 'quiz-feedback show fail';
+    }
+  });
+
+  const pct = Math.round((correct / questions.length) * 100);
+  const badge = document.getElementById(`quiz-score-${num}`);
+  badge.textContent = `${correct}/${questions.length} (${pct}%)`;
+  badge.style.display = 'inline-block';
+
+  const resultBar = document.getElementById(`quiz-result-${num}`);
+  resultBar.classList.add('show');
+  if (pct >= 75) {
+    resultBar.className = 'quiz-result-bar show great';
+    resultBar.innerHTML = `🎉 ¡Excelente! ${correct} de ${questions.length} correctas (${pct}%)`;
+  } else if (pct >= 50) {
+    resultBar.className = 'quiz-result-bar show ok-result';
+    resultBar.innerHTML = `👍 Bien, pero podés mejorar: ${correct} de ${questions.length} correctas (${pct}%)`;
+  } else {
+    resultBar.className = 'quiz-result-bar show fail-result';
+    resultBar.innerHTML = `📖 Repasá la lección: ${correct} de ${questions.length} correctas (${pct}%). ¡Vos podés!`;
+  }
+
+  document.getElementById(`quiz-submit-${num}`).style.display = 'none';
+}
+
+function resetQuiz(num) {
+  const questions = QUIZ_DATA[num];
+  questions.forEach((q, qi) => {
+    const opts = document.querySelectorAll(`#quiz-box-${num} .quiz-opts-${qi} .quiz-opt`);
+    const fb = document.getElementById(`quiz-fb-${num}-${qi}`);
+    opts.forEach(opt => {
+      opt.disabled = false;
+      opt.classList.remove('correct', 'wrong', 'selected');
+    });
+    fb.className = 'quiz-feedback';
+    fb.textContent = '';
+  });
+  const badge = document.getElementById(`quiz-score-${num}`);
+  badge.style.display = 'none';
+  const resultBar = document.getElementById(`quiz-result-${num}`);
+  resultBar.className = 'quiz-result-bar';
+  resultBar.innerHTML = '';
+  document.getElementById(`quiz-submit-${num}`).style.display = 'inline-block';
+}
+
+function selectOpt(num, qi, oi) {
+  const opts = document.querySelectorAll(`#quiz-box-${num} .quiz-opts-${qi} .quiz-opt`);
+  opts.forEach(o => o.classList.remove('selected'));
+  opts[oi].classList.add('selected');
+}
+
 </script>
 </body>
 </html>
