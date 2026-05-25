@@ -271,6 +271,65 @@
     border-top: 1px solid rgba(212,175,55,0.15);
     background: var(--dark2);
   }
+
+  /* ===== EXAM HIGHLIGHTS ===== */
+  .exam-banner {
+    background: linear-gradient(135deg, #2d1a00, #3d2500);
+    border: 1.5px solid #ff9800;
+    border-left: 5px solid #ff9800;
+    border-radius: 8px;
+    padding: 0.6rem 1rem;
+    margin-bottom: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    animation: pulseExam 2.5s ease-in-out infinite;
+  }
+  .exam-banner .exam-icon { font-size: 1.3rem; }
+  .exam-banner .exam-text {
+    color: #ffb74d;
+    font-size: 0.82rem;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    line-height: 1.4;
+  }
+  .exam-banner .exam-label {
+    color: #ff9800;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: block;
+    margin-bottom: 0.15rem;
+  }
+  @keyframes pulseExam {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(255,152,0,0); }
+    50% { box-shadow: 0 0 10px 3px rgba(255,152,0,0.25); }
+  }
+
+  /* Card exam highlight */
+  .lesson-card.exam-card {
+    border-color: rgba(255,152,0,0.5);
+    background: linear-gradient(145deg, #1e2a45, #2a1e00);
+  }
+  .lesson-card.exam-card::after {
+    content: '📌 Tema de examen';
+    position: absolute;
+    top: 0.5rem; right: 0.7rem;
+    background: rgba(255,152,0,0.2);
+    border: 1px solid #ff9800;
+    color: #ffb74d;
+    font-size: 0.65rem;
+    padding: 0.15rem 0.5rem;
+    border-radius: 10px;
+    letter-spacing: 0.5px;
+    font-weight: bold;
+  }
+  .lesson-card.exam-card:hover {
+    border-color: #ff9800;
+    box-shadow: 0 8px 25px rgba(255,152,0,0.25);
+  }
+  .lesson-card.exam-card .card-number { color: #ffb74d; }
+
 </style>
 </head>
 <body>
@@ -353,21 +412,21 @@
         <div class="card-sub">Objeto de la Relación Jurídica y Negocio Jurídico</div>
         <div class="card-arrow">&#8594;</div>
       </div>
-      <div class="lesson-card" onclick="showLesson(20)">
+      <div class="lesson-card exam-card" onclick="showLesson(20)">
         <div class="card-emoji">🗳️</div>
         <div class="card-number">Lección 20</div>
         <div class="card-title">Democracia Participativa</div>
         <div class="card-sub">Referéndum, Iniciativa Popular y Estado Unitario</div>
         <div class="card-arrow">&#8594;</div>
       </div>
-      <div class="lesson-card" onclick="showLesson(21)">
+      <div class="lesson-card exam-card" onclick="showLesson(21)">
         <div class="card-emoji">🏠</div>
         <div class="card-number">Lección 21</div>
         <div class="card-title">Derechos Reales</div>
         <div class="card-sub">Dominio, Usufructo, Hipoteca y Servidumbre</div>
         <div class="card-arrow">&#8594;</div>
       </div>
-      <div class="lesson-card" onclick="showLesson(22)">
+      <div class="lesson-card exam-card" onclick="showLesson(22)">
         <div class="card-emoji">💼</div>
         <div class="card-number">Lección 22</div>
         <div class="card-title">Derechos Obligacionales y Derecho Intelectual</div>
@@ -395,14 +454,14 @@
         <div class="card-sub">Derecho de Acción, Excepción y Poder Judicial</div>
         <div class="card-arrow">&#8594;</div>
       </div>
-      <div class="lesson-card" onclick="showLesson(26)">
+      <div class="lesson-card exam-card" onclick="showLesson(26)">
         <div class="card-emoji">📚</div>
         <div class="card-number">Lección 26</div>
         <div class="card-title">Fuentes del Derecho</div>
         <div class="card-sub">La Ley, Costumbre, Jurisprudencia, Doctrina y Codificación</div>
         <div class="card-arrow">&#8594;</div>
       </div>
-      <div class="lesson-card" onclick="showLesson(27)">
+      <div class="lesson-card exam-card" onclick="showLesson(27)">
         <div class="card-emoji">🔍</div>
         <div class="card-number">Lección 27</div>
         <div class="card-title">Técnica Jurídica e Interpretación</div>
@@ -416,14 +475,14 @@
         <div class="card-sub">Silogismo Jurídico, Lagunas y Analogía</div>
         <div class="card-arrow">&#8594;</div>
       </div>
-      <div class="lesson-card" onclick="showLesson(29)">
+      <div class="lesson-card exam-card" onclick="showLesson(29)">
         <div class="card-emoji">⏳</div>
         <div class="card-number">Lección 29</div>
         <div class="card-title">Aplicación de la Ley en el Tiempo</div>
         <div class="card-sub">Irretroactividad, Derecho Intertemporal y Excepciones</div>
         <div class="card-arrow">&#8594;</div>
       </div>
-      <div class="lesson-card" onclick="showLesson(30)">
+      <div class="lesson-card exam-card" onclick="showLesson(30)">
         <div class="card-emoji">🗺️</div>
         <div class="card-number">Lección 30</div>
         <div class="card-title">Aplicación de la Ley en el Territorio</div>
@@ -813,6 +872,7 @@
             <div class="slide " data-index="1">
               <div class="slide-number">2 / 3</div>
               <h2 class="slide-title">Iniciativa Popular y Referéndum</h2>
+            <div class="exam-banner"><span class="exam-icon">📌</span><div class="exam-text"><span class="exam-label">⚠️ El profesor mencionó que es tema de examen</span>Referéndum Constitucional y Legislativo · Diferencia Enmienda vs. Reforma · Estado de Excepción</div></div>
               <div class="slide-content"><strong>Art. 123 CN — Iniciativa Popular:</strong> los electores pueden proponer proyectos de ley al Congreso. Requiere firma del 2% de los electores inscriptos (~70.000 firmas).<br><br><strong>Art. 121 CN — Referéndum:</strong> el referéndum legislativo puede o no ser vinculante, decidido por ley.<br><br><strong>Art. 122 CN — Materias vedadas:</strong> relaciones internacionales, expropiaciones, defensa nacional, sistemas tributarios, monetarios y bancarios, elecciones.</div>
             </div>
             <div class="slide " data-index="2">
@@ -842,21 +902,25 @@
             <div class="slide active" data-index="0">
               <div class="slide-number">1 / 4</div>
               <h2 class="slide-title">Concepto y Caracteres de los Derechos Reales</h2>
+            <div class="exam-banner"><span class="exam-icon">📌</span><div class="exam-text"><span class="exam-label">⚠️ El profesor mencionó que es tema de examen</span>Clasificación de los Derechos Reales · Dominio y Condominio · Usufructo / Uso / Habitación / Servidumbres · Hipoteca y Prenda</div></div>
               <div class="slide-content">El <strong>derecho real</strong> es el poder jurídico que ejerce una persona sobre una cosa de manera directa e inmediata para un aprovechamiento total o parcial, siendo este derecho oponible a terceros (<em>erga omnes</em>).<br><br><strong>Caracteres:</strong><br>• El sujeto pasivo solo se determina por la violación del derecho<br>• Solo pueden versar sobre cosas<br>• Conceden persecución de la cosa (<em>jus persecuendi</em>)<br>• <strong>Solo pueden ser creados por ley</strong></div>
             </div>
             <div class="slide " data-index="1">
               <div class="slide-number">2 / 4</div>
               <h2 class="slide-title">Dominio y Condominio</h2>
+            <div class="exam-banner"><span class="exam-icon">📌</span><div class="exam-text"><span class="exam-label">⚠️ El profesor mencionó que es tema de examen</span>Clasificación de los Derechos Reales · Dominio y Condominio · Usufructo / Uso / Habitación / Servidumbres · Hipoteca y Prenda</div></div>
               <div class="slide-content"><strong>Dominio:</strong> derecho que confiere al titular la facultad de usar, gozar y disponer de la cosa de modo amplio y exclusivo, dentro de los límites de la ley.<br><br><strong>Propiedad vs. Dominio:</strong> la propiedad se aplica a bienes materiales e inmateriales; el dominio solo a cosas materiales.<br><br><strong>Condominio:</strong> dos o más personas comparten el dominio sobre una parte indivisa de una misma cosa.</div>
             </div>
             <div class="slide " data-index="2">
               <div class="slide-number">3 / 4</div>
               <h2 class="slide-title">Usufructo — Uso — Habitación</h2>
+            <div class="exam-banner"><span class="exam-icon">📌</span><div class="exam-text"><span class="exam-label">⚠️ El profesor mencionó que es tema de examen</span>Clasificación de los Derechos Reales · Dominio y Condominio · Usufructo / Uso / Habitación / Servidumbres · Hipoteca y Prenda</div></div>
               <div class="slide-content"><strong>Usufructo:</strong> derecho real de usar y gozar de una cosa cuya propiedad pertenece a otro, sin alterar su sustancia.<br>• Perfecto: puede gozarse sin cambiar la sustancia<br>• Imperfecto (cuasiusufructo): cosas que serían inútiles si no se consumen<br><br><strong>Uso:</strong> facultad de servirse de la cosa sin fungirla, en la medida necesaria para el usuario y su familia.<br><strong>Habitación:</strong> derecho de uso sobre una casa para morar en ella.</div>
             </div>
             <div class="slide " data-index="3">
               <div class="slide-number">4 / 4</div>
               <h2 class="slide-title">Hipoteca — Prenda — Servidumbre</h2>
+            <div class="exam-banner"><span class="exam-icon">📌</span><div class="exam-text"><span class="exam-label">⚠️ El profesor mencionó que es tema de examen</span>Clasificación de los Derechos Reales · Dominio y Condominio · Usufructo / Uso / Habitación / Servidumbres · Hipoteca y Prenda</div></div>
               <div class="slide-content"><strong>Hipoteca:</strong> derecho real constituido en seguridad de un crédito en dinero sobre bienes inmuebles que continúan en poder del deudor. También sobre buques y aeronaves.<br><br><strong>Prenda:</strong> derecho real que adquiere el acreedor sobre la cosa mueble ajena, en garantía del pago de su crédito.<br><br><strong>Servidumbre:</strong> derecho real para ejercer ciertos actos de disposición o de uso sobre un inmueble ajeno (Art. 2188 CC).</div>
             </div>
     </div>
@@ -881,16 +945,19 @@
             <div class="slide active" data-index="0">
               <div class="slide-number">1 / 3</div>
               <h2 class="slide-title">Derechos Obligacionales — Concepto y Elementos</h2>
+            <div class="exam-banner"><span class="exam-icon">📌</span><div class="exam-text"><span class="exam-label">⚠️ El profesor mencionó que es tema de examen</span>Elementos Constitutivos: Relación de Derecho, Objeto/Prestación, Forma · Obra y Autor — Creación Intelectual</div></div>
               <div class="slide-content">El <strong>derecho obligacional o de crédito</strong> es la relación jurídica en virtud de la cual el acreedor tiene la facultad de compeler al deudor a que dé, haga o deje de hacer algo.<br><br><strong>Elementos:</strong><br>① Sujeto activo o acreedor<br>② Sujeto pasivo o deudor<br>③ Relación de derecho o <em>vinculum juris</em><br>④ El objeto o la prestación (dar, hacer, no hacer)<br>⑤ La forma (escritura para contratos > 10 jornales)</div>
             </div>
             <div class="slide " data-index="1">
               <div class="slide-number">2 / 3</div>
               <h2 class="slide-title">Fuentes de las Obligaciones</h2>
+            <div class="exam-banner"><span class="exam-icon">📌</span><div class="exam-text"><span class="exam-label">⚠️ El profesor mencionó que es tema de examen</span>Elementos Constitutivos: Relación de Derecho, Objeto/Prestación, Forma · Obra y Autor — Creación Intelectual</div></div>
               <div class="slide-content"><strong>Contratos:</strong> acuerdo de voluntades destinado a reglar derechos. Acto jurídico bilateral.<br><strong>Cuasi-contratos:</strong> acto lícito realizado sin convenio previo (ej: aceptación de herencia).<br><strong>Delito:</strong> acto ilícito cometido a sabiendas con intención de dañar.<br><strong>Cuasidelito:</strong> acto ilícito sin dolo pero con negligencia o culpa (ej: accidente de tránsito).<br><strong>La Ley:</strong> por virtud de la ley una persona puede ser acreedora o deudora (ej: obligación alimentaria).</div>
             </div>
             <div class="slide " data-index="2">
               <div class="slide-number">3 / 3</div>
               <h2 class="slide-title">Derecho Intelectual — Derecho de Autor</h2>
+            <div class="exam-banner"><span class="exam-icon">📌</span><div class="exam-text"><span class="exam-label">⚠️ El profesor mencionó que es tema de examen</span>Elementos Constitutivos: Relación de Derecho, Objeto/Prestación, Forma · Obra y Autor — Creación Intelectual</div></div>
               <div class="slide-content">Es el poder reconocido a un autor para beneficiarse exclusivamente con su obra de creación intelectual e impedir que otro la copie sin consentimiento.<br><br><strong>Derechos morales:</strong> divulgación · paternidad · integridad · retiro de la obra.<br><strong>Derechos patrimoniales:</strong> derecho exclusivo de explotar la obra bajo cualquier forma.<br><br><strong>Art. 110 CN:</strong> protección de la propiedad intelectual.<br><strong>Ley 1328/98</strong> — Derecho de Autor · <strong>DINAPI</strong> — Ley 4798/13</div>
             </div>
     </div>
@@ -1027,6 +1094,7 @@
             <div class="slide " data-index="2">
               <div class="slide-number">3 / 4</div>
               <h2 class="slide-title">Proceso Formativo de las Leyes</h2>
+            <div class="exam-banner"><span class="exam-icon">📌</span><div class="exam-text"><span class="exam-label">⚠️ El profesor mencionó que es tema de examen</span>Órganos que intervienen en la elaboración de leyes</div></div>
               <div class="slide-content"><strong>Etapas:</strong> Iniciativa → Discusión → Sanción → Promulgación → Publicación<br><br><strong>Art. 203 CN — Iniciativa:</strong> cualquiera de las Cámaras, el Poder Ejecutivo, iniciativa popular o la CSJ.<br><strong>Art. 205 CN — Promulgación automática:</strong> si el PE no objeta en 6, 12 o 20 días hábiles según la extensión de la ley.<br><strong>Art. 214 CN — Fórmulas:</strong> 'El Congreso de la Nación paraguaya sanciona con fuerza de ley.'</div>
             </div>
             <div class="slide " data-index="3">
@@ -1056,21 +1124,25 @@
             <div class="slide active" data-index="0">
               <div class="slide-number">1 / 4</div>
               <h2 class="slide-title">Técnica Jurídica — Concepto</h2>
+            <div class="exam-banner"><span class="exam-icon">📌</span><div class="exam-text"><span class="exam-label">⚠️ El profesor mencionó que es tema de examen</span>Técnica Jurídica</div></div>
               <div class="slide-content">En sentido amplio, es el conjunto de reglas que determinan los procedimientos adecuados para la elaboración y aplicación del derecho positivo a la realidad social.<br><br><strong>Técnica judicial:</strong> tarea obligatoria de los jueces para resolver casos bajo su jurisdicción. Comprende:<br>1. Interpretación de las normas jurídicas<br>2. Aplicación al caso concreto<br>3. Integración del ordenamiento jurídico para construir la norma ausente</div>
             </div>
             <div class="slide " data-index="1">
               <div class="slide-number">2 / 4</div>
               <h2 class="slide-title">Interpretación de las Normas Jurídicas</h2>
+            <div class="exam-banner"><span class="exam-icon">📌</span><div class="exam-text"><span class="exam-label">⚠️ El profesor mencionó que es tema de examen</span>Técnica Jurídica</div></div>
               <div class="slide-content">Es la tarea de <strong>determinar el sentido y alcance</strong> con que las normas jurídicas regulan la conducta humana.<br><br><strong>Hermenéutica jurídica:</strong> arte de interpretar, desentrañando lo que encierra un vocablo o fenómeno.<br><br><strong>Elementos de la interpretación legal:</strong><br>a) Gramatical &nbsp; b) Lógico (<em>ratio legis</em>) &nbsp; c) Histórico &nbsp; d) Sistemático</div>
             </div>
             <div class="slide " data-index="2">
               <div class="slide-number">3 / 4</div>
               <h2 class="slide-title">Clases de Interpretación y Métodos</h2>
+            <div class="exam-banner"><span class="exam-icon">📌</span><div class="exam-text"><span class="exam-label">⚠️ El profesor mencionó que es tema de examen</span>Técnica Jurídica</div></div>
               <div class="slide-content"><strong>Subjetiva:</strong> Auténtica o legislativa · Judicial · Doctrinal<br><strong>Objetiva:</strong> Literal o estricta · Extensiva · Restrictiva · Abrogante<br><br><strong>Métodos tradicionales:</strong> Exegético · Dogmático · Ecléctico<br><strong>Métodos modernos:</strong> Evolución histórica · Libre investigación científfica (Gény)</div>
             </div>
             <div class="slide " data-index="3">
               <div class="slide-number">4 / 4</div>
               <h2 class="slide-title">Reglas en el Derecho Paraguayo</h2>
+            <div class="exam-banner"><span class="exam-icon">📌</span><div class="exam-text"><span class="exam-label">⚠️ El profesor mencionó que es tema de examen</span>Técnica Jurídica</div></div>
               <div class="slide-content"><strong>Art. 6 Código Civil:</strong> los jueces no pueden dejar de juzgar en caso de silencio, oscuridad o insuficiencia de las leyes. Se consideran casos análogos y principios generales.<br><br><strong>Art. 1 Código Penal — Principio de legalidad:</strong> nadie será sancionado sin que los presupuestos de punibilidad estén descritos en una ley vigente anterior al hecho.<br><br><strong>Código Procesal Penal:</strong> en caso de duda, siempre se decide lo más favorable para el imputado.</div>
             </div>
     </div>
@@ -1134,16 +1206,19 @@
             <div class="slide active" data-index="0">
               <div class="slide-number">1 / 3</div>
               <h2 class="slide-title">Derecho Intertemporal o Transitorio</h2>
+            <div class="exam-banner"><span class="exam-icon">📌</span><div class="exam-text"><span class="exam-label">⚠️ El profesor mencionó que es tema de examen</span>Retroactividad de la Ley · Art. 14 CN — Irretroactividad</div></div>
               <div class="slide-content">Problemas que pueden suscitarse:<br>1. La legislación vigente al pronunciar la sentencia es distinta a la que regía al constituirse la relación jurídica.<br>2. La jurisdicción del juez cambió durante el proceso.<br><br><strong>Derecho Intertemporal:</strong> adjetivo que denota el conjunto de reglas aplicables al intermedio jurídico entre una ley derogada y otra que comienza a regir.</div>
             </div>
             <div class="slide " data-index="1">
               <div class="slide-number">2 / 3</div>
               <h2 class="slide-title">Teoría de la Irretroactividad de la Ley</h2>
+            <div class="exam-banner"><span class="exam-icon">📌</span><div class="exam-text"><span class="exam-label">⚠️ El profesor mencionó que es tema de examen</span>Retroactividad de la Ley · Art. 14 CN — Irretroactividad</div></div>
               <div class="slide-content"><strong>Noción:</strong> en virtud del principio de irretroactividad, no se pueden alterar ni modificar los hechos producidos antes de la vigencia de la ley. Los hechos concluidos bajo el imperio de la ley anterior quedan exclusivamente regidos por ella.<br><br><strong>Fundamento:</strong><br>✔ No se concibe que una ley sea obligatoria antes de existir<br>✔ Se propende a la estabilidad de los derechos<br>✔ <strong>No tiene carácter absoluto:</strong> se admiten excepciones explícitas en las leyes</div>
             </div>
             <div class="slide " data-index="2">
               <div class="slide-number">3 / 3</div>
               <h2 class="slide-title">Regulación en el Derecho Paraguayo</h2>
+            <div class="exam-banner"><span class="exam-icon">📌</span><div class="exam-text"><span class="exam-label">⚠️ El profesor mencionó que es tema de examen</span>Retroactividad de la Ley · Art. 14 CN — Irretroactividad</div></div>
               <div class="slide-content"><strong>Art. 14 CN:</strong> ninguna ley tendrá efecto retroactivo, salvo que sea más favorable al encausado o condenado.<br><br><strong>Art. 2 Código Civil:</strong> las leyes disponen para el futuro, no tienen efecto retroactivo ni pueden alterar los derechos adquiridos.<br><br><strong>Art. 5 Código Penal:</strong> las sanciones son regidas por la ley vigente al tiempo del hecho punible. Si la ley cambia antes de la sentencia, se aplica la más favorable al encausado.</div>
             </div>
     </div>
@@ -1168,16 +1243,19 @@
             <div class="slide active" data-index="0">
               <div class="slide-number">1 / 3</div>
               <h2 class="slide-title">Principio de Territorialidad</h2>
+            <div class="exam-banner"><span class="exam-icon">📌</span><div class="exam-text"><span class="exam-label">⚠️ El profesor mencionó que es tema de examen</span>Principio General de Territorialidad · Lex Rei Sitae</div></div>
               <div class="slide-content"><strong>Territorialidad:</strong> las leyes deben regir en el territorio del Estado soberano de que emanan.<br><br><strong>Excepción — Validez extraterritorial:</strong> posibilidad de aplicar la ley nacional fuera del país, cuando los actos jurídicos incluyen elementos extranjeros (de orden personal, real o de conducta).<br><br>Las reglas de DIP están contenidas principalmente en los <strong>Tratados de Montevideo de 1889 y 1940</strong> y en el Código Civil paraguayo.</div>
             </div>
             <div class="slide " data-index="1">
               <div class="slide-number">2 / 3</div>
               <h2 class="slide-title">Extraterritorialidad en el Derecho Paraguayo</h2>
+            <div class="exam-banner"><span class="exam-icon">📌</span><div class="exam-text"><span class="exam-label">⚠️ El profesor mencionó que es tema de examen</span>Principio General de Territorialidad · Lex Rei Sitae</div></div>
               <div class="slide-content"><strong>Art. 11 CC:</strong> la capacidad de las personas físicas domiciliadas en la República se juzga por las disposiciones del CC, aunque los actos se realicen en el extranjero.<br><strong>Art. 12 CC:</strong> la capacidad de las personas domiciliadas fuera de la República se juzga por las leyes de su domicilio.<br><strong>Art. 16 CC (<em>lex rei sitae</em>):</strong> los bienes se regirán por la ley del lugar donde están situados.<br><strong>Art. 23 CC (<em>locus regit actum</em>):</strong> la forma de los actos jurídicos se rige por la ley del lugar de su celebración.</div>
             </div>
             <div class="slide " data-index="2">
               <div class="slide-number">3 / 3</div>
               <h2 class="slide-title">Límites y Orden Público Internacional</h2>
+            <div class="exam-banner"><span class="exam-icon">📌</span><div class="exam-text"><span class="exam-label">⚠️ El profesor mencionó que es tema de examen</span>Principio General de Territorialidad · Lex Rei Sitae</div></div>
               <div class="slide-content"><strong>Art. 22 CC:</strong> los jueces aplicarán de oficio las leyes extranjeras, siempre que no se opongan a las instituciones políticas, las leyes de orden público, la moral y las buenas costumbres.<br><br><strong>Orden Público Internacional:</strong> conjunto de principios y normas fundamentales que rigen la estructura y el funcionamiento de los Estados soberanos.<br><br><strong>Materia procesal:</strong> en ausencia de convenios internacionales, se aplica la ley del tribunal (<em>lex fori</em>).</div>
             </div>
     </div>
