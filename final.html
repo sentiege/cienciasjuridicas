@@ -1,0 +1,1257 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Introducción a las Ciencias Jurídicas — Lecciones 11 al 30</title>
+<style>
+  :root {
+    --gold: #d4af37;
+    --gold2: #f0c040;
+    --dark: #1a1a2e;
+    --dark2: #16213e;
+    --dark3: #0f3460;
+    --text: #e8e0d0;
+    --card-bg: #1e2a45;
+    --accent: #c9a227;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Georgia', 'Times New Roman', serif;
+    background: var(--dark);
+    color: var(--text);
+    min-height: 100vh;
+  }
+
+  /* ========== HOME PAGE ========== */
+  #home-page { display: block; }
+  .home-hero {
+    background: linear-gradient(135deg, var(--dark2) 0%, var(--dark3) 100%);
+    text-align: center;
+    padding: 3rem 1rem 2rem;
+    border-bottom: 2px solid var(--gold);
+  }
+  .home-hero .crest {
+    font-size: 3.5rem;
+    margin-bottom: 0.5rem;
+  }
+  .home-hero h1 {
+    color: var(--gold2);
+    font-size: clamp(1.4rem, 4vw, 2.2rem);
+    letter-spacing: 1px;
+    margin-bottom: 0.3rem;
+  }
+  .home-hero .universidad {
+    color: #a89060;
+    font-size: 0.9rem;
+    font-style: italic;
+    margin-bottom: 0.8rem;
+  }
+  .home-hero .profesor {
+    color: var(--gold);
+    font-size: 1rem;
+    font-weight: bold;
+  }
+  .home-hero .badge-row {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  .badge {
+    background: rgba(212,175,55,0.15);
+    border: 1px solid var(--gold);
+    border-radius: 20px;
+    padding: 0.3rem 0.9rem;
+    font-size: 0.8rem;
+    color: var(--gold2);
+  }
+  .lessons-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1.2rem;
+    padding: 2rem 1.5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .lesson-card {
+    background: var(--card-bg);
+    border: 1px solid rgba(212,175,55,0.25);
+    border-radius: 12px;
+    padding: 1.4rem 1.2rem 1rem;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .lesson-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--gold), var(--gold2));
+    transform: scaleX(0);
+    transition: transform 0.3s;
+    transform-origin: left;
+  }
+  .lesson-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(212,175,55,0.2);
+    border-color: var(--gold);
+  }
+  .lesson-card:hover::before { transform: scaleX(1); }
+  .card-emoji { font-size: 2.2rem; margin-bottom: 0.5rem; }
+  .card-number {
+    color: var(--gold);
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 0.3rem;
+  }
+  .card-title {
+    color: var(--gold2);
+    font-size: 1.05rem;
+    font-weight: bold;
+    margin-bottom: 0.3rem;
+    line-height: 1.3;
+  }
+  .card-sub {
+    color: #a89060;
+    font-size: 0.78rem;
+    line-height: 1.4;
+    margin-bottom: 0.8rem;
+  }
+  .card-arrow {
+    color: var(--gold);
+    font-size: 1.1rem;
+    text-align: right;
+  }
+
+  /* ========== LESSON PAGE ========== */
+  .lesson-page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  .lesson-header {
+    background: linear-gradient(135deg, var(--dark2), var(--dark3));
+    padding: 1rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    border-bottom: 2px solid var(--gold);
+  }
+  .back-btn {
+    background: rgba(212,175,55,0.15);
+    border: 1px solid var(--gold);
+    color: var(--gold2);
+    padding: 0.4rem 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 0.9rem;
+    transition: background 0.2s;
+  }
+  .back-btn:hover { background: rgba(212,175,55,0.3); }
+  .lesson-badge {
+    background: rgba(212,175,55,0.2);
+    border: 1px solid var(--gold);
+    color: var(--gold2);
+    padding: 0.3rem 1rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    margin-left: auto;
+  }
+  .lesson-meta {
+    text-align: center;
+    padding: 1.5rem 1rem 1rem;
+    background: linear-gradient(180deg, var(--dark2) 0%, var(--dark) 100%);
+    border-bottom: 1px solid rgba(212,175,55,0.2);
+  }
+  .lesson-main-title {
+    color: var(--gold2);
+    font-size: clamp(1.4rem, 3.5vw, 2rem);
+    margin-bottom: 0.3rem;
+  }
+  .lesson-subtitle {
+    color: #a89060;
+    font-size: 0.9rem;
+    font-style: italic;
+  }
+  .slideshow-container {
+    flex: 1;
+    padding: 1.5rem;
+    max-width: 900px;
+    width: 100%;
+    margin: 0 auto;
+  }
+  .slide { display: none; animation: fadeIn 0.4s ease; }
+  .slide.active { display: block; }
+  @keyframes fadeIn { from {opacity:0; transform: translateY(10px)} to {opacity:1; transform: translateY(0)} }
+  .slide-number {
+    color: var(--gold);
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+  }
+  .slide-title {
+    color: var(--gold2);
+    font-size: clamp(1.2rem, 3vw, 1.7rem);
+    margin-bottom: 1.2rem;
+    padding-bottom: 0.8rem;
+    border-bottom: 1px solid rgba(212,175,55,0.3);
+    line-height: 1.3;
+  }
+  .slide-content {
+    color: var(--text);
+    font-size: clamp(0.9rem, 2vw, 1.05rem);
+    line-height: 1.9;
+  }
+  .slide-content strong { color: var(--gold2); }
+  .slide-content em { color: #c8b06a; font-style: italic; }
+  .slide-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    padding: 1rem;
+    border-top: 1px solid rgba(212,175,55,0.2);
+    background: var(--dark2);
+  }
+  .ctrl-btn {
+    background: rgba(212,175,55,0.15);
+    border: 1px solid var(--gold);
+    color: var(--gold2);
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background 0.2s;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .ctrl-btn:hover { background: rgba(212,175,55,0.35); }
+  .dots-container { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; }
+  .dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(212,175,55,0.3);
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+    padding: 0;
+  }
+  .dot.active { background: var(--gold2); transform: scale(1.3); }
+  .progress-bar-wrap {
+    width: 100%;
+    height: 4px;
+    background: rgba(212,175,55,0.1);
+  }
+  .progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, var(--gold), var(--gold2));
+    transition: width 0.4s ease;
+  }
+
+  /* Keyboard hint */
+  .key-hint {
+    text-align: center;
+    color: #5a4e35;
+    font-size: 0.72rem;
+    padding: 0.4rem;
+    background: var(--dark2);
+  }
+
+  footer {
+    text-align: center;
+    padding: 1.5rem;
+    color: #5a4e35;
+    font-size: 0.8rem;
+    border-top: 1px solid rgba(212,175,55,0.15);
+    background: var(--dark2);
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== HOME PAGE ===== -->
+<div id="home-page">
+  <div class="home-hero">
+    <div class="crest">⚖️</div>
+    <h1>Introducción a las Ciencias Jurídicas</h1>
+    <div class="universidad">Universidad Nacional de Asunción · Facultad de Derecho y Ciencias Políticas</div>
+    <div class="profesor">Abog. Raúl Florentín</div>
+    <div class="badge-row">
+      <span class="badge">📚 20 Lecciones</span>
+      <span class="badge">🎓 Lecciones 11 — 30</span>
+      <span class="badge">🇵🇾 Derecho Paraguayo</span>
+    </div>
+  </div>
+  <div class="lessons-grid">
+    
+      <div class="lesson-card" onclick="showLesson(11)">
+        <div class="card-emoji">📜</div>
+        <div class="card-number">Lección 11</div>
+        <div class="card-title">Normas Jurídicas</div>
+        <div class="card-sub">Normas Religiosas, Morales, del Trato Social y Jurídicas</div>
+        <div class="card-arrow">&#8594;</div>
+      </div>
+      <div class="lesson-card" onclick="showLesson(12)">
+        <div class="card-emoji">🏛️</div>
+        <div class="card-number">Lección 12</div>
+        <div class="card-title">Ordenamiento Jurídico</div>
+        <div class="card-sub">Juricidad, Antijuricidad y Pirámide de Kelsen</div>
+        <div class="card-arrow">&#8594;</div>
+      </div>
+      <div class="lesson-card" onclick="showLesson(13)">
+        <div class="card-emoji">⚖️</div>
+        <div class="card-number">Lección 13</div>
+        <div class="card-title">El Derecho Positivo</div>
+        <div class="card-sub">Ramas, Estructura de la Constitución 1992</div>
+        <div class="card-arrow">&#8594;</div>
+      </div>
+      <div class="lesson-card" onclick="showLesson(14)">
+        <div class="card-emoji">🌐</div>
+        <div class="card-number">Lección 14</div>
+        <div class="card-title">Derecho Internacional Público y Canónico</div>
+        <div class="card-sub">Ramas del Derecho Público Externo</div>
+        <div class="card-arrow">&#8594;</div>
+      </div>
+      <div class="lesson-card" onclick="showLesson(15)">
+        <div class="card-emoji">📋</div>
+        <div class="card-number">Lección 15</div>
+        <div class="card-title">El Derecho Privado</div>
+        <div class="card-sub">Ramas del Derecho Privado Interno</div>
+        <div class="card-arrow">&#8594;</div>
+      </div>
+      <div class="lesson-card" onclick="showLesson(16)">
+        <div class="card-emoji">👤</div>
+        <div class="card-number">Lección 16</div>
+        <div class="card-title">Derecho Subjetivo</div>
+        <div class="card-sub">Concepto, Fundamento y Derechos Fundamentales</div>
+        <div class="card-arrow">&#8594;</div>
+      </div>
+      <div class="lesson-card" onclick="showLesson(17)">
+        <div class="card-emoji">🔏</div>
+        <div class="card-number">Lección 17</div>
+        <div class="card-title">Libertad Jurídica y Orden Público</div>
+        <div class="card-sub">Abuso del Derecho y Leyes de Orden Público</div>
+        <div class="card-arrow">&#8594;</div>
+      </div>
+      <div class="lesson-card" onclick="showLesson(18)">
+        <div class="card-emoji">🔗</div>
+        <div class="card-number">Lección 18</div>
+        <div class="card-title">Relación Jurídica</div>
+        <div class="card-sub">Personas, Capacidad y Domicilio</div>
+        <div class="card-arrow">&#8594;</div>
+      </div>
+      <div class="lesson-card" onclick="showLesson(19)">
+        <div class="card-emoji">📝</div>
+        <div class="card-number">Lección 19</div>
+        <div class="card-title">Hechos y Actos Jurídicos</div>
+        <div class="card-sub">Objeto de la Relación Jurídica y Negocio Jurídico</div>
+        <div class="card-arrow">&#8594;</div>
+      </div>
+      <div class="lesson-card" onclick="showLesson(20)">
+        <div class="card-emoji">🗳️</div>
+        <div class="card-number">Lección 20</div>
+        <div class="card-title">Democracia Participativa</div>
+        <div class="card-sub">Referéndum, Iniciativa Popular y Estado Unitario</div>
+        <div class="card-arrow">&#8594;</div>
+      </div>
+      <div class="lesson-card" onclick="showLesson(21)">
+        <div class="card-emoji">🏠</div>
+        <div class="card-number">Lección 21</div>
+        <div class="card-title">Derechos Reales</div>
+        <div class="card-sub">Dominio, Usufructo, Hipoteca y Servidumbre</div>
+        <div class="card-arrow">&#8594;</div>
+      </div>
+      <div class="lesson-card" onclick="showLesson(22)">
+        <div class="card-emoji">💼</div>
+        <div class="card-number">Lección 22</div>
+        <div class="card-title">Derechos Obligacionales y Derecho Intelectual</div>
+        <div class="card-sub">Derechos de Crédito, Fuentes de Obligaciones y Derecho de Autor</div>
+        <div class="card-arrow">&#8594;</div>
+      </div>
+      <div class="lesson-card" onclick="showLesson(23)">
+        <div class="card-emoji">™️</div>
+        <div class="card-number">Lección 23</div>
+        <div class="card-title">Derecho Marcario y Propiedad Intelectual</div>
+        <div class="card-sub">Marcas Comerciales, Propiedad Industrial y Derecho de Autor</div>
+        <div class="card-arrow">&#8594;</div>
+      </div>
+      <div class="lesson-card" onclick="showLesson(24)">
+        <div class="card-emoji">🏺</div>
+        <div class="card-number">Lección 24</div>
+        <div class="card-title">Derecho Hereditario</div>
+        <div class="card-sub">Sucesión, Herederos Forzosos y Testamento</div>
+        <div class="card-arrow">&#8594;</div>
+      </div>
+      <div class="lesson-card" onclick="showLesson(25)">
+        <div class="card-emoji">⚖️</div>
+        <div class="card-number">Lección 25</div>
+        <div class="card-title">Función Jurisdiccional</div>
+        <div class="card-sub">Derecho de Acción, Excepción y Poder Judicial</div>
+        <div class="card-arrow">&#8594;</div>
+      </div>
+      <div class="lesson-card" onclick="showLesson(26)">
+        <div class="card-emoji">📚</div>
+        <div class="card-number">Lección 26</div>
+        <div class="card-title">Fuentes del Derecho</div>
+        <div class="card-sub">La Ley, Costumbre, Jurisprudencia, Doctrina y Codificación</div>
+        <div class="card-arrow">&#8594;</div>
+      </div>
+      <div class="lesson-card" onclick="showLesson(27)">
+        <div class="card-emoji">🔍</div>
+        <div class="card-number">Lección 27</div>
+        <div class="card-title">Técnica Jurídica e Interpretación</div>
+        <div class="card-sub">Hermenéutica, Métodos de Interpretación y Derecho Paraguayo</div>
+        <div class="card-arrow">&#8594;</div>
+      </div>
+      <div class="lesson-card" onclick="showLesson(28)">
+        <div class="card-emoji">🧩</div>
+        <div class="card-number">Lección 28</div>
+        <div class="card-title">Técnica Judicial e Integración</div>
+        <div class="card-sub">Silogismo Jurídico, Lagunas y Analogía</div>
+        <div class="card-arrow">&#8594;</div>
+      </div>
+      <div class="lesson-card" onclick="showLesson(29)">
+        <div class="card-emoji">⏳</div>
+        <div class="card-number">Lección 29</div>
+        <div class="card-title">Aplicación de la Ley en el Tiempo</div>
+        <div class="card-sub">Irretroactividad, Derecho Intertemporal y Excepciones</div>
+        <div class="card-arrow">&#8594;</div>
+      </div>
+      <div class="lesson-card" onclick="showLesson(30)">
+        <div class="card-emoji">🗺️</div>
+        <div class="card-number">Lección 30</div>
+        <div class="card-title">Aplicación de la Ley en el Territorio</div>
+        <div class="card-sub">Territorialidad, Extraterritorialidad y Orden Público Internacional</div>
+        <div class="card-arrow">&#8594;</div>
+      </div>
+  </div>
+  <footer>
+    Introducción a las Ciencias Jurídicas · Abog. Raúl Florentín · Universidad Nacional de Asunción
+  </footer>
+</div>
+
+<!-- ===== LESSON PAGES ===== -->
+
+  <section class="lesson-page" id="lesson-11" style="display:none">
+    <header class="lesson-header">
+      <button class="back-btn" onclick="showHome()">&#8592; Volver al inicio</button>
+      <div class="lesson-badge">📜 Lección 11</div>
+    </header>
+    <div class="lesson-meta">
+      <h1 class="lesson-main-title">Normas Jurídicas</h1>
+      <p class="lesson-subtitle">Normas Religiosas, Morales, del Trato Social y Jurídicas</p>
+    </div>
+    <div class="slideshow-container" id="slides-11">
+      
+            <div class="slide active" data-index="0">
+              <div class="slide-number">1 / 5</div>
+              <h2 class="slide-title">Normas Religiosas</h2>
+              <div class="slide-content">Las normas religiosas regulan el comportamiento del ser humano en sus relaciones con la divinidad. La palabra <em>religión</em> deriva de la voz latina <em>religio</em> que significa vínculo de unión del hombre con Dios.<br><br><strong>Caracteres:</strong> Espontaneidad · Heteronomía · Unilateralidad · Interioridad · Incoercibilidad<br><strong>Clasificación:</strong> Normas de Fe / Normas de la Razón<br><strong>Sanciones:</strong> Terrenales y Ultraterrenales · Premiales · Preventivas y represivas</div>
+            </div>
+            <div class="slide " data-index="1">
+              <div class="slide-number">2 / 5</div>
+              <h2 class="slide-title">Normas Morales y del Trato Social</h2>
+              <div class="slide-content"><strong>Normas Morales:</strong> Formulan imperativamente los deberes ordenados al bien personal del hombre. <em>Caracteres:</em> Autonomía · Unilateralidad · Subjetivo · Interioexterioridad · Incoercibilidad<br><br><strong>Normas del Trato Social:</strong> Reglas de naturaleza específicamente social y externa que imponen deberes de comportamiento decoroso derivados de las circunstancias. <em>Carácter:</em> Imperativo.</div>
+            </div>
+            <div class="slide " data-index="2">
+              <div class="slide-number">3 / 5</div>
+              <h2 class="slide-title">Normas Jurídicas — Concepto y Caracteres</h2>
+              <div class="slide-content">La norma jurídica rige la conducta humana en sociedad, y su cumplimiento puede exigirse coactivamente o pedir que se aplique la sanción por los órganos del Estado, en caso de su inobservancia.<br><br><strong>Caracteres:</strong> Imperatividad · Autarquía · Heteronomía · Generalidad · Bilateralidad · Exteriointerioridad · <strong>Coercibilidad</strong></div>
+            </div>
+            <div class="slide " data-index="3">
+              <div class="slide-number">4 / 5</div>
+              <h2 class="slide-title">Estructura y Clasificación de las Normas Jurídicas</h2>
+              <div class="slide-content">La estructura lógica de la norma jurídica se compone de: <strong>hipótesis o supuesto jurídico</strong> y <strong>disposición o consecuencia de derecho</strong>.<br><br><strong>Clasificación:</strong><br>• Por sanciones: Leyes perfectas, pluscuamperfectas, minuscuamperfectas, imperfectas<br>• Por ámbito: espacial, temporal, material y personal<br>• Por jerarquía: Norma Primaria, Secundaria, de Vigencia, Declarativa, Permisiva, Sancionadora</div>
+            </div>
+            <div class="slide " data-index="4">
+              <div class="slide-number">5 / 5</div>
+              <h2 class="slide-title">La Sanción — Sanciones prohibidas por la CN</h2>
+              <div class="slide-content">Las sanciones son las seguridades de que se rodean las normas jurídicas para hacer efectivo su cumplimiento.<br><br><strong>Sanciones prohibidas por la Constitución Nacional:</strong><br>• Las multas desmedidas (Art. 44 CN)<br>• La pena de muerte (Art. 4 CN)<br>• Prohibición de confiscación (Arts. 109 y 181 CN)<br>• Torturas y tratos crueles, inhumanos (Art. 5 CN)<br>• Ley N° 1557/2000 — Protocolo de abolición de la pena de muerte</div>
+            </div>
+    </div>
+    <div class="slide-controls">
+      <button class="ctrl-btn" onclick="prevSlide(11)">&#8592;</button>
+      <div class="dots-container"><button class="dot active" onclick="goToSlide(11,0)"></button><button class="dot " onclick="goToSlide(11,1)"></button><button class="dot " onclick="goToSlide(11,2)"></button><button class="dot " onclick="goToSlide(11,3)"></button><button class="dot " onclick="goToSlide(11,4)"></button></div>
+      <button class="ctrl-btn" onclick="nextSlide(11)">&#8594;</button>
+    </div>
+    <div class="progress-bar-wrap"><div class="progress-bar" id="prog-11"></div></div>
+  </section>
+  <section class="lesson-page" id="lesson-12" style="display:none">
+    <header class="lesson-header">
+      <button class="back-btn" onclick="showHome()">&#8592; Volver al inicio</button>
+      <div class="lesson-badge">🏛️ Lección 12</div>
+    </header>
+    <div class="lesson-meta">
+      <h1 class="lesson-main-title">Ordenamiento Jurídico</h1>
+      <p class="lesson-subtitle">Juricidad, Antijuricidad y Pirámide de Kelsen</p>
+    </div>
+    <div class="slideshow-container" id="slides-12">
+      
+            <div class="slide active" data-index="0">
+              <div class="slide-number">1 / 5</div>
+              <h2 class="slide-title">Ordenamiento Normativo</h2>
+              <div class="slide-content">Las normas reguladoras de la conducta humana no se encuentran aisladas, sino que constituyen conjuntos orgánico-sistematizados denominados <strong>ordenamientos normativos</strong>.<br><br>Ordenamiento normativo es el conjunto sistematizado de normas que regulan el obrar del hombre y tienen la misma razón de validez.<br><br><em>Especies:</em> religioso, moral, de trato social y jurídico.</div>
+            </div>
+            <div class="slide " data-index="1">
+              <div class="slide-number">2 / 5</div>
+              <h2 class="slide-title">El Ordenamiento Jurídico — Juricidad</h2>
+              <div class="slide-content"><strong>Ordenamiento jurídico:</strong> conjunto sistematizado de normas cuya razón de validez deriva de la misma Constitución o norma superior fundamental.<br><br><strong>Juricidad:</strong> constituida por los hechos o fenómenos de la realidad social regulados por las normas jurídicas. Es el acontecer en la vida jurídica.<br><br><strong>Conducta lícita:</strong> la que corresponde a la ejecución de los actos ordenados y a la omisión de los prohibidos.</div>
+            </div>
+            <div class="slide " data-index="2">
+              <div class="slide-number">3 / 5</div>
+              <h2 class="slide-title">Antijuricidad — Arbitrariedad — Injusticia</h2>
+              <div class="slide-content"><strong>Antijuricidad:</strong> conjunto de hechos que se oponen al orden jurídico, son hechos ilícitos o prohibidos. La <em>conducta ilícita</em> está representada por la omisión de los actos ordenados o la ejecución de los prohibidos.<br><br><strong>Arbitrariedad:</strong> conducta antijurídica de los órganos del Estado; la especie más grave de antijuridicidad.<br><br><strong>Injusticia:</strong> no atribuir a cada uno lo que le corresponde por el derecho natural y el derecho positivo.</div>
+            </div>
+            <div class="slide " data-index="3">
+              <div class="slide-number">4 / 5</div>
+              <h2 class="slide-title">Pirámide de Kelsen</h2>
+              <div class="slide-content">La prelación de normas determina la jerarquía e importancia de las mismas. Hans Kelsen estableció la jerarquización piramidal: cada norma superior constituye la razón de validez de la inferior.<br><br>La jerarquía en el <strong>Derecho Paraguayo</strong> está establecida en el <strong>Art. 137 CN</strong>:<br>1° Constitución Nacional<br>2° Tratados y convenios internacionales<br>3° Leyes del Congreso<br>4° Disposiciones jurídicas de inferior jerarquía</div>
+            </div>
+            <div class="slide " data-index="4">
+              <div class="slide-number">5 / 5</div>
+              <h2 class="slide-title">Fin del Ordenamiento Jurídico</h2>
+              <div class="slide-content">El ordenamiento jurídico debe ser estable pero contemplar las exigencias sociales.<br><br><strong>Caducidad de la norma fundamental — dos modos:</strong><br><br>• <strong>Muerte natural:</strong> cuando la Constitución vigente es reformada totalmente o se dicta una nueva conforme a sus propias disposiciones.<br><br>• <strong>Muerte violenta:</strong> ruptura de la lógica de los antecedentes causada por una <em>revolución</em>.</div>
+            </div>
+    </div>
+    <div class="slide-controls">
+      <button class="ctrl-btn" onclick="prevSlide(12)">&#8592;</button>
+      <div class="dots-container"><button class="dot active" onclick="goToSlide(12,0)"></button><button class="dot " onclick="goToSlide(12,1)"></button><button class="dot " onclick="goToSlide(12,2)"></button><button class="dot " onclick="goToSlide(12,3)"></button><button class="dot " onclick="goToSlide(12,4)"></button></div>
+      <button class="ctrl-btn" onclick="nextSlide(12)">&#8594;</button>
+    </div>
+    <div class="progress-bar-wrap"><div class="progress-bar" id="prog-12"></div></div>
+  </section>
+  <section class="lesson-page" id="lesson-13" style="display:none">
+    <header class="lesson-header">
+      <button class="back-btn" onclick="showHome()">&#8592; Volver al inicio</button>
+      <div class="lesson-badge">⚖️ Lección 13</div>
+    </header>
+    <div class="lesson-meta">
+      <h1 class="lesson-main-title">El Derecho Positivo</h1>
+      <p class="lesson-subtitle">Ramas, Estructura de la Constitución 1992</p>
+    </div>
+    <div class="slideshow-container" id="slides-13">
+      
+            <div class="slide active" data-index="0">
+              <div class="slide-number">1 / 4</div>
+              <h2 class="slide-title">Concepto y Características del Derecho Positivo</h2>
+              <div class="slide-content">El derecho positivo es el conjunto de normas jurídicas que regulan la convivencia de las personas en un determinado territorio. Se desarrolla gracias a la <strong>Teoría del Normativismo</strong> de Hans Kelsen.<br><br><strong>Características:</strong> Expresable · Individual por país · De carácter obligatorio · Puede imponerse coactivamente · Tiene relatividad · Creado por voluntad del hombre · Puede ser temporal</div>
+            </div>
+            <div class="slide " data-index="1">
+              <div class="slide-number">2 / 4</div>
+              <h2 class="slide-title">Derecho Público y Derecho Privado</h2>
+              <div class="slide-content"><strong>Derecho Público:</strong> conjunto de normas que establecen la estructura y funciones del Estado como ente soberano y regulan sus relaciones con los particulares u otros Estados.<br><br><strong>Derecho Privado:</strong> conjunto de normas que regulan las relaciones jurídicas entre particulares o entre éstos y el Estado como persona jurídica.<br><br>Ambos se subdividen en <strong>interno</strong> y <strong>externo</strong>.</div>
+            </div>
+            <div class="slide " data-index="2">
+              <div class="slide-number">3 / 4</div>
+              <h2 class="slide-title">Ramas del Derecho Público Interno</h2>
+              <div class="slide-content">• <strong>Derecho Político:</strong> estudia la teoría general del Estado<br>• <strong>Derecho Constitucional:</strong> estudia la estructura jurídica establecida en la Constitución<br>• <strong>Derecho Administrativo:</strong> regula la actividad del Estado en los servicios públicos<br>• <strong>Derecho Financiero:</strong> normas que regulan la percepción y gestión de medios económicos del Estado<br>• <strong>Derecho Municipal:</strong> organización y funcionamiento de servicios públicos locales<br>• <strong>Derecho Aduanero, Penal, Penal Militar, Procesal</strong></div>
+            </div>
+            <div class="slide " data-index="3">
+              <div class="slide-number">4 / 4</div>
+              <h2 class="slide-title">Estructura de la Constitución de 1992</h2>
+              <div class="slide-content">La Constitución paraguaya fue sancionada por la Convención Nacional Constituyente el <strong>20 de junio de 1992</strong>. Se compone de:<br><br>• <strong>Preámbulo:</strong> declaración extranormativa de la voluntad de sus autores. No es la parte dominante.<br><br>• <strong>Parte Dogmática:</strong> trata de los derechos fundamentales del hombre. El Estado salvaguarda libertades individuales y el bien común.<br><br>• <strong>Parte Orgánica:</strong> se refiere a la organización y funcionamiento de los poderes del Estado.</div>
+            </div>
+    </div>
+    <div class="slide-controls">
+      <button class="ctrl-btn" onclick="prevSlide(13)">&#8592;</button>
+      <div class="dots-container"><button class="dot active" onclick="goToSlide(13,0)"></button><button class="dot " onclick="goToSlide(13,1)"></button><button class="dot " onclick="goToSlide(13,2)"></button><button class="dot " onclick="goToSlide(13,3)"></button></div>
+      <button class="ctrl-btn" onclick="nextSlide(13)">&#8594;</button>
+    </div>
+    <div class="progress-bar-wrap"><div class="progress-bar" id="prog-13"></div></div>
+  </section>
+  <section class="lesson-page" id="lesson-14" style="display:none">
+    <header class="lesson-header">
+      <button class="back-btn" onclick="showHome()">&#8592; Volver al inicio</button>
+      <div class="lesson-badge">🌐 Lección 14</div>
+    </header>
+    <div class="lesson-meta">
+      <h1 class="lesson-main-title">Derecho Internacional Público y Canónico</h1>
+      <p class="lesson-subtitle">Ramas del Derecho Público Externo</p>
+    </div>
+    <div class="slideshow-container" id="slides-14">
+      
+            <div class="slide active" data-index="0">
+              <div class="slide-number">1 / 4</div>
+              <h2 class="slide-title">Derecho Internacional Público — Noción</h2>
+              <div class="slide-content">El derecho internacional público es el conjunto de principios y normas convencionales y consuetudinarias que regulan las relaciones jurídicas entre los Estados como entes soberanos y con otras organizaciones internacionales (ONU, OEA, OIT).<br><br><strong>Denominaciones alternativas:</strong> Derecho Interestatal · Derecho Supranacional · Derecho de Gentes<br><br><strong>División:</strong> General (válido para todos) y Particular (para algunos).</div>
+            </div>
+            <div class="slide " data-index="1">
+              <div class="slide-number">2 / 4</div>
+              <h2 class="slide-title">Bases Constitucionales del Derecho Internacional</h2>
+              <div class="slide-content"><strong>Art. 143 CN</strong> — El Paraguay acepta el derecho internacional y se ajusta a:<br>a) Independencia nacional; b) Autodeterminación de los pueblos; c) Igualdad jurídica entre Estados; d) Solidaridad y cooperación; e) Protección de los DDHH; f) Libre navegación de ríos internacionales; g) No intervención; h) Condena a dictadura, colonialismo e imperialismo.<br><br><strong>Art. 144 CN</strong> — Paraguay renuncia a la guerra pero sustenta la legítima defensa.</div>
+            </div>
+            <div class="slide " data-index="2">
+              <div class="slide-number">3 / 4</div>
+              <h2 class="slide-title">Derecho Canónico</h2>
+              <div class="slide-content"><strong>Noción:</strong> Conjunto de leyes dadas por Dios a través de la revelación o establecidas por la potestad eclesiástica para la organización, funcionamiento y disciplina de la Iglesia Católica.<br><br><strong>División:</strong> Público (constitución de la Iglesia y sus relaciones con el Estado — interno y externo) y Privado (derechos y obligaciones de los miembros).<br><br>El principal cuerpo legislativo es el <strong>Código de Derecho Canónico</strong> promulgado el 25 de enero de 1983.</div>
+            </div>
+            <div class="slide " data-index="3">
+              <div class="slide-number">4 / 4</div>
+              <h2 class="slide-title">Derecho Canónico vs. Derecho Eclesiástico</h2>
+              <div class="slide-content"><strong>Derecho Canónico:</strong> dictado por la propia Iglesia Católica para regir su vida y disciplinar las relaciones con los fieles.<br><br><strong>Derecho Eclesiástico:</strong> emana del Estado y está destinado a regir la vida jurídica de las comunidades religiosas existentes en su territorio.<br><br><em>La distinción radica en las fuentes de producción de dichos órdenes normativos.</em></div>
+            </div>
+    </div>
+    <div class="slide-controls">
+      <button class="ctrl-btn" onclick="prevSlide(14)">&#8592;</button>
+      <div class="dots-container"><button class="dot active" onclick="goToSlide(14,0)"></button><button class="dot " onclick="goToSlide(14,1)"></button><button class="dot " onclick="goToSlide(14,2)"></button><button class="dot " onclick="goToSlide(14,3)"></button></div>
+      <button class="ctrl-btn" onclick="nextSlide(14)">&#8594;</button>
+    </div>
+    <div class="progress-bar-wrap"><div class="progress-bar" id="prog-14"></div></div>
+  </section>
+  <section class="lesson-page" id="lesson-15" style="display:none">
+    <header class="lesson-header">
+      <button class="back-btn" onclick="showHome()">&#8592; Volver al inicio</button>
+      <div class="lesson-badge">📋 Lección 15</div>
+    </header>
+    <div class="lesson-meta">
+      <h1 class="lesson-main-title">El Derecho Privado</h1>
+      <p class="lesson-subtitle">Ramas del Derecho Privado Interno</p>
+    </div>
+    <div class="slideshow-container" id="slides-15">
+      
+            <div class="slide active" data-index="0">
+              <div class="slide-number">1 / 5</div>
+              <h2 class="slide-title">¿Qué es el Derecho Privado?</h2>
+              <div class="slide-content">El Derecho Privado es el conjunto de normas que regulan las relaciones jurídicas <strong>entre particulares</strong> o entre éstos y el <strong>Estado como persona jurídica</strong>.<br><br><strong>División:</strong><br>• <strong>Interno:</strong> normas que dicta cada Estado para regir relaciones jurídicas entre particulares<br>• <strong>Externo (DIP):</strong> estudia principios aplicables a relaciones privadas con elementos extranjeros</div>
+            </div>
+            <div class="slide " data-index="1">
+              <div class="slide-number">2 / 5</div>
+              <h2 class="slide-title">Ramas del Derecho Privado Interno</h2>
+              <div class="slide-content">El Derecho Privado Interno comprende:<br><br>① Derecho Civil &nbsp;② Derecho Comercial &nbsp;③ Derecho Laboral o del Trabajo &nbsp;④ Derecho Rural &nbsp;⑤ Derecho Industrial &nbsp;⑥ Derecho de Minería &nbsp;⑦ Derecho Marítimo o de la Navegación</div>
+            </div>
+            <div class="slide " data-index="2">
+              <div class="slide-number">3 / 5</div>
+              <h2 class="slide-title">Derecho Civil — Columna Vertebral del Derecho Privado</h2>
+              <div class="slide-content">Conjunto de normas jurídicas que regulan la existencia de las personas privadas (individuales o colectivas) y sus relaciones familiares y patrimoniales. También denominado <strong>Derecho Común</strong>.<br><br><strong>Instituciones que regula:</strong> Las Personas · La Familia · La Propiedad Privada · Las Obligaciones · Los Contratos · Las Sucesiones<br><br><strong>Código Civil Paraguayo — Ley 1183/1985:</strong> vigente desde el 1° enero 1987. 2815 artículos, 5 libros.</div>
+            </div>
+            <div class="slide " data-index="3">
+              <div class="slide-number">4 / 5</div>
+              <h2 class="slide-title">Derecho Laboral — Ley 213/1993</h2>
+              <div class="slide-content">Regula las relaciones jurídicas entre empleadores y trabajadores originadas por la prestación voluntaria, subordinada y retribuida de la actividad humana.<br><br><strong>Art. 5°:</strong> mínimo de garantías a favor del trabajador. No pueden alterarse en su detrimento.<br><strong>Art. 9°:</strong> el trabajo es un derecho y un deber social. Prohíbe discriminación.<br><strong>Art. 90°:</strong> el empleador que no dé preaviso debe pagar al trabajador el salario equivalente.</div>
+            </div>
+            <div class="slide " data-index="4">
+              <div class="slide-number">5 / 5</div>
+              <h2 class="slide-title">Derecho Rural — Legislación</h2>
+              <div class="slide-content">Regula las relaciones jurídicas derivadas de la producción agrícola, ganadera, agroindustrial y forestal.<br><br><strong>Legislación vigente:</strong><br>• <strong>CN Art. 114</strong> — Reforma Agraria<br>• <strong>CN Art. 116</strong> — Latifundios improductivos<br>• <strong>Ley 1863/2002</strong> — Estatuto Agrario<br>• <strong>Ley 2419/2004</strong> — Crea el INDERT</div>
+            </div>
+    </div>
+    <div class="slide-controls">
+      <button class="ctrl-btn" onclick="prevSlide(15)">&#8592;</button>
+      <div class="dots-container"><button class="dot active" onclick="goToSlide(15,0)"></button><button class="dot " onclick="goToSlide(15,1)"></button><button class="dot " onclick="goToSlide(15,2)"></button><button class="dot " onclick="goToSlide(15,3)"></button><button class="dot " onclick="goToSlide(15,4)"></button></div>
+      <button class="ctrl-btn" onclick="nextSlide(15)">&#8594;</button>
+    </div>
+    <div class="progress-bar-wrap"><div class="progress-bar" id="prog-15"></div></div>
+  </section>
+  <section class="lesson-page" id="lesson-16" style="display:none">
+    <header class="lesson-header">
+      <button class="back-btn" onclick="showHome()">&#8592; Volver al inicio</button>
+      <div class="lesson-badge">👤 Lección 16</div>
+    </header>
+    <div class="lesson-meta">
+      <h1 class="lesson-main-title">Derecho Subjetivo</h1>
+      <p class="lesson-subtitle">Concepto, Fundamento y Derechos Fundamentales</p>
+    </div>
+    <div class="slideshow-container" id="slides-16">
+      
+            <div class="slide active" data-index="0">
+              <div class="slide-number">1 / 3</div>
+              <h2 class="slide-title">Concepto y Origen del Derecho Subjetivo</h2>
+              <div class="slide-content">Es la <strong>facultad de querer y exigir</strong> atribuida a una persona por el ordenamiento jurídico, a la cual corresponde una obligación por parte de otro.<br><br><strong>Origen:</strong> Para algunos autores nació con el derecho natural. Esa facultad del hombre como persona no le viene de la ley sino de su naturaleza existencial, reconocida luego por el ordenamiento jurídico.</div>
+            </div>
+            <div class="slide " data-index="1">
+              <div class="slide-number">2 / 3</div>
+              <h2 class="slide-title">Teorías sobre el Derecho Subjetivo</h2>
+              <div class="slide-content"><strong>A) Teoría de la voluntad:</strong> el derecho subjetivo es un poder de la voluntad conferido por el ordenamiento jurídico.<br><strong>B) Teoría del interés:</strong> existen para asegurar al hombre la satisfacción de sus necesidades.<br><strong>C) Teoría ecléctica:</strong> interés tutelado por la Ley mediante el reconocimiento de la voluntad individual.<br><strong>D) Doctrina italiana moderna:</strong> posibilidad de actuar para la satisfacción de un interés lícito.<br><strong>E) Teoría unificadora de Kelsen:</strong> el derecho subjetivo es el mismo derecho objetivo en relación con el sujeto.</div>
+            </div>
+            <div class="slide " data-index="2">
+              <div class="slide-number">3 / 3</div>
+              <h2 class="slide-title">Derechos Subjetivos Fundamentales</h2>
+              <div class="slide-content">Los derechos subjetivos fundamentales comunes a todos los hombres son tres:<br><br>1. <strong>Derecho a la Igualdad</strong> — Art. 46 CN: todos son iguales en dignidad y derechos. Las 4 garantías de igualdad están en el Art. 47 CN.<br><br>2. <strong>Derecho a la Libertad</strong> — Art. 9 CN: libertad natural (poder de autodeterminación) y libertad jurídica o normativa (facultad de hacer u omitir lo no ordenado ni prohibido).<br><br>3. <strong>Derecho de Resistencia a la Opresión</strong></div>
+            </div>
+    </div>
+    <div class="slide-controls">
+      <button class="ctrl-btn" onclick="prevSlide(16)">&#8592;</button>
+      <div class="dots-container"><button class="dot active" onclick="goToSlide(16,0)"></button><button class="dot " onclick="goToSlide(16,1)"></button><button class="dot " onclick="goToSlide(16,2)"></button></div>
+      <button class="ctrl-btn" onclick="nextSlide(16)">&#8594;</button>
+    </div>
+    <div class="progress-bar-wrap"><div class="progress-bar" id="prog-16"></div></div>
+  </section>
+  <section class="lesson-page" id="lesson-17" style="display:none">
+    <header class="lesson-header">
+      <button class="back-btn" onclick="showHome()">&#8592; Volver al inicio</button>
+      <div class="lesson-badge">🔏 Lección 17</div>
+    </header>
+    <div class="lesson-meta">
+      <h1 class="lesson-main-title">Libertad Jurídica y Orden Público</h1>
+      <p class="lesson-subtitle">Abuso del Derecho y Leyes de Orden Público</p>
+    </div>
+    <div class="slideshow-container" id="slides-17">
+      
+            <div class="slide active" data-index="0">
+              <div class="slide-number">1 / 3</div>
+              <h2 class="slide-title">Limitaciones de la Libertad Jurídica</h2>
+              <div class="slide-content">La libertad jurídica no constituye un derecho absoluto. Algunas limitaciones son:<br><br>• <strong>La institución:</strong> conjunto de normas jurídicas vinculadas por el mismo propósito (matrimonio, patria potestad, propiedad, contratos).<br>• <strong>La función social:</strong> el hombre debe usar sus libertades con miras al bien común.<br>• <strong>Art. 109 CN:</strong> propiedad privada inviolable pero sujeta a función económica y social.<br>• <strong>Art. 128 CN:</strong> el interés general prima sobre el particular.</div>
+            </div>
+            <div class="slide " data-index="1">
+              <div class="slide-number">2 / 3</div>
+              <h2 class="slide-title">Teoría del Abuso del Derecho</h2>
+              <div class="slide-content">Se da cuando una persona ejerce su derecho <strong>sin necesidad y con la intención de dañar a otro</strong>, excediendo los límites fijados.<br><br><strong>Ej:</strong> competencia desleal, oligopolios, abuso de la patria potestad.<br><br><strong>Consecuencias:</strong><br>1. Obligación de restaurar la situación anterior de abuso<br>2. Resarcir el daño material o moral causado intencionalmente o por negligencia<br><br><strong>Art. 372 CC:</strong> los derechos deben ser ejercidos de buena fe.</div>
+            </div>
+            <div class="slide " data-index="2">
+              <div class="slide-number">3 / 3</div>
+              <h2 class="slide-title">Orden Público y Leyes de Orden Público</h2>
+              <div class="slide-content"><strong>Orden Público:</strong> conjunto de principios superiores de naturaleza política, económica y moral, estructurados en normas jurídicas que determinan la existencia y conservación de una sociedad.<br><br><strong>Características de las Leyes de Orden Público:</strong><br>• No pueden ser renunciadas<br>• Su violación entraña <em>nulidad absoluta</em><br>• Son imperativas (no supletorias)<br>• No son retroactivas (salvo leyes penales más favorables — Art. 14 CN)<br>• Son aplicables de oficio por el juez</div>
+            </div>
+    </div>
+    <div class="slide-controls">
+      <button class="ctrl-btn" onclick="prevSlide(17)">&#8592;</button>
+      <div class="dots-container"><button class="dot active" onclick="goToSlide(17,0)"></button><button class="dot " onclick="goToSlide(17,1)"></button><button class="dot " onclick="goToSlide(17,2)"></button></div>
+      <button class="ctrl-btn" onclick="nextSlide(17)">&#8594;</button>
+    </div>
+    <div class="progress-bar-wrap"><div class="progress-bar" id="prog-17"></div></div>
+  </section>
+  <section class="lesson-page" id="lesson-18" style="display:none">
+    <header class="lesson-header">
+      <button class="back-btn" onclick="showHome()">&#8592; Volver al inicio</button>
+      <div class="lesson-badge">🔗 Lección 18</div>
+    </header>
+    <div class="lesson-meta">
+      <h1 class="lesson-main-title">Relación Jurídica</h1>
+      <p class="lesson-subtitle">Personas, Capacidad y Domicilio</p>
+    </div>
+    <div class="slideshow-container" id="slides-18">
+      
+            <div class="slide active" data-index="0">
+              <div class="slide-number">1 / 4</div>
+              <h2 class="slide-title">Concepto y Elementos de la Relación Jurídica</h2>
+              <div class="slide-content">Es el vínculo existente entre dos o más personas que generan derechos y obligaciones.<br><br><strong>Elementos:</strong><br>• <strong>Sujeto activo:</strong> quien puede ejercitar el poder-facultad que le confiere la norma<br>• <strong>Sujeto pasivo:</strong> constreñido a cumplir el deber jurídico u obligación<br>• <strong>Objeto:</strong> cosas inanimadas o animadas sobre las cuales recae el vínculo<br>• <strong>Hecho jurígeno:</strong> todos los acontecimientos que producen adquisición, modificación o extinción de derechos</div>
+            </div>
+            <div class="slide " data-index="1">
+              <div class="slide-number">2 / 4</div>
+              <h2 class="slide-title">Personas Físicas y Jurídicas</h2>
+              <div class="slide-content"><strong>Personas Físicas:</strong> por el solo hecho de existir, el ser humano es persona sujeto de derechos. Su existencia jurídica comienza desde la concepción y termina con la muerte.<br><br><strong>Personas Jurídicas:</strong> entidades abstractas, desprovistas de existencia material, en condiciones de adquirir derechos y contraer obligaciones. Son distintas e independientes de sus miembros, poseen patrimonio propio.</div>
+            </div>
+            <div class="slide " data-index="2">
+              <div class="slide-number">3 / 4</div>
+              <h2 class="slide-title">Capacidad Jurídica</h2>
+              <div class="slide-content"><strong>Capacidad de derecho:</strong> aptitud a la titularidad de facultades y deberes jurídicos.<br><strong>Capacidad de hecho:</strong> aptitud legal para adquirir derechos y contraer obligaciones por sí mismo.<br><br><strong>Art. 37 CC — Incapaces absolutos de hecho:</strong><br>a) Personas por nacer; b) Menores de 14 años; c) Enfermos mentales; d) Sordomudos que no saben darse a entender.</div>
+            </div>
+            <div class="slide " data-index="3">
+              <div class="slide-number">4 / 4</div>
+              <h2 class="slide-title">Domicilio</h2>
+              <div class="slide-content">Es el asiento territorial que debe tener toda persona para el cumplimiento de sus obligaciones.<br><br>• <strong>Domicilio Real:</strong> lugar donde tienen establecido el asiento principal de su residencia o negocios (elementos objetivo e intencional).<br>• <strong>Domicilio Legal:</strong> lugar donde la ley presume que una persona reside de modo permanente (Art. 53 CC).<br>• <strong>Domicilio Especial:</strong> designado por los particulares en sus negocios jurídicos.<br>• <strong>Domicilio de Origen:</strong> lugar del domicilio de los padres al nacer el hijo.</div>
+            </div>
+    </div>
+    <div class="slide-controls">
+      <button class="ctrl-btn" onclick="prevSlide(18)">&#8592;</button>
+      <div class="dots-container"><button class="dot active" onclick="goToSlide(18,0)"></button><button class="dot " onclick="goToSlide(18,1)"></button><button class="dot " onclick="goToSlide(18,2)"></button><button class="dot " onclick="goToSlide(18,3)"></button></div>
+      <button class="ctrl-btn" onclick="nextSlide(18)">&#8594;</button>
+    </div>
+    <div class="progress-bar-wrap"><div class="progress-bar" id="prog-18"></div></div>
+  </section>
+  <section class="lesson-page" id="lesson-19" style="display:none">
+    <header class="lesson-header">
+      <button class="back-btn" onclick="showHome()">&#8592; Volver al inicio</button>
+      <div class="lesson-badge">📝 Lección 19</div>
+    </header>
+    <div class="lesson-meta">
+      <h1 class="lesson-main-title">Hechos y Actos Jurídicos</h1>
+      <p class="lesson-subtitle">Objeto de la Relación Jurídica y Negocio Jurídico</p>
+    </div>
+    <div class="slideshow-container" id="slides-19">
+      
+            <div class="slide active" data-index="0">
+              <div class="slide-number">1 / 4</div>
+              <h2 class="slide-title">Objeto de la Relación Jurídica — Cosas y Bienes</h2>
+              <div class="slide-content">El objeto de la relación jurídica es todo lo que puede estar sometido a la disposición del sujeto activo como medio para un fin lícito.<br><br><strong>Cosa (Art. 1872 CC):</strong> objetos corporales susceptibles de tener un valor.<br><strong>Bienes (Art. 1873 CC):</strong> en acepción amplia comprende cosas materiales e inmateriales. En acepción restringida son los objetos inmateriales susceptibles de valor (ej: un crédito, el derecho de propiedad).</div>
+            </div>
+            <div class="slide " data-index="1">
+              <div class="slide-number">2 / 4</div>
+              <h2 class="slide-title">Hechos Jurídicos — Clasificación</h2>
+              <div class="slide-content">La causa que da nacimiento a la relación jurídica se llama <strong>hecho jurídico o jurígeno</strong>.<br><br><strong>Clasificación primaria:</strong><br>• <strong>Hechos Naturales:</strong> producidos por causas extrañas al hombre (nacimiento, inundación)<br>• <strong>Hechos Humanos:</strong> resultado de la obra directa o indirecta del hombre<br><br><strong>Hechos Humanos:</strong><br>• <strong>Voluntarios:</strong> ejecutados con discernimiento, intención y libertad<br>• <strong>Involuntarios:</strong> sin esos requisitos — no producen obligación (Art. 277 CC)</div>
+            </div>
+            <div class="slide " data-index="2">
+              <div class="slide-number">3 / 4</div>
+              <h2 class="slide-title">Condiciones de la Voluntad: Discernimiento, Intención, Libertad</h2>
+              <div class="slide-content"><strong>Discernimiento:</strong> consiste en juzgar nuestras acciones. Sin discernimiento: menores de 14 años, privados de razón, sujetos a interdicción (Art. 278 CC).<br><br><strong>Intención:</strong> propósito de realizar el acto. La excluyen el error (Art. 286 CC) y el dolo (Art. 290 CC).<br><br><strong>Libertad:</strong> poder de decidir por sí mismo. La excluye la violencia: fuerza irresistible e intimidación (Art. 293 CC).</div>
+            </div>
+            <div class="slide " data-index="3">
+              <div class="slide-number">4 / 4</div>
+              <h2 class="slide-title">Actos Jurídicos y Negocio Jurídico</h2>
+              <div class="slide-content"><strong>Actos Lícitos:</strong> acciones voluntarias no prohibidas por la ley.<br><strong>Hechos Ilícitos:</strong> prohibidos por las leyes, con sanción penal.<br><br><strong>Acto Jurídico (Art. 296 CC):</strong> actos voluntarios lícitos que tienen por fin inmediato crear, modificar, transferir, conservar o extinguir derechos. Ej: contratos, testamento, reconocimiento de hijo.<br><br><strong>Negocio Jurídico:</strong> declaraciones de voluntad de los particulares encaminadas a la obtención de fines jurídicamente protegidos.</div>
+            </div>
+    </div>
+    <div class="slide-controls">
+      <button class="ctrl-btn" onclick="prevSlide(19)">&#8592;</button>
+      <div class="dots-container"><button class="dot active" onclick="goToSlide(19,0)"></button><button class="dot " onclick="goToSlide(19,1)"></button><button class="dot " onclick="goToSlide(19,2)"></button><button class="dot " onclick="goToSlide(19,3)"></button></div>
+      <button class="ctrl-btn" onclick="nextSlide(19)">&#8594;</button>
+    </div>
+    <div class="progress-bar-wrap"><div class="progress-bar" id="prog-19"></div></div>
+  </section>
+  <section class="lesson-page" id="lesson-20" style="display:none">
+    <header class="lesson-header">
+      <button class="back-btn" onclick="showHome()">&#8592; Volver al inicio</button>
+      <div class="lesson-badge">🗳️ Lección 20</div>
+    </header>
+    <div class="lesson-meta">
+      <h1 class="lesson-main-title">Democracia Participativa</h1>
+      <p class="lesson-subtitle">Referéndum, Iniciativa Popular y Estado Unitario</p>
+    </div>
+    <div class="slideshow-container" id="slides-20">
+      
+            <div class="slide active" data-index="0">
+              <div class="slide-number">1 / 3</div>
+              <h2 class="slide-title">Democracia Participativa y Representativa</h2>
+              <div class="slide-content">La democracia participativa es un conjunto de instituciones complementarias de la clásica democracia representativa. Tiene como antecedente la democracia directa de Rousseau.<br><br>La democracia representativa se impuso desde el siglo XVIII. <strong>Art. 3 CN:</strong> "El pueblo ejerce el Poder Público por medio del sufragio".<br><br><strong>Democracia Pluralista:</strong> fundada en el reconocimiento y respeto a la diversidad cultural, ideológica e intereses.</div>
+            </div>
+            <div class="slide " data-index="1">
+              <div class="slide-number">2 / 3</div>
+              <h2 class="slide-title">Iniciativa Popular y Referéndum</h2>
+              <div class="slide-content"><strong>Art. 123 CN — Iniciativa Popular:</strong> los electores pueden proponer proyectos de ley al Congreso. Requiere firma del 2% de los electores inscriptos (~70.000 firmas).<br><br><strong>Art. 121 CN — Referéndum:</strong> el referéndum legislativo puede o no ser vinculante, decidido por ley.<br><br><strong>Art. 122 CN — Materias vedadas:</strong> relaciones internacionales, expropiaciones, defensa nacional, sistemas tributarios, monetarios y bancarios, elecciones.</div>
+            </div>
+            <div class="slide " data-index="2">
+              <div class="slide-number">3 / 3</div>
+              <h2 class="slide-title">Estado Unitario y Descentralizado</h2>
+              <div class="slide-content"><strong>Estado Unitario:</strong> existe unidad de poder sobre el territorio, personas y bienes. El Paraguay se constituye en Estado unitario (Art. 1 CN).<br><br><strong>Estado Federal:</strong> el poder se reparte en espacios territoriales con multiplicidad de organizaciones gubernamentales.<br><br><strong>Estado Confederado:</strong> unión de Estados soberanos e independientes mediante un pacto para fines determinados.</div>
+            </div>
+    </div>
+    <div class="slide-controls">
+      <button class="ctrl-btn" onclick="prevSlide(20)">&#8592;</button>
+      <div class="dots-container"><button class="dot active" onclick="goToSlide(20,0)"></button><button class="dot " onclick="goToSlide(20,1)"></button><button class="dot " onclick="goToSlide(20,2)"></button></div>
+      <button class="ctrl-btn" onclick="nextSlide(20)">&#8594;</button>
+    </div>
+    <div class="progress-bar-wrap"><div class="progress-bar" id="prog-20"></div></div>
+  </section>
+  <section class="lesson-page" id="lesson-21" style="display:none">
+    <header class="lesson-header">
+      <button class="back-btn" onclick="showHome()">&#8592; Volver al inicio</button>
+      <div class="lesson-badge">🏠 Lección 21</div>
+    </header>
+    <div class="lesson-meta">
+      <h1 class="lesson-main-title">Derechos Reales</h1>
+      <p class="lesson-subtitle">Dominio, Usufructo, Hipoteca y Servidumbre</p>
+    </div>
+    <div class="slideshow-container" id="slides-21">
+      
+            <div class="slide active" data-index="0">
+              <div class="slide-number">1 / 4</div>
+              <h2 class="slide-title">Concepto y Caracteres de los Derechos Reales</h2>
+              <div class="slide-content">El <strong>derecho real</strong> es el poder jurídico que ejerce una persona sobre una cosa de manera directa e inmediata para un aprovechamiento total o parcial, siendo este derecho oponible a terceros (<em>erga omnes</em>).<br><br><strong>Caracteres:</strong><br>• El sujeto pasivo solo se determina por la violación del derecho<br>• Solo pueden versar sobre cosas<br>• Conceden persecución de la cosa (<em>jus persecuendi</em>)<br>• <strong>Solo pueden ser creados por ley</strong></div>
+            </div>
+            <div class="slide " data-index="1">
+              <div class="slide-number">2 / 4</div>
+              <h2 class="slide-title">Dominio y Condominio</h2>
+              <div class="slide-content"><strong>Dominio:</strong> derecho que confiere al titular la facultad de usar, gozar y disponer de la cosa de modo amplio y exclusivo, dentro de los límites de la ley.<br><br><strong>Propiedad vs. Dominio:</strong> la propiedad se aplica a bienes materiales e inmateriales; el dominio solo a cosas materiales.<br><br><strong>Condominio:</strong> dos o más personas comparten el dominio sobre una parte indivisa de una misma cosa.</div>
+            </div>
+            <div class="slide " data-index="2">
+              <div class="slide-number">3 / 4</div>
+              <h2 class="slide-title">Usufructo — Uso — Habitación</h2>
+              <div class="slide-content"><strong>Usufructo:</strong> derecho real de usar y gozar de una cosa cuya propiedad pertenece a otro, sin alterar su sustancia.<br>• Perfecto: puede gozarse sin cambiar la sustancia<br>• Imperfecto (cuasiusufructo): cosas que serían inútiles si no se consumen<br><br><strong>Uso:</strong> facultad de servirse de la cosa sin fungirla, en la medida necesaria para el usuario y su familia.<br><strong>Habitación:</strong> derecho de uso sobre una casa para morar en ella.</div>
+            </div>
+            <div class="slide " data-index="3">
+              <div class="slide-number">4 / 4</div>
+              <h2 class="slide-title">Hipoteca — Prenda — Servidumbre</h2>
+              <div class="slide-content"><strong>Hipoteca:</strong> derecho real constituido en seguridad de un crédito en dinero sobre bienes inmuebles que continúan en poder del deudor. También sobre buques y aeronaves.<br><br><strong>Prenda:</strong> derecho real que adquiere el acreedor sobre la cosa mueble ajena, en garantía del pago de su crédito.<br><br><strong>Servidumbre:</strong> derecho real para ejercer ciertos actos de disposición o de uso sobre un inmueble ajeno (Art. 2188 CC).</div>
+            </div>
+    </div>
+    <div class="slide-controls">
+      <button class="ctrl-btn" onclick="prevSlide(21)">&#8592;</button>
+      <div class="dots-container"><button class="dot active" onclick="goToSlide(21,0)"></button><button class="dot " onclick="goToSlide(21,1)"></button><button class="dot " onclick="goToSlide(21,2)"></button><button class="dot " onclick="goToSlide(21,3)"></button></div>
+      <button class="ctrl-btn" onclick="nextSlide(21)">&#8594;</button>
+    </div>
+    <div class="progress-bar-wrap"><div class="progress-bar" id="prog-21"></div></div>
+  </section>
+  <section class="lesson-page" id="lesson-22" style="display:none">
+    <header class="lesson-header">
+      <button class="back-btn" onclick="showHome()">&#8592; Volver al inicio</button>
+      <div class="lesson-badge">💼 Lección 22</div>
+    </header>
+    <div class="lesson-meta">
+      <h1 class="lesson-main-title">Derechos Obligacionales y Derecho Intelectual</h1>
+      <p class="lesson-subtitle">Derechos de Crédito, Fuentes de Obligaciones y Derecho de Autor</p>
+    </div>
+    <div class="slideshow-container" id="slides-22">
+      
+            <div class="slide active" data-index="0">
+              <div class="slide-number">1 / 3</div>
+              <h2 class="slide-title">Derechos Obligacionales — Concepto y Elementos</h2>
+              <div class="slide-content">El <strong>derecho obligacional o de crédito</strong> es la relación jurídica en virtud de la cual el acreedor tiene la facultad de compeler al deudor a que dé, haga o deje de hacer algo.<br><br><strong>Elementos:</strong><br>① Sujeto activo o acreedor<br>② Sujeto pasivo o deudor<br>③ Relación de derecho o <em>vinculum juris</em><br>④ El objeto o la prestación (dar, hacer, no hacer)<br>⑤ La forma (escritura para contratos > 10 jornales)</div>
+            </div>
+            <div class="slide " data-index="1">
+              <div class="slide-number">2 / 3</div>
+              <h2 class="slide-title">Fuentes de las Obligaciones</h2>
+              <div class="slide-content"><strong>Contratos:</strong> acuerdo de voluntades destinado a reglar derechos. Acto jurídico bilateral.<br><strong>Cuasi-contratos:</strong> acto lícito realizado sin convenio previo (ej: aceptación de herencia).<br><strong>Delito:</strong> acto ilícito cometido a sabiendas con intención de dañar.<br><strong>Cuasidelito:</strong> acto ilícito sin dolo pero con negligencia o culpa (ej: accidente de tránsito).<br><strong>La Ley:</strong> por virtud de la ley una persona puede ser acreedora o deudora (ej: obligación alimentaria).</div>
+            </div>
+            <div class="slide " data-index="2">
+              <div class="slide-number">3 / 3</div>
+              <h2 class="slide-title">Derecho Intelectual — Derecho de Autor</h2>
+              <div class="slide-content">Es el poder reconocido a un autor para beneficiarse exclusivamente con su obra de creación intelectual e impedir que otro la copie sin consentimiento.<br><br><strong>Derechos morales:</strong> divulgación · paternidad · integridad · retiro de la obra.<br><strong>Derechos patrimoniales:</strong> derecho exclusivo de explotar la obra bajo cualquier forma.<br><br><strong>Art. 110 CN:</strong> protección de la propiedad intelectual.<br><strong>Ley 1328/98</strong> — Derecho de Autor · <strong>DINAPI</strong> — Ley 4798/13</div>
+            </div>
+    </div>
+    <div class="slide-controls">
+      <button class="ctrl-btn" onclick="prevSlide(22)">&#8592;</button>
+      <div class="dots-container"><button class="dot active" onclick="goToSlide(22,0)"></button><button class="dot " onclick="goToSlide(22,1)"></button><button class="dot " onclick="goToSlide(22,2)"></button></div>
+      <button class="ctrl-btn" onclick="nextSlide(22)">&#8594;</button>
+    </div>
+    <div class="progress-bar-wrap"><div class="progress-bar" id="prog-22"></div></div>
+  </section>
+  <section class="lesson-page" id="lesson-23" style="display:none">
+    <header class="lesson-header">
+      <button class="back-btn" onclick="showHome()">&#8592; Volver al inicio</button>
+      <div class="lesson-badge">™️ Lección 23</div>
+    </header>
+    <div class="lesson-meta">
+      <h1 class="lesson-main-title">Derecho Marcario y Propiedad Intelectual</h1>
+      <p class="lesson-subtitle">Marcas Comerciales, Propiedad Industrial y Derecho de Autor</p>
+    </div>
+    <div class="slideshow-container" id="slides-23">
+      
+            <div class="slide active" data-index="0">
+              <div class="slide-number">1 / 3</div>
+              <h2 class="slide-title">Derecho Marcario — Concepto</h2>
+              <div class="slide-content">La <strong>Marca</strong> es cualquier signo o combinación de signos susceptibles de representación gráfica, apto para distinguir los productos o servicios de una empresa.<br><br><strong>Nace con:</strong> el registro.<br><strong>Se conserva:</strong> a través de renovación sucesiva del registro.<br><strong>Sirve para:</strong> Distinguir · Publicidad · Características propias.<br><br>Reglamentada por el <strong>Decreto-Ley 1294/98</strong>.</div>
+            </div>
+            <div class="slide " data-index="1">
+              <div class="slide-number">2 / 3</div>
+              <h2 class="slide-title">Propiedad Intelectual — División</h2>
+              <div class="slide-content"><strong>Propiedad Industrial:</strong> creaciones estéticas de los productos industriales. Incluye diseños industriales y marcas. Se protegen mediante <em>patentes</em> (útil, novedoso, materia patentable).<br><br><strong>Derechos de Autor:</strong> creaciones artísticas (poemas, obras musicales, pinturas). Abarcan copyright y beneficios.<br><br><strong>Legislación vigente:</strong><br>• Ley 1294/1998 — De marcas<br>• Ley 1630/2000 — De patentes<br>• Ley 4798/2012 — Crea la DINAPI</div>
+            </div>
+            <div class="slide " data-index="2">
+              <div class="slide-number">3 / 3</div>
+              <h2 class="slide-title">Nombre Industrial y Emblema</h2>
+              <div class="slide-content"><strong>Nombre Industrial:</strong> uso exclusivo de la denominación que adopta una empresa industrial para distinguirse de otras. Tiene carácter patrimonial.<br><br><strong>Emblema:</strong> signo característico destinado a indicar gráficamente al titular o dueño de un establecimiento industrial o mercantil.<br><br><strong>Distinción con Derecho Intelectual:</strong> el derecho marcario se refiere a la individualización de productos para evitar confusión, no protege la originalidad intelectual de la marca.</div>
+            </div>
+    </div>
+    <div class="slide-controls">
+      <button class="ctrl-btn" onclick="prevSlide(23)">&#8592;</button>
+      <div class="dots-container"><button class="dot active" onclick="goToSlide(23,0)"></button><button class="dot " onclick="goToSlide(23,1)"></button><button class="dot " onclick="goToSlide(23,2)"></button></div>
+      <button class="ctrl-btn" onclick="nextSlide(23)">&#8594;</button>
+    </div>
+    <div class="progress-bar-wrap"><div class="progress-bar" id="prog-23"></div></div>
+  </section>
+  <section class="lesson-page" id="lesson-24" style="display:none">
+    <header class="lesson-header">
+      <button class="back-btn" onclick="showHome()">&#8592; Volver al inicio</button>
+      <div class="lesson-badge">🏺 Lección 24</div>
+    </header>
+    <div class="lesson-meta">
+      <h1 class="lesson-main-title">Derecho Hereditario</h1>
+      <p class="lesson-subtitle">Sucesión, Herederos Forzosos y Testamento</p>
+    </div>
+    <div class="slideshow-container" id="slides-24">
+      
+            <div class="slide active" data-index="0">
+              <div class="slide-number">1 / 3</div>
+              <h2 class="slide-title">Concepto de Sucesión</h2>
+              <div class="slide-content">La <strong>sucesión</strong> es la transmisión de los derechos activos y pasivos que componen la herencia de una persona muerta a la persona que sobrevive, a la cual la ley o el testador llama para recibirla.<br><br>• <strong>Causante:</strong> la persona muerta<br>• <strong>Causahabiente / Heredero:</strong> sucesor universal — continúa la persona del causante<br>• <strong>Legatario:</strong> sucesor singular en los bienes (no en la persona del difunto)</div>
+            </div>
+            <div class="slide " data-index="1">
+              <div class="slide-number">2 / 3</div>
+              <h2 class="slide-title">Especies de Sucesión</h2>
+              <div class="slide-content"><strong>Sucesión legítima o intestada:</strong> diferida solo por voluntad de la ley a los parientes del extinto.<br><strong>Sucesión testamentaria:</strong> se hace por voluntad del hombre manifestada en un testamento válido.<br><br><strong>Sucesión a título universal:</strong> sucesor a quien pasa todo o una parte alícuota del patrimonio.<br><strong>Sucesión a título singular:</strong> sucesor a quien se transmite un objeto particular.<br><br><em>Son llamados a heredar:</em> descendientes, ascendientes (hasta 4to grado), cónyuge, colaterales.</div>
+            </div>
+            <div class="slide " data-index="2">
+              <div class="slide-number">3 / 3</div>
+              <h2 class="slide-title">Herederos Forzosos y Testamento</h2>
+              <div class="slide-content"><strong>Art. 2598 CC — Legítimas:</strong><br>• Descendientes: 4/5 partes de la herencia<br>• Ascendientes: 2/3 de la herencia<br>• Cónyuge (sin descendientes ni ascendientes): la mitad<br>• Adoptante/adoptado: la mitad<br><br><strong>Testamento:</strong> acto escrito, celebrado con solemnidades de la ley por el cual una persona dispone de sus bienes para después de su muerte.<br><em>Caracteres:</em> voluntario · lícito · unilateral · escrito · solemne · personalísimo · eminentemente revocable</div>
+            </div>
+    </div>
+    <div class="slide-controls">
+      <button class="ctrl-btn" onclick="prevSlide(24)">&#8592;</button>
+      <div class="dots-container"><button class="dot active" onclick="goToSlide(24,0)"></button><button class="dot " onclick="goToSlide(24,1)"></button><button class="dot " onclick="goToSlide(24,2)"></button></div>
+      <button class="ctrl-btn" onclick="nextSlide(24)">&#8594;</button>
+    </div>
+    <div class="progress-bar-wrap"><div class="progress-bar" id="prog-24"></div></div>
+  </section>
+  <section class="lesson-page" id="lesson-25" style="display:none">
+    <header class="lesson-header">
+      <button class="back-btn" onclick="showHome()">&#8592; Volver al inicio</button>
+      <div class="lesson-badge">⚖️ Lección 25</div>
+    </header>
+    <div class="lesson-meta">
+      <h1 class="lesson-main-title">Función Jurisdiccional</h1>
+      <p class="lesson-subtitle">Derecho de Acción, Excepción y Poder Judicial</p>
+    </div>
+    <div class="slideshow-container" id="slides-25">
+      
+            <div class="slide active" data-index="0">
+              <div class="slide-number">1 / 3</div>
+              <h2 class="slide-title">Función Jurisdiccional del Poder Judicial</h2>
+              <div class="slide-content"><strong>Art. 248 CN — Independencia del Poder Judicial:</strong> Solo el Poder Judicial puede conocer y decidir en actos de carácter contencioso. Ningún miembro de los otros poderes puede arrogarse atribuciones judiciales bajo pena de <em>nulidad insanable</em>.<br><br><strong>Art. 15 CN:</strong> nadie podrá hacerse justicia por sí mismo ni reclamar sus derechos con violencia. Se garantiza la legítima defensa.</div>
+            </div>
+            <div class="slide " data-index="1">
+              <div class="slide-number">2 / 3</div>
+              <h2 class="slide-title">Derecho de Acción y su Extinción</h2>
+              <div class="slide-content"><strong>Derecho de acción:</strong> facultad que tiene toda persona para solicitar legalmente la intervención de los órganos jurisdiccionales del Estado.<br><br><strong>Extinción de acciones:</strong><br>a) <strong>Prescripción:</strong> vencimiento del plazo legal sin ejercer la acción<br>b) <strong>Extinción del derecho:</strong> por cumplimiento efectivo, acuerdo liberatorio o imposibilidad de cumplimiento<br>c) <strong>Medios procesales:</strong> sentencia del juez o desistimiento del actor</div>
+            </div>
+            <div class="slide " data-index="2">
+              <div class="slide-number">3 / 3</div>
+              <h2 class="slide-title">De la Excepción — Clasificación</h2>
+              <div class="slide-content"><strong>Concepto amplio:</strong> toda defensa que el demandado opone a la acción.<br><strong>Concepto restringido:</strong> oposición que sin negar el fondo puede paralizar o extinguir la acción.<br><br><strong>Clasificación:</strong><br>• <strong>Dilatoria:</strong> tiende a postergar la contestación sobre el mérito sin destruir la acción<br>• <strong>Perentoria:</strong> extingue la acción deducida y pone fin al litigio<br><br><em>Excepciones en el CPC:</em> incompetencia · falta de personería · litispendencia · cosa juzgada · prescripción · etc.</div>
+            </div>
+    </div>
+    <div class="slide-controls">
+      <button class="ctrl-btn" onclick="prevSlide(25)">&#8592;</button>
+      <div class="dots-container"><button class="dot active" onclick="goToSlide(25,0)"></button><button class="dot " onclick="goToSlide(25,1)"></button><button class="dot " onclick="goToSlide(25,2)"></button></div>
+      <button class="ctrl-btn" onclick="nextSlide(25)">&#8594;</button>
+    </div>
+    <div class="progress-bar-wrap"><div class="progress-bar" id="prog-25"></div></div>
+  </section>
+  <section class="lesson-page" id="lesson-26" style="display:none">
+    <header class="lesson-header">
+      <button class="back-btn" onclick="showHome()">&#8592; Volver al inicio</button>
+      <div class="lesson-badge">📚 Lección 26</div>
+    </header>
+    <div class="lesson-meta">
+      <h1 class="lesson-main-title">Fuentes del Derecho</h1>
+      <p class="lesson-subtitle">La Ley, Costumbre, Jurisprudencia, Doctrina y Codificación</p>
+    </div>
+    <div class="slideshow-container" id="slides-26">
+      
+            <div class="slide active" data-index="0">
+              <div class="slide-number">1 / 4</div>
+              <h2 class="slide-title">Fuentes del Derecho — Concepto</h2>
+              <div class="slide-content">Son los <strong>modos como se originan y establecen las normas</strong> que integran el ordenamiento jurídico positivo.<br><br>• <strong>Fuentes reales o materiales:</strong> factores y elementos que producen normas jurídicas (políticos, sociales, económicos, morales).<br>• <strong>Fuentes formales:</strong> requisitos obligatorios y predeterminados que debe reunir toda norma jurídica.<br><br><strong>Fuentes jurídicas formales:</strong> La Ley · La Costumbre · La Jurisprudencia · La Doctrina</div>
+            </div>
+            <div class="slide " data-index="1">
+              <div class="slide-number">2 / 4</div>
+              <h2 class="slide-title">La Ley — Concepto y Clasificación</h2>
+              <div class="slide-content">La ley es la norma escrita general, obligatoria y estable que emana del Poder Público por motivo de interés general.<br><br><strong>Elementos:</strong> disposición · condicionalidad · generalidad · sanción<br><br><strong>Clasificación:</strong><br>• Leyes constitucionales y ordinarias<br>• Leyes materiales y formales<br>• Leyes generales y especiales<br>• Leyes de orden público, interpretativas, delegadas, marciales, secretas</div>
+            </div>
+            <div class="slide " data-index="2">
+              <div class="slide-number">3 / 4</div>
+              <h2 class="slide-title">Proceso Formativo de las Leyes</h2>
+              <div class="slide-content"><strong>Etapas:</strong> Iniciativa → Discusión → Sanción → Promulgación → Publicación<br><br><strong>Art. 203 CN — Iniciativa:</strong> cualquiera de las Cámaras, el Poder Ejecutivo, iniciativa popular o la CSJ.<br><strong>Art. 205 CN — Promulgación automática:</strong> si el PE no objeta en 6, 12 o 20 días hábiles según la extensión de la ley.<br><strong>Art. 214 CN — Fórmulas:</strong> 'El Congreso de la Nación paraguaya sanciona con fuerza de ley.'</div>
+            </div>
+            <div class="slide " data-index="3">
+              <div class="slide-number">4 / 4</div>
+              <h2 class="slide-title">Codificación — Ventajas e Inconvenientes</h2>
+              <div class="slide-content"><strong>Codificación:</strong> reunir el Derecho Positivo en un cuerpo de disposiciones legales ordenadas metódica y sistemáticamente.<br><br><strong>Ventajas:</strong> sistematiza el derecho · facilita su conocimiento y aplicación · prescinde de la costumbre imprecisa.<br><br><strong>Inconvenientes:</strong> causa impresión de condensación total · absolutismo normativo · estancamiento del derecho · dificultad de reforma.<br><br><strong>Comisión Nacional de Codificación:</strong> creada por Decreto-Ley N° 200 — 2 julio 1959.</div>
+            </div>
+    </div>
+    <div class="slide-controls">
+      <button class="ctrl-btn" onclick="prevSlide(26)">&#8592;</button>
+      <div class="dots-container"><button class="dot active" onclick="goToSlide(26,0)"></button><button class="dot " onclick="goToSlide(26,1)"></button><button class="dot " onclick="goToSlide(26,2)"></button><button class="dot " onclick="goToSlide(26,3)"></button></div>
+      <button class="ctrl-btn" onclick="nextSlide(26)">&#8594;</button>
+    </div>
+    <div class="progress-bar-wrap"><div class="progress-bar" id="prog-26"></div></div>
+  </section>
+  <section class="lesson-page" id="lesson-27" style="display:none">
+    <header class="lesson-header">
+      <button class="back-btn" onclick="showHome()">&#8592; Volver al inicio</button>
+      <div class="lesson-badge">🔍 Lección 27</div>
+    </header>
+    <div class="lesson-meta">
+      <h1 class="lesson-main-title">Técnica Jurídica e Interpretación</h1>
+      <p class="lesson-subtitle">Hermenéutica, Métodos de Interpretación y Derecho Paraguayo</p>
+    </div>
+    <div class="slideshow-container" id="slides-27">
+      
+            <div class="slide active" data-index="0">
+              <div class="slide-number">1 / 4</div>
+              <h2 class="slide-title">Técnica Jurídica — Concepto</h2>
+              <div class="slide-content">En sentido amplio, es el conjunto de reglas que determinan los procedimientos adecuados para la elaboración y aplicación del derecho positivo a la realidad social.<br><br><strong>Técnica judicial:</strong> tarea obligatoria de los jueces para resolver casos bajo su jurisdicción. Comprende:<br>1. Interpretación de las normas jurídicas<br>2. Aplicación al caso concreto<br>3. Integración del ordenamiento jurídico para construir la norma ausente</div>
+            </div>
+            <div class="slide " data-index="1">
+              <div class="slide-number">2 / 4</div>
+              <h2 class="slide-title">Interpretación de las Normas Jurídicas</h2>
+              <div class="slide-content">Es la tarea de <strong>determinar el sentido y alcance</strong> con que las normas jurídicas regulan la conducta humana.<br><br><strong>Hermenéutica jurídica:</strong> arte de interpretar, desentrañando lo que encierra un vocablo o fenómeno.<br><br><strong>Elementos de la interpretación legal:</strong><br>a) Gramatical &nbsp; b) Lógico (<em>ratio legis</em>) &nbsp; c) Histórico &nbsp; d) Sistemático</div>
+            </div>
+            <div class="slide " data-index="2">
+              <div class="slide-number">3 / 4</div>
+              <h2 class="slide-title">Clases de Interpretación y Métodos</h2>
+              <div class="slide-content"><strong>Subjetiva:</strong> Auténtica o legislativa · Judicial · Doctrinal<br><strong>Objetiva:</strong> Literal o estricta · Extensiva · Restrictiva · Abrogante<br><br><strong>Métodos tradicionales:</strong> Exegético · Dogmático · Ecléctico<br><strong>Métodos modernos:</strong> Evolución histórica · Libre investigación científfica (Gény)</div>
+            </div>
+            <div class="slide " data-index="3">
+              <div class="slide-number">4 / 4</div>
+              <h2 class="slide-title">Reglas en el Derecho Paraguayo</h2>
+              <div class="slide-content"><strong>Art. 6 Código Civil:</strong> los jueces no pueden dejar de juzgar en caso de silencio, oscuridad o insuficiencia de las leyes. Se consideran casos análogos y principios generales.<br><br><strong>Art. 1 Código Penal — Principio de legalidad:</strong> nadie será sancionado sin que los presupuestos de punibilidad estén descritos en una ley vigente anterior al hecho.<br><br><strong>Código Procesal Penal:</strong> en caso de duda, siempre se decide lo más favorable para el imputado.</div>
+            </div>
+    </div>
+    <div class="slide-controls">
+      <button class="ctrl-btn" onclick="prevSlide(27)">&#8592;</button>
+      <div class="dots-container"><button class="dot active" onclick="goToSlide(27,0)"></button><button class="dot " onclick="goToSlide(27,1)"></button><button class="dot " onclick="goToSlide(27,2)"></button><button class="dot " onclick="goToSlide(27,3)"></button></div>
+      <button class="ctrl-btn" onclick="nextSlide(27)">&#8594;</button>
+    </div>
+    <div class="progress-bar-wrap"><div class="progress-bar" id="prog-27"></div></div>
+  </section>
+  <section class="lesson-page" id="lesson-28" style="display:none">
+    <header class="lesson-header">
+      <button class="back-btn" onclick="showHome()">&#8592; Volver al inicio</button>
+      <div class="lesson-badge">🧩 Lección 28</div>
+    </header>
+    <div class="lesson-meta">
+      <h1 class="lesson-main-title">Técnica Judicial e Integración</h1>
+      <p class="lesson-subtitle">Silogismo Jurídico, Lagunas y Analogía</p>
+    </div>
+    <div class="slideshow-container" id="slides-28">
+      
+            <div class="slide active" data-index="0">
+              <div class="slide-number">1 / 4</div>
+              <h2 class="slide-title">Aplicación de las Normas Jurídicas</h2>
+              <div class="slide-content">Aplicar las normas jurídicas es someter a su imperio los casos concretos que han de ser regulados. Es pasar de lo abstracto a lo concreto, de lo general a lo particular: una <strong>deducción</strong>.<br><br><strong>Silogismo jurídico:</strong><br>• Premisa mayor: la norma<br>• Premisa menor: el caso concreto a juzgarse<br>• Conclusión: el fallo del juez (imputación de consecuencias normativas)</div>
+            </div>
+            <div class="slide " data-index="1">
+              <div class="slide-number">2 / 4</div>
+              <h2 class="slide-title">Principios para la Aplicación del Derecho</h2>
+              <div class="slide-content">A) Los jueces deben tener jurisdicción en virtud de la ley.<br>B) El juez debe resolver siempre según la ley.<br>C) Sujeción a las normas positivas vigentes.<br>D) Observancia de la jerarquía de las fuentes jurídicas formales.<br>E) Los jueces no pueden dejar de juzgar bajo pretexto de silencio de las leyes.<br>F) Toda sentencia estará fundada en la Constitución y la ley.<br>G) Los juzgados actúan a instancia de parte salvo que la ley les faculte proceder de oficio.</div>
+            </div>
+            <div class="slide " data-index="2">
+              <div class="slide-number">3 / 4</div>
+              <h2 class="slide-title">Integración de la Ley — Lagunas</h2>
+              <div class="slide-content"><strong>Integración de la ley:</strong> actividad técnica del juez para suplir la norma ausente, elaborando otra que se incorpora al orden jurídico.<br><br><strong>Lagunas de la ley:</strong> casos imprevistos o espacios vacíos que la ley dejó al ser sancionada.<br><br><strong>Integración interna (analogía):</strong> procedimiento comparativo que tiende a descubrir la norma aplicable a un supuesto imprevisto que guarda íntima semejanza con el supuesto legislado.<br><br><strong>Integración externa:</strong> los principios generales del derecho.</div>
+            </div>
+            <div class="slide " data-index="3">
+              <div class="slide-number">4 / 4</div>
+              <h2 class="slide-title">Proceso de Integración en el Derecho Paraguayo</h2>
+              <div class="slide-content">El proceso de integración comprende tres etapas de aplicación progresiva:<br><br><strong>1°</strong> Principios jurídicos de la legislación vigente en la materia respectiva.<br><strong>2°</strong> Principios particulares de las leyes análogas.<br><strong>3°</strong> Principios generales del Derecho.<br><br><em>(Verdades jurídicas de validez universal, elaboradas por la filosofía jurídica que sirven de fundamento y límite a toda la legislación positiva)</em></div>
+            </div>
+    </div>
+    <div class="slide-controls">
+      <button class="ctrl-btn" onclick="prevSlide(28)">&#8592;</button>
+      <div class="dots-container"><button class="dot active" onclick="goToSlide(28,0)"></button><button class="dot " onclick="goToSlide(28,1)"></button><button class="dot " onclick="goToSlide(28,2)"></button><button class="dot " onclick="goToSlide(28,3)"></button></div>
+      <button class="ctrl-btn" onclick="nextSlide(28)">&#8594;</button>
+    </div>
+    <div class="progress-bar-wrap"><div class="progress-bar" id="prog-28"></div></div>
+  </section>
+  <section class="lesson-page" id="lesson-29" style="display:none">
+    <header class="lesson-header">
+      <button class="back-btn" onclick="showHome()">&#8592; Volver al inicio</button>
+      <div class="lesson-badge">⏳ Lección 29</div>
+    </header>
+    <div class="lesson-meta">
+      <h1 class="lesson-main-title">Aplicación de la Ley en el Tiempo</h1>
+      <p class="lesson-subtitle">Irretroactividad, Derecho Intertemporal y Excepciones</p>
+    </div>
+    <div class="slideshow-container" id="slides-29">
+      
+            <div class="slide active" data-index="0">
+              <div class="slide-number">1 / 3</div>
+              <h2 class="slide-title">Derecho Intertemporal o Transitorio</h2>
+              <div class="slide-content">Problemas que pueden suscitarse:<br>1. La legislación vigente al pronunciar la sentencia es distinta a la que regía al constituirse la relación jurídica.<br>2. La jurisdicción del juez cambió durante el proceso.<br><br><strong>Derecho Intertemporal:</strong> adjetivo que denota el conjunto de reglas aplicables al intermedio jurídico entre una ley derogada y otra que comienza a regir.</div>
+            </div>
+            <div class="slide " data-index="1">
+              <div class="slide-number">2 / 3</div>
+              <h2 class="slide-title">Teoría de la Irretroactividad de la Ley</h2>
+              <div class="slide-content"><strong>Noción:</strong> en virtud del principio de irretroactividad, no se pueden alterar ni modificar los hechos producidos antes de la vigencia de la ley. Los hechos concluidos bajo el imperio de la ley anterior quedan exclusivamente regidos por ella.<br><br><strong>Fundamento:</strong><br>✔ No se concibe que una ley sea obligatoria antes de existir<br>✔ Se propende a la estabilidad de los derechos<br>✔ <strong>No tiene carácter absoluto:</strong> se admiten excepciones explícitas en las leyes</div>
+            </div>
+            <div class="slide " data-index="2">
+              <div class="slide-number">3 / 3</div>
+              <h2 class="slide-title">Regulación en el Derecho Paraguayo</h2>
+              <div class="slide-content"><strong>Art. 14 CN:</strong> ninguna ley tendrá efecto retroactivo, salvo que sea más favorable al encausado o condenado.<br><br><strong>Art. 2 Código Civil:</strong> las leyes disponen para el futuro, no tienen efecto retroactivo ni pueden alterar los derechos adquiridos.<br><br><strong>Art. 5 Código Penal:</strong> las sanciones son regidas por la ley vigente al tiempo del hecho punible. Si la ley cambia antes de la sentencia, se aplica la más favorable al encausado.</div>
+            </div>
+    </div>
+    <div class="slide-controls">
+      <button class="ctrl-btn" onclick="prevSlide(29)">&#8592;</button>
+      <div class="dots-container"><button class="dot active" onclick="goToSlide(29,0)"></button><button class="dot " onclick="goToSlide(29,1)"></button><button class="dot " onclick="goToSlide(29,2)"></button></div>
+      <button class="ctrl-btn" onclick="nextSlide(29)">&#8594;</button>
+    </div>
+    <div class="progress-bar-wrap"><div class="progress-bar" id="prog-29"></div></div>
+  </section>
+  <section class="lesson-page" id="lesson-30" style="display:none">
+    <header class="lesson-header">
+      <button class="back-btn" onclick="showHome()">&#8592; Volver al inicio</button>
+      <div class="lesson-badge">🗺️ Lección 30</div>
+    </header>
+    <div class="lesson-meta">
+      <h1 class="lesson-main-title">Aplicación de la Ley en el Territorio</h1>
+      <p class="lesson-subtitle">Territorialidad, Extraterritorialidad y Orden Público Internacional</p>
+    </div>
+    <div class="slideshow-container" id="slides-30">
+      
+            <div class="slide active" data-index="0">
+              <div class="slide-number">1 / 3</div>
+              <h2 class="slide-title">Principio de Territorialidad</h2>
+              <div class="slide-content"><strong>Territorialidad:</strong> las leyes deben regir en el territorio del Estado soberano de que emanan.<br><br><strong>Excepción — Validez extraterritorial:</strong> posibilidad de aplicar la ley nacional fuera del país, cuando los actos jurídicos incluyen elementos extranjeros (de orden personal, real o de conducta).<br><br>Las reglas de DIP están contenidas principalmente en los <strong>Tratados de Montevideo de 1889 y 1940</strong> y en el Código Civil paraguayo.</div>
+            </div>
+            <div class="slide " data-index="1">
+              <div class="slide-number">2 / 3</div>
+              <h2 class="slide-title">Extraterritorialidad en el Derecho Paraguayo</h2>
+              <div class="slide-content"><strong>Art. 11 CC:</strong> la capacidad de las personas físicas domiciliadas en la República se juzga por las disposiciones del CC, aunque los actos se realicen en el extranjero.<br><strong>Art. 12 CC:</strong> la capacidad de las personas domiciliadas fuera de la República se juzga por las leyes de su domicilio.<br><strong>Art. 16 CC (<em>lex rei sitae</em>):</strong> los bienes se regirán por la ley del lugar donde están situados.<br><strong>Art. 23 CC (<em>locus regit actum</em>):</strong> la forma de los actos jurídicos se rige por la ley del lugar de su celebración.</div>
+            </div>
+            <div class="slide " data-index="2">
+              <div class="slide-number">3 / 3</div>
+              <h2 class="slide-title">Límites y Orden Público Internacional</h2>
+              <div class="slide-content"><strong>Art. 22 CC:</strong> los jueces aplicarán de oficio las leyes extranjeras, siempre que no se opongan a las instituciones políticas, las leyes de orden público, la moral y las buenas costumbres.<br><br><strong>Orden Público Internacional:</strong> conjunto de principios y normas fundamentales que rigen la estructura y el funcionamiento de los Estados soberanos.<br><br><strong>Materia procesal:</strong> en ausencia de convenios internacionales, se aplica la ley del tribunal (<em>lex fori</em>).</div>
+            </div>
+    </div>
+    <div class="slide-controls">
+      <button class="ctrl-btn" onclick="prevSlide(30)">&#8592;</button>
+      <div class="dots-container"><button class="dot active" onclick="goToSlide(30,0)"></button><button class="dot " onclick="goToSlide(30,1)"></button><button class="dot " onclick="goToSlide(30,2)"></button></div>
+      <button class="ctrl-btn" onclick="nextSlide(30)">&#8594;</button>
+    </div>
+    <div class="progress-bar-wrap"><div class="progress-bar" id="prog-30"></div></div>
+  </section>
+
+<script>
+const TOTAL = {"11": 5, "12": 5, "13": 4, "14": 4, "15": 5, "16": 3, "17": 3, "18": 4, "19": 4, "20": 3, "21": 4, "22": 3, "23": 3, "24": 3, "25": 3, "26": 4, "27": 4, "28": 4, "29": 3, "30": 3};
+const state = {};
+
+Object.keys(TOTAL).forEach(n => { state[n] = 0; });
+
+function showHome() {
+  document.getElementById('home-page').style.display = 'block';
+  document.querySelectorAll('.lesson-page').forEach(p => p.style.display = 'none');
+  window.scrollTo(0, 0);
+}
+
+function showLesson(num) {
+  document.getElementById('home-page').style.display = 'none';
+  document.querySelectorAll('.lesson-page').forEach(p => p.style.display = 'none');
+  const page = document.getElementById('lesson-' + num);
+  if (page) {
+    page.style.display = 'flex';
+    updateProgress(num);
+    window.scrollTo(0, 0);
+  }
+}
+
+function goToSlide(num, idx) {
+  const container = document.getElementById('slides-' + num);
+  const slides = container.querySelectorAll('.slide');
+  const dots = document.querySelectorAll('#lesson-' + num + ' .dot');
+  slides.forEach(s => s.classList.remove('active'));
+  dots.forEach(d => d.classList.remove('active'));
+  slides[idx].classList.add('active');
+  dots[idx].classList.add('active');
+  state[num] = idx;
+  updateProgress(num);
+}
+
+function nextSlide(num) {
+  const total = TOTAL[num];
+  const next = (state[num] + 1) % total;
+  goToSlide(num, next);
+}
+
+function prevSlide(num) {
+  const total = TOTAL[num];
+  const prev = (state[num] - 1 + total) % total;
+  goToSlide(num, prev);
+}
+
+function updateProgress(num) {
+  const total = TOTAL[num];
+  const pct = ((state[num] + 1) / total) * 100;
+  const bar = document.getElementById('prog-' + num);
+  if (bar) bar.style.width = pct + '%';
+}
+
+// Keyboard navigation
+document.addEventListener('keydown', e => {
+  const activePage = document.querySelector('.lesson-page[style*="flex"]');
+  if (!activePage) return;
+  const num = activePage.id.replace('lesson-', '');
+  if (e.key === 'ArrowRight' || e.key === 'ArrowDown') nextSlide(parseInt(num));
+  if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') prevSlide(parseInt(num));
+  if (e.key === 'Escape') showHome();
+});
+</script>
+</body>
+</html>
