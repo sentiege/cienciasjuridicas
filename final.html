@@ -577,6 +577,151 @@
   .lesson-card.not-visited { opacity: 0.72; }
   .lesson-card.visited-card { opacity: 1; }
 
+
+  /* ===== EXERCISES PANEL ===== */
+  .exercises-panel {
+    max-width: 900px;
+    margin: 0 auto 2rem;
+    padding: 0 1.5rem;
+  }
+  .exercises-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: linear-gradient(135deg, #1a0f3d, #2e1760);
+    border: 1.5px solid #9c6fee;
+    color: #d4b8ff;
+    padding: 0.75rem 1.5rem;
+    border-radius: 10px;
+    font-family: inherit;
+    font-size: 1rem;
+    cursor: pointer;
+    width: 100%;
+    justify-content: center;
+    transition: all 0.2s;
+    margin-top: 0.8rem;
+  }
+  .exercises-btn:hover { background: linear-gradient(135deg, #2a1a55, #3d2280); box-shadow: 0 4px 15px rgba(156,111,238,0.25); }
+  .exercises-box { display: none; background: #13102a; border: 1px solid rgba(156,111,238,0.3); border-radius: 12px; padding: 1.5rem; margin-top: 1rem; animation: fadeIn 0.3s ease; }
+  .exercises-box.open { display: block; }
+  .ex-tabs { display: flex; gap: 0.5rem; margin-bottom: 1.2rem; flex-wrap: wrap; }
+  .ex-tab {
+    background: rgba(156,111,238,0.1);
+    border: 1px solid rgba(156,111,238,0.3);
+    color: #b39ddb;
+    padding: 0.4rem 1rem;
+    border-radius: 20px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 0.82rem;
+    transition: all 0.2s;
+  }
+  .ex-tab.active, .ex-tab:hover { background: rgba(156,111,238,0.25); border-color: #9c6fee; color: #d4b8ff; }
+  .ex-pane { display: none; }
+  .ex-pane.active { display: block; }
+
+  /* Fill in the blank */
+  .fill-item { margin-bottom: 1.2rem; padding-bottom: 1.2rem; border-bottom: 1px solid rgba(156,111,238,0.1); }
+  .fill-item:last-child { border-bottom: none; }
+  .fill-sentence { color: var(--text); font-size: 0.95rem; line-height: 1.8; margin-bottom: 0.5rem; }
+  .fill-blank {
+    display: inline-block;
+    border: none;
+    border-bottom: 2px solid #9c6fee;
+    background: transparent;
+    color: #d4b8ff;
+    font-family: inherit;
+    font-size: 0.95rem;
+    padding: 0 0.3rem;
+    width: 130px;
+    outline: none;
+    text-align: center;
+    transition: border-color 0.2s;
+  }
+  .fill-blank:focus { border-bottom-color: #d4b8ff; }
+  .fill-blank.correct { border-bottom-color: #4caf50; color: #a5d6a7; }
+  .fill-blank.wrong { border-bottom-color: #f44336; color: #ef9a9a; }
+  .fill-hint { color: #7c6a9e; font-size: 0.75rem; font-style: italic; margin-top: 0.2rem; }
+  .fill-feedback { font-size: 0.78rem; margin-top: 0.3rem; display: none; }
+  .fill-feedback.show { display: block; }
+  .fill-feedback.ok { color: #81c784; }
+  .fill-feedback.fail { color: #ef9a9a; }
+  .fill-actions { display: flex; gap: 0.8rem; margin-top: 1rem; flex-wrap: wrap; }
+  .fill-check-btn, .fill-reset-btn {
+    padding: 0.5rem 1.2rem; border-radius: 8px; font-family: inherit; font-size: 0.85rem; cursor: pointer; border: 1.5px solid; transition: all 0.2s;
+  }
+  .fill-check-btn { background: rgba(156,111,238,0.15); border-color: #9c6fee; color: #d4b8ff; }
+  .fill-check-btn:hover { background: rgba(156,111,238,0.3); }
+  .fill-reset-btn { background: transparent; border-color: rgba(156,111,238,0.25); color: #7c6a9e; }
+  .fill-reset-btn:hover { border-color: #9c6fee; color: #d4b8ff; }
+  .fill-score { color: #d4b8ff; font-size: 0.85rem; margin-top: 0.8rem; display: none; padding: 0.5rem 1rem; background: rgba(156,111,238,0.1); border-radius: 8px; border: 1px solid rgba(156,111,238,0.3); }
+  .fill-score.show { display: block; }
+
+  /* ===== EXAM SIMULADO ===== */
+  #exam-page { display: none; min-height: 100vh; flex-direction: column; }
+  #exam-page.active { display: flex; }
+  .exam-header {
+    background: linear-gradient(135deg, #1a0a00, #2d1500);
+    padding: 1rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    border-bottom: 2px solid #ff9800;
+  }
+  .exam-back-btn {
+    background: rgba(255,152,0,0.15); border: 1px solid #ff9800; color: #ffb74d;
+    padding: 0.4rem 1rem; border-radius: 8px; cursor: pointer; font-family: inherit; font-size: 0.9rem;
+  }
+  .exam-back-btn:hover { background: rgba(255,152,0,0.3); }
+  .exam-timer-wrap { margin-left: auto; display: flex; align-items: center; gap: 0.5rem; }
+  .exam-timer { color: #ffb74d; font-size: 1.4rem; font-weight: bold; font-variant-numeric: tabular-nums; min-width: 60px; text-align: right; }
+  .exam-timer.urgent { color: #f44336; animation: blink 1s step-start infinite; }
+  @keyframes blink { 50% { opacity: 0.4; } }
+  .exam-meta { text-align: center; padding: 1.5rem 1rem 1rem; background: linear-gradient(180deg, #1a0a00, #13102a); border-bottom: 1px solid rgba(255,152,0,0.2); }
+  .exam-meta h1 { color: #ffb74d; font-size: clamp(1.2rem,3vw,1.8rem); margin-bottom: 0.3rem; }
+  .exam-meta p { color: #a07040; font-size: 0.85rem; font-style: italic; }
+  .exam-body { flex: 1; max-width: 900px; width: 100%; margin: 0 auto; padding: 1.5rem; }
+  .exam-q-block { margin-bottom: 1.6rem; }
+  .exam-q-num { color: #ff9800; font-size: 0.72rem; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 0.3rem; }
+  .exam-q-lesson { color: #7a5a30; font-size: 0.7rem; margin-bottom: 0.3rem; font-style: italic; }
+  .exam-q-text { color: var(--text); font-size: 0.95rem; line-height: 1.5; margin-bottom: 0.6rem; }
+  .exam-opts { display: flex; flex-direction: column; gap: 0.4rem; }
+  .exam-opt {
+    background: rgba(255,255,255,0.03); border: 1px solid rgba(255,152,0,0.2); color: var(--text);
+    padding: 0.55rem 1rem; border-radius: 8px; text-align: left; cursor: pointer;
+    font-family: inherit; font-size: 0.85rem; transition: all 0.15s; line-height: 1.4;
+  }
+  .exam-opt:hover:not(:disabled) { background: rgba(255,152,0,0.1); border-color: #ff9800; color: #ffb74d; }
+  .exam-opt.selected { background: rgba(255,152,0,0.15); border-color: #ff9800; color: #ffb74d; }
+  .exam-opt.correct { background: rgba(76,175,80,0.2); border-color: #4caf50; color: #a5d6a7; }
+  .exam-opt.wrong { background: rgba(244,67,54,0.2); border-color: #f44336; color: #ef9a9a; }
+  .exam-opt:disabled { cursor: default; }
+  .exam-footer { padding: 1rem 1.5rem; background: #1a0a00; border-top: 1px solid rgba(255,152,0,0.2); text-align: center; }
+  .exam-submit-btn {
+    background: linear-gradient(135deg, #d84315, #bf360c); border: none; color: white;
+    padding: 0.75rem 2.5rem; border-radius: 10px; font-family: inherit; font-size: 1rem; cursor: pointer;
+    transition: all 0.2s; font-weight: bold;
+  }
+  .exam-submit-btn:hover { background: linear-gradient(135deg, #ff5722, #d84315); box-shadow: 0 4px 15px rgba(255,87,34,0.35); }
+  .exam-result-screen { display: none; text-align: center; padding: 2rem; }
+  .exam-result-screen.show { display: block; }
+  .exam-result-pct { font-size: 4rem; font-weight: bold; margin: 1rem 0; }
+  .exam-result-label { font-size: 1.1rem; margin-bottom: 1rem; }
+  .exam-result-detail { color: #a07040; font-size: 0.9rem; margin-bottom: 1.5rem; }
+  .exam-result-btn { padding: 0.6rem 1.5rem; border-radius: 8px; font-family: inherit; font-size: 0.9rem; cursor: pointer; border: 1.5px solid #ff9800; background: rgba(255,152,0,0.15); color: #ffb74d; margin: 0.3rem; }
+
+  /* Home exam button */
+  .home-exam-btn {
+    display: flex; align-items: center; gap: 0.7rem;
+    background: linear-gradient(135deg, #2d1500, #3d1f00);
+    border: 2px solid #ff9800; color: #ffb74d;
+    padding: 1rem 2rem; border-radius: 12px;
+    font-family: inherit; font-size: 1.05rem; cursor: pointer;
+    margin: 1rem auto 0; transition: all 0.2s;
+    box-shadow: 0 4px 15px rgba(255,152,0,0.15);
+  }
+  .home-exam-btn:hover { background: linear-gradient(135deg, #3d2000, #4d2800); box-shadow: 0 6px 20px rgba(255,152,0,0.3); }
+
 </style>
 </head>
 <body>
@@ -821,6 +966,50 @@
     </div>
     <div class="progress-bar-wrap"><div class="progress-bar" id="prog-11"></div></div>
   
+  
+  <div class="exercises-panel">
+    <button class="exercises-btn" id="ex-toggle-11" onclick="toggleExercises(11)">
+      ✏️ Ejercicios didácticos
+    </button>
+    <div class="exercises-box" id="ex-box-11">
+      <div class="ex-tabs">
+        <button class="ex-tab active" onclick="switchExTab(11,'fill')">📝 Completar espacios</button>
+      </div>
+      <div class="ex-pane active" id="ex-fill-11">
+        
+        <div class="fill-item" id="fill-item-11-0">
+          <div class="fill-sentence">Las normas <input class="fill-blank" id="fill-11-0" type="text" autocomplete="off" spellcheck="false"> regulan el comportamiento del ser humano en sus relaciones con la divinidad.</div>
+          <div class="fill-hint">💡 Pista: Fe y vínculo con Dios</div>
+          <div class="fill-feedback" id="fill-fb-11-0"></div>
+        </div>
+        <div class="fill-item" id="fill-item-11-1">
+          <div class="fill-sentence">La norma jurídica puede exigirse <input class="fill-blank" id="fill-11-1" type="text" autocomplete="off" spellcheck="false"> por los órganos del Estado en caso de inobservancia.</div>
+          <div class="fill-hint">💡 Pista: Fuerza del Estado</div>
+          <div class="fill-feedback" id="fill-fb-11-1"></div>
+        </div>
+        <div class="fill-item" id="fill-item-11-2">
+          <div class="fill-sentence">La estructura lógica de la norma jurídica se compone de hipótesis y <input class="fill-blank" id="fill-11-2" type="text" autocomplete="off" spellcheck="false">.</div>
+          <div class="fill-hint">💡 Pista: Consecuencia jurídica</div>
+          <div class="fill-feedback" id="fill-fb-11-2"></div>
+        </div>
+        <div class="fill-item" id="fill-item-11-3">
+          <div class="fill-sentence">La <input class="fill-blank" id="fill-11-3" type="text" autocomplete="off" spellcheck="false"> de la norma jurídica vigoriza el precepto y asegura su cumplimiento.</div>
+          <div class="fill-hint">💡 Pista: Consecuencia ante incumplimiento</div>
+          <div class="fill-feedback" id="fill-fb-11-3"></div>
+        </div>
+        <div class="fill-item" id="fill-item-11-4">
+          <div class="fill-sentence">La Constitución paraguaya prohíbe expresamente la pena de <input class="fill-blank" id="fill-11-4" type="text" autocomplete="off" spellcheck="false"> en su Art. 4°.</div>
+          <div class="fill-hint">💡 Pista: Sanción punitiva prohibida</div>
+          <div class="fill-feedback" id="fill-fb-11-4"></div>
+        </div>
+        <div class="fill-actions">
+          <button class="fill-check-btn" onclick="checkFill(11)">✔ Verificar</button>
+          <button class="fill-reset-btn" onclick="resetFill(11)">🔄 Reintentar</button>
+        </div>
+        <div class="fill-score" id="fill-score-11"></div>
+      </div>
+    </div>
+  </div>
   <div class="quiz-section" id="quiz-section-11">
     <button class="quiz-toggle-btn" id="quiz-toggle-btn-11" onclick="toggleQuiz(11)">
       📝 Quiz de esta lección
@@ -931,6 +1120,50 @@
     </div>
     <div class="progress-bar-wrap"><div class="progress-bar" id="prog-12"></div></div>
   
+  
+  <div class="exercises-panel">
+    <button class="exercises-btn" id="ex-toggle-12" onclick="toggleExercises(12)">
+      ✏️ Ejercicios didácticos
+    </button>
+    <div class="exercises-box" id="ex-box-12">
+      <div class="ex-tabs">
+        <button class="ex-tab active" onclick="switchExTab(12,'fill')">📝 Completar espacios</button>
+      </div>
+      <div class="ex-pane active" id="ex-fill-12">
+        
+        <div class="fill-item" id="fill-item-12-0">
+          <div class="fill-sentence">El filósofo <input class="fill-blank" id="fill-12-0" type="text" autocomplete="off" spellcheck="false"> estableció la jerarquización piramidal de las normas jurídicas.</div>
+          <div class="fill-hint">💡 Pista: Filósofo del derecho austriaco</div>
+          <div class="fill-feedback" id="fill-fb-12-0"></div>
+        </div>
+        <div class="fill-item" id="fill-item-12-1">
+          <div class="fill-sentence">La <input class="fill-blank" id="fill-12-1" type="text" autocomplete="off" spellcheck="false"> es la conducta antijurídica de los órganos del Estado, la especie más grave de antijuridicidad.</div>
+          <div class="fill-hint">💡 Pista: Cuando el propio Estado viola la ley</div>
+          <div class="fill-feedback" id="fill-fb-12-1"></div>
+        </div>
+        <div class="fill-item" id="fill-item-12-2">
+          <div class="fill-sentence">La jerarquía de normas en Paraguay está establecida en el Art. <input class="fill-blank" id="fill-12-2" type="text" autocomplete="off" spellcheck="false"> de la CN.</div>
+          <div class="fill-hint">💡 Pista: Número de artículo constitucional</div>
+          <div class="fill-feedback" id="fill-fb-12-2"></div>
+        </div>
+        <div class="fill-item" id="fill-item-12-3">
+          <div class="fill-sentence">El ordenamiento jurídico puede caducar violentamente por una <input class="fill-blank" id="fill-12-3" type="text" autocomplete="off" spellcheck="false">.</div>
+          <div class="fill-hint">💡 Pista: Ruptura violenta del orden</div>
+          <div class="fill-feedback" id="fill-fb-12-3"></div>
+        </div>
+        <div class="fill-item" id="fill-item-12-4">
+          <div class="fill-sentence">La <input class="fill-blank" id="fill-12-4" type="text" autocomplete="off" spellcheck="false"> es el conjunto de hechos que se oponen al orden jurídico por ser ilícitos.</div>
+          <div class="fill-hint">💡 Pista: Opuesto a la juricidad</div>
+          <div class="fill-feedback" id="fill-fb-12-4"></div>
+        </div>
+        <div class="fill-actions">
+          <button class="fill-check-btn" onclick="checkFill(12)">✔ Verificar</button>
+          <button class="fill-reset-btn" onclick="resetFill(12)">🔄 Reintentar</button>
+        </div>
+        <div class="fill-score" id="fill-score-12"></div>
+      </div>
+    </div>
+  </div>
   <div class="quiz-section" id="quiz-section-12">
     <button class="quiz-toggle-btn" id="quiz-toggle-btn-12" onclick="toggleQuiz(12)">
       📝 Quiz de esta lección
@@ -1036,6 +1269,50 @@
     </div>
     <div class="progress-bar-wrap"><div class="progress-bar" id="prog-13"></div></div>
   
+  
+  <div class="exercises-panel">
+    <button class="exercises-btn" id="ex-toggle-13" onclick="toggleExercises(13)">
+      ✏️ Ejercicios didácticos
+    </button>
+    <div class="exercises-box" id="ex-box-13">
+      <div class="ex-tabs">
+        <button class="ex-tab active" onclick="switchExTab(13,'fill')">📝 Completar espacios</button>
+      </div>
+      <div class="ex-pane active" id="ex-fill-13">
+        
+        <div class="fill-item" id="fill-item-13-0">
+          <div class="fill-sentence">La Constitución paraguaya vigente fue sancionada el 20 de junio de <input class="fill-blank" id="fill-13-0" type="text" autocomplete="off" spellcheck="false">.</div>
+          <div class="fill-hint">💡 Pista: Año de la Constitución vigente</div>
+          <div class="fill-feedback" id="fill-fb-13-0"></div>
+        </div>
+        <div class="fill-item" id="fill-item-13-1">
+          <div class="fill-sentence">El Derecho <input class="fill-blank" id="fill-13-1" type="text" autocomplete="off" spellcheck="false"> estudia la estructura jurídica de un Estado establecida en su Constitución.</div>
+          <div class="fill-hint">💡 Pista: Rama del derecho público interno</div>
+          <div class="fill-feedback" id="fill-fb-13-1"></div>
+        </div>
+        <div class="fill-item" id="fill-item-13-2">
+          <div class="fill-sentence">El <input class="fill-blank" id="fill-13-2" type="text" autocomplete="off" spellcheck="false"> es el conjunto de normas que regulan los delitos, las penas y medidas para evitar la criminalidad.</div>
+          <div class="fill-hint">💡 Pista: Rama punitiva del derecho</div>
+          <div class="fill-feedback" id="fill-fb-13-2"></div>
+        </div>
+        <div class="fill-item" id="fill-item-13-3">
+          <div class="fill-sentence">La parte <input class="fill-blank" id="fill-13-3" type="text" autocomplete="off" spellcheck="false"> de la Constitución trata los derechos fundamentales del hombre.</div>
+          <div class="fill-hint">💡 Pista: Derechos y garantías individuales</div>
+          <div class="fill-feedback" id="fill-fb-13-3"></div>
+        </div>
+        <div class="fill-item" id="fill-item-13-4">
+          <div class="fill-sentence">El Derecho positivo se divide en <input class="fill-blank" id="fill-13-4" type="text" autocomplete="off" spellcheck="false"> y externo según el ámbito territorial.</div>
+          <div class="fill-hint">💡 Pista: División territorial del derecho</div>
+          <div class="fill-feedback" id="fill-fb-13-4"></div>
+        </div>
+        <div class="fill-actions">
+          <button class="fill-check-btn" onclick="checkFill(13)">✔ Verificar</button>
+          <button class="fill-reset-btn" onclick="resetFill(13)">🔄 Reintentar</button>
+        </div>
+        <div class="fill-score" id="fill-score-13"></div>
+      </div>
+    </div>
+  </div>
   <div class="quiz-section" id="quiz-section-13">
     <button class="quiz-toggle-btn" id="quiz-toggle-btn-13" onclick="toggleQuiz(13)">
       📝 Quiz de esta lección
@@ -1141,6 +1418,50 @@
     </div>
     <div class="progress-bar-wrap"><div class="progress-bar" id="prog-14"></div></div>
   
+  
+  <div class="exercises-panel">
+    <button class="exercises-btn" id="ex-toggle-14" onclick="toggleExercises(14)">
+      ✏️ Ejercicios didácticos
+    </button>
+    <div class="exercises-box" id="ex-box-14">
+      <div class="ex-tabs">
+        <button class="ex-tab active" onclick="switchExTab(14,'fill')">📝 Completar espacios</button>
+      </div>
+      <div class="ex-pane active" id="ex-fill-14">
+        
+        <div class="fill-item" id="fill-item-14-0">
+          <div class="fill-sentence">El Derecho Internacional Público regula las relaciones entre <input class="fill-blank" id="fill-14-0" type="text" autocomplete="off" spellcheck="false"> como entes soberanos.</div>
+          <div class="fill-hint">💡 Pista: Sujetos del DIP</div>
+          <div class="fill-feedback" id="fill-fb-14-0"></div>
+        </div>
+        <div class="fill-item" id="fill-item-14-1">
+          <div class="fill-sentence">Según el Art. 144 CN, Paraguay <input class="fill-blank" id="fill-14-1" type="text" autocomplete="off" spellcheck="false"> a la guerra pero sustenta el principio de legítima defensa.</div>
+          <div class="fill-hint">💡 Pista: Posición del Paraguay ante la guerra</div>
+          <div class="fill-feedback" id="fill-fb-14-1"></div>
+        </div>
+        <div class="fill-item" id="fill-item-14-2">
+          <div class="fill-sentence">El Derecho <input class="fill-blank" id="fill-14-2" type="text" autocomplete="off" spellcheck="false"> es dictado por la propia Iglesia Católica para regir su vida y relaciones con los fieles.</div>
+          <div class="fill-hint">💡 Pista: Derecho de la Iglesia</div>
+          <div class="fill-feedback" id="fill-fb-14-2"></div>
+        </div>
+        <div class="fill-item" id="fill-item-14-3">
+          <div class="fill-sentence">El Código de Derecho Canónico fue promulgado el 25 de enero de <input class="fill-blank" id="fill-14-3" type="text" autocomplete="off" spellcheck="false">.</div>
+          <div class="fill-hint">💡 Pista: Año del código canónico vigente</div>
+          <div class="fill-feedback" id="fill-fb-14-3"></div>
+        </div>
+        <div class="fill-item" id="fill-item-14-4">
+          <div class="fill-sentence">El Art. 143 CN establece que Paraguay condena toda forma de dictadura, colonialismo e <input class="fill-blank" id="fill-14-4" type="text" autocomplete="off" spellcheck="false">.</div>
+          <div class="fill-hint">💡 Pista: Tercer elemento condenado por la CN</div>
+          <div class="fill-feedback" id="fill-fb-14-4"></div>
+        </div>
+        <div class="fill-actions">
+          <button class="fill-check-btn" onclick="checkFill(14)">✔ Verificar</button>
+          <button class="fill-reset-btn" onclick="resetFill(14)">🔄 Reintentar</button>
+        </div>
+        <div class="fill-score" id="fill-score-14"></div>
+      </div>
+    </div>
+  </div>
   <div class="quiz-section" id="quiz-section-14">
     <button class="quiz-toggle-btn" id="quiz-toggle-btn-14" onclick="toggleQuiz(14)">
       📝 Quiz de esta lección
@@ -1251,6 +1572,50 @@
     </div>
     <div class="progress-bar-wrap"><div class="progress-bar" id="prog-15"></div></div>
   
+  
+  <div class="exercises-panel">
+    <button class="exercises-btn" id="ex-toggle-15" onclick="toggleExercises(15)">
+      ✏️ Ejercicios didácticos
+    </button>
+    <div class="exercises-box" id="ex-box-15">
+      <div class="ex-tabs">
+        <button class="ex-tab active" onclick="switchExTab(15,'fill')">📝 Completar espacios</button>
+      </div>
+      <div class="ex-pane active" id="ex-fill-15">
+        
+        <div class="fill-item" id="fill-item-15-0">
+          <div class="fill-sentence">El Código Civil Paraguayo, Ley <input class="fill-blank" id="fill-15-0" type="text" autocomplete="off" spellcheck="false">/1985, tiene 2815 artículos distribuidos en 5 libros.</div>
+          <div class="fill-hint">💡 Pista: Número de la ley del Código Civil</div>
+          <div class="fill-feedback" id="fill-fb-15-0"></div>
+        </div>
+        <div class="fill-item" id="fill-item-15-1">
+          <div class="fill-sentence">El Derecho <input class="fill-blank" id="fill-15-1" type="text" autocomplete="off" spellcheck="false"> regula las relaciones jurídicas entre empleadores y trabajadores.</div>
+          <div class="fill-hint">💡 Pista: Rama que protege al trabajador</div>
+          <div class="fill-feedback" id="fill-fb-15-1"></div>
+        </div>
+        <div class="fill-item" id="fill-item-15-2">
+          <div class="fill-sentence">El Estatuto Agrario está establecido en la Ley <input class="fill-blank" id="fill-15-2" type="text" autocomplete="off" spellcheck="false">/2002.</div>
+          <div class="fill-hint">💡 Pista: Número de la ley agraria</div>
+          <div class="fill-feedback" id="fill-fb-15-2"></div>
+        </div>
+        <div class="fill-item" id="fill-item-15-3">
+          <div class="fill-sentence">El Derecho Civil también se denomina Derecho <input class="fill-blank" id="fill-15-3" type="text" autocomplete="off" spellcheck="false"> porque supletoriamente rige a otras ramas.</div>
+          <div class="fill-hint">💡 Pista: Denominación alternativa del Derecho Civil</div>
+          <div class="fill-feedback" id="fill-fb-15-3"></div>
+        </div>
+        <div class="fill-item" id="fill-item-15-4">
+          <div class="fill-sentence">El <input class="fill-blank" id="fill-15-4" type="text" autocomplete="off" spellcheck="false"> crea el INDERT según la Ley 2419/2004.</div>
+          <div class="fill-hint">💡 Pista: Institución de reforma agraria</div>
+          <div class="fill-feedback" id="fill-fb-15-4"></div>
+        </div>
+        <div class="fill-actions">
+          <button class="fill-check-btn" onclick="checkFill(15)">✔ Verificar</button>
+          <button class="fill-reset-btn" onclick="resetFill(15)">🔄 Reintentar</button>
+        </div>
+        <div class="fill-score" id="fill-score-15"></div>
+      </div>
+    </div>
+  </div>
   <div class="quiz-section" id="quiz-section-15">
     <button class="quiz-toggle-btn" id="quiz-toggle-btn-15" onclick="toggleQuiz(15)">
       📝 Quiz de esta lección
@@ -1351,6 +1716,50 @@
     </div>
     <div class="progress-bar-wrap"><div class="progress-bar" id="prog-16"></div></div>
   
+  
+  <div class="exercises-panel">
+    <button class="exercises-btn" id="ex-toggle-16" onclick="toggleExercises(16)">
+      ✏️ Ejercicios didácticos
+    </button>
+    <div class="exercises-box" id="ex-box-16">
+      <div class="ex-tabs">
+        <button class="ex-tab active" onclick="switchExTab(16,'fill')">📝 Completar espacios</button>
+      </div>
+      <div class="ex-pane active" id="ex-fill-16">
+        
+        <div class="fill-item" id="fill-item-16-0">
+          <div class="fill-sentence">El Art. <input class="fill-blank" id="fill-16-0" type="text" autocomplete="off" spellcheck="false"> CN garantiza que todos los habitantes de la República son iguales en dignidad y derechos.</div>
+          <div class="fill-hint">💡 Pista: Número del artículo de igualdad</div>
+          <div class="fill-feedback" id="fill-fb-16-0"></div>
+        </div>
+        <div class="fill-item" id="fill-item-16-1">
+          <div class="fill-sentence">Para Kelsen, el derecho subjetivo es el mismo derecho <input class="fill-blank" id="fill-16-1" type="text" autocomplete="off" spellcheck="false"> en relación con el sujeto.</div>
+          <div class="fill-hint">💡 Pista: Teoría unificadora de Kelsen</div>
+          <div class="fill-feedback" id="fill-fb-16-1"></div>
+        </div>
+        <div class="fill-item" id="fill-item-16-2">
+          <div class="fill-sentence">Los tres derechos subjetivos fundamentales son: igualdad, libertad y resistencia a la <input class="fill-blank" id="fill-16-2" type="text" autocomplete="off" spellcheck="false">.</div>
+          <div class="fill-hint">💡 Pista: Tercer derecho fundamental</div>
+          <div class="fill-feedback" id="fill-fb-16-2"></div>
+        </div>
+        <div class="fill-item" id="fill-item-16-3">
+          <div class="fill-sentence">El Art. 9 CN garantiza el derecho a la <input class="fill-blank" id="fill-16-3" type="text" autocomplete="off" spellcheck="false"> y a la seguridad de las personas.</div>
+          <div class="fill-hint">💡 Pista: Derecho personal esencial</div>
+          <div class="fill-feedback" id="fill-fb-16-3"></div>
+        </div>
+        <div class="fill-item" id="fill-item-16-4">
+          <div class="fill-sentence">La <input class="fill-blank" id="fill-16-4" type="text" autocomplete="off" spellcheck="false"> jurídica es la facultad de hacer u omitir aquello que no está ordenado ni prohibido.</div>
+          <div class="fill-hint">💡 Pista: Libertad en el plano normativo</div>
+          <div class="fill-feedback" id="fill-fb-16-4"></div>
+        </div>
+        <div class="fill-actions">
+          <button class="fill-check-btn" onclick="checkFill(16)">✔ Verificar</button>
+          <button class="fill-reset-btn" onclick="resetFill(16)">🔄 Reintentar</button>
+        </div>
+        <div class="fill-score" id="fill-score-16"></div>
+      </div>
+    </div>
+  </div>
   <div class="quiz-section" id="quiz-section-16">
     <button class="quiz-toggle-btn" id="quiz-toggle-btn-16" onclick="toggleQuiz(16)">
       📝 Quiz de esta lección
@@ -1451,6 +1860,50 @@
     </div>
     <div class="progress-bar-wrap"><div class="progress-bar" id="prog-17"></div></div>
   
+  
+  <div class="exercises-panel">
+    <button class="exercises-btn" id="ex-toggle-17" onclick="toggleExercises(17)">
+      ✏️ Ejercicios didácticos
+    </button>
+    <div class="exercises-box" id="ex-box-17">
+      <div class="ex-tabs">
+        <button class="ex-tab active" onclick="switchExTab(17,'fill')">📝 Completar espacios</button>
+      </div>
+      <div class="ex-pane active" id="ex-fill-17">
+        
+        <div class="fill-item" id="fill-item-17-0">
+          <div class="fill-sentence">El Art. 372 CC establece que los derechos deben ser ejercidos de buena <input class="fill-blank" id="fill-17-0" type="text" autocomplete="off" spellcheck="false">.</div>
+          <div class="fill-hint">💡 Pista: Principio del ejercicio de derechos</div>
+          <div class="fill-feedback" id="fill-fb-17-0"></div>
+        </div>
+        <div class="fill-item" id="fill-item-17-1">
+          <div class="fill-sentence">El abuso del derecho se da cuando se ejerce un derecho sin necesidad y con <input class="fill-blank" id="fill-17-1" type="text" autocomplete="off" spellcheck="false"> de dañar.</div>
+          <div class="fill-hint">💡 Pista: Elemento subjetivo del abuso</div>
+          <div class="fill-feedback" id="fill-fb-17-1"></div>
+        </div>
+        <div class="fill-item" id="fill-item-17-2">
+          <div class="fill-sentence">Las leyes de orden público son aplicables de <input class="fill-blank" id="fill-17-2" type="text" autocomplete="off" spellcheck="false"> por el juez.</div>
+          <div class="fill-hint">💡 Pista: Modo de aplicación judicial</div>
+          <div class="fill-feedback" id="fill-fb-17-2"></div>
+        </div>
+        <div class="fill-item" id="fill-item-17-3">
+          <div class="fill-sentence">El <input class="fill-blank" id="fill-17-3" type="text" autocomplete="off" spellcheck="false"> público es el conjunto de principios que determinan la existencia y conservación de una sociedad.</div>
+          <div class="fill-hint">💡 Pista: Concepto de organización social superior</div>
+          <div class="fill-feedback" id="fill-fb-17-3"></div>
+        </div>
+        <div class="fill-item" id="fill-item-17-4">
+          <div class="fill-sentence">La violación de las leyes de orden público entraña nulidad <input class="fill-blank" id="fill-17-4" type="text" autocomplete="off" spellcheck="false">.</div>
+          <div class="fill-hint">💡 Pista: Tipo de nulidad más grave</div>
+          <div class="fill-feedback" id="fill-fb-17-4"></div>
+        </div>
+        <div class="fill-actions">
+          <button class="fill-check-btn" onclick="checkFill(17)">✔ Verificar</button>
+          <button class="fill-reset-btn" onclick="resetFill(17)">🔄 Reintentar</button>
+        </div>
+        <div class="fill-score" id="fill-score-17"></div>
+      </div>
+    </div>
+  </div>
   <div class="quiz-section" id="quiz-section-17">
     <button class="quiz-toggle-btn" id="quiz-toggle-btn-17" onclick="toggleQuiz(17)">
       📝 Quiz de esta lección
@@ -1556,6 +2009,50 @@
     </div>
     <div class="progress-bar-wrap"><div class="progress-bar" id="prog-18"></div></div>
   
+  
+  <div class="exercises-panel">
+    <button class="exercises-btn" id="ex-toggle-18" onclick="toggleExercises(18)">
+      ✏️ Ejercicios didácticos
+    </button>
+    <div class="exercises-box" id="ex-box-18">
+      <div class="ex-tabs">
+        <button class="ex-tab active" onclick="switchExTab(18,'fill')">📝 Completar espacios</button>
+      </div>
+      <div class="ex-pane active" id="ex-fill-18">
+        
+        <div class="fill-item" id="fill-item-18-0">
+          <div class="fill-sentence">La existencia jurídica de las personas físicas comienza desde la <input class="fill-blank" id="fill-18-0" type="text" autocomplete="off" spellcheck="false"> en el seno materno.</div>
+          <div class="fill-hint">💡 Pista: Inicio de la personalidad jurídica</div>
+          <div class="fill-feedback" id="fill-fb-18-0"></div>
+        </div>
+        <div class="fill-item" id="fill-item-18-1">
+          <div class="fill-sentence">El <input class="fill-blank" id="fill-18-1" type="text" autocomplete="off" spellcheck="false"> legal es el lugar donde la ley presume que una persona reside de manera permanente.</div>
+          <div class="fill-hint">💡 Pista: Tipo de domicilio forzoso</div>
+          <div class="fill-feedback" id="fill-fb-18-1"></div>
+        </div>
+        <div class="fill-item" id="fill-item-18-2">
+          <div class="fill-sentence">Según el Art. 37 CC, los menores de <input class="fill-blank" id="fill-18-2" type="text" autocomplete="off" spellcheck="false"> años son absolutamente incapaces de hecho.</div>
+          <div class="fill-hint">💡 Pista: Edad límite de incapacidad absoluta</div>
+          <div class="fill-feedback" id="fill-fb-18-2"></div>
+        </div>
+        <div class="fill-item" id="fill-item-18-3">
+          <div class="fill-sentence">Las personas <input class="fill-blank" id="fill-18-3" type="text" autocomplete="off" spellcheck="false"> son entidades abstractas desprovistas de existencia material.</div>
+          <div class="fill-hint">💡 Pista: Tipo de persona no humana</div>
+          <div class="fill-feedback" id="fill-fb-18-3"></div>
+        </div>
+        <div class="fill-item" id="fill-item-18-4">
+          <div class="fill-sentence">La <input class="fill-blank" id="fill-18-4" type="text" autocomplete="off" spellcheck="false"> de hecho es la aptitud legal para adquirir derechos y contraer obligaciones por sí mismo.</div>
+          <div class="fill-hint">💡 Pista: Atributo esencial de las personas</div>
+          <div class="fill-feedback" id="fill-fb-18-4"></div>
+        </div>
+        <div class="fill-actions">
+          <button class="fill-check-btn" onclick="checkFill(18)">✔ Verificar</button>
+          <button class="fill-reset-btn" onclick="resetFill(18)">🔄 Reintentar</button>
+        </div>
+        <div class="fill-score" id="fill-score-18"></div>
+      </div>
+    </div>
+  </div>
   <div class="quiz-section" id="quiz-section-18">
     <button class="quiz-toggle-btn" id="quiz-toggle-btn-18" onclick="toggleQuiz(18)">
       📝 Quiz de esta lección
@@ -1661,6 +2158,50 @@
     </div>
     <div class="progress-bar-wrap"><div class="progress-bar" id="prog-19"></div></div>
   
+  
+  <div class="exercises-panel">
+    <button class="exercises-btn" id="ex-toggle-19" onclick="toggleExercises(19)">
+      ✏️ Ejercicios didácticos
+    </button>
+    <div class="exercises-box" id="ex-box-19">
+      <div class="ex-tabs">
+        <button class="ex-tab active" onclick="switchExTab(19,'fill')">📝 Completar espacios</button>
+      </div>
+      <div class="ex-pane active" id="ex-fill-19">
+        
+        <div class="fill-item" id="fill-item-19-0">
+          <div class="fill-sentence">Los hechos voluntarios son ejecutados con discernimiento, <input class="fill-blank" id="fill-19-0" type="text" autocomplete="off" spellcheck="false"> y libertad.</div>
+          <div class="fill-hint">💡 Pista: Segunda condición de la voluntad</div>
+          <div class="fill-feedback" id="fill-fb-19-0"></div>
+        </div>
+        <div class="fill-item" id="fill-item-19-1">
+          <div class="fill-sentence">El <input class="fill-blank" id="fill-19-1" type="text" autocomplete="off" spellcheck="false"> consiste en juzgar nuestras acciones y distinguir lo justo de lo injusto.</div>
+          <div class="fill-hint">💡 Pista: Primera condición interna de la voluntad</div>
+          <div class="fill-feedback" id="fill-fb-19-1"></div>
+        </div>
+        <div class="fill-item" id="fill-item-19-2">
+          <div class="fill-sentence">Según el Art. 296 CC, los actos jurídicos son actos voluntarios <input class="fill-blank" id="fill-19-2" type="text" autocomplete="off" spellcheck="false"> con fin inmediato de crear derechos.</div>
+          <div class="fill-hint">💡 Pista: Carácter moral del acto jurídico</div>
+          <div class="fill-feedback" id="fill-fb-19-2"></div>
+        </div>
+        <div class="fill-item" id="fill-item-19-3">
+          <div class="fill-sentence">El <input class="fill-blank" id="fill-19-3" type="text" autocomplete="off" spellcheck="false"> es toda aserción falsa o disimulación de lo verdadero para obtener un acto jurídico.</div>
+          <div class="fill-hint">💡 Pista: Vicio que excluye la intención</div>
+          <div class="fill-feedback" id="fill-fb-19-3"></div>
+        </div>
+        <div class="fill-item" id="fill-item-19-4">
+          <div class="fill-sentence">Según el Art. 1872 CC, las cosas son objetos <input class="fill-blank" id="fill-19-4" type="text" autocomplete="off" spellcheck="false"> susceptibles de tener un valor.</div>
+          <div class="fill-hint">💡 Pista: Carácter material de las cosas</div>
+          <div class="fill-feedback" id="fill-fb-19-4"></div>
+        </div>
+        <div class="fill-actions">
+          <button class="fill-check-btn" onclick="checkFill(19)">✔ Verificar</button>
+          <button class="fill-reset-btn" onclick="resetFill(19)">🔄 Reintentar</button>
+        </div>
+        <div class="fill-score" id="fill-score-19"></div>
+      </div>
+    </div>
+  </div>
   <div class="quiz-section" id="quiz-section-19">
     <button class="quiz-toggle-btn" id="quiz-toggle-btn-19" onclick="toggleQuiz(19)">
       📝 Quiz de esta lección
@@ -1762,6 +2303,50 @@
     </div>
     <div class="progress-bar-wrap"><div class="progress-bar" id="prog-20"></div></div>
   
+  
+  <div class="exercises-panel">
+    <button class="exercises-btn" id="ex-toggle-20" onclick="toggleExercises(20)">
+      ✏️ Ejercicios didácticos
+    </button>
+    <div class="exercises-box" id="ex-box-20">
+      <div class="ex-tabs">
+        <button class="ex-tab active" onclick="switchExTab(20,'fill')">📝 Completar espacios</button>
+      </div>
+      <div class="ex-pane active" id="ex-fill-20">
+        
+        <div class="fill-item" id="fill-item-20-0">
+          <div class="fill-sentence">La Iniciativa Popular requiere la firma de al menos el <input class="fill-blank" id="fill-20-0" type="text" autocomplete="off" spellcheck="false">% de los electores inscriptos.</div>
+          <div class="fill-hint">💡 Pista: Porcentaje constitucional</div>
+          <div class="fill-feedback" id="fill-fb-20-0"></div>
+        </div>
+        <div class="fill-item" id="fill-item-20-1">
+          <div class="fill-sentence">El referéndum legislativo, según el Art. 121 CN, puede o no ser <input class="fill-blank" id="fill-20-1" type="text" autocomplete="off" spellcheck="false">.</div>
+          <div class="fill-hint">💡 Pista: Carácter del referéndum</div>
+          <div class="fill-feedback" id="fill-fb-20-1"></div>
+        </div>
+        <div class="fill-item" id="fill-item-20-2">
+          <div class="fill-sentence">Según el Art. 1 CN, el Paraguay se constituye en Estado <input class="fill-blank" id="fill-20-2" type="text" autocomplete="off" spellcheck="false">.</div>
+          <div class="fill-hint">💡 Pista: Forma de Estado paraguayo</div>
+          <div class="fill-feedback" id="fill-fb-20-2"></div>
+        </div>
+        <div class="fill-item" id="fill-item-20-3">
+          <div class="fill-sentence">El Art. 122 CN prohíbe el referéndum sobre relaciones internacionales, defensa nacional y <input class="fill-blank" id="fill-20-3" type="text" autocomplete="off" spellcheck="false">.</div>
+          <div class="fill-hint">💡 Pista: Materia vedada al referéndum</div>
+          <div class="fill-feedback" id="fill-fb-20-3"></div>
+        </div>
+        <div class="fill-item" id="fill-item-20-4">
+          <div class="fill-sentence">La <input class="fill-blank" id="fill-20-4" type="text" autocomplete="off" spellcheck="false"> participativa tiene como antecedente mediato a la democracia directa de Rousseau.</div>
+          <div class="fill-hint">💡 Pista: Forma de gobierno con participación ciudadana</div>
+          <div class="fill-feedback" id="fill-fb-20-4"></div>
+        </div>
+        <div class="fill-actions">
+          <button class="fill-check-btn" onclick="checkFill(20)">✔ Verificar</button>
+          <button class="fill-reset-btn" onclick="resetFill(20)">🔄 Reintentar</button>
+        </div>
+        <div class="fill-score" id="fill-score-20"></div>
+      </div>
+    </div>
+  </div>
   <div class="quiz-section" id="quiz-section-20">
     <button class="quiz-toggle-btn" id="quiz-toggle-btn-20" onclick="toggleQuiz(20)">
       📝 Quiz de esta lección
@@ -1871,6 +2456,50 @@
     </div>
     <div class="progress-bar-wrap"><div class="progress-bar" id="prog-21"></div></div>
   
+  
+  <div class="exercises-panel">
+    <button class="exercises-btn" id="ex-toggle-21" onclick="toggleExercises(21)">
+      ✏️ Ejercicios didácticos
+    </button>
+    <div class="exercises-box" id="ex-box-21">
+      <div class="ex-tabs">
+        <button class="ex-tab active" onclick="switchExTab(21,'fill')">📝 Completar espacios</button>
+      </div>
+      <div class="ex-pane active" id="ex-fill-21">
+        
+        <div class="fill-item" id="fill-item-21-0">
+          <div class="fill-sentence">El <input class="fill-blank" id="fill-21-0" type="text" autocomplete="off" spellcheck="false"> es el derecho real que confiere usar, gozar y disponer de la cosa de modo amplio y exclusivo.</div>
+          <div class="fill-hint">💡 Pista: Derecho real más amplio sobre cosa propia</div>
+          <div class="fill-feedback" id="fill-fb-21-0"></div>
+        </div>
+        <div class="fill-item" id="fill-item-21-1">
+          <div class="fill-sentence">La <input class="fill-blank" id="fill-21-1" type="text" autocomplete="off" spellcheck="false"> es el derecho real de usar y gozar de una cosa cuya propiedad pertenece a otro.</div>
+          <div class="fill-hint">💡 Pista: Derecho real sobre cosa ajena</div>
+          <div class="fill-feedback" id="fill-fb-21-1"></div>
+        </div>
+        <div class="fill-item" id="fill-item-21-2">
+          <div class="fill-sentence">La <input class="fill-blank" id="fill-21-2" type="text" autocomplete="off" spellcheck="false"> es el derecho real constituido en seguridad de un crédito sobre bienes inmuebles.</div>
+          <div class="fill-hint">💡 Pista: Garantía real sobre inmuebles</div>
+          <div class="fill-feedback" id="fill-fb-21-2"></div>
+        </div>
+        <div class="fill-item" id="fill-item-21-3">
+          <div class="fill-sentence">Los derechos reales solo pueden ser creados por <input class="fill-blank" id="fill-21-3" type="text" autocomplete="off" spellcheck="false">.</div>
+          <div class="fill-hint">💡 Pista: Fuente exclusiva de los derechos reales</div>
+          <div class="fill-feedback" id="fill-fb-21-3"></div>
+        </div>
+        <div class="fill-item" id="fill-item-21-4">
+          <div class="fill-sentence">Hay <input class="fill-blank" id="fill-21-4" type="text" autocomplete="off" spellcheck="false"> cuando dos o más personas comparten el dominio sobre una parte indivisa de una misma cosa.</div>
+          <div class="fill-hint">💡 Pista: Dominio compartido</div>
+          <div class="fill-feedback" id="fill-fb-21-4"></div>
+        </div>
+        <div class="fill-actions">
+          <button class="fill-check-btn" onclick="checkFill(21)">✔ Verificar</button>
+          <button class="fill-reset-btn" onclick="resetFill(21)">🔄 Reintentar</button>
+        </div>
+        <div class="fill-score" id="fill-score-21"></div>
+      </div>
+    </div>
+  </div>
   <div class="quiz-section" id="quiz-section-21">
     <button class="quiz-toggle-btn" id="quiz-toggle-btn-21" onclick="toggleQuiz(21)">
       📝 Quiz de esta lección
@@ -1974,6 +2603,50 @@
     </div>
     <div class="progress-bar-wrap"><div class="progress-bar" id="prog-22"></div></div>
   
+  
+  <div class="exercises-panel">
+    <button class="exercises-btn" id="ex-toggle-22" onclick="toggleExercises(22)">
+      ✏️ Ejercicios didácticos
+    </button>
+    <div class="exercises-box" id="ex-box-22">
+      <div class="ex-tabs">
+        <button class="ex-tab active" onclick="switchExTab(22,'fill')">📝 Completar espacios</button>
+      </div>
+      <div class="ex-pane active" id="ex-fill-22">
+        
+        <div class="fill-item" id="fill-item-22-0">
+          <div class="fill-sentence">Los elementos constitutivos de la obligación son: relación de derecho, objeto/prestación y <input class="fill-blank" id="fill-22-0" type="text" autocomplete="off" spellcheck="false">.</div>
+          <div class="fill-hint">💡 Pista: Tercer elemento de la obligación</div>
+          <div class="fill-feedback" id="fill-fb-22-0"></div>
+        </div>
+        <div class="fill-item" id="fill-item-22-1">
+          <div class="fill-sentence">El <input class="fill-blank" id="fill-22-1" type="text" autocomplete="off" spellcheck="false"> es un acto ilícito cometido a sabiendas con intención de dañar, fuente de obligaciones.</div>
+          <div class="fill-hint">💡 Pista: Acto ilícito doloso</div>
+          <div class="fill-feedback" id="fill-fb-22-1"></div>
+        </div>
+        <div class="fill-item" id="fill-item-22-2">
+          <div class="fill-sentence">El <input class="fill-blank" id="fill-22-2" type="text" autocomplete="off" spellcheck="false"> es un acto ilícito sin dolo pero con negligencia o culpa.</div>
+          <div class="fill-hint">💡 Pista: Acto ilícito culposo</div>
+          <div class="fill-feedback" id="fill-fb-22-2"></div>
+        </div>
+        <div class="fill-item" id="fill-item-22-3">
+          <div class="fill-sentence">La Ley <input class="fill-blank" id="fill-22-3" type="text" autocomplete="off" spellcheck="false">/1998 regula el Derecho de Autor en Paraguay.</div>
+          <div class="fill-hint">💡 Pista: Número de ley de propiedad intelectual</div>
+          <div class="fill-feedback" id="fill-fb-22-3"></div>
+        </div>
+        <div class="fill-item" id="fill-item-22-4">
+          <div class="fill-sentence">Los derechos <input class="fill-blank" id="fill-22-4" type="text" autocomplete="off" spellcheck="false"> del autor incluyen divulgación, paternidad, integridad y retiro de la obra.</div>
+          <div class="fill-hint">💡 Pista: Derechos no patrimoniales del autor</div>
+          <div class="fill-feedback" id="fill-fb-22-4"></div>
+        </div>
+        <div class="fill-actions">
+          <button class="fill-check-btn" onclick="checkFill(22)">✔ Verificar</button>
+          <button class="fill-reset-btn" onclick="resetFill(22)">🔄 Reintentar</button>
+        </div>
+        <div class="fill-score" id="fill-score-22"></div>
+      </div>
+    </div>
+  </div>
   <div class="quiz-section" id="quiz-section-22">
     <button class="quiz-toggle-btn" id="quiz-toggle-btn-22" onclick="toggleQuiz(22)">
       📝 Quiz de esta lección
@@ -2074,6 +2747,50 @@
     </div>
     <div class="progress-bar-wrap"><div class="progress-bar" id="prog-23"></div></div>
   
+  
+  <div class="exercises-panel">
+    <button class="exercises-btn" id="ex-toggle-23" onclick="toggleExercises(23)">
+      ✏️ Ejercicios didácticos
+    </button>
+    <div class="exercises-box" id="ex-box-23">
+      <div class="ex-tabs">
+        <button class="ex-tab active" onclick="switchExTab(23,'fill')">📝 Completar espacios</button>
+      </div>
+      <div class="ex-pane active" id="ex-fill-23">
+        
+        <div class="fill-item" id="fill-item-23-0">
+          <div class="fill-sentence">La marca nace con el <input class="fill-blank" id="fill-23-0" type="text" autocomplete="off" spellcheck="false"> ante el organismo competente.</div>
+          <div class="fill-hint">💡 Pista: Acto constitutivo de la marca</div>
+          <div class="fill-feedback" id="fill-fb-23-0"></div>
+        </div>
+        <div class="fill-item" id="fill-item-23-1">
+          <div class="fill-sentence">El Decreto-Ley <input class="fill-blank" id="fill-23-1" type="text" autocomplete="off" spellcheck="false">/98 reglamenta las marcas comerciales en Paraguay.</div>
+          <div class="fill-hint">💡 Pista: Número del decreto de marcas</div>
+          <div class="fill-feedback" id="fill-fb-23-1"></div>
+        </div>
+        <div class="fill-item" id="fill-item-23-2">
+          <div class="fill-sentence">La Ley <input class="fill-blank" id="fill-23-2" type="text" autocomplete="off" spellcheck="false">/2012 creó la DINAPI en Paraguay.</div>
+          <div class="fill-hint">💡 Pista: Número de ley de la DINAPI</div>
+          <div class="fill-feedback" id="fill-fb-23-2"></div>
+        </div>
+        <div class="fill-item" id="fill-item-23-3">
+          <div class="fill-sentence">La propiedad <input class="fill-blank" id="fill-23-3" type="text" autocomplete="off" spellcheck="false"> se divide en propiedad industrial y derechos de autor.</div>
+          <div class="fill-hint">💡 Pista: Categoría que abarca marcas y obras</div>
+          <div class="fill-feedback" id="fill-fb-23-3"></div>
+        </div>
+        <div class="fill-item" id="fill-item-23-4">
+          <div class="fill-sentence">Las patentes protegen inventos que sean útiles, <input class="fill-blank" id="fill-23-4" type="text" autocomplete="off" spellcheck="false"> y materia patentable.</div>
+          <div class="fill-hint">💡 Pista: Requisito de novedad de la patente</div>
+          <div class="fill-feedback" id="fill-fb-23-4"></div>
+        </div>
+        <div class="fill-actions">
+          <button class="fill-check-btn" onclick="checkFill(23)">✔ Verificar</button>
+          <button class="fill-reset-btn" onclick="resetFill(23)">🔄 Reintentar</button>
+        </div>
+        <div class="fill-score" id="fill-score-23"></div>
+      </div>
+    </div>
+  </div>
   <div class="quiz-section" id="quiz-section-23">
     <button class="quiz-toggle-btn" id="quiz-toggle-btn-23" onclick="toggleQuiz(23)">
       📝 Quiz de esta lección
@@ -2174,6 +2891,50 @@
     </div>
     <div class="progress-bar-wrap"><div class="progress-bar" id="prog-24"></div></div>
   
+  
+  <div class="exercises-panel">
+    <button class="exercises-btn" id="ex-toggle-24" onclick="toggleExercises(24)">
+      ✏️ Ejercicios didácticos
+    </button>
+    <div class="exercises-box" id="ex-box-24">
+      <div class="ex-tabs">
+        <button class="ex-tab active" onclick="switchExTab(24,'fill')">📝 Completar espacios</button>
+      </div>
+      <div class="ex-pane active" id="ex-fill-24">
+        
+        <div class="fill-item" id="fill-item-24-0">
+          <div class="fill-sentence">La legítima de los <input class="fill-blank" id="fill-24-0" type="text" autocomplete="off" spellcheck="false"> es de cuatro quintas partes de la herencia según el Art. 2598 CC.</div>
+          <div class="fill-hint">💡 Pista: Herederos forzosos más cercanos</div>
+          <div class="fill-feedback" id="fill-fb-24-0"></div>
+        </div>
+        <div class="fill-item" id="fill-item-24-1">
+          <div class="fill-sentence">El <input class="fill-blank" id="fill-24-1" type="text" autocomplete="off" spellcheck="false"> es un acto escrito y solemne por el cual una persona dispone de sus bienes para después de su muerte.</div>
+          <div class="fill-hint">💡 Pista: Instrumento de la sucesión voluntaria</div>
+          <div class="fill-feedback" id="fill-fb-24-1"></div>
+        </div>
+        <div class="fill-item" id="fill-item-24-2">
+          <div class="fill-sentence">El <input class="fill-blank" id="fill-24-2" type="text" autocomplete="off" spellcheck="false"> es sucesor universal que continúa la persona del causante.</div>
+          <div class="fill-hint">💡 Pista: Tipo de sucesor a título universal</div>
+          <div class="fill-feedback" id="fill-fb-24-2"></div>
+        </div>
+        <div class="fill-item" id="fill-item-24-3">
+          <div class="fill-sentence">La sucesión <input class="fill-blank" id="fill-24-3" type="text" autocomplete="off" spellcheck="false"> o intestada es diferida solo por voluntad de la ley a los parientes del extinto.</div>
+          <div class="fill-hint">💡 Pista: Sucesión sin testamento</div>
+          <div class="fill-feedback" id="fill-fb-24-3"></div>
+        </div>
+        <div class="fill-item" id="fill-item-24-4">
+          <div class="fill-sentence">El <input class="fill-blank" id="fill-24-4" type="text" autocomplete="off" spellcheck="false"> es un sucesor singular en los bienes, no en la persona del difunto.</div>
+          <div class="fill-hint">💡 Pista: Tipo de sucesor a título particular</div>
+          <div class="fill-feedback" id="fill-fb-24-4"></div>
+        </div>
+        <div class="fill-actions">
+          <button class="fill-check-btn" onclick="checkFill(24)">✔ Verificar</button>
+          <button class="fill-reset-btn" onclick="resetFill(24)">🔄 Reintentar</button>
+        </div>
+        <div class="fill-score" id="fill-score-24"></div>
+      </div>
+    </div>
+  </div>
   <div class="quiz-section" id="quiz-section-24">
     <button class="quiz-toggle-btn" id="quiz-toggle-btn-24" onclick="toggleQuiz(24)">
       📝 Quiz de esta lección
@@ -2274,6 +3035,50 @@
     </div>
     <div class="progress-bar-wrap"><div class="progress-bar" id="prog-25"></div></div>
   
+  
+  <div class="exercises-panel">
+    <button class="exercises-btn" id="ex-toggle-25" onclick="toggleExercises(25)">
+      ✏️ Ejercicios didácticos
+    </button>
+    <div class="exercises-box" id="ex-box-25">
+      <div class="ex-tabs">
+        <button class="ex-tab active" onclick="switchExTab(25,'fill')">📝 Completar espacios</button>
+      </div>
+      <div class="ex-pane active" id="ex-fill-25">
+        
+        <div class="fill-item" id="fill-item-25-0">
+          <div class="fill-sentence">El Art. <input class="fill-blank" id="fill-25-0" type="text" autocomplete="off" spellcheck="false"> CN garantiza la independencia del Poder Judicial.</div>
+          <div class="fill-hint">💡 Pista: Número del artículo de independencia judicial</div>
+          <div class="fill-feedback" id="fill-fb-25-0"></div>
+        </div>
+        <div class="fill-item" id="fill-item-25-1">
+          <div class="fill-sentence">La excepción <input class="fill-blank" id="fill-25-1" type="text" autocomplete="off" spellcheck="false"> extingue la acción deducida y pone fin al litigio.</div>
+          <div class="fill-hint">💡 Pista: Tipo de excepción definitiva</div>
+          <div class="fill-feedback" id="fill-fb-25-1"></div>
+        </div>
+        <div class="fill-item" id="fill-item-25-2">
+          <div class="fill-sentence">El derecho de <input class="fill-blank" id="fill-25-2" type="text" autocomplete="off" spellcheck="false"> es la facultad para solicitar legalmente la intervención de los órganos jurisdiccionales.</div>
+          <div class="fill-hint">💡 Pista: Derecho procesal fundamental</div>
+          <div class="fill-feedback" id="fill-fb-25-2"></div>
+        </div>
+        <div class="fill-item" id="fill-item-25-3">
+          <div class="fill-sentence">La prescripción extingue las acciones cuando vence el <input class="fill-blank" id="fill-25-3" type="text" autocomplete="off" spellcheck="false"> legal sin ejercerlas.</div>
+          <div class="fill-hint">💡 Pista: Elemento temporal de la prescripción</div>
+          <div class="fill-feedback" id="fill-fb-25-3"></div>
+        </div>
+        <div class="fill-item" id="fill-item-25-4">
+          <div class="fill-sentence">La excepción <input class="fill-blank" id="fill-25-4" type="text" autocomplete="off" spellcheck="false"> tiende a postergar la contestación sobre el mérito sin destruir la acción.</div>
+          <div class="fill-hint">💡 Pista: Tipo de excepción temporal</div>
+          <div class="fill-feedback" id="fill-fb-25-4"></div>
+        </div>
+        <div class="fill-actions">
+          <button class="fill-check-btn" onclick="checkFill(25)">✔ Verificar</button>
+          <button class="fill-reset-btn" onclick="resetFill(25)">🔄 Reintentar</button>
+        </div>
+        <div class="fill-score" id="fill-score-25"></div>
+      </div>
+    </div>
+  </div>
   <div class="quiz-section" id="quiz-section-25">
     <button class="quiz-toggle-btn" id="quiz-toggle-btn-25" onclick="toggleQuiz(25)">
       📝 Quiz de esta lección
@@ -2380,6 +3185,50 @@
     </div>
     <div class="progress-bar-wrap"><div class="progress-bar" id="prog-26"></div></div>
   
+  
+  <div class="exercises-panel">
+    <button class="exercises-btn" id="ex-toggle-26" onclick="toggleExercises(26)">
+      ✏️ Ejercicios didácticos
+    </button>
+    <div class="exercises-box" id="ex-box-26">
+      <div class="ex-tabs">
+        <button class="ex-tab active" onclick="switchExTab(26,'fill')">📝 Completar espacios</button>
+      </div>
+      <div class="ex-pane active" id="ex-fill-26">
+        
+        <div class="fill-item" id="fill-item-26-0">
+          <div class="fill-sentence">Las etapas del proceso formativo de las leyes son: iniciativa, discusión, sanción, <input class="fill-blank" id="fill-26-0" type="text" autocomplete="off" spellcheck="false"> y publicación.</div>
+          <div class="fill-hint">💡 Pista: Cuarta etapa del proceso legislativo</div>
+          <div class="fill-feedback" id="fill-fb-26-0"></div>
+        </div>
+        <div class="fill-item" id="fill-item-26-1">
+          <div class="fill-sentence">Las fuentes <input class="fill-blank" id="fill-26-1" type="text" autocomplete="off" spellcheck="false"> del derecho son los factores que producen normas jurídicas.</div>
+          <div class="fill-hint">💡 Pista: Tipo de fuente por su origen</div>
+          <div class="fill-feedback" id="fill-fb-26-1"></div>
+        </div>
+        <div class="fill-item" id="fill-item-26-2">
+          <div class="fill-sentence">El Decreto-Ley N° <input class="fill-blank" id="fill-26-2" type="text" autocomplete="off" spellcheck="false"> del 2 de julio de 1959 creó la Comisión Nacional de Codificación.</div>
+          <div class="fill-hint">💡 Pista: Número del decreto de codificación</div>
+          <div class="fill-feedback" id="fill-fb-26-2"></div>
+        </div>
+        <div class="fill-item" id="fill-item-26-3">
+          <div class="fill-sentence">La <input class="fill-blank" id="fill-26-3" type="text" autocomplete="off" spellcheck="false"> reúne el derecho positivo en un cuerpo de disposiciones ordenadas sistemáticamente.</div>
+          <div class="fill-hint">💡 Pista: Proceso de sistematización del derecho</div>
+          <div class="fill-feedback" id="fill-fb-26-3"></div>
+        </div>
+        <div class="fill-item" id="fill-item-26-4">
+          <div class="fill-sentence">El Art. <input class="fill-blank" id="fill-26-4" type="text" autocomplete="off" spellcheck="false"> CN establece la fórmula oficial de sanción de las leyes.</div>
+          <div class="fill-hint">💡 Pista: Artículo sobre promulgación automática</div>
+          <div class="fill-feedback" id="fill-fb-26-4"></div>
+        </div>
+        <div class="fill-actions">
+          <button class="fill-check-btn" onclick="checkFill(26)">✔ Verificar</button>
+          <button class="fill-reset-btn" onclick="resetFill(26)">🔄 Reintentar</button>
+        </div>
+        <div class="fill-score" id="fill-score-26"></div>
+      </div>
+    </div>
+  </div>
   <div class="quiz-section" id="quiz-section-26">
     <button class="quiz-toggle-btn" id="quiz-toggle-btn-26" onclick="toggleQuiz(26)">
       📝 Quiz de esta lección
@@ -2489,6 +3338,50 @@
     </div>
     <div class="progress-bar-wrap"><div class="progress-bar" id="prog-27"></div></div>
   
+  
+  <div class="exercises-panel">
+    <button class="exercises-btn" id="ex-toggle-27" onclick="toggleExercises(27)">
+      ✏️ Ejercicios didácticos
+    </button>
+    <div class="exercises-box" id="ex-box-27">
+      <div class="ex-tabs">
+        <button class="ex-tab active" onclick="switchExTab(27,'fill')">📝 Completar espacios</button>
+      </div>
+      <div class="ex-pane active" id="ex-fill-27">
+        
+        <div class="fill-item" id="fill-item-27-0">
+          <div class="fill-sentence">La <input class="fill-blank" id="fill-27-0" type="text" autocomplete="off" spellcheck="false"> jurídica es el arte de interpretar, desentrañando el significado de vocablos jurídicos.</div>
+          <div class="fill-hint">💡 Pista: Arte de la interpretación</div>
+          <div class="fill-feedback" id="fill-fb-27-0"></div>
+        </div>
+        <div class="fill-item" id="fill-item-27-1">
+          <div class="fill-sentence">Los cuatro elementos de la interpretación legal son: gramatical, lógico, <input class="fill-blank" id="fill-27-1" type="text" autocomplete="off" spellcheck="false"> y sistemático.</div>
+          <div class="fill-hint">💡 Pista: Tercer elemento interpretativo</div>
+          <div class="fill-feedback" id="fill-fb-27-1"></div>
+        </div>
+        <div class="fill-item" id="fill-item-27-2">
+          <div class="fill-sentence">El Art. <input class="fill-blank" id="fill-27-2" type="text" autocomplete="off" spellcheck="false"> del Código Penal establece el principio de legalidad.</div>
+          <div class="fill-hint">💡 Pista: Primer artículo del Código Penal</div>
+          <div class="fill-feedback" id="fill-fb-27-2"></div>
+        </div>
+        <div class="fill-item" id="fill-item-27-3">
+          <div class="fill-sentence">El Art. 6 del Código Civil prohíbe al juez dejar de juzgar bajo pretexto de <input class="fill-blank" id="fill-27-3" type="text" autocomplete="off" spellcheck="false"> de las leyes.</div>
+          <div class="fill-hint">💡 Pista: Situación de laguna legal</div>
+          <div class="fill-feedback" id="fill-fb-27-3"></div>
+        </div>
+        <div class="fill-item" id="fill-item-27-4">
+          <div class="fill-sentence">La interpretación <input class="fill-blank" id="fill-27-4" type="text" autocomplete="off" spellcheck="false"> busca descubrir la voluntad del legislador al crear la norma.</div>
+          <div class="fill-hint">💡 Pista: Tipo de interpretación por el autor</div>
+          <div class="fill-feedback" id="fill-fb-27-4"></div>
+        </div>
+        <div class="fill-actions">
+          <button class="fill-check-btn" onclick="checkFill(27)">✔ Verificar</button>
+          <button class="fill-reset-btn" onclick="resetFill(27)">🔄 Reintentar</button>
+        </div>
+        <div class="fill-score" id="fill-score-27"></div>
+      </div>
+    </div>
+  </div>
   <div class="quiz-section" id="quiz-section-27">
     <button class="quiz-toggle-btn" id="quiz-toggle-btn-27" onclick="toggleQuiz(27)">
       📝 Quiz de esta lección
@@ -2594,6 +3487,50 @@
     </div>
     <div class="progress-bar-wrap"><div class="progress-bar" id="prog-28"></div></div>
   
+  
+  <div class="exercises-panel">
+    <button class="exercises-btn" id="ex-toggle-28" onclick="toggleExercises(28)">
+      ✏️ Ejercicios didácticos
+    </button>
+    <div class="exercises-box" id="ex-box-28">
+      <div class="ex-tabs">
+        <button class="ex-tab active" onclick="switchExTab(28,'fill')">📝 Completar espacios</button>
+      </div>
+      <div class="ex-pane active" id="ex-fill-28">
+        
+        <div class="fill-item" id="fill-item-28-0">
+          <div class="fill-sentence">La sumisión del caso concreto bajo la norma jurídica se realiza a través de un <input class="fill-blank" id="fill-28-0" type="text" autocomplete="off" spellcheck="false">.</div>
+          <div class="fill-hint">💡 Pista: Proceso lógico jurídico</div>
+          <div class="fill-feedback" id="fill-fb-28-0"></div>
+        </div>
+        <div class="fill-item" id="fill-item-28-1">
+          <div class="fill-sentence">Las <input class="fill-blank" id="fill-28-1" type="text" autocomplete="off" spellcheck="false"> de la ley son los casos imprevistos o espacios vacíos que la ley dejó al ser sancionada.</div>
+          <div class="fill-hint">💡 Pista: Vacíos del ordenamiento jurídico</div>
+          <div class="fill-feedback" id="fill-fb-28-1"></div>
+        </div>
+        <div class="fill-item" id="fill-item-28-2">
+          <div class="fill-sentence">La integración <input class="fill-blank" id="fill-28-2" type="text" autocomplete="off" spellcheck="false"> de la ley se hace con la analogía jurídica.</div>
+          <div class="fill-hint">💡 Pista: Tipo de integración por analogía</div>
+          <div class="fill-feedback" id="fill-fb-28-2"></div>
+        </div>
+        <div class="fill-item" id="fill-item-28-3">
+          <div class="fill-sentence">Si no encuentra solución en el Derecho Positivo, el juez recurre a los principios <input class="fill-blank" id="fill-28-3" type="text" autocomplete="off" spellcheck="false"> del Derecho.</div>
+          <div class="fill-hint">💡 Pista: Último recurso de integración</div>
+          <div class="fill-feedback" id="fill-fb-28-3"></div>
+        </div>
+        <div class="fill-item" id="fill-item-28-4">
+          <div class="fill-sentence">La <input class="fill-blank" id="fill-28-4" type="text" autocomplete="off" spellcheck="false"> del silogismo jurídico es el fallo del juez, la imputación de consecuencias normativas.</div>
+          <div class="fill-hint">💡 Pista: Tercera parte del silogismo</div>
+          <div class="fill-feedback" id="fill-fb-28-4"></div>
+        </div>
+        <div class="fill-actions">
+          <button class="fill-check-btn" onclick="checkFill(28)">✔ Verificar</button>
+          <button class="fill-reset-btn" onclick="resetFill(28)">🔄 Reintentar</button>
+        </div>
+        <div class="fill-score" id="fill-score-28"></div>
+      </div>
+    </div>
+  </div>
   <div class="quiz-section" id="quiz-section-28">
     <button class="quiz-toggle-btn" id="quiz-toggle-btn-28" onclick="toggleQuiz(28)">
       📝 Quiz de esta lección
@@ -2697,6 +3634,50 @@
     </div>
     <div class="progress-bar-wrap"><div class="progress-bar" id="prog-29"></div></div>
   
+  
+  <div class="exercises-panel">
+    <button class="exercises-btn" id="ex-toggle-29" onclick="toggleExercises(29)">
+      ✏️ Ejercicios didácticos
+    </button>
+    <div class="exercises-box" id="ex-box-29">
+      <div class="ex-tabs">
+        <button class="ex-tab active" onclick="switchExTab(29,'fill')">📝 Completar espacios</button>
+      </div>
+      <div class="ex-pane active" id="ex-fill-29">
+        
+        <div class="fill-item" id="fill-item-29-0">
+          <div class="fill-sentence">El Art. 14 CN establece que ninguna ley tendrá efecto <input class="fill-blank" id="fill-29-0" type="text" autocomplete="off" spellcheck="false">, salvo que sea más favorable al encausado.</div>
+          <div class="fill-hint">💡 Pista: Principio temporal de las leyes</div>
+          <div class="fill-feedback" id="fill-fb-29-0"></div>
+        </div>
+        <div class="fill-item" id="fill-item-29-1">
+          <div class="fill-sentence">El Art. 2 del Código Civil establece que las leyes disponen para el <input class="fill-blank" id="fill-29-1" type="text" autocomplete="off" spellcheck="false">, no tienen efecto retroactivo.</div>
+          <div class="fill-hint">💡 Pista: Orientación temporal de la ley</div>
+          <div class="fill-feedback" id="fill-fb-29-1"></div>
+        </div>
+        <div class="fill-item" id="fill-item-29-2">
+          <div class="fill-sentence">El fundamento racional de la irretroactividad es que no se concibe que una ley sea obligatoria antes de <input class="fill-blank" id="fill-29-2" type="text" autocomplete="off" spellcheck="false">.</div>
+          <div class="fill-hint">💡 Pista: Base lógica del principio</div>
+          <div class="fill-feedback" id="fill-fb-29-2"></div>
+        </div>
+        <div class="fill-item" id="fill-item-29-3">
+          <div class="fill-sentence">En materia penal, si la ley cambia antes de la sentencia, se aplica la ley más <input class="fill-blank" id="fill-29-3" type="text" autocomplete="off" spellcheck="false"> al encausado.</div>
+          <div class="fill-hint">💡 Pista: Criterio de aplicación penal en el tiempo</div>
+          <div class="fill-feedback" id="fill-fb-29-3"></div>
+        </div>
+        <div class="fill-item" id="fill-item-29-4">
+          <div class="fill-sentence">El Derecho <input class="fill-blank" id="fill-29-4" type="text" autocomplete="off" spellcheck="false"> es el conjunto de reglas aplicables al intermedio jurídico entre una ley derogada y una nueva.</div>
+          <div class="fill-hint">💡 Pista: Rama del derecho sobre conflictos en el tiempo</div>
+          <div class="fill-feedback" id="fill-fb-29-4"></div>
+        </div>
+        <div class="fill-actions">
+          <button class="fill-check-btn" onclick="checkFill(29)">✔ Verificar</button>
+          <button class="fill-reset-btn" onclick="resetFill(29)">🔄 Reintentar</button>
+        </div>
+        <div class="fill-score" id="fill-score-29"></div>
+      </div>
+    </div>
+  </div>
   <div class="quiz-section" id="quiz-section-29">
     <button class="quiz-toggle-btn" id="quiz-toggle-btn-29" onclick="toggleQuiz(29)">
       📝 Quiz de esta lección
@@ -2800,6 +3781,50 @@
     </div>
     <div class="progress-bar-wrap"><div class="progress-bar" id="prog-30"></div></div>
   
+  
+  <div class="exercises-panel">
+    <button class="exercises-btn" id="ex-toggle-30" onclick="toggleExercises(30)">
+      ✏️ Ejercicios didácticos
+    </button>
+    <div class="exercises-box" id="ex-box-30">
+      <div class="ex-tabs">
+        <button class="ex-tab active" onclick="switchExTab(30,'fill')">📝 Completar espacios</button>
+      </div>
+      <div class="ex-pane active" id="ex-fill-30">
+        
+        <div class="fill-item" id="fill-item-30-0">
+          <div class="fill-sentence">El principio de <input class="fill-blank" id="fill-30-0" type="text" autocomplete="off" spellcheck="false"> establece que las leyes deben regir en el territorio del Estado soberano que las emana.</div>
+          <div class="fill-hint">💡 Pista: Principio general de aplicación espacial</div>
+          <div class="fill-feedback" id="fill-fb-30-0"></div>
+        </div>
+        <div class="fill-item" id="fill-item-30-1">
+          <div class="fill-sentence">El Art. 16 CC establece el principio Lex <input class="fill-blank" id="fill-30-1" type="text" autocomplete="off" spellcheck="false"> Sitae: los bienes se rigen por la ley del lugar donde están.</div>
+          <div class="fill-hint">💡 Pista: Principio sobre la ley de los bienes</div>
+          <div class="fill-feedback" id="fill-fb-30-1"></div>
+        </div>
+        <div class="fill-item" id="fill-item-30-2">
+          <div class="fill-sentence">El Art. 23 CC establece el principio <input class="fill-blank" id="fill-30-2" type="text" autocomplete="off" spellcheck="false"> Regit Actum: la forma de los actos se rige por la ley del lugar de celebración.</div>
+          <div class="fill-hint">💡 Pista: Principio sobre la forma de los actos</div>
+          <div class="fill-feedback" id="fill-fb-30-2"></div>
+        </div>
+        <div class="fill-item" id="fill-item-30-3">
+          <div class="fill-sentence">Los jueces aplican de <input class="fill-blank" id="fill-30-3" type="text" autocomplete="off" spellcheck="false"> las leyes extranjeras, salvo que se opongan al orden público.</div>
+          <div class="fill-hint">💡 Pista: Modo de aplicación de ley extranjera</div>
+          <div class="fill-feedback" id="fill-fb-30-3"></div>
+        </div>
+        <div class="fill-item" id="fill-item-30-4">
+          <div class="fill-sentence">En ausencia de convenios internacionales en materia procesal, se aplica la <input class="fill-blank" id="fill-30-4" type="text" autocomplete="off" spellcheck="false">, ley del tribunal.</div>
+          <div class="fill-hint">💡 Pista: Principio procesal internacional</div>
+          <div class="fill-feedback" id="fill-fb-30-4"></div>
+        </div>
+        <div class="fill-actions">
+          <button class="fill-check-btn" onclick="checkFill(30)">✔ Verificar</button>
+          <button class="fill-reset-btn" onclick="resetFill(30)">🔄 Reintentar</button>
+        </div>
+        <div class="fill-score" id="fill-score-30"></div>
+      </div>
+    </div>
+  </div>
   <div class="quiz-section" id="quiz-section-30">
     <button class="quiz-toggle-btn" id="quiz-toggle-btn-30" onclick="toggleQuiz(30)">
       📝 Quiz de esta lección
@@ -3134,6 +4159,415 @@ document.addEventListener('DOMContentLoaded', () => {
   refreshProgressUI();
 });
 
+
+// ===== FILL IN THE BLANK =====
+const FILL_DATA_JS = {"11": [{"s": "Las normas ___ regulan el comportamiento del ser humano en sus relaciones con la divinidad.", "a": "religiosas", "hint": "Fe y v\u00ednculo con Dios"}, {"s": "La norma jur\u00eddica puede exigirse ___ por los \u00f3rganos del Estado en caso de inobservancia.", "a": "coactivamente", "hint": "Fuerza del Estado"}, {"s": "La estructura l\u00f3gica de la norma jur\u00eddica se compone de hip\u00f3tesis y ___.", "a": "disposici\u00f3n", "hint": "Consecuencia jur\u00eddica"}, {"s": "La ___ de la norma jur\u00eddica vigoriza el precepto y asegura su cumplimiento.", "a": "sanci\u00f3n", "hint": "Consecuencia ante incumplimiento"}, {"s": "La Constituci\u00f3n paraguaya proh\u00edbe expresamente la pena de ___ en su Art. 4\u00b0.", "a": "muerte", "hint": "Sanci\u00f3n punitiva prohibida"}], "12": [{"s": "El fil\u00f3sofo ___ estableci\u00f3 la jerarquizaci\u00f3n piramidal de las normas jur\u00eddicas.", "a": "Kelsen", "hint": "Fil\u00f3sofo del derecho austriaco"}, {"s": "La ___ es la conducta antijur\u00eddica de los \u00f3rganos del Estado, la especie m\u00e1s grave de antijuridicidad.", "a": "arbitrariedad", "hint": "Cuando el propio Estado viola la ley"}, {"s": "La jerarqu\u00eda de normas en Paraguay est\u00e1 establecida en el Art. ___ de la CN.", "a": "137", "hint": "N\u00famero de art\u00edculo constitucional"}, {"s": "El ordenamiento jur\u00eddico puede caducar violentamente por una ___.", "a": "revoluci\u00f3n", "hint": "Ruptura violenta del orden"}, {"s": "La ___ es el conjunto de hechos que se oponen al orden jur\u00eddico por ser il\u00edcitos.", "a": "antijuridicidad", "hint": "Opuesto a la juricidad"}], "13": [{"s": "La Constituci\u00f3n paraguaya vigente fue sancionada el 20 de junio de ___.", "a": "1992", "hint": "A\u00f1o de la Constituci\u00f3n vigente"}, {"s": "El Derecho ___ estudia la estructura jur\u00eddica de un Estado establecida en su Constituci\u00f3n.", "a": "Constitucional", "hint": "Rama del derecho p\u00fablico interno"}, {"s": "El ___ es el conjunto de normas que regulan los delitos, las penas y medidas para evitar la criminalidad.", "a": "Derecho Penal", "hint": "Rama punitiva del derecho"}, {"s": "La parte ___ de la Constituci\u00f3n trata los derechos fundamentales del hombre.", "a": "dogm\u00e1tica", "hint": "Derechos y garant\u00edas individuales"}, {"s": "El Derecho positivo se divide en ___ y externo seg\u00fan el \u00e1mbito territorial.", "a": "interno", "hint": "Divisi\u00f3n territorial del derecho"}], "14": [{"s": "El Derecho Internacional P\u00fablico regula las relaciones entre ___ como entes soberanos.", "a": "Estados", "hint": "Sujetos del DIP"}, {"s": "Seg\u00fan el Art. 144 CN, Paraguay ___ a la guerra pero sustenta el principio de leg\u00edtima defensa.", "a": "renuncia", "hint": "Posici\u00f3n del Paraguay ante la guerra"}, {"s": "El Derecho ___ es dictado por la propia Iglesia Cat\u00f3lica para regir su vida y relaciones con los fieles.", "a": "Can\u00f3nico", "hint": "Derecho de la Iglesia"}, {"s": "El C\u00f3digo de Derecho Can\u00f3nico fue promulgado el 25 de enero de ___.", "a": "1983", "hint": "A\u00f1o del c\u00f3digo can\u00f3nico vigente"}, {"s": "El Art. 143 CN establece que Paraguay condena toda forma de dictadura, colonialismo e ___.", "a": "imperialismo", "hint": "Tercer elemento condenado por la CN"}], "15": [{"s": "El C\u00f3digo Civil Paraguayo, Ley ___/1985, tiene 2815 art\u00edculos distribuidos en 5 libros.", "a": "1183", "hint": "N\u00famero de la ley del C\u00f3digo Civil"}, {"s": "El Derecho ___ regula las relaciones jur\u00eddicas entre empleadores y trabajadores.", "a": "Laboral", "hint": "Rama que protege al trabajador"}, {"s": "El Estatuto Agrario est\u00e1 establecido en la Ley ___/2002.", "a": "1863", "hint": "N\u00famero de la ley agraria"}, {"s": "El Derecho Civil tambi\u00e9n se denomina Derecho ___ porque supletoriamente rige a otras ramas.", "a": "Com\u00fan", "hint": "Denominaci\u00f3n alternativa del Derecho Civil"}, {"s": "El ___ crea el INDERT seg\u00fan la Ley 2419/2004.", "a": "Instituto Nacional de Desarrollo Rural y de la Tierra", "hint": "Instituci\u00f3n de reforma agraria"}], "16": [{"s": "El Art. ___ CN garantiza que todos los habitantes de la Rep\u00fablica son iguales en dignidad y derechos.", "a": "46", "hint": "N\u00famero del art\u00edculo de igualdad"}, {"s": "Para Kelsen, el derecho subjetivo es el mismo derecho ___ en relaci\u00f3n con el sujeto.", "a": "objetivo", "hint": "Teor\u00eda unificadora de Kelsen"}, {"s": "Los tres derechos subjetivos fundamentales son: igualdad, libertad y resistencia a la ___.", "a": "opresi\u00f3n", "hint": "Tercer derecho fundamental"}, {"s": "El Art. 9 CN garantiza el derecho a la ___ y a la seguridad de las personas.", "a": "libertad", "hint": "Derecho personal esencial"}, {"s": "La ___ jur\u00eddica es la facultad de hacer u omitir aquello que no est\u00e1 ordenado ni prohibido.", "a": "libertad", "hint": "Libertad en el plano normativo"}], "17": [{"s": "El Art. 372 CC establece que los derechos deben ser ejercidos de buena ___.", "a": "fe", "hint": "Principio del ejercicio de derechos"}, {"s": "El abuso del derecho se da cuando se ejerce un derecho sin necesidad y con ___ de da\u00f1ar.", "a": "intenci\u00f3n", "hint": "Elemento subjetivo del abuso"}, {"s": "Las leyes de orden p\u00fablico son aplicables de ___ por el juez.", "a": "oficio", "hint": "Modo de aplicaci\u00f3n judicial"}, {"s": "El ___ p\u00fablico es el conjunto de principios que determinan la existencia y conservaci\u00f3n de una sociedad.", "a": "orden", "hint": "Concepto de organizaci\u00f3n social superior"}, {"s": "La violaci\u00f3n de las leyes de orden p\u00fablico entra\u00f1a nulidad ___.", "a": "absoluta", "hint": "Tipo de nulidad m\u00e1s grave"}], "18": [{"s": "La existencia jur\u00eddica de las personas f\u00edsicas comienza desde la ___ en el seno materno.", "a": "concepci\u00f3n", "hint": "Inicio de la personalidad jur\u00eddica"}, {"s": "El ___ legal es el lugar donde la ley presume que una persona reside de manera permanente.", "a": "domicilio", "hint": "Tipo de domicilio forzoso"}, {"s": "Seg\u00fan el Art. 37 CC, los menores de ___ a\u00f1os son absolutamente incapaces de hecho.", "a": "14", "hint": "Edad l\u00edmite de incapacidad absoluta"}, {"s": "Las personas ___ son entidades abstractas desprovistas de existencia material.", "a": "jur\u00eddicas", "hint": "Tipo de persona no humana"}, {"s": "La ___ de hecho es la aptitud legal para adquirir derechos y contraer obligaciones por s\u00ed mismo.", "a": "capacidad", "hint": "Atributo esencial de las personas"}], "19": [{"s": "Los hechos voluntarios son ejecutados con discernimiento, ___ y libertad.", "a": "intenci\u00f3n", "hint": "Segunda condici\u00f3n de la voluntad"}, {"s": "El ___ consiste en juzgar nuestras acciones y distinguir lo justo de lo injusto.", "a": "discernimiento", "hint": "Primera condici\u00f3n interna de la voluntad"}, {"s": "Seg\u00fan el Art. 296 CC, los actos jur\u00eddicos son actos voluntarios ___ con fin inmediato de crear derechos.", "a": "l\u00edcitos", "hint": "Car\u00e1cter moral del acto jur\u00eddico"}, {"s": "El ___ es toda aserci\u00f3n falsa o disimulaci\u00f3n de lo verdadero para obtener un acto jur\u00eddico.", "a": "dolo", "hint": "Vicio que excluye la intenci\u00f3n"}, {"s": "Seg\u00fan el Art. 1872 CC, las cosas son objetos ___ susceptibles de tener un valor.", "a": "corporales", "hint": "Car\u00e1cter material de las cosas"}], "20": [{"s": "La Iniciativa Popular requiere la firma de al menos el ___% de los electores inscriptos.", "a": "2", "hint": "Porcentaje constitucional"}, {"s": "El refer\u00e9ndum legislativo, seg\u00fan el Art. 121 CN, puede o no ser ___.", "a": "vinculante", "hint": "Car\u00e1cter del refer\u00e9ndum"}, {"s": "Seg\u00fan el Art. 1 CN, el Paraguay se constituye en Estado ___.", "a": "unitario", "hint": "Forma de Estado paraguayo"}, {"s": "El Art. 122 CN proh\u00edbe el refer\u00e9ndum sobre relaciones internacionales, defensa nacional y ___.", "a": "elecciones", "hint": "Materia vedada al refer\u00e9ndum"}, {"s": "La ___ participativa tiene como antecedente mediato a la democracia directa de Rousseau.", "a": "democracia", "hint": "Forma de gobierno con participaci\u00f3n ciudadana"}], "21": [{"s": "El ___ es el derecho real que confiere usar, gozar y disponer de la cosa de modo amplio y exclusivo.", "a": "dominio", "hint": "Derecho real m\u00e1s amplio sobre cosa propia"}, {"s": "La ___ es el derecho real de usar y gozar de una cosa cuya propiedad pertenece a otro.", "a": "usufructo", "hint": "Derecho real sobre cosa ajena"}, {"s": "La ___ es el derecho real constituido en seguridad de un cr\u00e9dito sobre bienes inmuebles.", "a": "hipoteca", "hint": "Garant\u00eda real sobre inmuebles"}, {"s": "Los derechos reales solo pueden ser creados por ___.", "a": "ley", "hint": "Fuente exclusiva de los derechos reales"}, {"s": "Hay ___ cuando dos o m\u00e1s personas comparten el dominio sobre una parte indivisa de una misma cosa.", "a": "condominio", "hint": "Dominio compartido"}], "22": [{"s": "Los elementos constitutivos de la obligaci\u00f3n son: relaci\u00f3n de derecho, objeto/prestaci\u00f3n y ___.", "a": "forma", "hint": "Tercer elemento de la obligaci\u00f3n"}, {"s": "El ___ es un acto il\u00edcito cometido a sabiendas con intenci\u00f3n de da\u00f1ar, fuente de obligaciones.", "a": "delito", "hint": "Acto il\u00edcito doloso"}, {"s": "El ___ es un acto il\u00edcito sin dolo pero con negligencia o culpa.", "a": "cuasidelito", "hint": "Acto il\u00edcito culposo"}, {"s": "La Ley ___/1998 regula el Derecho de Autor en Paraguay.", "a": "1328", "hint": "N\u00famero de ley de propiedad intelectual"}, {"s": "Los derechos ___ del autor incluyen divulgaci\u00f3n, paternidad, integridad y retiro de la obra.", "a": "morales", "hint": "Derechos no patrimoniales del autor"}], "23": [{"s": "La marca nace con el ___ ante el organismo competente.", "a": "registro", "hint": "Acto constitutivo de la marca"}, {"s": "El Decreto-Ley ___/98 reglamenta las marcas comerciales en Paraguay.", "a": "1294", "hint": "N\u00famero del decreto de marcas"}, {"s": "La Ley ___/2012 cre\u00f3 la DINAPI en Paraguay.", "a": "4798", "hint": "N\u00famero de ley de la DINAPI"}, {"s": "La propiedad ___ se divide en propiedad industrial y derechos de autor.", "a": "intelectual", "hint": "Categor\u00eda que abarca marcas y obras"}, {"s": "Las patentes protegen inventos que sean \u00fatiles, ___ y materia patentable.", "a": "novedosos", "hint": "Requisito de novedad de la patente"}], "24": [{"s": "La leg\u00edtima de los ___ es de cuatro quintas partes de la herencia seg\u00fan el Art. 2598 CC.", "a": "descendientes", "hint": "Herederos forzosos m\u00e1s cercanos"}, {"s": "El ___ es un acto escrito y solemne por el cual una persona dispone de sus bienes para despu\u00e9s de su muerte.", "a": "testamento", "hint": "Instrumento de la sucesi\u00f3n voluntaria"}, {"s": "El ___ es sucesor universal que contin\u00faa la persona del causante.", "a": "heredero", "hint": "Tipo de sucesor a t\u00edtulo universal"}, {"s": "La sucesi\u00f3n ___ o intestada es diferida solo por voluntad de la ley a los parientes del extinto.", "a": "leg\u00edtima", "hint": "Sucesi\u00f3n sin testamento"}, {"s": "El ___ es un sucesor singular en los bienes, no en la persona del difunto.", "a": "legatario", "hint": "Tipo de sucesor a t\u00edtulo particular"}], "25": [{"s": "El Art. ___ CN garantiza la independencia del Poder Judicial.", "a": "248", "hint": "N\u00famero del art\u00edculo de independencia judicial"}, {"s": "La excepci\u00f3n ___ extingue la acci\u00f3n deducida y pone fin al litigio.", "a": "perentoria", "hint": "Tipo de excepci\u00f3n definitiva"}, {"s": "El derecho de ___ es la facultad para solicitar legalmente la intervenci\u00f3n de los \u00f3rganos jurisdiccionales.", "a": "acci\u00f3n", "hint": "Derecho procesal fundamental"}, {"s": "La prescripci\u00f3n extingue las acciones cuando vence el ___ legal sin ejercerlas.", "a": "plazo", "hint": "Elemento temporal de la prescripci\u00f3n"}, {"s": "La excepci\u00f3n ___ tiende a postergar la contestaci\u00f3n sobre el m\u00e9rito sin destruir la acci\u00f3n.", "a": "dilatoria", "hint": "Tipo de excepci\u00f3n temporal"}], "26": [{"s": "Las etapas del proceso formativo de las leyes son: iniciativa, discusi\u00f3n, sanci\u00f3n, ___ y publicaci\u00f3n.", "a": "promulgaci\u00f3n", "hint": "Cuarta etapa del proceso legislativo"}, {"s": "Las fuentes ___ del derecho son los factores que producen normas jur\u00eddicas.", "a": "materiales", "hint": "Tipo de fuente por su origen"}, {"s": "El Decreto-Ley N\u00b0 ___ del 2 de julio de 1959 cre\u00f3 la Comisi\u00f3n Nacional de Codificaci\u00f3n.", "a": "200", "hint": "N\u00famero del decreto de codificaci\u00f3n"}, {"s": "La ___ re\u00fane el derecho positivo en un cuerpo de disposiciones ordenadas sistem\u00e1ticamente.", "a": "codificaci\u00f3n", "hint": "Proceso de sistematizaci\u00f3n del derecho"}, {"s": "El Art. ___ CN establece la f\u00f3rmula oficial de sanci\u00f3n de las leyes.", "a": "214", "hint": "Art\u00edculo sobre promulgaci\u00f3n autom\u00e1tica"}], "27": [{"s": "La ___ jur\u00eddica es el arte de interpretar, desentra\u00f1ando el significado de vocablos jur\u00eddicos.", "a": "hermen\u00e9utica", "hint": "Arte de la interpretaci\u00f3n"}, {"s": "Los cuatro elementos de la interpretaci\u00f3n legal son: gramatical, l\u00f3gico, ___ y sistem\u00e1tico.", "a": "hist\u00f3rico", "hint": "Tercer elemento interpretativo"}, {"s": "El Art. ___ del C\u00f3digo Penal establece el principio de legalidad.", "a": "1", "hint": "Primer art\u00edculo del C\u00f3digo Penal"}, {"s": "El Art. 6 del C\u00f3digo Civil proh\u00edbe al juez dejar de juzgar bajo pretexto de ___ de las leyes.", "a": "silencio", "hint": "Situaci\u00f3n de laguna legal"}, {"s": "La interpretaci\u00f3n ___ busca descubrir la voluntad del legislador al crear la norma.", "a": "subjetiva", "hint": "Tipo de interpretaci\u00f3n por el autor"}], "28": [{"s": "La sumisi\u00f3n del caso concreto bajo la norma jur\u00eddica se realiza a trav\u00e9s de un ___.", "a": "silogismo", "hint": "Proceso l\u00f3gico jur\u00eddico"}, {"s": "Las ___ de la ley son los casos imprevistos o espacios vac\u00edos que la ley dej\u00f3 al ser sancionada.", "a": "lagunas", "hint": "Vac\u00edos del ordenamiento jur\u00eddico"}, {"s": "La integraci\u00f3n ___ de la ley se hace con la analog\u00eda jur\u00eddica.", "a": "interna", "hint": "Tipo de integraci\u00f3n por analog\u00eda"}, {"s": "Si no encuentra soluci\u00f3n en el Derecho Positivo, el juez recurre a los principios ___ del Derecho.", "a": "generales", "hint": "\u00daltimo recurso de integraci\u00f3n"}, {"s": "La ___ del silogismo jur\u00eddico es el fallo del juez, la imputaci\u00f3n de consecuencias normativas.", "a": "conclusi\u00f3n", "hint": "Tercera parte del silogismo"}], "29": [{"s": "El Art. 14 CN establece que ninguna ley tendr\u00e1 efecto ___, salvo que sea m\u00e1s favorable al encausado.", "a": "retroactivo", "hint": "Principio temporal de las leyes"}, {"s": "El Art. 2 del C\u00f3digo Civil establece que las leyes disponen para el ___, no tienen efecto retroactivo.", "a": "futuro", "hint": "Orientaci\u00f3n temporal de la ley"}, {"s": "El fundamento racional de la irretroactividad es que no se concibe que una ley sea obligatoria antes de ___.", "a": "existir", "hint": "Base l\u00f3gica del principio"}, {"s": "En materia penal, si la ley cambia antes de la sentencia, se aplica la ley m\u00e1s ___ al encausado.", "a": "favorable", "hint": "Criterio de aplicaci\u00f3n penal en el tiempo"}, {"s": "El Derecho ___ es el conjunto de reglas aplicables al intermedio jur\u00eddico entre una ley derogada y una nueva.", "a": "intertemporal", "hint": "Rama del derecho sobre conflictos en el tiempo"}], "30": [{"s": "El principio de ___ establece que las leyes deben regir en el territorio del Estado soberano que las emana.", "a": "territorialidad", "hint": "Principio general de aplicaci\u00f3n espacial"}, {"s": "El Art. 16 CC establece el principio Lex ___ Sitae: los bienes se rigen por la ley del lugar donde est\u00e1n.", "a": "Rei", "hint": "Principio sobre la ley de los bienes"}, {"s": "El Art. 23 CC establece el principio ___ Regit Actum: la forma de los actos se rige por la ley del lugar de celebraci\u00f3n.", "a": "Locus", "hint": "Principio sobre la forma de los actos"}, {"s": "Los jueces aplican de ___ las leyes extranjeras, salvo que se opongan al orden p\u00fablico.", "a": "oficio", "hint": "Modo de aplicaci\u00f3n de ley extranjera"}, {"s": "En ausencia de convenios internacionales en materia procesal, se aplica la ___, ley del tribunal.", "a": "lex fori", "hint": "Principio procesal internacional"}]};
+
+function toggleExercises(num) {
+  const box = document.getElementById('ex-box-' + num);
+  const btn = document.getElementById('ex-toggle-' + num);
+  box.classList.toggle('open');
+  btn.innerHTML = box.classList.contains('open') ? '✖ Cerrar ejercicios' : '✏️ Ejercicios didácticos';
+}
+
+function switchExTab(num, tab) {
+  document.querySelectorAll(`#ex-box-${num} .ex-tab`).forEach(t => t.classList.remove('active'));
+  document.querySelectorAll(`#ex-box-${num} .ex-pane`).forEach(p => p.classList.remove('active'));
+  document.querySelector(`#ex-${tab}-${num}`).classList.add('active');
+  event.target.classList.add('active');
+}
+
+function normalize(str) {
+  return str.trim().toLowerCase()
+    .normalize('NFD').replace(/[\u0300-\u036f]/g,'')
+    .replace(/[^a-z0-9\s]/g,'').replace(/\s+/g,' ');
+}
+
+function checkFill(num) {
+  const items = FILL_DATA_JS[num];
+  let correct = 0;
+  items.forEach((item, fi) => {
+    const input = document.getElementById(`fill-${num}-${fi}`);
+    const fb = document.getElementById(`fill-fb-${num}-${fi}`);
+    const val = normalize(input.value);
+    const ans = normalize(item.a);
+    input.disabled = true;
+    if (val === ans) {
+      input.classList.add('correct');
+      fb.textContent = '✅ ¡Correcto!';
+      fb.className = 'fill-feedback show ok';
+      correct++;
+    } else {
+      input.classList.add('wrong');
+      fb.textContent = `❌ Respuesta correcta: "${item.a}"`;
+      fb.className = 'fill-feedback show fail';
+    }
+  });
+  const pct = Math.round(correct/items.length*100);
+  const score = document.getElementById('fill-score-' + num);
+  score.textContent = `Resultado: ${correct}/${items.length} (${pct}%) ${pct>=80?'🎉 ¡Excelente!':pct>=60?'👍 Bien':'📖 Repasá el contenido'}`;
+  score.className = 'fill-score show';
+}
+
+function resetFill(num) {
+  const items = FILL_DATA_JS[num];
+  items.forEach((item, fi) => {
+    const input = document.getElementById(`fill-${num}-${fi}`);
+    const fb = document.getElementById(`fill-fb-${num}-${fi}`);
+    input.value = ''; input.disabled = false;
+    input.classList.remove('correct','wrong');
+    fb.className = 'fill-feedback'; fb.textContent = '';
+  });
+  const score = document.getElementById('fill-score-' + num);
+  score.className = 'fill-score'; score.textContent = '';
+}
+
+// ===== EXAM SIMULADO =====
+const EXAM_DATA = [{"l": 20, "q": "\u00bfCu\u00e1l es la diferencia entre Enmienda y Reforma Constitucional?", "opts": ["Son lo mismo, solo cambia el nombre", "La Enmienda modifica ciertos art\u00edculos; la Reforma puede modificar toda la Constituci\u00f3n", "La Reforma es parcial; la Enmienda es total", "La Enmienda la hace el Ejecutivo; la Reforma el Congreso"], "a": 1}, {"l": 20, "q": "\u00bfCu\u00e1ntas firmas se requieren para la Iniciativa Popular?", "opts": ["1% de los electores", "2% de los electores (~70.000 firmas)", "5% de los electores", "El 10% de los electores"], "a": 1}, {"l": 20, "q": "\u00bfQu\u00e9 materias NO pueden ser objeto de refer\u00e9ndum seg\u00fan el Art. 122 CN?", "opts": ["Educaci\u00f3n y salud", "Relaciones internacionales, defensa nacional y elecciones", "Reforma agraria", "Derechos laborales"], "a": 1}, {"l": 21, "q": "\u00bfC\u00f3mo se clasifican los Derechos Reales sobre la cosa propia?", "opts": ["Hipoteca y Prenda", "Usufructo y Servidumbre", "Dominio y Condominio", "Uso y Habitaci\u00f3n"], "a": 2}, {"l": 21, "q": "\u00bfQu\u00e9 derechos reales recaen sobre la cosa AJENA?", "opts": ["Dominio y Condominio", "Hipoteca y Prenda", "Usufructo, Uso, Habitaci\u00f3n y Servidumbres", "Solo el Usufructo"], "a": 2}, {"l": 21, "q": "\u00bfCu\u00e1les son los derechos reales de GARANT\u00cdA?", "opts": ["Dominio y Condominio", "Usufructo y Uso", "Hipoteca y Prenda", "Servidumbre y Habitaci\u00f3n"], "a": 2}, {"l": 22, "q": "\u00bfCu\u00e1les son los elementos constitutivos de la obligaci\u00f3n?", "opts": ["Sujeto, objeto y causa", "Relaci\u00f3n de derecho, objeto/prestaci\u00f3n y forma", "Contrato, delito y ley", "Acreedor, deudor y plazo"], "a": 1}, {"l": 22, "q": "\u00bfCu\u00e1les son los dos elementos de la creaci\u00f3n intelectual?", "opts": ["Marca y Patente", "Obra y Autor", "Registro y Renovaci\u00f3n", "Contrato y Licencia"], "a": 1}, {"l": 26, "q": "\u00bfCu\u00e1les son los \u00f3rganos que intervienen en la elaboraci\u00f3n de las leyes?", "opts": ["Solo el Congreso", "Poder Ejecutivo, Poder Legislativo (C\u00e1maras) y excepcionalmente el Poder Judicial", "Solo el Poder Ejecutivo", "El pueblo directamente"], "a": 1}, {"l": 26, "q": "\u00bfCu\u00e1les son las etapas del proceso formativo de las leyes?", "opts": ["Propuesta, debate, votaci\u00f3n y archivo", "Iniciativa, discusi\u00f3n, sanci\u00f3n, promulgaci\u00f3n y publicaci\u00f3n", "Redacci\u00f3n, comisi\u00f3n, plenario y decreto", "Presentaci\u00f3n, revisi\u00f3n, aprobaci\u00f3n y vigencia"], "a": 1}, {"l": 27, "q": "\u00bfQu\u00e9 es la T\u00e9cnica Jur\u00eddica en sentido amplio?", "opts": ["El arte de redactar contratos", "Conjunto de reglas que determinan los procedimientos para la elaboraci\u00f3n y aplicaci\u00f3n del derecho positivo", "La ciencia que estudia el origen del derecho", "El m\u00e9todo de interpretaci\u00f3n literal de las normas"], "a": 1}, {"l": 27, "q": "\u00bfCu\u00e1les son los elementos de la interpretaci\u00f3n legal?", "opts": ["Formal, informal, hist\u00f3rico y comparado", "Gramatical, l\u00f3gico, hist\u00f3rico y sistem\u00e1tico", "Literal, extensivo, restrictivo y abrogante", "Subjetivo, objetivo, teleol\u00f3gico y anal\u00f3gico"], "a": 1}, {"l": 29, "q": "\u00bfQu\u00e9 establece el Art. 14 CN sobre la retroactividad?", "opts": ["Todas las leyes pueden ser retroactivas", "Ninguna ley tendr\u00e1 efecto retroactivo, salvo que sea m\u00e1s favorable al encausado o condenado", "Solo las leyes civiles son irretroactivas", "La retroactividad es siempre facultad del juez"], "a": 1}, {"l": 29, "q": "\u00bfCu\u00e1l es el fundamento racional del principio de irretroactividad?", "opts": ["Las leyes antiguas son mejores", "No se concibe que una ley sea obligatoria antes de existir", "Los jueces prefieren la certeza jur\u00eddica", "La retroactividad beneficia al Estado"], "a": 1}, {"l": 29, "q": "\u00bfQu\u00e9 dice el Art. 2 del C\u00f3digo Civil sobre la retroactividad?", "opts": ["Las leyes pueden alterar derechos adquiridos por razones de orden p\u00fablico", "Las leyes disponen para el futuro y no tienen efecto retroactivo ni pueden alterar derechos adquiridos", "Las leyes nuevas se aplican a todos los casos pendientes", "La retroactividad es la regla general"], "a": 1}, {"l": 30, "q": "\u00bfQu\u00e9 establece el principio de territorialidad de la ley?", "opts": ["Las leyes rigen en todo el mundo si el Estado es soberano", "Las leyes deben regir en el territorio del Estado soberano de que emanan", "Las leyes del domicilio de la persona siempre prevalecen", "Las leyes de un Estado nunca pueden aplicarse fuera"], "a": 1}, {"l": 30, "q": "\u00bfQu\u00e9 establece la Lex Rei Sitae (Art. 16 CC)?", "opts": ["La forma de los actos se rige por la ley del lugar de celebraci\u00f3n", "Los bienes se rigen por la ley del lugar donde est\u00e1n situados", "La capacidad se rige por la ley de la nacionalidad", "Los contratos se rigen por la ley del domicilio del deudor"], "a": 1}, {"l": 30, "q": "\u00bfCu\u00e1ndo pueden los jueces negarse a aplicar la ley extranjera?", "opts": ["Siempre que lo consideren inconveniente", "Cuando se oponga a las instituciones pol\u00edticas, el orden p\u00fablico, la moral y buenas costumbres", "Cuando la parte demandada sea paraguaya", "Nunca"], "a": 1}, {"l": 21, "q": "\u00bfQu\u00e9 es la servidumbre predial?", "opts": ["Un contrato de arrendamiento de inmuebles", "Derecho real para ejercer ciertos actos sobre un inmueble ajeno o impedir que su propietario ejerza facultades del dominio", "Un derecho real sobre bienes muebles", "La obligaci\u00f3n de pagar impuestos prediales"], "a": 1}, {"l": 22, "q": "\u00bfQu\u00e9 es el cuasidelito como fuente de obligaciones?", "opts": ["Acto il\u00edcito cometido con dolo", "Acto l\u00edcito sin convenio previo", "Acto il\u00edcito sin dolo pero con negligencia o culpa", "Obligaci\u00f3n nacida directamente de la ley"], "a": 2}];
+let examTimer = null;
+let examAnswers = {};
+let examSeconds = 20 * 60;
+
+function startExam() {
+  document.getElementById('home-page').style.display = 'none';
+  document.querySelectorAll('.lesson-page').forEach(p => p.style.display = 'none');
+  const ep = document.getElementById('exam-page');
+  ep.classList.add('active');
+  document.getElementById('exam-questions').style.display = 'block';
+  document.getElementById('exam-result').className = 'exam-result-screen';
+  document.getElementById('exam-footer').style.display = 'block';
+  examAnswers = {};
+  examSeconds = 20 * 60;
+  updateExamTimer();
+  clearInterval(examTimer);
+  examTimer = setInterval(() => {
+    examSeconds--;
+    updateExamTimer();
+    if (examSeconds <= 0) { clearInterval(examTimer); submitExam(); }
+  }, 1000);
+  // Reset all opts
+  EXAM_DATA.forEach((q,ei) => {
+    document.querySelectorAll(`#exam-opts-${ei} .exam-opt`).forEach(o => {
+      o.disabled = false; o.classList.remove('selected','correct','wrong');
+    });
+  });
+  window.scrollTo(0,0);
+}
+
+function exitExam() {
+  clearInterval(examTimer);
+  document.getElementById('exam-page').classList.remove('active');
+  showHome();
+}
+
+function updateExamTimer() {
+  const m = Math.floor(examSeconds/60).toString().padStart(2,'0');
+  const s = (examSeconds%60).toString().padStart(2,'0');
+  const el = document.getElementById('exam-timer');
+  el.textContent = m + ':' + s;
+  el.className = 'exam-timer' + (examSeconds <= 60 ? ' urgent' : '');
+}
+
+function selectExamOpt(ei, oi) {
+  const opts = document.querySelectorAll(`#exam-opts-${ei} .exam-opt`);
+  opts.forEach(o => o.classList.remove('selected'));
+  opts[oi].classList.add('selected');
+  examAnswers[ei] = oi;
+}
+
+function submitExam() {
+  clearInterval(examTimer);
+  let correct = 0;
+  EXAM_DATA.forEach((q,ei) => {
+    const opts = document.querySelectorAll(`#exam-opts-${ei} .exam-opt`);
+    opts.forEach(o => o.disabled = true);
+    const chosen = examAnswers[ei];
+    if (chosen !== undefined) {
+      if (chosen === q.a) { opts[chosen].classList.add('correct'); correct++; }
+      else { opts[chosen].classList.add('wrong'); opts[q.a].classList.add('correct'); }
+    } else { opts[q.a].classList.add('correct'); }
+  });
+  const pct = Math.round(correct/EXAM_DATA.length*100);
+  const res = document.getElementById('exam-result');
+  let emoji = pct>=75 ? '🎉' : pct>=50 ? '👍' : '📖';
+  let label = pct>=75 ? '¡Aprobado! Estás listo para el examen.' : pct>=50 ? 'Bien, pero repasá los temas marcados.' : 'Repasá las lecciones con tema de examen.';
+  let color = pct>=75 ? '#a5d6a7' : pct>=50 ? '#ffb74d' : '#ef9a9a';
+  res.innerHTML = `
+    <div style="color:${color};font-size:5rem;">${emoji}</div>
+    <div class="exam-result-pct" style="color:${color}">${pct}%</div>
+    <div class="exam-result-label" style="color:${color}">${label}</div>
+    <div class="exam-result-detail">${correct} de ${EXAM_DATA.length} correctas</div>
+    <button class="exam-result-btn" onclick="startExam()">🔄 Reintentar</button>
+    <button class="exam-result-btn" onclick="exitExam()">🏠 Volver al inicio</button>`;
+  res.className = 'exam-result-screen show';
+  document.getElementById('exam-questions').style.display = 'none';
+  document.getElementById('exam-footer').style.display = 'none';
+  window.scrollTo(0,0);
+}
+
 </script>
+
+<!-- ===== MODO EXAMEN SIMULADO ===== -->
+<div id="exam-page">
+  <div class="exam-header">
+    <button class="exam-back-btn" onclick="exitExam()">&#8592; Salir del examen</button>
+    <div style="color:#ff9800;font-size:0.85rem;">⚠️ Solo temas mencionados por el profesor</div>
+    <div class="exam-timer-wrap">
+      <span style="color:#a07040;font-size:0.75rem;">⏱</span>
+      <span class="exam-timer" id="exam-timer">20:00</span>
+    </div>
+  </div>
+  <div class="exam-meta">
+    <h1>🎓 Modo Examen Simulado</h1>
+    <p>20 preguntas · Temas de examen · 20 minutos · Abog. Raúl Florentín</p>
+  </div>
+  <div class="exam-body" id="exam-body">
+    <div id="exam-questions">
+      <div class="exam-q-block" id="exam-q-0">
+        <div class="exam-q-num">Pregunta 1 de 20</div>
+        <div class="exam-q-lesson">📌 Lección 20 — Tema de examen</div>
+        <div class="exam-q-text">¿Cuál es la diferencia entre Enmienda y Reforma Constitucional?</div>
+        <div class="exam-opts" id="exam-opts-0">
+          <button class="exam-opt" onclick="selectExamOpt(0,0)">Son lo mismo, solo cambia el nombre</button>
+        <button class="exam-opt" onclick="selectExamOpt(0,1)">La Enmienda modifica ciertos artículos; la Reforma puede modificar toda la Constitución</button>
+        <button class="exam-opt" onclick="selectExamOpt(0,2)">La Reforma es parcial; la Enmienda es total</button>
+        <button class="exam-opt" onclick="selectExamOpt(0,3)">La Enmienda la hace el Ejecutivo; la Reforma el Congreso</button>
+        
+        </div>
+      </div>
+      <div class="exam-q-block" id="exam-q-1">
+        <div class="exam-q-num">Pregunta 2 de 20</div>
+        <div class="exam-q-lesson">📌 Lección 20 — Tema de examen</div>
+        <div class="exam-q-text">¿Cuántas firmas se requieren para la Iniciativa Popular?</div>
+        <div class="exam-opts" id="exam-opts-1">
+          <button class="exam-opt" onclick="selectExamOpt(1,0)">1% de los electores</button>
+        <button class="exam-opt" onclick="selectExamOpt(1,1)">2% de los electores (~70.000 firmas)</button>
+        <button class="exam-opt" onclick="selectExamOpt(1,2)">5% de los electores</button>
+        <button class="exam-opt" onclick="selectExamOpt(1,3)">El 10% de los electores</button>
+        
+        </div>
+      </div>
+      <div class="exam-q-block" id="exam-q-2">
+        <div class="exam-q-num">Pregunta 3 de 20</div>
+        <div class="exam-q-lesson">📌 Lección 20 — Tema de examen</div>
+        <div class="exam-q-text">¿Qué materias NO pueden ser objeto de referéndum según el Art. 122 CN?</div>
+        <div class="exam-opts" id="exam-opts-2">
+          <button class="exam-opt" onclick="selectExamOpt(2,0)">Educación y salud</button>
+        <button class="exam-opt" onclick="selectExamOpt(2,1)">Relaciones internacionales, defensa nacional y elecciones</button>
+        <button class="exam-opt" onclick="selectExamOpt(2,2)">Reforma agraria</button>
+        <button class="exam-opt" onclick="selectExamOpt(2,3)">Derechos laborales</button>
+        
+        </div>
+      </div>
+      <div class="exam-q-block" id="exam-q-3">
+        <div class="exam-q-num">Pregunta 4 de 20</div>
+        <div class="exam-q-lesson">📌 Lección 21 — Tema de examen</div>
+        <div class="exam-q-text">¿Cómo se clasifican los Derechos Reales sobre la cosa propia?</div>
+        <div class="exam-opts" id="exam-opts-3">
+          <button class="exam-opt" onclick="selectExamOpt(3,0)">Hipoteca y Prenda</button>
+        <button class="exam-opt" onclick="selectExamOpt(3,1)">Usufructo y Servidumbre</button>
+        <button class="exam-opt" onclick="selectExamOpt(3,2)">Dominio y Condominio</button>
+        <button class="exam-opt" onclick="selectExamOpt(3,3)">Uso y Habitación</button>
+        
+        </div>
+      </div>
+      <div class="exam-q-block" id="exam-q-4">
+        <div class="exam-q-num">Pregunta 5 de 20</div>
+        <div class="exam-q-lesson">📌 Lección 21 — Tema de examen</div>
+        <div class="exam-q-text">¿Qué derechos reales recaen sobre la cosa AJENA?</div>
+        <div class="exam-opts" id="exam-opts-4">
+          <button class="exam-opt" onclick="selectExamOpt(4,0)">Dominio y Condominio</button>
+        <button class="exam-opt" onclick="selectExamOpt(4,1)">Hipoteca y Prenda</button>
+        <button class="exam-opt" onclick="selectExamOpt(4,2)">Usufructo, Uso, Habitación y Servidumbres</button>
+        <button class="exam-opt" onclick="selectExamOpt(4,3)">Solo el Usufructo</button>
+        
+        </div>
+      </div>
+      <div class="exam-q-block" id="exam-q-5">
+        <div class="exam-q-num">Pregunta 6 de 20</div>
+        <div class="exam-q-lesson">📌 Lección 21 — Tema de examen</div>
+        <div class="exam-q-text">¿Cuáles son los derechos reales de GARANTÍA?</div>
+        <div class="exam-opts" id="exam-opts-5">
+          <button class="exam-opt" onclick="selectExamOpt(5,0)">Dominio y Condominio</button>
+        <button class="exam-opt" onclick="selectExamOpt(5,1)">Usufructo y Uso</button>
+        <button class="exam-opt" onclick="selectExamOpt(5,2)">Hipoteca y Prenda</button>
+        <button class="exam-opt" onclick="selectExamOpt(5,3)">Servidumbre y Habitación</button>
+        
+        </div>
+      </div>
+      <div class="exam-q-block" id="exam-q-6">
+        <div class="exam-q-num">Pregunta 7 de 20</div>
+        <div class="exam-q-lesson">📌 Lección 22 — Tema de examen</div>
+        <div class="exam-q-text">¿Cuáles son los elementos constitutivos de la obligación?</div>
+        <div class="exam-opts" id="exam-opts-6">
+          <button class="exam-opt" onclick="selectExamOpt(6,0)">Sujeto, objeto y causa</button>
+        <button class="exam-opt" onclick="selectExamOpt(6,1)">Relación de derecho, objeto/prestación y forma</button>
+        <button class="exam-opt" onclick="selectExamOpt(6,2)">Contrato, delito y ley</button>
+        <button class="exam-opt" onclick="selectExamOpt(6,3)">Acreedor, deudor y plazo</button>
+        
+        </div>
+      </div>
+      <div class="exam-q-block" id="exam-q-7">
+        <div class="exam-q-num">Pregunta 8 de 20</div>
+        <div class="exam-q-lesson">📌 Lección 22 — Tema de examen</div>
+        <div class="exam-q-text">¿Cuáles son los dos elementos de la creación intelectual?</div>
+        <div class="exam-opts" id="exam-opts-7">
+          <button class="exam-opt" onclick="selectExamOpt(7,0)">Marca y Patente</button>
+        <button class="exam-opt" onclick="selectExamOpt(7,1)">Obra y Autor</button>
+        <button class="exam-opt" onclick="selectExamOpt(7,2)">Registro y Renovación</button>
+        <button class="exam-opt" onclick="selectExamOpt(7,3)">Contrato y Licencia</button>
+        
+        </div>
+      </div>
+      <div class="exam-q-block" id="exam-q-8">
+        <div class="exam-q-num">Pregunta 9 de 20</div>
+        <div class="exam-q-lesson">📌 Lección 26 — Tema de examen</div>
+        <div class="exam-q-text">¿Cuáles son los órganos que intervienen en la elaboración de las leyes?</div>
+        <div class="exam-opts" id="exam-opts-8">
+          <button class="exam-opt" onclick="selectExamOpt(8,0)">Solo el Congreso</button>
+        <button class="exam-opt" onclick="selectExamOpt(8,1)">Poder Ejecutivo, Poder Legislativo (Cámaras) y excepcionalmente el Poder Judicial</button>
+        <button class="exam-opt" onclick="selectExamOpt(8,2)">Solo el Poder Ejecutivo</button>
+        <button class="exam-opt" onclick="selectExamOpt(8,3)">El pueblo directamente</button>
+        
+        </div>
+      </div>
+      <div class="exam-q-block" id="exam-q-9">
+        <div class="exam-q-num">Pregunta 10 de 20</div>
+        <div class="exam-q-lesson">📌 Lección 26 — Tema de examen</div>
+        <div class="exam-q-text">¿Cuáles son las etapas del proceso formativo de las leyes?</div>
+        <div class="exam-opts" id="exam-opts-9">
+          <button class="exam-opt" onclick="selectExamOpt(9,0)">Propuesta, debate, votación y archivo</button>
+        <button class="exam-opt" onclick="selectExamOpt(9,1)">Iniciativa, discusión, sanción, promulgación y publicación</button>
+        <button class="exam-opt" onclick="selectExamOpt(9,2)">Redacción, comisión, plenario y decreto</button>
+        <button class="exam-opt" onclick="selectExamOpt(9,3)">Presentación, revisión, aprobación y vigencia</button>
+        
+        </div>
+      </div>
+      <div class="exam-q-block" id="exam-q-10">
+        <div class="exam-q-num">Pregunta 11 de 20</div>
+        <div class="exam-q-lesson">📌 Lección 27 — Tema de examen</div>
+        <div class="exam-q-text">¿Qué es la Técnica Jurídica en sentido amplio?</div>
+        <div class="exam-opts" id="exam-opts-10">
+          <button class="exam-opt" onclick="selectExamOpt(10,0)">El arte de redactar contratos</button>
+        <button class="exam-opt" onclick="selectExamOpt(10,1)">Conjunto de reglas que determinan los procedimientos para la elaboración y aplicación del derecho positivo</button>
+        <button class="exam-opt" onclick="selectExamOpt(10,2)">La ciencia que estudia el origen del derecho</button>
+        <button class="exam-opt" onclick="selectExamOpt(10,3)">El método de interpretación literal de las normas</button>
+        
+        </div>
+      </div>
+      <div class="exam-q-block" id="exam-q-11">
+        <div class="exam-q-num">Pregunta 12 de 20</div>
+        <div class="exam-q-lesson">📌 Lección 27 — Tema de examen</div>
+        <div class="exam-q-text">¿Cuáles son los elementos de la interpretación legal?</div>
+        <div class="exam-opts" id="exam-opts-11">
+          <button class="exam-opt" onclick="selectExamOpt(11,0)">Formal, informal, histórico y comparado</button>
+        <button class="exam-opt" onclick="selectExamOpt(11,1)">Gramatical, lógico, histórico y sistemático</button>
+        <button class="exam-opt" onclick="selectExamOpt(11,2)">Literal, extensivo, restrictivo y abrogante</button>
+        <button class="exam-opt" onclick="selectExamOpt(11,3)">Subjetivo, objetivo, teleológico y analógico</button>
+        
+        </div>
+      </div>
+      <div class="exam-q-block" id="exam-q-12">
+        <div class="exam-q-num">Pregunta 13 de 20</div>
+        <div class="exam-q-lesson">📌 Lección 29 — Tema de examen</div>
+        <div class="exam-q-text">¿Qué establece el Art. 14 CN sobre la retroactividad?</div>
+        <div class="exam-opts" id="exam-opts-12">
+          <button class="exam-opt" onclick="selectExamOpt(12,0)">Todas las leyes pueden ser retroactivas</button>
+        <button class="exam-opt" onclick="selectExamOpt(12,1)">Ninguna ley tendrá efecto retroactivo, salvo que sea más favorable al encausado o condenado</button>
+        <button class="exam-opt" onclick="selectExamOpt(12,2)">Solo las leyes civiles son irretroactivas</button>
+        <button class="exam-opt" onclick="selectExamOpt(12,3)">La retroactividad es siempre facultad del juez</button>
+        
+        </div>
+      </div>
+      <div class="exam-q-block" id="exam-q-13">
+        <div class="exam-q-num">Pregunta 14 de 20</div>
+        <div class="exam-q-lesson">📌 Lección 29 — Tema de examen</div>
+        <div class="exam-q-text">¿Cuál es el fundamento racional del principio de irretroactividad?</div>
+        <div class="exam-opts" id="exam-opts-13">
+          <button class="exam-opt" onclick="selectExamOpt(13,0)">Las leyes antiguas son mejores</button>
+        <button class="exam-opt" onclick="selectExamOpt(13,1)">No se concibe que una ley sea obligatoria antes de existir</button>
+        <button class="exam-opt" onclick="selectExamOpt(13,2)">Los jueces prefieren la certeza jurídica</button>
+        <button class="exam-opt" onclick="selectExamOpt(13,3)">La retroactividad beneficia al Estado</button>
+        
+        </div>
+      </div>
+      <div class="exam-q-block" id="exam-q-14">
+        <div class="exam-q-num">Pregunta 15 de 20</div>
+        <div class="exam-q-lesson">📌 Lección 29 — Tema de examen</div>
+        <div class="exam-q-text">¿Qué dice el Art. 2 del Código Civil sobre la retroactividad?</div>
+        <div class="exam-opts" id="exam-opts-14">
+          <button class="exam-opt" onclick="selectExamOpt(14,0)">Las leyes pueden alterar derechos adquiridos por razones de orden público</button>
+        <button class="exam-opt" onclick="selectExamOpt(14,1)">Las leyes disponen para el futuro y no tienen efecto retroactivo ni pueden alterar derechos adquiridos</button>
+        <button class="exam-opt" onclick="selectExamOpt(14,2)">Las leyes nuevas se aplican a todos los casos pendientes</button>
+        <button class="exam-opt" onclick="selectExamOpt(14,3)">La retroactividad es la regla general</button>
+        
+        </div>
+      </div>
+      <div class="exam-q-block" id="exam-q-15">
+        <div class="exam-q-num">Pregunta 16 de 20</div>
+        <div class="exam-q-lesson">📌 Lección 30 — Tema de examen</div>
+        <div class="exam-q-text">¿Qué establece el principio de territorialidad de la ley?</div>
+        <div class="exam-opts" id="exam-opts-15">
+          <button class="exam-opt" onclick="selectExamOpt(15,0)">Las leyes rigen en todo el mundo si el Estado es soberano</button>
+        <button class="exam-opt" onclick="selectExamOpt(15,1)">Las leyes deben regir en el territorio del Estado soberano de que emanan</button>
+        <button class="exam-opt" onclick="selectExamOpt(15,2)">Las leyes del domicilio de la persona siempre prevalecen</button>
+        <button class="exam-opt" onclick="selectExamOpt(15,3)">Las leyes de un Estado nunca pueden aplicarse fuera</button>
+        
+        </div>
+      </div>
+      <div class="exam-q-block" id="exam-q-16">
+        <div class="exam-q-num">Pregunta 17 de 20</div>
+        <div class="exam-q-lesson">📌 Lección 30 — Tema de examen</div>
+        <div class="exam-q-text">¿Qué establece la Lex Rei Sitae (Art. 16 CC)?</div>
+        <div class="exam-opts" id="exam-opts-16">
+          <button class="exam-opt" onclick="selectExamOpt(16,0)">La forma de los actos se rige por la ley del lugar de celebración</button>
+        <button class="exam-opt" onclick="selectExamOpt(16,1)">Los bienes se rigen por la ley del lugar donde están situados</button>
+        <button class="exam-opt" onclick="selectExamOpt(16,2)">La capacidad se rige por la ley de la nacionalidad</button>
+        <button class="exam-opt" onclick="selectExamOpt(16,3)">Los contratos se rigen por la ley del domicilio del deudor</button>
+        
+        </div>
+      </div>
+      <div class="exam-q-block" id="exam-q-17">
+        <div class="exam-q-num">Pregunta 18 de 20</div>
+        <div class="exam-q-lesson">📌 Lección 30 — Tema de examen</div>
+        <div class="exam-q-text">¿Cuándo pueden los jueces negarse a aplicar la ley extranjera?</div>
+        <div class="exam-opts" id="exam-opts-17">
+          <button class="exam-opt" onclick="selectExamOpt(17,0)">Siempre que lo consideren inconveniente</button>
+        <button class="exam-opt" onclick="selectExamOpt(17,1)">Cuando se oponga a las instituciones políticas, el orden público, la moral y buenas costumbres</button>
+        <button class="exam-opt" onclick="selectExamOpt(17,2)">Cuando la parte demandada sea paraguaya</button>
+        <button class="exam-opt" onclick="selectExamOpt(17,3)">Nunca</button>
+        
+        </div>
+      </div>
+      <div class="exam-q-block" id="exam-q-18">
+        <div class="exam-q-num">Pregunta 19 de 20</div>
+        <div class="exam-q-lesson">📌 Lección 21 — Tema de examen</div>
+        <div class="exam-q-text">¿Qué es la servidumbre predial?</div>
+        <div class="exam-opts" id="exam-opts-18">
+          <button class="exam-opt" onclick="selectExamOpt(18,0)">Un contrato de arrendamiento de inmuebles</button>
+        <button class="exam-opt" onclick="selectExamOpt(18,1)">Derecho real para ejercer ciertos actos sobre un inmueble ajeno o impedir que su propietario ejerza facultades del dominio</button>
+        <button class="exam-opt" onclick="selectExamOpt(18,2)">Un derecho real sobre bienes muebles</button>
+        <button class="exam-opt" onclick="selectExamOpt(18,3)">La obligación de pagar impuestos prediales</button>
+        
+        </div>
+      </div>
+      <div class="exam-q-block" id="exam-q-19">
+        <div class="exam-q-num">Pregunta 20 de 20</div>
+        <div class="exam-q-lesson">📌 Lección 22 — Tema de examen</div>
+        <div class="exam-q-text">¿Qué es el cuasidelito como fuente de obligaciones?</div>
+        <div class="exam-opts" id="exam-opts-19">
+          <button class="exam-opt" onclick="selectExamOpt(19,0)">Acto ilícito cometido con dolo</button>
+        <button class="exam-opt" onclick="selectExamOpt(19,1)">Acto lícito sin convenio previo</button>
+        <button class="exam-opt" onclick="selectExamOpt(19,2)">Acto ilícito sin dolo pero con negligencia o culpa</button>
+        <button class="exam-opt" onclick="selectExamOpt(19,3)">Obligación nacida directamente de la ley</button>
+        
+        </div>
+      </div></div>
+    <div class="exam-result-screen" id="exam-result"></div>
+  </div>
+  <div class="exam-footer" id="exam-footer">
+    <button class="exam-submit-btn" onclick="submitExam()">📋 Finalizar examen</button>
+  </div>
+</div>
 </body>
 </html>
