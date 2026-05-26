@@ -1224,6 +1224,8 @@
   }
   .exam-launch-btn:hover { opacity: 0.85; }
 </style>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
 </head>
 <body>
 
@@ -4678,21 +4680,10 @@ window.toggleAuthMode = function() {
   if (!o) return;
   window.showAuthModal(o.dataset.mode === 'login' ? 'register' : 'login');
 };
-window.authSubmit = function() {
-  var m = document.getElementById('auth-msg');
-  if (m) { m.textContent = '⏳ Cargando Firebase...'; m.className = 'auth-msg'; }
-  // Module will overwrite this — retry after 1s
-  setTimeout(function() { window.authSubmit(); }, 800);
-};
-window.startExamSimulacro = function() {
-  var m = document.getElementById('auth-msg');
-  alert('Cargando...');
-};
+// authSubmit defined below in main script
+// startExamSimulacro defined in main script
 </script>
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { getFirestore, doc, setDoc, getDoc, collection, getDocs, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-
+<script>
 const TOTAL = {"11": 7, "12": 8, "13": 7, "14": 7, "15": 7, "16": 6, "17": 5, "18": 7, "19": 7, "20": 7, "21": 6, "22": 5, "23": 5, "24": 5, "25": 5, "26": 6, "27": 6, "28": 6, "29": 5, "30": 5};
 const state = {};
 
@@ -5153,10 +5144,8 @@ const firebaseConfig = {
   appId: "1:677915883088:web:f1da8bde2250f7c1530355",
   measurementId: "G-FEJLJHR96C"
 };
-const fbApp = initializeApp(firebaseConfig);
-const db = getFirestore(fbApp);
-// Signal that Firebase + all auth functions are now ready
-if (window._firebaseReady) window._firebaseReady();
+const fbApp = firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
 
 // ── Session state ────────────────────────────────────────────
 let currentUser = null; // { ci, name, xp, streak, lastDate, progress }
@@ -5192,18 +5181,16 @@ function updateStreak(userData) {
 
 // ── Firestore helpers ────────────────────────────────────────
 async function loadUserData(ci) {
-  const ref = doc(db, "users", ci);
-  const snap = await getDoc(ref);
-  return snap.exists() ? snap.data() : null;
+  const snap = await db.collection("users").doc(ci).get();
+  return snap.exists ? snap.data() : null;
 }
 
 async function saveUserData(ci, data) {
-  const ref = doc(db, "users", ci);
-  await setDoc(ref, data, { merge: true });
+  await db.collection("users").doc(ci).set(data, { merge: true });
 }
 
 async function loadRanking() {
-  const snap = await getDocs(collection(db, "users"));
+  const snap = await db.collection("users").get();
   const rows = [];
   snap.forEach(d => rows.push(d.data()));
   rows.sort((a,b) => (b.xp||0) - (a.xp||0));
