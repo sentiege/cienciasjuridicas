@@ -4668,7 +4668,18 @@ window.showAuthModal = function(mode) {
   var msg = document.getElementById('auth-msg');
   if (msg) msg.textContent = '';
 };
+window.hideAuthModal = function() {
+  var overlay = document.getElementById('auth-overlay');
+  if (overlay) overlay.classList.remove('open');
+};
+window.toggleAuthMode = function() {
+  var overlay = document.getElementById('auth-overlay');
+  if (!overlay) return;
+  var current = overlay.dataset.mode || 'login';
+  window.showAuthModal(current === 'login' ? 'register' : 'login');
+};
 window.startExamSimulacro = function() { alert('Cargando...'); };
+window.authSubmit = function() { alert('Firebase aún cargando, intentá en un segundo.'); };
 </script>
 <script type="module">
 const TOTAL = {"11": 7, "12": 8, "13": 7, "14": 7, "15": 7, "16": 6, "17": 5, "18": 7, "19": 7, "20": 7, "21": 6, "22": 5, "23": 5, "24": 5, "25": 5, "26": 6, "27": 6, "28": 6, "29": 5, "30": 5};
@@ -5247,7 +5258,7 @@ async function refreshRanking() {
 }
 
 // ── Auth submit ──────────────────────────────────────────────
-document.getElementById('auth-submit').addEventListener('click', async () => {
+window.authSubmit = async function() {
   const mode = document.getElementById('auth-overlay').dataset.mode || 'login';
   const ci   = document.getElementById('auth-ci').value.trim();
   const name = document.getElementById('auth-name').value.trim();
@@ -5289,14 +5300,9 @@ document.getElementById('auth-submit').addEventListener('click', async () => {
     msg.textContent = '❌ Error de conexión. Intentá de nuevo.';
     console.error(e);
   }
-});
+};
 
-document.getElementById('auth-toggle-btn').addEventListener('click', () => {
-  const current = document.getElementById('auth-overlay').dataset.mode || 'login';
-  showAuthModal(current === 'login' ? 'register' : 'login');
-});
-
-document.getElementById('auth-cancel').addEventListener('click', hideAuthModal);
+// toggle and cancel handled via onclick attributes
 
 document.getElementById('logout-btn').addEventListener('click', () => {
   currentUser = null;
@@ -6046,10 +6052,10 @@ window.finishExam         = finishExam;
     <div id="auth-name-wrap" style="display:none">
       <input id="auth-name" class="auth-input" type="text" placeholder="Nombre y apellido completo" />
     </div>
-    <button id="auth-submit" class="auth-btn">Entrar</button>
-    <button id="auth-toggle-btn" class="auth-btn secondary">¿Primera vez? Registrate</button>
+    <button id="auth-submit" class="auth-btn" onclick="authSubmit()">Entrar</button>
+    <button id="auth-toggle-btn" class="auth-btn secondary" onclick="toggleAuthMode()">¿Primera vez? Registrate</button>
     <br><br>
-    <button id="auth-cancel" class="auth-btn secondary" style="margin-top:0.3rem; font-size:0.8rem; opacity:0.6">Cancelar — continuar sin cuenta</button>
+    <button id="auth-cancel" class="auth-btn secondary" onclick="hideAuthModal()" style="margin-top:0.3rem; font-size:0.8rem; opacity:0.6">Cancelar — continuar sin cuenta</button>
   </div>
 </div>
 
