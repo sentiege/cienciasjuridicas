@@ -4639,6 +4639,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (card) card.classList.add('not-visited');
   });
   refreshProgressUI();
+  refreshRanking();
 });
 
 
@@ -5073,9 +5074,7 @@ document.getElementById('logout-btn').addEventListener('click', () => {
   currentUser = null;
   document.getElementById('user-bar').classList.remove('visible');
   document.getElementById('login-prompt').style.display = 'block';
-  document.getElementById('ranking-tbody').innerHTML = '';
-  document.getElementById('ranking-loading').style.display = 'none';
-  document.getElementById('ranking-loading').textContent = 'Iniciá sesión para ver el ranking.';
+  refreshRanking();
 });
 
 // ── Override markVisited & markQuizResult to also sync Firebase ──
