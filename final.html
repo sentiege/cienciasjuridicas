@@ -4651,49 +4651,42 @@
 </section>
 
 <script>
-// Stub functions available immediately before module loads
+// Available immediately — module will overwrite authSubmit when Firebase is ready
 window.showAuthModal = function(mode) {
-  var overlay = document.getElementById('auth-overlay');
-  if (!overlay) return;
-  overlay.classList.add('open');
-  overlay.dataset.mode = mode || 'login';
-  var title = document.getElementById('auth-mode-title');
-  var nameWrap = document.getElementById('auth-name-wrap');
-  var submitBtn = document.getElementById('auth-submit');
-  var toggleBtn = document.getElementById('auth-toggle-btn');
-  if (title) title.textContent = mode === 'register' ? 'Registrarse' : 'Iniciar Sesión';
-  if (nameWrap) nameWrap.style.display = mode === 'register' ? 'block' : 'none';
-  if (submitBtn) submitBtn.textContent = mode === 'register' ? 'Registrarme' : 'Entrar';
-  if (toggleBtn) toggleBtn.textContent = mode === 'register' ? '¿Ya tenés cuenta? Entrá' : '¿Primera vez? Registrate';
-  var msg = document.getElementById('auth-msg');
-  if (msg) msg.textContent = '';
+  var o = document.getElementById('auth-overlay');
+  if (!o) return;
+  o.classList.add('open');
+  o.dataset.mode = mode || 'login';
+  var isReg = (mode === 'register');
+  var t = document.getElementById('auth-mode-title');
+  var n = document.getElementById('auth-name-wrap');
+  var s = document.getElementById('auth-submit');
+  var g = document.getElementById('auth-toggle-btn');
+  var m = document.getElementById('auth-msg');
+  if (t) t.textContent = isReg ? 'Registrarse' : 'Iniciar Sesión';
+  if (n) n.style.display = isReg ? 'block' : 'none';
+  if (s) s.textContent = isReg ? 'Registrarme' : 'Entrar';
+  if (g) g.textContent = isReg ? '¿Ya tenés cuenta? Entrá' : '¿Primera vez? Registrate';
+  if (m) m.textContent = '';
 };
 window.hideAuthModal = function() {
-  var overlay = document.getElementById('auth-overlay');
-  if (overlay) overlay.classList.remove('open');
+  var o = document.getElementById('auth-overlay');
+  if (o) o.classList.remove('open');
 };
 window.toggleAuthMode = function() {
-  var overlay = document.getElementById('auth-overlay');
-  if (!overlay) return;
-  var current = overlay.dataset.mode || 'login';
-  window.showAuthModal(current === 'login' ? 'register' : 'login');
+  var o = document.getElementById('auth-overlay');
+  if (!o) return;
+  window.showAuthModal(o.dataset.mode === 'login' ? 'register' : 'login');
 };
-window.startExamSimulacro = function() { alert('Cargando...'); };
-// Firebase ready promise - resolves when module sets window._firebaseReady()
-var _fbReadyResolve;
-window._firebaseReadyPromise = new Promise(function(resolve) { _fbReadyResolve = resolve; });
-window._firebaseReady = function() { _fbReadyResolve(); };
-
-window._realAuthSubmit = async function() {
-  var btn = document.getElementById('auth-submit');
-  var msg = document.getElementById('auth-msg');
-  if (btn) btn.disabled = true;
-  if (msg) { msg.textContent = '⏳ Iniciando...'; msg.className = 'auth-msg'; }
-  await window._firebaseReadyPromise;
-  if (btn) btn.disabled = false;
-  // real authSubmit from module is now loaded
-  var realFn = window._realAuthSubmit;
-  if (realFn) realFn();
+window.authSubmit = function() {
+  var m = document.getElementById('auth-msg');
+  if (m) { m.textContent = '⏳ Cargando Firebase...'; m.className = 'auth-msg'; }
+  // Module will overwrite this — retry after 1s
+  setTimeout(function() { window.authSubmit(); }, 800);
+};
+window.startExamSimulacro = function() {
+  var m = document.getElementById('auth-msg');
+  alert('Cargando...');
 };
 </script>
 <script type="module">
