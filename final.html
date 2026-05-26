@@ -4650,6 +4650,26 @@
 
 </section>
 
+<script>
+// Stub functions available immediately before module loads
+window.showAuthModal = function(mode) {
+  var overlay = document.getElementById('auth-overlay');
+  if (!overlay) return;
+  overlay.classList.add('open');
+  overlay.dataset.mode = mode || 'login';
+  var title = document.getElementById('auth-mode-title');
+  var nameWrap = document.getElementById('auth-name-wrap');
+  var submitBtn = document.getElementById('auth-submit');
+  var toggleBtn = document.getElementById('auth-toggle-btn');
+  if (title) title.textContent = mode === 'register' ? 'Registrarse' : 'Iniciar Sesión';
+  if (nameWrap) nameWrap.style.display = mode === 'register' ? 'block' : 'none';
+  if (submitBtn) submitBtn.textContent = mode === 'register' ? 'Registrarme' : 'Entrar';
+  if (toggleBtn) toggleBtn.textContent = mode === 'register' ? '¿Ya tenés cuenta? Entrá' : '¿Primera vez? Registrate';
+  var msg = document.getElementById('auth-msg');
+  if (msg) msg.textContent = '';
+};
+window.startExamSimulacro = function() { alert('Cargando...'); };
+</script>
 <script type="module">
 const TOTAL = {"11": 7, "12": 8, "13": 7, "14": 7, "15": 7, "16": 6, "17": 5, "18": 7, "19": 7, "20": 7, "21": 6, "22": 5, "23": 5, "24": 5, "25": 5, "26": 6, "27": 6, "28": 6, "29": 5, "30": 5};
 const state = {};
