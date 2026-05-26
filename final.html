@@ -5567,7 +5567,7 @@ const BLOCK_NAMES   = {
 };
 
 let examQuestions = [];   // [{lesson, q, opts, a}, ...]
-let examAnswers   = [];   // user selected option index per question (-1 = unanswered)
+let simAnswers   = [];   // user selected option index per question (-1 = unanswered)
 let examCurrent   = 0;
 let examTimerInterval = null;
 let examSecondsLeft   = EXAM_DURATION;
@@ -5585,7 +5585,7 @@ function buildExam() {
     const j = Math.floor(Math.random() * (i + 1));
     [examQuestions[i], examQuestions[j]] = [examQuestions[j], examQuestions[i]];
   }
-  examAnswers  = new Array(examQuestions.length).fill(-1);
+  simAnswers  = new Array(examQuestions.length).fill(-1);
   examCurrent  = 0;
   examFinished = false;
   examSecondsLeft = EXAM_DURATION;
@@ -5641,7 +5641,7 @@ function renderExamDots() {
   const container = document.getElementById('exam-prog-dots');
   if (!container) return;
   container.innerHTML = examQuestions.map((_, i) =>
-    `<div class="exam-dot${i === examCurrent ? ' current' : ''}${examAnswers[i] >= 0 ? ' answered' : ''}" id="edot-${i}"></div>`
+    `<div class="exam-dot${i === examCurrent ? ' current' : ''}${simAnswers[i] >= 0 ? ' answered' : ''}" id="edot-${i}"></div>`
   ).join('');
 }
 
@@ -5651,7 +5651,7 @@ function updateExamDots() {
     if (!d) return;
     d.className = 'exam-dot' +
       (i === examCurrent ? ' current' : '') +
-      (examAnswers[i] >= 0 ? ' answered' : '');
+      (simAnswers[i] >= 0 ? ' answered' : '');
   });
   const counter = document.getElementById('exam-q-counter');
   if (counter) counter.textContent = (examCurrent + 1) + ' / ' + examQuestions.length;
@@ -5662,7 +5662,7 @@ function renderExamQuestion() {
   const body = document.getElementById('exam-body');
   if (!body) return;
   const q   = examQuestions[examCurrent];
-  const sel = examAnswers[examCurrent];
+  const sel = simAnswers[examCurrent];
   const isLast = examCurrent === examQuestions.length - 1;
 
   body.innerHTML = `
@@ -5691,7 +5691,7 @@ function renderExamQuestion() {
 // ── Select option ────────────────────────────────────────────
 function examSelectOpt(oi) {
   if (examFinished) return;
-  examAnswers[examCurrent] = oi;
+  simAnswers[examCurrent] = oi;
   renderExamQuestion();
 }
 
@@ -5706,7 +5706,7 @@ function finishExam(timeUp) {
   clearInterval(examTimerInterval);
   examFinished = true;
 
-  const unanswered = examAnswers.filter(a => a < 0).length;
+  const unanswered = simAnswers.filter(a => a < 0).length;
   if (!timeUp && unanswered > 0) {
     if (!confirm(`Tenés ${unanswered} pregunta${unanswered>1?'s':''} sin responder. ¿Entregar igual?`)) {
       examFinished = false;
@@ -5722,7 +5722,7 @@ function finishExam(timeUp) {
     const lesson = q.lesson;
     if (!breakdown[lesson]) breakdown[lesson] = { correct: 0, total: 0, name: BLOCK_NAMES[lesson] };
     breakdown[lesson].total++;
-    if (examAnswers[i] === q.a) { correct++; breakdown[lesson].correct++; }
+    if (simAnswers[i] === q.a) { correct++; breakdown[lesson].correct++; }
   });
 
   const pct   = Math.round((correct / examQuestions.length) * 100);
@@ -5763,7 +5763,7 @@ function finishExam(timeUp) {
       <div class="exam-breakdown">
         <div class="exam-breakdown-title">Desglose por lección</div>
         ${examQuestions.map((q, i) => {
-          const ok = examAnswers[i] === q.a;
+          const ok = simAnswers[i] === q.a;
           return `<div class="exam-breakdown-row">
             <span>L${q.lesson} — ${q.q.slice(0,45)}${q.q.length>45?'…':''}</span>
             <span class="${ok?'ok':'fail'}">${ok ? '✅' : '❌ ' + q.opts[q.a]}</span>
