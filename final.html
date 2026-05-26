@@ -1043,6 +1043,136 @@
     font-family: inherit;
     white-space: nowrap;
   }
+
+  /* ========== THEMATIC PROGRESS BARS ========== */
+  #thematic-section {
+    max-width: 900px;
+    margin: 0 auto 1.5rem;
+    padding: 0 1.5rem;
+  }
+  .thematic-header {
+    color: var(--gold2);
+    font-size: 1.05rem;
+    font-weight: bold;
+    margin-bottom: 0.8rem;
+  }
+  .thematic-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 0.75rem;
+  }
+  .thematic-card {
+    background: var(--card-bg);
+    border: 1px solid rgba(212,175,55,0.2);
+    border-radius: 10px;
+    padding: 0.8rem 1rem;
+  }
+  .thematic-card-title {
+    font-size: 0.82rem;
+    color: var(--gold2);
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+  }
+  .thematic-bar-track {
+    width: 100%;
+    height: 8px;
+    background: rgba(255,255,255,0.07);
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 0.35rem;
+  }
+  .thematic-bar-fill {
+    height: 100%;
+    border-radius: 8px;
+    background: linear-gradient(90deg, var(--gold), var(--gold2));
+    transition: width 0.6s ease;
+    width: 0%;
+  }
+  .thematic-bar-fill.complete {
+    background: linear-gradient(90deg, #50c878, #7fffaa);
+  }
+  .thematic-stats {
+    font-size: 0.75rem;
+    color: #a89060;
+    display: flex;
+    justify-content: space-between;
+  }
+  .thematic-stats .complete-label { color: #70e090; font-weight: bold; }
+
+  /* ========== BADGES ========== */
+  #badges-section {
+    max-width: 900px;
+    margin: 0 auto 1.5rem;
+    padding: 0 1.5rem;
+  }
+  .badges-header {
+    color: var(--gold2);
+    font-size: 1.05rem;
+    font-weight: bold;
+    margin-bottom: 0.8rem;
+  }
+  .badges-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+  }
+  .badge-item {
+    background: var(--card-bg);
+    border: 1px solid rgba(212,175,55,0.15);
+    border-radius: 10px;
+    padding: 0.6rem 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    opacity: 0.35;
+    filter: grayscale(1);
+    transition: opacity 0.4s, filter 0.4s, border-color 0.4s, transform 0.3s;
+    cursor: default;
+    position: relative;
+  }
+  .badge-item.unlocked {
+    opacity: 1;
+    filter: none;
+    border-color: var(--gold);
+    box-shadow: 0 0 10px rgba(212,175,55,0.2);
+  }
+  .badge-item.just-unlocked {
+    animation: badgePop 0.6s ease;
+  }
+  @keyframes badgePop {
+    0%   { transform: scale(1); }
+    40%  { transform: scale(1.18); }
+    70%  { transform: scale(0.95); }
+    100% { transform: scale(1); }
+  }
+  .badge-icon { font-size: 1.5rem; line-height: 1; }
+  .badge-info { display: flex; flex-direction: column; }
+  .badge-name { font-size: 0.78rem; color: var(--gold2); font-weight: bold; line-height: 1.2; }
+  .badge-desc { font-size: 0.68rem; color: #a89060; line-height: 1.3; }
+
+  /* ========== TOAST NOTIFICATION ========== */
+  #badge-toast {
+    position: fixed;
+    bottom: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background: linear-gradient(135deg, #1e2a45, #16213e);
+    border: 2px solid var(--gold);
+    border-radius: 14px;
+    padding: 0.8rem 1.4rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    z-index: 999;
+    transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+    white-space: nowrap;
+  }
+  #badge-toast.show { transform: translateX(-50%) translateY(0); }
+  .toast-icon { font-size: 1.8rem; }
+  .toast-text { display: flex; flex-direction: column; }
+  .toast-title { color: var(--gold2); font-size: 0.75rem; letter-spacing: 1px; text-transform: uppercase; }
+  .toast-name { color: #fff; font-weight: bold; font-size: 1rem; }
 </style>
 </head>
 <body>
@@ -1114,6 +1244,28 @@
   <div class="global-progress-wrap" id="global-progress-wrap">
     <div class="global-progress-inner">
       <div class="gp-label">📊 Tu progreso:</div>
+
+<!-- ===== THEMATIC PROGRESS BARS ===== -->
+<div id="thematic-section">
+  <div class="thematic-header">📊 Progreso por Unidad</div>
+  <div class="thematic-grid" id="thematic-grid"></div>
+</div>
+
+<!-- ===== BADGES ===== -->
+<div id="badges-section">
+  <div class="badges-header">🏅 Mis Insignias</div>
+  <div class="badges-grid" id="badges-grid"></div>
+</div>
+
+<!-- ===== BADGE TOAST ===== -->
+<div id="badge-toast">
+  <div class="toast-icon" id="toast-icon">🎓</div>
+  <div class="toast-text">
+    <span class="toast-title">¡Insignia desbloqueada!</span>
+    <span class="toast-name" id="toast-name">—</span>
+  </div>
+</div>
+
       <div class="gp-bar-track"><div class="gp-bar-fill" id="gp-bar-fill"></div></div>
       <div class="gp-stats">
         <div class="gp-stat">👁 Visitadas: <span id="gp-visited">0</span>/20</div>
@@ -5124,6 +5276,162 @@ window.startExam = startExam;
 window.submitExam = submitExam;
 window.switchExTab = switchExTab;
 window.toggleExercises = toggleExercises;
+window.checkBadges = checkBadges;
+window.refreshThematic = refreshThematic;
+
+
+// ============================================================
+// BLOCKS + BADGES
+// ============================================================
+const BLOCKS = {
+  "📜 Normas Jurídicas":         [11,12,13,14,15],
+  "⚖️ Derechos Subjetivos":      [16,17,18,19,20],
+  "🏛️ Instituciones y Personas": [21,22,23,24,25],
+  "📚 Fuentes y Técnica Jurídica":[26,27,28,29,30],
+};
+
+const BADGES_DEF = [
+  {id:"first_quiz",   icon:"🎓", name:"Primer Aprobado",    desc:"Aprobá tu primer quiz"},
+  {id:"five_visited", icon:"⚡", name:"Estudioso",          desc:"Visitá 5 lecciones"},
+  {id:"ten_visited",  icon:"🌟", name:"Mitad del Camino",   desc:"Visitá 10 lecciones"},
+  {id:"streak_3",     icon:"✨", name:"Constante",          desc:"3 días seguidos"},
+  {id:"streak_7",     icon:"🔥", name:"Racha Imparable",    desc:"7 días seguidos"},
+  {id:"perfect_quiz", icon:"🏛️", name:"Perfeccionista",     desc:"Sacá 100% en un quiz"},
+  {id:"block_done",   icon:"📖", name:"Bloque Completado",  desc:"Aprobá todo un bloque"},
+  {id:"all_passed",   icon:"💎", name:"Jurista Completo",   desc:"Aprobá las 20 lecciones"},
+];
+
+// ── Init badge grid ──────────────────────────────────────────
+function initBadgeGrid() {
+  const grid = document.getElementById('badges-grid');
+  if (!grid) return;
+  grid.innerHTML = BADGES_DEF.map(b => `
+    <div class="badge-item" id="badge-${b.id}">
+      <div class="badge-icon">${b.icon}</div>
+      <div class="badge-info">
+        <div class="badge-name">${b.name}</div>
+        <div class="badge-desc">${b.desc}</div>
+      </div>
+    </div>`).join('');
+}
+
+// ── Init thematic bars ───────────────────────────────────────
+function initThematicGrid() {
+  const grid = document.getElementById('thematic-grid');
+  if (!grid) return;
+  grid.innerHTML = Object.keys(BLOCKS).map((name, i) => `
+    <div class="thematic-card">
+      <div class="thematic-card-title">${name}</div>
+      <div class="thematic-bar-track">
+        <div class="thematic-bar-fill" id="tbar-${i}"></div>
+      </div>
+      <div class="thematic-stats">
+        <span id="tstat-${i}">0 / 5 aprobadas</span>
+      </div>
+    </div>`).join('');
+}
+
+// ── Refresh thematic bars ────────────────────────────────────
+function refreshThematic() {
+  const p = getProgress();
+  Object.entries(BLOCKS).forEach(([name, lessons], i) => {
+    const passed = lessons.filter(n => (p[n] || {}).quizPassed).length;
+    const visited = lessons.filter(n => (p[n] || {}).visited).length;
+    const pct = Math.round((passed / lessons.length) * 100);
+    const fill = document.getElementById('tbar-' + i);
+    const stat = document.getElementById('tstat-' + i);
+    if (fill) {
+      fill.style.width = pct + '%';
+      fill.classList.toggle('complete', passed === lessons.length);
+    }
+    if (stat) {
+      if (passed === lessons.length) {
+        stat.innerHTML = '<span class="complete-label">✅ Bloque completo</span>';
+      } else {
+        stat.textContent = `${passed} / ${lessons.length} aprobadas`;
+      }
+    }
+  });
+}
+
+// ── Toast ────────────────────────────────────────────────────
+let toastTimer = null;
+function showBadgeToast(badge) {
+  document.getElementById('toast-icon').textContent = badge.icon;
+  document.getElementById('toast-name').textContent = badge.name;
+  const toast = document.getElementById('badge-toast');
+  toast.classList.add('show');
+  if (toastTimer) clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => toast.classList.remove('show'), 3500);
+}
+
+// ── Check & unlock badges ────────────────────────────────────
+function checkBadges() {
+  const p = getProgress();
+  const streak = currentUser ? (currentUser.streak || 1) : 0;
+  const visited = Object.values(p).filter(d => d.visited).length;
+  const passed  = Object.values(p).filter(d => d.quizPassed).length;
+  const perfect = Object.values(p).some(d => d.quizPct === 100);
+  const blockDone = Object.values(BLOCKS).some(lessons =>
+    lessons.every(n => (p[n] || {}).quizPassed));
+
+  const conditions = {
+    first_quiz:   passed >= 1,
+    five_visited: visited >= 5,
+    ten_visited:  visited >= 10,
+    streak_3:     streak >= 3,
+    streak_7:     streak >= 7,
+    perfect_quiz: perfect,
+    block_done:   blockDone,
+    all_passed:   passed >= 20,
+  };
+
+  const earned = JSON.parse(localStorage.getItem('cj_badges_v1') || '[]');
+
+  BADGES_DEF.forEach(b => {
+    const el = document.getElementById('badge-' + b.id);
+    if (conditions[b.id]) {
+      if (el && !el.classList.contains('unlocked')) {
+        el.classList.add('unlocked');
+        if (earned.includes(b.id)) return; // already notified
+        el.classList.add('just-unlocked');
+        setTimeout(() => el.classList.remove('just-unlocked'), 700);
+        showBadgeToast(b);
+        earned.push(b.id);
+        localStorage.setItem('cj_badges_v1', JSON.stringify(earned));
+        // sync to firebase if logged in
+        if (currentUser) {
+          saveUserData(currentUser.ci, { badges: earned });
+        }
+      }
+    } else {
+      if (el) el.classList.remove('unlocked');
+    }
+  });
+
+  // also restore already-earned badges silently on load
+  earned.forEach(id => {
+    const el = document.getElementById('badge-' + id);
+    if (el) el.classList.add('unlocked');
+  });
+}
+
+// ── Hook into refreshProgressUI ──────────────────────────────
+const _origRefreshProgressUI = refreshProgressUI;
+refreshProgressUI = function() {
+  _origRefreshProgressUI();
+  refreshThematic();
+  checkBadges();
+};
+
+// ── Init on DOMContentLoaded ─────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+  initBadgeGrid();
+  initThematicGrid();
+  refreshThematic();
+  checkBadges();
+});
+
 </script>
 
 <!-- ===== MODO EXAMEN SIMULADO ===== -->
