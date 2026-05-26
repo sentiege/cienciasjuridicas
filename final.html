@@ -1058,8 +1058,11 @@
   }
   .thematic-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    grid-template-columns: repeat(4, 1fr);
     gap: 0.75rem;
+  }
+  @media (max-width: 600px) {
+    .thematic-grid { grid-template-columns: repeat(2, 1fr); }
   }
   .thematic-card {
     background: var(--card-bg);
@@ -1173,6 +1176,38 @@
   .toast-text { display: flex; flex-direction: column; }
   .toast-title { color: var(--gold2); font-size: 0.75rem; letter-spacing: 1px; text-transform: uppercase; }
   .toast-name { color: #fff; font-weight: bold; font-size: 1rem; }
+
+  /* ========== PROFILE PANEL ========== */
+  #profile-panel {
+    display: none;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 1.5rem 1rem;
+    animation: slideDown 0.25s ease;
+  }
+  #profile-panel.open { display: block; }
+  @keyframes slideDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .profile-panel-inner {
+    background: rgba(212,175,55,0.05);
+    border: 1px solid rgba(212,175,55,0.2);
+    border-top: none;
+    border-radius: 0 0 12px 12px;
+    padding: 1rem 1.2rem 1.2rem;
+  }
+  /* Make avatar clickable */
+  .user-bar-left { cursor: pointer; user-select: none; }
+  .user-bar-left:hover .user-avatar {
+    box-shadow: 0 0 0 3px rgba(212,175,55,0.4);
+  }
+  .profile-toggle-hint {
+    font-size: 0.68rem;
+    color: #a89060;
+    margin-top: 0.15rem;
+    letter-spacing: 0.3px;
+  }
 </style>
 </head>
 <body>
@@ -1181,11 +1216,12 @@
 
 <!-- ===== USER BAR ===== -->
 <div id="user-bar">
-  <div class="user-bar-left">
+  <div class="user-bar-left" onclick="toggleProfilePanel()">
     <div class="user-avatar" id="user-avatar">?</div>
     <div>
       <div class="user-name" id="user-name-display">—</div>
       <div class="user-ci" id="user-ci-display">CI: —</div>
+      <div class="profile-toggle-hint">toca para ver tu perfil ▾</div>
     </div>
   </div>
   <div class="user-bar-right">
@@ -1245,17 +1281,6 @@
     <div class="global-progress-inner">
       <div class="gp-label">📊 Tu progreso:</div>
 
-<!-- ===== THEMATIC PROGRESS BARS ===== -->
-<div id="thematic-section">
-  <div class="thematic-header">📊 Progreso por Unidad</div>
-  <div class="thematic-grid" id="thematic-grid"></div>
-</div>
-
-<!-- ===== BADGES ===== -->
-<div id="badges-section">
-  <div class="badges-header">🏅 Mis Insignias</div>
-  <div class="badges-grid" id="badges-grid"></div>
-</div>
 
 <!-- ===== BADGE TOAST ===== -->
 <div id="badge-toast">
@@ -5277,6 +5302,7 @@ window.submitExam = submitExam;
 window.switchExTab = switchExTab;
 window.toggleExercises = toggleExercises;
 window.checkBadges = checkBadges;
+window.toggleProfilePanel = toggleProfilePanel;
 window.refreshThematic = refreshThematic;
 
 
@@ -5432,6 +5458,19 @@ document.addEventListener('DOMContentLoaded', () => {
   checkBadges();
 });
 
+
+// ── Profile panel toggle ─────────────────────────────────────
+function toggleProfilePanel() {
+  const panel = document.getElementById('profile-panel');
+  const hint = document.querySelector('.profile-toggle-hint');
+  if (!panel) return;
+  const isOpen = panel.classList.toggle('open');
+  if (hint) hint.textContent = isOpen ? 'toca para cerrar ▴' : 'toca para ver tu perfil ▾';
+  if (isOpen) {
+    refreshThematic();
+    checkBadges();
+  }
+}
 </script>
 
 <!-- ===== MODO EXAMEN SIMULADO ===== -->
