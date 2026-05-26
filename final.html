@@ -1208,6 +1208,21 @@
     margin-top: 0.15rem;
     letter-spacing: 0.3px;
   }
+
+  .exam-launch-btn {
+    background: linear-gradient(135deg, var(--gold), var(--gold2));
+    color: #1a1a2e;
+    border: none;
+    border-radius: 20px;
+    padding: 0.25rem 0.9rem;
+    font-size: 0.78rem;
+    font-weight: bold;
+    cursor: pointer;
+    font-family: inherit;
+    white-space: nowrap;
+    transition: opacity 0.2s;
+  }
+  .exam-launch-btn:hover { opacity: 0.85; }
 </style>
 </head>
 <body>
@@ -1227,6 +1242,7 @@
   <div class="user-bar-right">
     <span class="xp-badge" id="user-xp-display">⚡ 0 XP</span>
     <span class="streak-badge" id="user-streak-display">🔥 1 día</span>
+    <button class="exam-launch-btn" onclick="startExamSimulacro()">📋 Simulacro</button>
     <button class="logout-btn" id="logout-btn">Salir</button>
   </div>
 </div>
@@ -5331,14 +5347,16 @@ const BLOCKS = {
 };
 
 const BADGES_DEF = [
-  {id:"first_quiz",   icon:"🎓", name:"Primer Aprobado",    desc:"Aprobá tu primer quiz"},
-  {id:"five_visited", icon:"⚡", name:"Estudioso",          desc:"Visitá 5 lecciones"},
-  {id:"ten_visited",  icon:"🌟", name:"Mitad del Camino",   desc:"Visitá 10 lecciones"},
-  {id:"streak_3",     icon:"✨", name:"Constante",          desc:"3 días seguidos"},
-  {id:"streak_7",     icon:"🔥", name:"Racha Imparable",    desc:"7 días seguidos"},
-  {id:"perfect_quiz", icon:"🏛️", name:"Perfeccionista",     desc:"Sacá 100% en un quiz"},
-  {id:"block_done",   icon:"📖", name:"Bloque Completado",  desc:"Aprobá todo un bloque"},
-  {id:"all_passed",   icon:"💎", name:"Jurista Completo",   desc:"Aprobá las 20 lecciones"},
+  {id:"first_quiz",    icon:"🎓", name:"Primer Aprobado",    desc:"Aprobá tu primer quiz"},
+  {id:"five_visited",  icon:"⚡", name:"Estudioso",          desc:"Visitá 5 lecciones"},
+  {id:"ten_visited",   icon:"🌟", name:"Mitad del Camino",   desc:"Visitá 10 lecciones"},
+  {id:"streak_3",      icon:"✨", name:"Constante",          desc:"3 días seguidos"},
+  {id:"streak_7",      icon:"🔥", name:"Racha Imparable",    desc:"7 días seguidos"},
+  {id:"perfect_quiz",  icon:"🏛️", name:"Perfeccionista",     desc:"Sacá 100% en un quiz"},
+  {id:"block_done",    icon:"📖", name:"Bloque Completado",  desc:"Aprobá todo un bloque"},
+  {id:"all_passed",    icon:"💎", name:"Jurista Completo",   desc:"Aprobá las 20 lecciones"},
+  {id:"exam_pass",     icon:"📋", name:"Examen Aprobado",    desc:"Aprobá el simulacro (≥60%)"},
+  {id:"exam_perfect",  icon:"🥇", name:"Excelencia",         desc:"Sacá 100% en el simulacro"},
 ];
 
 // ── Init badge grid ──────────────────────────────────────────
@@ -5415,6 +5433,10 @@ function checkBadges() {
   const blockDone = Object.values(BLOCKS).some(lessons =>
     lessons.every(n => (p[n] || {}).quizPassed));
 
+  const examHistory = JSON.parse(localStorage.getItem('cj_exams_v1') || '[]');
+  const examPassed  = examHistory.some(e => e.pass);
+  const examPerfect = examHistory.some(e => e.pct === 100);
+
   const conditions = {
     first_quiz:   passed >= 1,
     five_visited: visited >= 5,
@@ -5424,6 +5446,8 @@ function checkBadges() {
     perfect_quiz: perfect,
     block_done:   blockDone,
     all_passed:   passed >= 20,
+    exam_pass:    examPassed,
+    exam_perfect: examPerfect,
   };
 
   const earned = JSON.parse(localStorage.getItem('cj_badges_v1') || '[]');
@@ -5489,6 +5513,242 @@ function toggleProfilePanel() {
   }
 }
 window.toggleProfilePanel = toggleProfilePanel;
+
+
+// ============================================================
+// EXAMEN SIMULACRO
+// ============================================================
+const EXAM_DURATION = 15 * 60; // 15 minutes in seconds
+const EXAM_LESSONS  = [11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30];
+const BLOCK_NAMES   = {
+  11:'Normas Jurídicas', 12:'Normas Jurídicas', 13:'Normas Jurídicas',
+  14:'Normas Jurídicas', 15:'Normas Jurídicas',
+  16:'Derechos Subjetivos', 17:'Derechos Subjetivos', 18:'Derechos Subjetivos',
+  19:'Derechos Subjetivos', 20:'Derechos Subjetivos',
+  21:'Instituciones y Personas', 22:'Instituciones y Personas',
+  23:'Instituciones y Personas', 24:'Instituciones y Personas',
+  25:'Instituciones y Personas',
+  26:'Fuentes y Técnica', 27:'Fuentes y Técnica', 28:'Fuentes y Técnica',
+  29:'Fuentes y Técnica', 30:'Fuentes y Técnica',
+};
+
+let examQuestions = [];   // [{lesson, q, opts, a}, ...]
+let examAnswers   = [];   // user selected option index per question (-1 = unanswered)
+let examCurrent   = 0;
+let examTimerInterval = null;
+let examSecondsLeft   = EXAM_DURATION;
+let examFinished      = false;
+
+// ── Build exam question pool (1 random per lesson) ───────────
+function buildExam() {
+  examQuestions = EXAM_LESSONS.map(n => {
+    const pool = QZ[String(n)];
+    const q    = pool[Math.floor(Math.random() * pool.length)];
+    return { lesson: n, ...q };
+  });
+  // Shuffle order
+  for (let i = examQuestions.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [examQuestions[i], examQuestions[j]] = [examQuestions[j], examQuestions[i]];
+  }
+  examAnswers  = new Array(examQuestions.length).fill(-1);
+  examCurrent  = 0;
+  examFinished = false;
+  examSecondsLeft = EXAM_DURATION;
+}
+
+// ── Show exam page ───────────────────────────────────────────
+function startExamSimulacro() {
+  buildExam();
+  document.getElementById('home-page').style.display  = 'none';
+  document.querySelectorAll('.lesson-page').forEach(p => p.style.display = 'none');
+  document.getElementById('exam-page').classList.add('active');
+  renderExamDots();
+  renderExamQuestion();
+  startExamTimer();
+  window.scrollTo(0, 0);
+}
+
+function exitExamSimulacro() {
+  if (!examFinished) {
+    if (!confirm('¿Salir del examen? Se perderá el progreso.')) return;
+  }
+  clearInterval(examTimerInterval);
+  document.getElementById('exam-page').classList.remove('active');
+  showHome();
+}
+
+// ── Timer ────────────────────────────────────────────────────
+function startExamTimer() {
+  clearInterval(examTimerInterval);
+  updateTimerDisplay();
+  examTimerInterval = setInterval(() => {
+    examSecondsLeft--;
+    updateTimerDisplay();
+    if (examSecondsLeft <= 0) {
+      clearInterval(examTimerInterval);
+      finishExam(true);
+    }
+  }, 1000);
+}
+
+function updateTimerDisplay() {
+  const m = Math.floor(examSecondsLeft / 60).toString().padStart(2,'0');
+  const s = (examSecondsLeft % 60).toString().padStart(2,'0');
+  const el = document.getElementById('exam-timer');
+  if (el) {
+    el.textContent = m + ':' + s;
+    el.classList.toggle('warning', examSecondsLeft <= 120);
+  }
+}
+
+// ── Progress dots ────────────────────────────────────────────
+function renderExamDots() {
+  const container = document.getElementById('exam-prog-dots');
+  if (!container) return;
+  container.innerHTML = examQuestions.map((_, i) =>
+    `<div class="exam-dot${i === examCurrent ? ' current' : ''}${examAnswers[i] >= 0 ? ' answered' : ''}" id="edot-${i}"></div>`
+  ).join('');
+}
+
+function updateExamDots() {
+  examQuestions.forEach((_, i) => {
+    const d = document.getElementById('edot-' + i);
+    if (!d) return;
+    d.className = 'exam-dot' +
+      (i === examCurrent ? ' current' : '') +
+      (examAnswers[i] >= 0 ? ' answered' : '');
+  });
+  const counter = document.getElementById('exam-q-counter');
+  if (counter) counter.textContent = (examCurrent + 1) + ' / ' + examQuestions.length;
+}
+
+// ── Render current question ──────────────────────────────────
+function renderExamQuestion() {
+  const body = document.getElementById('exam-body');
+  if (!body) return;
+  const q   = examQuestions[examCurrent];
+  const sel = examAnswers[examCurrent];
+  const isLast = examCurrent === examQuestions.length - 1;
+
+  body.innerHTML = `
+    <div class="exam-q-card">
+      <div class="exam-q-meta">Lección ${q.lesson} — ${BLOCK_NAMES[q.lesson]}</div>
+      <div class="exam-q-text">${q.q}</div>
+      <div class="exam-opts">
+        ${q.opts.map((opt, i) => `
+          <button class="exam-opt${sel === i ? ' selected' : ''}"
+            onclick="examSelectOpt(${i})"
+            ${examFinished ? 'disabled' : ''}>
+            <span style="color:var(--gold);margin-right:0.5rem">${['A','B','C','D'][i]}.</span>${opt}
+          </button>`).join('')}
+      </div>
+    </div>
+    <div class="exam-nav">
+      <button class="exam-nav-btn" onclick="examNav(-1)" ${examCurrent === 0 ? 'disabled' : ''}>← Anterior</button>
+      <button class="exam-nav-btn" onclick="exitExamSimulacro()">✕ Salir</button>
+      ${isLast
+        ? `<button class="exam-nav-btn primary" onclick="finishExam(false)">📋 Entregar</button>`
+        : `<button class="exam-nav-btn primary" onclick="examNav(1)">Siguiente →</button>`}
+    </div>`;
+  updateExamDots();
+}
+
+// ── Select option ────────────────────────────────────────────
+function examSelectOpt(oi) {
+  if (examFinished) return;
+  examAnswers[examCurrent] = oi;
+  renderExamQuestion();
+}
+
+// ── Navigate ─────────────────────────────────────────────────
+function examNav(dir) {
+  examCurrent = Math.max(0, Math.min(examQuestions.length - 1, examCurrent + dir));
+  renderExamQuestion();
+}
+
+// ── Finish exam ──────────────────────────────────────────────
+function finishExam(timeUp) {
+  clearInterval(examTimerInterval);
+  examFinished = true;
+
+  const unanswered = examAnswers.filter(a => a < 0).length;
+  if (!timeUp && unanswered > 0) {
+    if (!confirm(`Tenés ${unanswered} pregunta${unanswered>1?'s':''} sin responder. ¿Entregar igual?`)) {
+      examFinished = false;
+      startExamTimer();
+      return;
+    }
+  }
+
+  // Score
+  let correct = 0;
+  const breakdown = {};
+  examQuestions.forEach((q, i) => {
+    const lesson = q.lesson;
+    if (!breakdown[lesson]) breakdown[lesson] = { correct: 0, total: 0, name: BLOCK_NAMES[lesson] };
+    breakdown[lesson].total++;
+    if (examAnswers[i] === q.a) { correct++; breakdown[lesson].correct++; }
+  });
+
+  const pct   = Math.round((correct / examQuestions.length) * 100);
+  const pass  = pct >= 60;
+  const nota  = (correct / examQuestions.length * 5).toFixed(1); // 0–5 scale
+  const timeTaken = EXAM_DURATION - examSecondsLeft;
+  const mins = Math.floor(timeTaken/60), secs = timeTaken % 60;
+
+  // Save to localStorage + Firebase
+  const examRecord = { pct, correct, total: examQuestions.length, pass, date: todayStr(), timeTaken };
+  const examHistory = JSON.parse(localStorage.getItem('cj_exams_v1') || '[]');
+  examHistory.unshift(examRecord);
+  localStorage.setItem('cj_exams_v1', JSON.stringify(examHistory.slice(0, 10)));
+  if (currentUser) {
+    const bestExam = examHistory.reduce((b, e) => e.pct > b.pct ? e : b, examRecord);
+    saveUserData(currentUser.ci, { bestExam: bestExam.pct, lastExam: pct });
+    currentUser.bestExam = bestExam.pct;
+  }
+
+  // Check exam badges
+  checkBadges();
+
+  // Render result
+  const body = document.getElementById('exam-body');
+  const timerEl = document.getElementById('exam-timer');
+  if (timerEl) { timerEl.textContent = '✓ Entregado'; timerEl.classList.remove('warning'); }
+
+  body.innerHTML = `
+    <div class="exam-result-card">
+      <div class="exam-score-circle ${pass ? 'pass' : 'fail'}">
+        ${pct}%
+        <div class="exam-score-label">${pass ? 'APROBADO' : 'REPROBADO'}</div>
+      </div>
+      <div class="exam-result-title">${pass ? '🎉 ¡Aprobaste!' : '📖 Podés mejorar'}</div>
+      <div class="exam-result-sub">
+        ${correct} / ${examQuestions.length} correctas · Nota: ${nota} / 5.0 · Tiempo: ${mins}m ${secs}s
+      </div>
+      <div class="exam-breakdown">
+        <div class="exam-breakdown-title">Desglose por lección</div>
+        ${examQuestions.map((q, i) => {
+          const ok = examAnswers[i] === q.a;
+          return `<div class="exam-breakdown-row">
+            <span>L${q.lesson} — ${q.q.slice(0,45)}${q.q.length>45?'…':''}</span>
+            <span class="${ok?'ok':'fail'}">${ok ? '✅' : '❌ ' + q.opts[q.a]}</span>
+          </div>`;
+        }).join('')}
+      </div>
+    </div>
+    <div style="text-align:center;padding-bottom:2rem">
+      <button class="exam-nav-btn primary" onclick="startExamSimulacro()" style="margin-right:0.7rem">🔄 Reintentar</button>
+      <button class="exam-nav-btn" onclick="exitExamSimulacro()">🏠 Volver al inicio</button>
+    </div>`;
+}
+
+window.startExamSimulacro = startExamSimulacro;
+window.exitExamSimulacro  = exitExamSimulacro;
+window.examSelectOpt      = examSelectOpt;
+window.examNav            = examNav;
+window.finishExam         = finishExam;
+
 </script>
 
 <!-- ===== MODO EXAMEN SIMULADO ===== -->
@@ -5774,4 +6034,22 @@ window.toggleProfilePanel = toggleProfilePanel;
 </div>
 
 </body>
-</html>
+</html
+<!-- ===== EXAM PAGE ===== -->
+<div id="exam-page">
+  <!-- Header -->
+  <div class="exam-header">
+    <div class="exam-header-title">📋 Examen Simulacro</div>
+    <div class="exam-progress-row">
+      <span id="exam-q-counter">1 / 20</span>
+      <div class="exam-prog-dots" id="exam-prog-dots"></div>
+    </div>
+    <div class="exam-timer" id="exam-timer">15:00</div>
+  </div>
+
+  <!-- Body: question or result -->
+  <div class="exam-body" id="exam-body">
+    <!-- filled by JS -->
+  </div>
+</div>
+>
