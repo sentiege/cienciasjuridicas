@@ -4679,7 +4679,22 @@ window.toggleAuthMode = function() {
   window.showAuthModal(current === 'login' ? 'register' : 'login');
 };
 window.startExamSimulacro = function() { alert('Cargando...'); };
-window.authSubmit = function() { alert('Firebase aún cargando, intentá en un segundo.'); };
+// Firebase ready promise - resolves when module sets window._firebaseReady()
+var _fbReadyResolve;
+window._firebaseReadyPromise = new Promise(function(resolve) { _fbReadyResolve = resolve; });
+window._firebaseReady = function() { _fbReadyResolve(); };
+
+window._realAuthSubmit = async function() {
+  var btn = document.getElementById('auth-submit');
+  var msg = document.getElementById('auth-msg');
+  if (btn) btn.disabled = true;
+  if (msg) { msg.textContent = '⏳ Iniciando...'; msg.className = 'auth-msg'; }
+  await window._firebaseReadyPromise;
+  if (btn) btn.disabled = false;
+  // real authSubmit from module is now loaded
+  var realFn = window._realAuthSubmit;
+  if (realFn) realFn();
+};
 </script>
 <script type="module">
 const TOTAL = {"11": 7, "12": 8, "13": 7, "14": 7, "15": 7, "16": 6, "17": 5, "18": 7, "19": 7, "20": 7, "21": 6, "22": 5, "23": 5, "24": 5, "25": 5, "26": 6, "27": 6, "28": 6, "29": 5, "30": 5};
@@ -5146,6 +5161,8 @@ const firebaseConfig = {
 };
 const fbApp = initializeApp(firebaseConfig);
 const db = getFirestore(fbApp);
+// Signal that Firebase + all auth functions are now ready
+if (window._firebaseReady) window._firebaseReady();
 
 // ── Session state ────────────────────────────────────────────
 let currentUser = null; // { ci, name, xp, streak, lastDate, progress }
