@@ -5085,6 +5085,27 @@ markQuizResult = async function(num, pct) {
   refreshRanking();
 };
 
+
+// Expose functions to global scope (required for inline onclick with type=module)
+window.checkFill = checkFill;
+window.exitExam = exitExam;
+window.goToSlide = goToSlide;
+window.nextSlide = nextSlide;
+window.prevSlide = prevSlide;
+window.qzReset = qzReset;
+window.qzSelect = qzSelect;
+window.qzSubmit = qzSubmit;
+window.qzToggle = qzToggle;
+window.resetAllProgress = resetAllProgress;
+window.resetFill = resetFill;
+window.selectExamOpt = selectExamOpt;
+window.showAuthModal = showAuthModal;
+window.showHome = showHome;
+window.showLesson = showLesson;
+window.startExam = startExam;
+window.submitExam = submitExam;
+window.switchExTab = switchExTab;
+window.toggleExercises = toggleExercises;
 </script>
 
 <!-- ===== MODO EXAMEN SIMULADO ===== -->
