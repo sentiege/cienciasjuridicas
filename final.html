@@ -68,64 +68,73 @@
     color: var(--gold2);
   }
   .lessons-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-    gap: 1.2rem;
-    padding: 2rem 1.5rem;
-    max-width: 1200px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    padding: 1.5rem 1.5rem;
+    max-width: 900px;
     margin: 0 auto;
   }
   .lesson-card {
     background: var(--card-bg);
-    border: 1px solid rgba(212,175,55,0.25);
-    border-radius: 12px;
-    padding: 1.4rem 1.2rem 1rem;
+    border: 1px solid rgba(212,175,55,0.2);
+    border-radius: 0;
+    padding: 0.75rem 1.1rem;
     cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+    transition: background 0.18s, border-color 0.18s;
     position: relative;
     overflow: hidden;
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    border-bottom: none;
   }
+  .lesson-card:first-child { border-radius: 10px 10px 0 0; }
+  .lesson-card:last-child { border-radius: 0 0 10px 10px; border-bottom: 1px solid rgba(212,175,55,0.2); }
+  .lesson-card + .lesson-card { border-top: 1px solid rgba(212,175,55,0.12); }
   .lesson-card::before {
     content: '';
     position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 3px;
-    background: linear-gradient(90deg, var(--gold), var(--gold2));
-    transform: scaleX(0);
-    transition: transform 0.3s;
-    transform-origin: left;
+    top: 0; left: 0; bottom: 0;
+    width: 3px;
+    background: linear-gradient(180deg, var(--gold), var(--gold2));
+    transform: scaleY(0);
+    transition: transform 0.25s;
+    transform-origin: top;
   }
   .lesson-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 25px rgba(212,175,55,0.2);
-    border-color: var(--gold);
+    background: rgba(212,175,55,0.07);
+    border-color: rgba(212,175,55,0.4);
   }
-  .lesson-card:hover::before { transform: scaleX(1); }
-  .card-emoji { font-size: 2.2rem; margin-bottom: 0.5rem; }
+  .lesson-card:hover::before { transform: scaleY(1); }
+  .card-emoji { font-size: 1.4rem; flex-shrink: 0; }
   .card-number {
     color: var(--gold);
-    font-size: 0.75rem;
-    letter-spacing: 2px;
+    font-size: 0.7rem;
+    letter-spacing: 1.5px;
     text-transform: uppercase;
-    margin-bottom: 0.3rem;
+    white-space: nowrap;
+    flex-shrink: 0;
+    min-width: 70px;
   }
   .card-title {
     color: var(--gold2);
-    font-size: 1.05rem;
+    font-size: 0.95rem;
     font-weight: bold;
-    margin-bottom: 0.3rem;
     line-height: 1.3;
+    flex: 1;
   }
   .card-sub {
     color: #a89060;
-    font-size: 0.78rem;
-    line-height: 1.4;
-    margin-bottom: 0.8rem;
+    font-size: 0.75rem;
+    line-height: 1.3;
+    display: none;
   }
   .card-arrow {
     color: var(--gold);
-    font-size: 1.1rem;
-    text-align: right;
+    font-size: 1rem;
+    flex-shrink: 0;
+    margin-left: auto;
   }
 
   /* ========== LESSON PAGE ========== */
@@ -263,6 +272,36 @@
     background: var(--dark2);
   }
 
+  /* Inline chapter progress bar */
+  .inline-prog-wrap {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    margin-top: 0.8rem;
+    padding: 0 1rem;
+    justify-content: center;
+  }
+  .inline-prog-track {
+    width: 200px;
+    max-width: 60vw;
+    height: 6px;
+    background: rgba(212,175,55,0.12);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .inline-prog-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--gold), var(--gold2));
+    border-radius: 10px;
+    transition: width 0.4s ease;
+    width: 0%;
+  }
+  .inline-prog-label {
+    color: #a89060;
+    font-size: 0.75rem;
+    white-space: nowrap;
+  }
+
   footer {
     text-align: center;
     padding: 1.5rem;
@@ -312,17 +351,10 @@
     background: linear-gradient(145deg, #1e2a45, #2a1e00);
   }
   .lesson-card.exam-card::after {
-    content: '📌 Tema de examen';
-    position: absolute;
-    top: 0.5rem; right: 0.7rem;
-    background: rgba(255,152,0,0.2);
-    border: 1px solid #ff9800;
-    color: #ffb74d;
-    font-size: 0.65rem;
-    padding: 0.15rem 0.5rem;
-    border-radius: 10px;
-    letter-spacing: 0.5px;
-    font-weight: bold;
+    content: '📌';
+    position: static;
+    font-size: 0.85rem;
+    flex-shrink: 0;
   }
   .lesson-card.exam-card:hover {
     border-color: #ff9800;
@@ -547,9 +579,8 @@
   .card-state-row {
     display: flex;
     gap: 0.4rem;
-    margin-bottom: 0.5rem;
     flex-wrap: wrap;
-    min-height: 1.4rem;
+    flex-shrink: 0;
   }
   .state-badge {
     font-size: 0.65rem;
@@ -574,8 +605,38 @@
     color: #ffb74d;
   }
   /* Card dim if not visited */
-  .lesson-card.not-visited { opacity: 0.72; }
+  .lesson-card.not-visited { opacity: 0.55; }
   .lesson-card.visited-card { opacity: 1; }
+
+  /* ===== ESTADO DE LECTURA EN LISTA ===== */
+  /* Visitada: acento azul a la izquierda */
+  .lesson-card.visited-card::before {
+    background: linear-gradient(180deg, #2196f3, #42a5f5) !important;
+    transform: scaleY(1) !important;
+  }
+  /* Quiz aprobado: acento verde */
+  .lesson-card.quiz-ok-card::before {
+    background: linear-gradient(180deg, #4caf50, #66bb6a) !important;
+    transform: scaleY(1) !important;
+  }
+  .lesson-card.quiz-ok-card {
+    background: rgba(76,175,80,0.06) !important;
+  }
+  .lesson-card.quiz-ok-card .card-title {
+    color: #a5d6a7;
+  }
+  /* Quiz intentado sin aprobar: acento naranja */
+  .lesson-card.quiz-tried-card::before {
+    background: linear-gradient(180deg, #ff9800, #ffb74d) !important;
+    transform: scaleY(1) !important;
+  }
+
+  /* Ícono de estado al lado del título */
+  .card-status-icon {
+    font-size: 0.85rem;
+    flex-shrink: 0;
+    margin-left: 0.3rem;
+  }
 
 
   /* ===== EXERCISES PANEL ===== */
@@ -3983,6 +4044,14 @@ function showLesson(num) {
   const page = document.getElementById('lesson-' + num);
   if (page) {
     page.style.display = 'flex';
+    // inject inline progress bar in lesson-meta if not already there
+    const meta = page.querySelector('.lesson-meta');
+    if (meta && !document.getElementById('inline-prog-' + num)) {
+      const wrap = document.createElement('div');
+      wrap.className = 'inline-prog-wrap';
+      wrap.innerHTML = '<div class="inline-prog-track"><div class="inline-prog-fill" id="inline-prog-' + num + '"></div></div><span class="inline-prog-label" id="inline-prog-label-' + num + '"></span>';
+      meta.appendChild(wrap);
+    }
     updateProgress(num);
     window.scrollTo(0, 0);
   }
@@ -4017,6 +4086,12 @@ function updateProgress(num) {
   const pct = ((state[num] + 1) / total) * 100;
   const bar = document.getElementById('prog-' + num);
   if (bar) bar.style.width = pct + '%';
+  const inlineBar = document.getElementById('inline-prog-' + num);
+  if (inlineBar) {
+    inlineBar.style.width = pct + '%';
+    const lbl = document.getElementById('inline-prog-label-' + num);
+    if (lbl) lbl.textContent = (state[num] + 1) + ' / ' + total;
+  }
 }
 
 // Keyboard navigation
@@ -4077,16 +4152,42 @@ function refreshProgressUI() {
         card.classList.add('not-visited');
         card.classList.remove('visited-card');
       }
+      // quiz state classes
+      card.classList.remove('quiz-ok-card', 'quiz-tried-card');
+      if (data.quizPassed === true) {
+        card.classList.add('quiz-ok-card');
+        passed++;
+      } else if (data.quizPct !== undefined) {
+        card.classList.add('quiz-tried-card');
+      }
+      // status icon next to title
+      const titleEl = card.querySelector('.card-title');
+      const existingIcon = card.querySelector('.card-status-icon');
+      if (existingIcon) existingIcon.remove();
+      if (data.quizPassed === true) {
+        const icon = document.createElement('span');
+        icon.className = 'card-status-icon';
+        icon.textContent = '✅';
+        if (titleEl) titleEl.after(icon);
+      } else if (data.visited && data.quizPct !== undefined) {
+        const icon = document.createElement('span');
+        icon.className = 'card-status-icon';
+        icon.textContent = '🔄';
+        if (titleEl) titleEl.after(icon);
+      } else if (data.visited) {
+        const icon = document.createElement('span');
+        icon.className = 'card-status-icon';
+        icon.textContent = '👁';
+        if (titleEl) titleEl.after(icon);
+      }
     }
 
     if (stateRow) {
       let badges = '';
-      if (data.visited) badges += '<span class="state-badge visited">👁 Visitada</span>';
       if (data.quizPassed === true) {
-        badges += `<span class="state-badge quiz-pass">✅ Quiz ${data.quizPct}%</span>`;
-        passed++;
+        badges += `<span class="state-badge quiz-pass">✅ ${data.quizPct}%</span>`;
       } else if (data.quizPct !== undefined) {
-        badges += `<span class="state-badge quiz-fail">📖 Quiz ${data.quizPct}%</span>`;
+        badges += `<span class="state-badge quiz-fail">📖 ${data.quizPct}%</span>`;
       }
       stateRow.innerHTML = badges;
     }
