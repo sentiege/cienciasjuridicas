@@ -836,11 +836,216 @@
   .slide .exercises-panel { padding: 0; margin: 0 0 1rem 0; }
   .slide .qz-wrap { padding: 0; margin: 0; }
 
+
+  /* ========== FIREBASE AUTH MODAL ========== */
+  #auth-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.85);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+  }
+  #auth-overlay.open { display: flex; }
+  .auth-box {
+    background: var(--dark2);
+    border: 2px solid var(--gold);
+    border-radius: 16px;
+    padding: 2.5rem 2rem;
+    width: min(420px, 92vw);
+    text-align: center;
+    position: relative;
+  }
+  .auth-box h2 { color: var(--gold2); margin-bottom: 0.3rem; font-size: 1.4rem; }
+  .auth-box .auth-sub { color: #a89060; font-size: 0.85rem; margin-bottom: 1.5rem; font-style: italic; }
+  .auth-input {
+    width: 100%;
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(212,175,55,0.4);
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    color: var(--text);
+    font-size: 1rem;
+    margin-bottom: 0.9rem;
+    font-family: inherit;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .auth-input:focus { border-color: var(--gold); }
+  .auth-btn {
+    width: 100%;
+    background: linear-gradient(135deg, var(--gold), var(--gold2));
+    color: #1a1a2e;
+    border: none;
+    border-radius: 8px;
+    padding: 0.8rem;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    font-family: inherit;
+    margin-bottom: 0.7rem;
+    transition: opacity 0.2s;
+  }
+  .auth-btn:hover { opacity: 0.88; }
+  .auth-btn.secondary {
+    background: transparent;
+    color: var(--gold);
+    border: 1px solid var(--gold);
+    margin-bottom: 0;
+  }
+  .auth-msg { color: #e07070; font-size: 0.85rem; margin-bottom: 0.7rem; min-height: 1.2em; }
+  .auth-success { color: #70e070; }
+
+  /* ========== USER PROFILE BAR ========== */
+  #user-bar {
+    display: none;
+    background: rgba(212,175,55,0.08);
+    border-bottom: 1px solid rgba(212,175,55,0.2);
+    padding: 0.5rem 1.5rem;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  #user-bar.visible { display: flex; }
+  .user-bar-left { display: flex; align-items: center; gap: 0.8rem; }
+  .user-avatar {
+    width: 36px; height: 36px;
+    background: linear-gradient(135deg, var(--gold), var(--gold2));
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: bold; color: #1a1a2e; font-size: 0.95rem;
+    flex-shrink: 0;
+  }
+  .user-name { color: var(--gold2); font-weight: bold; font-size: 0.95rem; }
+  .user-ci { color: #a89060; font-size: 0.78rem; }
+  .user-bar-right { display: flex; align-items: center; gap: 0.7rem; }
+  .xp-badge {
+    background: rgba(212,175,55,0.15);
+    border: 1px solid var(--gold);
+    border-radius: 20px;
+    padding: 0.2rem 0.7rem;
+    font-size: 0.78rem;
+    color: var(--gold2);
+  }
+  .streak-badge {
+    background: rgba(255,120,50,0.15);
+    border: 1px solid #ff7832;
+    border-radius: 20px;
+    padding: 0.2rem 0.7rem;
+    font-size: 0.78rem;
+    color: #ffaa60;
+  }
+  .logout-btn {
+    background: transparent;
+    border: 1px solid rgba(212,175,55,0.3);
+    color: #a89060;
+    border-radius: 6px;
+    padding: 0.2rem 0.6rem;
+    font-size: 0.75rem;
+    cursor: pointer;
+    font-family: inherit;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .logout-btn:hover { border-color: var(--gold); color: var(--gold); }
+
+  /* ========== RANKING / LEADERBOARD ========== */
+  #ranking-section {
+    max-width: 900px;
+    margin: 0 auto 2rem;
+    padding: 0 1.5rem;
+  }
+  .ranking-header {
+    color: var(--gold2);
+    font-size: 1.05rem;
+    font-weight: bold;
+    margin-bottom: 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .ranking-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--card-bg);
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid rgba(212,175,55,0.2);
+    font-size: 0.88rem;
+  }
+  .ranking-table th {
+    background: rgba(212,175,55,0.12);
+    color: var(--gold);
+    padding: 0.5rem 0.8rem;
+    text-align: left;
+    font-weight: normal;
+    letter-spacing: 0.5px;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+  }
+  .ranking-table td { padding: 0.5rem 0.8rem; border-top: 1px solid rgba(212,175,55,0.08); }
+  .ranking-table tr.me td { background: rgba(212,175,55,0.07); color: var(--gold2); }
+  .rank-pos { color: var(--gold); font-weight: bold; width: 2rem; }
+  .rank-medal { font-size: 1rem; }
+  .rank-xp { color: var(--gold2); font-weight: bold; }
+  .rank-streak { color: #ffaa60; }
+  .rank-passed { color: #70e090; }
+  #ranking-loading { color: #a89060; font-size: 0.85rem; padding: 0.8rem 0; text-align: center; }
+
+  /* ========== LOGIN PROMPT on home ========== */
+  #login-prompt {
+    max-width: 900px;
+    margin: 1.5rem auto 0;
+    padding: 0 1.5rem;
+  }
+  .login-prompt-box {
+    background: rgba(212,175,55,0.06);
+    border: 1px dashed rgba(212,175,55,0.35);
+    border-radius: 10px;
+    padding: 1rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+  }
+  .login-prompt-text { color: #a89060; font-size: 0.9rem; }
+  .login-prompt-text strong { color: var(--gold2); }
+  .login-prompt-btn {
+    background: linear-gradient(135deg, var(--gold), var(--gold2));
+    color: #1a1a2e;
+    border: none;
+    border-radius: 8px;
+    padding: 0.5rem 1.2rem;
+    font-size: 0.88rem;
+    font-weight: bold;
+    cursor: pointer;
+    font-family: inherit;
+    white-space: nowrap;
+  }
 </style>
 </head>
 <body>
 
 <!-- ===== HOME PAGE ===== -->
+
+<!-- ===== USER BAR ===== -->
+<div id="user-bar">
+  <div class="user-bar-left">
+    <div class="user-avatar" id="user-avatar">?</div>
+    <div>
+      <div class="user-name" id="user-name-display">—</div>
+      <div class="user-ci" id="user-ci-display">CI: —</div>
+    </div>
+  </div>
+  <div class="user-bar-right">
+    <span class="xp-badge" id="user-xp-display">⚡ 0 XP</span>
+    <span class="streak-badge" id="user-streak-display">🔥 1 día</span>
+    <button class="logout-btn" id="logout-btn">Salir</button>
+  </div>
+</div>
+
 <div id="home-page">
   <div class="home-hero">
     <div class="crest">⚖️</div>
@@ -852,6 +1057,38 @@
       <span class="badge">🎓 Lecciones 11 — 30</span>
       <span class="badge">🇵🇾 Derecho Paraguayo</span>
     </div>
+
+<!-- ===== LOGIN PROMPT ===== -->
+<div id="login-prompt">
+  <div class="login-prompt-box">
+    <div class="login-prompt-text">
+      🎮 <strong>¿Querés guardar tu progreso y competir en el ranking?</strong><br>
+      Registrate con tu CI para que tus lecciones y quizzes queden guardados en la nube.
+    </div>
+    <button class="login-prompt-btn" onclick="showAuthModal('register')">Registrarme / Entrar</button>
+  </div>
+</div>
+
+
+<!-- ===== RANKING ===== -->
+<div id="ranking-section">
+  <div class="ranking-header">🏆 Ranking del Curso</div>
+  <table class="ranking-table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Estudiante</th>
+        <th>XP</th>
+        <th>Aprobadas</th>
+        <th>Racha</th>
+      </tr>
+    </thead>
+    <tbody id="ranking-tbody"></tbody>
+  </table>
+  <div id="ranking-loading" style="display:none">⏳ Cargando ranking...</div>
+</div>
+
+
   </div>
 
   <!-- GLOBAL PROGRESS BAR -->
@@ -4186,8 +4423,8 @@
 
 </section>
 
-<script>
-const TOTAL = {"11": 7, "12": 8, "13": 7, "14": 7, "15": 7, "16": 6, "17": 5, "18": 7, "19": 7, "20": 7, "21": 6, "22": 5, "23": 5, "24": 5, "25": 5, "26": 6, "27": 6, "28": 6, "29": 5, "30": 4};
+<script type="module">
+const TOTAL = {"11": 7, "12": 8, "13": 7, "14": 7, "15": 7, "16": 6, "17": 5, "18": 7, "19": 7, "20": 7, "21": 6, "22": 5, "23": 5, "24": 5, "25": 5, "26": 6, "27": 6, "28": 6, "29": 5, "30": 5};
 const state = {};
 
 Object.keys(TOTAL).forEach(n => { state[n] = 0; });
@@ -4630,6 +4867,224 @@ function qzReset(num) {
   document.getElementById('qzcheck-' + num).style.display = 'inline-block';
 }
 
+
+
+
+// ============================================================
+// FIREBASE + GAMIFICATION
+// ============================================================
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getFirestore, doc, setDoc, getDoc, collection, getDocs, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyB4WEMqZ5d5SrR_j9LuW6xTe-it71Bv4Pk",
+  authDomain: "cienciasjuridicas-a7aaa.firebaseapp.com",
+  projectId: "cienciasjuridicas-a7aaa",
+  storageBucket: "cienciasjuridicas-a7aaa.firebasestorage.app",
+  messagingSenderId: "677915883088",
+  appId: "1:677915883088:web:f1da8bde2250f7c1530355",
+  measurementId: "G-FEJLJHR96C"
+};
+const fbApp = initializeApp(firebaseConfig);
+const db = getFirestore(fbApp);
+
+// ── Session state ────────────────────────────────────────────
+let currentUser = null; // { ci, name, xp, streak, lastDate, progress }
+
+// ── XP rules ────────────────────────────────────────────────
+const XP_VISIT  = 5;   // per lección visited (first time)
+const XP_QUIZ75 = 20;  // quiz ≥ 75%
+const XP_QUIZ100= 35;  // quiz 100%
+
+function calcXP(progress) {
+  let xp = 0;
+  Object.values(progress || {}).forEach(d => {
+    if (d.visited)        xp += XP_VISIT;
+    if (d.quizPassed)     xp += d.quizPct === 100 ? XP_QUIZ100 : XP_QUIZ75;
+  });
+  return xp;
+}
+
+function calcPassed(progress) {
+  return Object.values(progress || {}).filter(d => d.quizPassed).length;
+}
+
+// ── Streak logic ─────────────────────────────────────────────
+function todayStr() { return new Date().toISOString().slice(0,10); }
+
+function updateStreak(userData) {
+  const today = todayStr();
+  if (userData.lastDate === today) return userData.streak || 1;
+  const yesterday = new Date(Date.now() - 86400000).toISOString().slice(0,10);
+  if (userData.lastDate === yesterday) return (userData.streak || 0) + 1;
+  return 1; // broke streak
+}
+
+// ── Firestore helpers ────────────────────────────────────────
+async function loadUserData(ci) {
+  const ref = doc(db, "users", ci);
+  const snap = await getDoc(ref);
+  return snap.exists() ? snap.data() : null;
+}
+
+async function saveUserData(ci, data) {
+  const ref = doc(db, "users", ci);
+  await setDoc(ref, data, { merge: true });
+}
+
+async function loadRanking() {
+  const snap = await getDocs(collection(db, "users"));
+  const rows = [];
+  snap.forEach(d => rows.push(d.data()));
+  rows.sort((a,b) => (b.xp||0) - (a.xp||0));
+  return rows.slice(0, 15);
+}
+
+// ── UI helpers ───────────────────────────────────────────────
+function showAuthModal(mode='login') {
+  document.getElementById('auth-overlay').classList.add('open');
+  document.getElementById('auth-mode-title').textContent =
+    mode === 'register' ? 'Registrarse' : 'Iniciar Sesión';
+  document.getElementById('auth-name-wrap').style.display =
+    mode === 'register' ? 'block' : 'none';
+  document.getElementById('auth-submit').textContent =
+    mode === 'register' ? 'Registrarme' : 'Entrar';
+  document.getElementById('auth-toggle-btn').textContent =
+    mode === 'register' ? '¿Ya tenés cuenta? Entrá' : '¿Primera vez? Registrate';
+  document.getElementById('auth-overlay').dataset.mode = mode;
+  document.getElementById('auth-msg').textContent = '';
+}
+
+function hideAuthModal() {
+  document.getElementById('auth-overlay').classList.remove('open');
+}
+
+function renderUserBar() {
+  if (!currentUser) return;
+  document.getElementById('user-bar').classList.add('visible');
+  document.getElementById('login-prompt').style.display = 'none';
+
+  const initials = currentUser.name.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
+  document.getElementById('user-avatar').textContent = initials;
+  document.getElementById('user-name-display').textContent = currentUser.name;
+  document.getElementById('user-ci-display').textContent = 'CI: ' + currentUser.ci;
+  document.getElementById('user-xp-display').textContent = '⚡ ' + (currentUser.xp||0) + ' XP';
+  document.getElementById('user-streak-display').textContent = '🔥 ' + (currentUser.streak||1) + ' días';
+
+  refreshRanking();
+}
+
+async function refreshRanking() {
+  const tbody = document.getElementById('ranking-tbody');
+  const loading = document.getElementById('ranking-loading');
+  if (!tbody) return;
+  if (loading) loading.style.display = 'block';
+  try {
+    const rows = await loadRanking();
+    if (loading) loading.style.display = 'none';
+    const medals = ['🥇','🥈','🥉'];
+    tbody.innerHTML = rows.map((u,i) => {
+      const isMe = currentUser && u.ci === currentUser.ci;
+      return `<tr class="${isMe ? 'me' : ''}">
+        <td class="rank-pos">${medals[i] || (i+1)}</td>
+        <td>${u.name || '—'}</td>
+        <td class="rank-xp">⚡ ${u.xp||0}</td>
+        <td class="rank-passed">✅ ${calcPassed(u.progress||{})} / 20</td>
+        <td class="rank-streak">🔥 ${u.streak||1}</td>
+      </tr>`;
+    }).join('');
+  } catch(e) {
+    if (loading) loading.textContent = 'No se pudo cargar el ranking.';
+  }
+}
+
+// ── Auth submit ──────────────────────────────────────────────
+document.getElementById('auth-submit').addEventListener('click', async () => {
+  const mode = document.getElementById('auth-overlay').dataset.mode || 'login';
+  const ci   = document.getElementById('auth-ci').value.trim();
+  const name = document.getElementById('auth-name').value.trim();
+  const msg  = document.getElementById('auth-msg');
+
+  if (!ci || ci.length < 4) { msg.textContent = 'Ingresá un CI válido (mín. 4 dígitos).'; return; }
+  if (mode === 'register' && !name) { msg.textContent = 'Ingresá tu nombre completo.'; return; }
+
+  msg.textContent = '⏳ Verificando...';
+  msg.className = 'auth-msg';
+
+  try {
+    const existing = await loadUserData(ci);
+
+    if (mode === 'register') {
+      if (existing) { msg.textContent = '❌ Ese CI ya está registrado. Usá "Entrar".'; return; }
+      const localProg = getProgress();
+      const streak = 1;
+      const xp = calcXP(localProg);
+      const userData = { ci, name, xp, streak, lastDate: todayStr(), progress: localProg, createdAt: todayStr() };
+      await saveUserData(ci, userData);
+      currentUser = userData;
+    } else {
+      if (!existing) { msg.textContent = '❌ CI no encontrado. ¿Te registraste?'; return; }
+      const newStreak = updateStreak(existing);
+      const merged = { ...existing, streak: newStreak, lastDate: todayStr() };
+      await saveUserData(ci, { streak: newStreak, lastDate: todayStr() });
+      // Merge remote progress into local
+      const merged_progress = { ...getProgress(), ...(existing.progress||{}) };
+      saveProgress(merged_progress);
+      currentUser = { ...merged, progress: merged_progress };
+    }
+
+    msg.textContent = '✅ ¡Bienvenido/a, ' + currentUser.name + '!';
+    msg.className = 'auth-msg auth-success';
+    setTimeout(() => { hideAuthModal(); renderUserBar(); refreshProgressUI(); }, 900);
+
+  } catch(e) {
+    msg.textContent = '❌ Error de conexión. Intentá de nuevo.';
+    console.error(e);
+  }
+});
+
+document.getElementById('auth-toggle-btn').addEventListener('click', () => {
+  const current = document.getElementById('auth-overlay').dataset.mode || 'login';
+  showAuthModal(current === 'login' ? 'register' : 'login');
+});
+
+document.getElementById('auth-cancel').addEventListener('click', hideAuthModal);
+
+document.getElementById('logout-btn').addEventListener('click', () => {
+  currentUser = null;
+  document.getElementById('user-bar').classList.remove('visible');
+  document.getElementById('login-prompt').style.display = 'block';
+  document.getElementById('ranking-tbody').innerHTML = '';
+  document.getElementById('ranking-loading').style.display = 'none';
+  document.getElementById('ranking-loading').textContent = 'Iniciá sesión para ver el ranking.';
+});
+
+// ── Override markVisited & markQuizResult to also sync Firebase ──
+const _origMarkVisited = markVisited;
+markVisited = async function(num) {
+  _origMarkVisited(num);
+  if (!currentUser) return;
+  const p = getProgress();
+  const xp = calcXP(p);
+  currentUser.xp = xp;
+  currentUser.progress = p;
+  document.getElementById('user-xp-display').textContent = '⚡ ' + xp + ' XP';
+  await saveUserData(currentUser.ci, { xp, progress: p, lastDate: todayStr() });
+};
+
+const _origMarkQuizResult = markQuizResult;
+markQuizResult = async function(num, pct) {
+  _origMarkQuizResult(num, pct);
+  if (!currentUser) return;
+  const p = getProgress();
+  const xp = calcXP(p);
+  currentUser.xp = xp;
+  currentUser.progress = p;
+  document.getElementById('user-xp-display').textContent = '⚡ ' + xp + ' XP';
+  await saveUserData(currentUser.ci, { xp, progress: p, lastDate: todayStr() });
+  refreshRanking();
+};
+
 </script>
 
 <!-- ===== MODO EXAMEN SIMULADO ===== -->
@@ -4894,5 +5349,24 @@ function qzReset(num) {
     <button class="exam-submit-btn" onclick="submitExam()">📋 Finalizar examen</button>
   </div>
 </div>
+
+
+<!-- ===== AUTH MODAL ===== -->
+<div id="auth-overlay">
+  <div class="auth-box">
+    <h2 id="auth-mode-title">Iniciar Sesión</h2>
+    <p class="auth-sub">Ingresá tu CI para sincronizar tu progreso</p>
+    <p id="auth-msg" class="auth-msg"></p>
+    <input id="auth-ci" class="auth-input" type="number" placeholder="Número de CI (sin puntos)" inputmode="numeric" />
+    <div id="auth-name-wrap" style="display:none">
+      <input id="auth-name" class="auth-input" type="text" placeholder="Nombre y apellido completo" />
+    </div>
+    <button id="auth-submit" class="auth-btn">Entrar</button>
+    <button id="auth-toggle-btn" class="auth-btn secondary">¿Primera vez? Registrate</button>
+    <br><br>
+    <button id="auth-cancel" class="auth-btn secondary" style="margin-top:0.3rem; font-size:0.8rem; opacity:0.6">Cancelar — continuar sin cuenta</button>
+  </div>
+</div>
+
 </body>
 </html>
