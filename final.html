@@ -5269,6 +5269,7 @@ window.authSubmit = async function() {
   msg.className = 'auth-msg';
 
   try {
+    if (typeof db === 'undefined') { msg.textContent = '❌ Error: Firebase no cargó. Recargá la página.'; return; }
     const existing = await loadUserData(ci);
 
     if (mode === 'register') {
@@ -5295,7 +5296,7 @@ window.authSubmit = async function() {
     setTimeout(() => { hideAuthModal(); renderUserBar(); refreshProgressUI(); }, 900);
 
   } catch(e) {
-    msg.textContent = '❌ Error de conexión. Intentá de nuevo.';
+    msg.textContent = '❌ Error: ' + (e.message || 'Intentá de nuevo.');
     console.error(e);
   }
 };
