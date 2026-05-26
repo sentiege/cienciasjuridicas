@@ -1098,7 +1098,7 @@
         <th>#</th>
         <th>Estudiante</th>
         <th>XP</th>
-        <th class="rank-hide-mobile">Aprobadas</th>
+        <th>Aprobadas</th>
         <th class="rank-hide-mobile">Racha</th>
       </tr>
     </thead>
@@ -5008,7 +5008,7 @@ async function refreshRanking() {
         <td class="rank-pos">${medals[i] || (i+1)}</td>
         <td>${u.name || '—'}</td>
         <td class="rank-xp">⚡ ${u.xp||0}</td>
-        <td class="rank-passed rank-hide-mobile">✅ ${calcPassed(u.progress||{})} / 20</td>
+        <td class="rank-passed">✅ ${calcPassed(u.progress||{})} / 20</td>
         <td class="rank-streak rank-hide-mobile">🔥 ${u.streak||1}</td>
       </tr>`;
     }).join('');
