@@ -5302,7 +5302,6 @@ window.submitExam = submitExam;
 window.switchExTab = switchExTab;
 window.toggleExercises = toggleExercises;
 window.checkBadges = checkBadges;
-window.toggleProfilePanel = toggleProfilePanel;
 window.refreshThematic = refreshThematic;
 
 
@@ -5471,6 +5470,7 @@ function toggleProfilePanel() {
     checkBadges();
   }
 }
+window.toggleProfilePanel = toggleProfilePanel;
 </script>
 
 <!-- ===== MODO EXAMEN SIMULADO ===== -->
@@ -5736,6 +5736,21 @@ function toggleProfilePanel() {
   </div>
 </div>
 
+
+
+<!-- ===== PROFILE PANEL ===== -->
+<div id="profile-panel">
+  <div class="profile-panel-inner">
+    <div id="thematic-section">
+      <div class="thematic-header">📊 Progreso por Unidad</div>
+      <div class="thematic-grid" id="thematic-grid"></div>
+    </div>
+    <div style="margin-top:1rem" id="badges-section">
+      <div class="badges-header">🏅 Mis Insignias</div>
+      <div class="badges-grid" id="badges-grid"></div>
+    </div>
+  </div>
+</div>
 
 <!-- ===== AUTH MODAL ===== -->
 <div id="auth-overlay">
