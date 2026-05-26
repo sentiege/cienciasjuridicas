@@ -1121,14 +1121,14 @@
   }
   .badge-item {
     background: var(--card-bg);
-    border: 1px solid rgba(212,175,55,0.15);
+    border: 1px solid rgba(212,175,55,0.25);
     border-radius: 10px;
     padding: 0.6rem 0.9rem;
     display: flex;
     align-items: center;
     gap: 0.6rem;
-    opacity: 0.35;
-    filter: grayscale(1);
+    opacity: 0.6;
+    filter: grayscale(0.7);
     transition: opacity 0.4s, filter 0.4s, border-color 0.4s, transform 0.3s;
     cursor: default;
     position: relative;
@@ -5373,7 +5373,7 @@ function refreshThematic() {
       if (passed === lessons.length) {
         stat.innerHTML = '<span class="complete-label">✅ Bloque completo</span>';
       } else {
-        stat.textContent = `${passed} / ${lessons.length} aprobadas`;
+        stat.innerHTML = `<span>✅ ${passed} aprob.</span><span>👁 ${visited} vistas</span>`;
       }
     }
   });
@@ -5466,6 +5466,9 @@ function toggleProfilePanel() {
   const isOpen = panel.classList.toggle('open');
   if (hint) hint.textContent = isOpen ? 'toca para cerrar ▴' : 'toca para ver tu perfil ▾';
   if (isOpen) {
+    // Re-init grids every time in case DOM wasn't ready on first load
+    initBadgeGrid();
+    initThematicGrid();
     refreshThematic();
     checkBadges();
   }
