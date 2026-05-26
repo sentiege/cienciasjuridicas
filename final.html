@@ -974,14 +974,26 @@
     align-items: center;
     gap: 0.5rem;
   }
+  .ranking-table-wrap {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    border-radius: 10px;
+  }
   .ranking-table {
     width: 100%;
+    min-width: 340px;
     border-collapse: collapse;
     background: var(--card-bg);
     border-radius: 10px;
     overflow: hidden;
     border: 1px solid rgba(212,175,55,0.2);
     font-size: 0.88rem;
+  }
+  @media (max-width: 520px) {
+    .ranking-table { font-size: 0.78rem; }
+    .ranking-table th, .ranking-table td { padding: 0.4rem 0.5rem; }
+    #ranking-section { padding: 0 0.75rem; }
   }
   .ranking-table th {
     background: rgba(212,175,55,0.12);
@@ -1082,7 +1094,7 @@
 <!-- ===== RANKING ===== -->
 <div id="ranking-section">
   <div class="ranking-header">🏆 Ranking del Curso</div>
-  <table class="ranking-table">
+  <div class="ranking-table-wrap"><table class="ranking-table">
     <thead>
       <tr>
         <th>#</th>
@@ -1093,7 +1105,7 @@
       </tr>
     </thead>
     <tbody id="ranking-tbody"></tbody>
-  </table>
+  </table></div>
   <div id="ranking-loading" style="display:none">⏳ Cargando ranking...</div>
 </div>
 
