@@ -910,6 +910,15 @@
   }
   #user-bar.visible { display: flex; }
   .user-bar-left { display: flex; align-items: center; gap: 0.8rem; }
+  @media (max-width: 520px) {
+    #user-bar {
+      padding: 0.6rem 1rem;
+      justify-content: center;
+      text-align: center;
+    }
+    .user-bar-left { justify-content: center; width: 100%; }
+    .user-bar-right { justify-content: center; width: 100%; flex-wrap: wrap; }
+  }
   .user-avatar {
     width: 36px; height: 36px;
     background: linear-gradient(135deg, var(--gold), var(--gold2));
