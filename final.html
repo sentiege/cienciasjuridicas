@@ -1223,6 +1223,67 @@
     transition: opacity 0.2s;
   }
   .exam-launch-btn:hover { opacity: 0.85; }
+
+  /* ========== TTS AUDIO PLAYER ========== */
+  .tts-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(212,175,55,0.06);
+    border-top: 1px solid rgba(212,175,55,0.15);
+    padding: 0.5rem 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .tts-btn {
+    background: rgba(212,175,55,0.12);
+    border: 1px solid rgba(212,175,55,0.35);
+    color: var(--gold2);
+    border-radius: 8px;
+    padding: 0.35rem 0.8rem;
+    font-size: 0.82rem;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    white-space: nowrap;
+  }
+  .tts-btn:hover { background: rgba(212,175,55,0.25); border-color: var(--gold); }
+  .tts-btn.tts-active {
+    background: rgba(212,175,55,0.28);
+    border-color: var(--gold2);
+    box-shadow: 0 0 8px rgba(212,175,55,0.25);
+  }
+  .tts-btn.tts-stop { border-color: rgba(244,67,54,0.4); color: #ef9a9a; }
+  .tts-btn.tts-stop:hover { background: rgba(244,67,54,0.15); border-color: #f44336; }
+  .tts-status {
+    font-size: 0.72rem;
+    color: #a89060;
+    font-style: italic;
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .tts-speed {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(212,175,55,0.25);
+    color: var(--gold2);
+    border-radius: 6px;
+    padding: 0.3rem 0.4rem;
+    font-size: 0.78rem;
+    font-family: inherit;
+    cursor: pointer;
+    outline: none;
+  }
+  /* Slide reading highlight */
+  .slide.reading .slide-title {
+    text-shadow: 0 0 12px rgba(212,175,55,0.5);
+    transition: text-shadow 0.4s;
+  }
+
 </style>
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
@@ -1655,6 +1716,22 @@
       <button class="ctrl-btn" onclick="nextSlide(11)">&#8594;</button>
     </div>
     <div class="progress-bar-wrap"><div class="progress-bar" id="prog-11"></div></div>
+
+    <div class="tts-bar" id="tts-bar-11">
+      <button class="tts-btn" id="tts-play-11" onclick="ttsToggle(11)" title="Leer este slide en voz alta">
+        🔊 Escuchar
+      </button>
+      <button class="tts-btn tts-stop" id="tts-stop-11" onclick="ttsStop(11)" title="Detener lectura" style="display:none">
+        ⏹ Detener
+      </button>
+      <select class="tts-speed" id="tts-speed-11" title="Velocidad de lectura">
+        <option value="0.8">0.8×</option>
+        <option value="1" selected>1×</option>
+        <option value="1.2">1.2×</option>
+        <option value="1.5">1.5×</option>
+      </select>
+      <span class="tts-status" id="tts-status-11">🎧 listo para escuchar</span>
+    </div>
   
   
   
@@ -1820,6 +1897,22 @@
       <button class="ctrl-btn" onclick="nextSlide(12)">&#8594;</button>
     </div>
     <div class="progress-bar-wrap"><div class="progress-bar" id="prog-12"></div></div>
+
+    <div class="tts-bar" id="tts-bar-12">
+      <button class="tts-btn" id="tts-play-12" onclick="ttsToggle(12)" title="Leer este slide en voz alta">
+        🔊 Escuchar
+      </button>
+      <button class="tts-btn tts-stop" id="tts-stop-12" onclick="ttsStop(12)" title="Detener lectura" style="display:none">
+        ⏹ Detener
+      </button>
+      <select class="tts-speed" id="tts-speed-12" title="Velocidad de lectura">
+        <option value="0.8">0.8×</option>
+        <option value="1" selected>1×</option>
+        <option value="1.2">1.2×</option>
+        <option value="1.5">1.5×</option>
+      </select>
+      <span class="tts-status" id="tts-status-12">🎧 listo para escuchar</span>
+    </div>
   
   
   
@@ -1980,6 +2073,22 @@
       <button class="ctrl-btn" onclick="nextSlide(13)">&#8594;</button>
     </div>
     <div class="progress-bar-wrap"><div class="progress-bar" id="prog-13"></div></div>
+
+    <div class="tts-bar" id="tts-bar-13">
+      <button class="tts-btn" id="tts-play-13" onclick="ttsToggle(13)" title="Leer este slide en voz alta">
+        🔊 Escuchar
+      </button>
+      <button class="tts-btn tts-stop" id="tts-stop-13" onclick="ttsStop(13)" title="Detener lectura" style="display:none">
+        ⏹ Detener
+      </button>
+      <select class="tts-speed" id="tts-speed-13" title="Velocidad de lectura">
+        <option value="0.8">0.8×</option>
+        <option value="1" selected>1×</option>
+        <option value="1.2">1.2×</option>
+        <option value="1.5">1.5×</option>
+      </select>
+      <span class="tts-status" id="tts-status-13">🎧 listo para escuchar</span>
+    </div>
   
   
   
@@ -2140,6 +2249,22 @@
       <button class="ctrl-btn" onclick="nextSlide(14)">&#8594;</button>
     </div>
     <div class="progress-bar-wrap"><div class="progress-bar" id="prog-14"></div></div>
+
+    <div class="tts-bar" id="tts-bar-14">
+      <button class="tts-btn" id="tts-play-14" onclick="ttsToggle(14)" title="Leer este slide en voz alta">
+        🔊 Escuchar
+      </button>
+      <button class="tts-btn tts-stop" id="tts-stop-14" onclick="ttsStop(14)" title="Detener lectura" style="display:none">
+        ⏹ Detener
+      </button>
+      <select class="tts-speed" id="tts-speed-14" title="Velocidad de lectura">
+        <option value="0.8">0.8×</option>
+        <option value="1" selected>1×</option>
+        <option value="1.2">1.2×</option>
+        <option value="1.5">1.5×</option>
+      </select>
+      <span class="tts-status" id="tts-status-14">🎧 listo para escuchar</span>
+    </div>
   
   
   
@@ -2301,6 +2426,22 @@
       <button class="ctrl-btn" onclick="nextSlide(15)">&#8594;</button>
     </div>
     <div class="progress-bar-wrap"><div class="progress-bar" id="prog-15"></div></div>
+
+    <div class="tts-bar" id="tts-bar-15">
+      <button class="tts-btn" id="tts-play-15" onclick="ttsToggle(15)" title="Leer este slide en voz alta">
+        🔊 Escuchar
+      </button>
+      <button class="tts-btn tts-stop" id="tts-stop-15" onclick="ttsStop(15)" title="Detener lectura" style="display:none">
+        ⏹ Detener
+      </button>
+      <select class="tts-speed" id="tts-speed-15" title="Velocidad de lectura">
+        <option value="0.8">0.8×</option>
+        <option value="1" selected>1×</option>
+        <option value="1.2">1.2×</option>
+        <option value="1.5">1.5×</option>
+      </select>
+      <span class="tts-status" id="tts-status-15">🎧 listo para escuchar</span>
+    </div>
   
   
   
@@ -2456,6 +2597,22 @@
       <button class="ctrl-btn" onclick="nextSlide(16)">&#8594;</button>
     </div>
     <div class="progress-bar-wrap"><div class="progress-bar" id="prog-16"></div></div>
+
+    <div class="tts-bar" id="tts-bar-16">
+      <button class="tts-btn" id="tts-play-16" onclick="ttsToggle(16)" title="Leer este slide en voz alta">
+        🔊 Escuchar
+      </button>
+      <button class="tts-btn tts-stop" id="tts-stop-16" onclick="ttsStop(16)" title="Detener lectura" style="display:none">
+        ⏹ Detener
+      </button>
+      <select class="tts-speed" id="tts-speed-16" title="Velocidad de lectura">
+        <option value="0.8">0.8×</option>
+        <option value="1" selected>1×</option>
+        <option value="1.2">1.2×</option>
+        <option value="1.5">1.5×</option>
+      </select>
+      <span class="tts-status" id="tts-status-16">🎧 listo para escuchar</span>
+    </div>
   
   
   
@@ -2606,6 +2763,22 @@
       <button class="ctrl-btn" onclick="nextSlide(17)">&#8594;</button>
     </div>
     <div class="progress-bar-wrap"><div class="progress-bar" id="prog-17"></div></div>
+
+    <div class="tts-bar" id="tts-bar-17">
+      <button class="tts-btn" id="tts-play-17" onclick="ttsToggle(17)" title="Leer este slide en voz alta">
+        🔊 Escuchar
+      </button>
+      <button class="tts-btn tts-stop" id="tts-stop-17" onclick="ttsStop(17)" title="Detener lectura" style="display:none">
+        ⏹ Detener
+      </button>
+      <select class="tts-speed" id="tts-speed-17" title="Velocidad de lectura">
+        <option value="0.8">0.8×</option>
+        <option value="1" selected>1×</option>
+        <option value="1.2">1.2×</option>
+        <option value="1.5">1.5×</option>
+      </select>
+      <span class="tts-status" id="tts-status-17">🎧 listo para escuchar</span>
+    </div>
   
   
   
@@ -2766,6 +2939,22 @@
       <button class="ctrl-btn" onclick="nextSlide(18)">&#8594;</button>
     </div>
     <div class="progress-bar-wrap"><div class="progress-bar" id="prog-18"></div></div>
+
+    <div class="tts-bar" id="tts-bar-18">
+      <button class="tts-btn" id="tts-play-18" onclick="ttsToggle(18)" title="Leer este slide en voz alta">
+        🔊 Escuchar
+      </button>
+      <button class="tts-btn tts-stop" id="tts-stop-18" onclick="ttsStop(18)" title="Detener lectura" style="display:none">
+        ⏹ Detener
+      </button>
+      <select class="tts-speed" id="tts-speed-18" title="Velocidad de lectura">
+        <option value="0.8">0.8×</option>
+        <option value="1" selected>1×</option>
+        <option value="1.2">1.2×</option>
+        <option value="1.5">1.5×</option>
+      </select>
+      <span class="tts-status" id="tts-status-18">🎧 listo para escuchar</span>
+    </div>
   
   
   
@@ -2926,6 +3115,22 @@
       <button class="ctrl-btn" onclick="nextSlide(19)">&#8594;</button>
     </div>
     <div class="progress-bar-wrap"><div class="progress-bar" id="prog-19"></div></div>
+
+    <div class="tts-bar" id="tts-bar-19">
+      <button class="tts-btn" id="tts-play-19" onclick="ttsToggle(19)" title="Leer este slide en voz alta">
+        🔊 Escuchar
+      </button>
+      <button class="tts-btn tts-stop" id="tts-stop-19" onclick="ttsStop(19)" title="Detener lectura" style="display:none">
+        ⏹ Detener
+      </button>
+      <select class="tts-speed" id="tts-speed-19" title="Velocidad de lectura">
+        <option value="0.8">0.8×</option>
+        <option value="1" selected>1×</option>
+        <option value="1.2">1.2×</option>
+        <option value="1.5">1.5×</option>
+      </select>
+      <span class="tts-status" id="tts-status-19">🎧 listo para escuchar</span>
+    </div>
   
   
   
@@ -3086,6 +3291,22 @@
       <button class="ctrl-btn" onclick="nextSlide(20)">&#8594;</button>
     </div>
     <div class="progress-bar-wrap"><div class="progress-bar" id="prog-20"></div></div>
+
+    <div class="tts-bar" id="tts-bar-20">
+      <button class="tts-btn" id="tts-play-20" onclick="ttsToggle(20)" title="Leer este slide en voz alta">
+        🔊 Escuchar
+      </button>
+      <button class="tts-btn tts-stop" id="tts-stop-20" onclick="ttsStop(20)" title="Detener lectura" style="display:none">
+        ⏹ Detener
+      </button>
+      <select class="tts-speed" id="tts-speed-20" title="Velocidad de lectura">
+        <option value="0.8">0.8×</option>
+        <option value="1" selected>1×</option>
+        <option value="1.2">1.2×</option>
+        <option value="1.5">1.5×</option>
+      </select>
+      <span class="tts-status" id="tts-status-20">🎧 listo para escuchar</span>
+    </div>
   
   
   
@@ -3241,6 +3462,22 @@
       <button class="ctrl-btn" onclick="nextSlide(21)">&#8594;</button>
     </div>
     <div class="progress-bar-wrap"><div class="progress-bar" id="prog-21"></div></div>
+
+    <div class="tts-bar" id="tts-bar-21">
+      <button class="tts-btn" id="tts-play-21" onclick="ttsToggle(21)" title="Leer este slide en voz alta">
+        🔊 Escuchar
+      </button>
+      <button class="tts-btn tts-stop" id="tts-stop-21" onclick="ttsStop(21)" title="Detener lectura" style="display:none">
+        ⏹ Detener
+      </button>
+      <select class="tts-speed" id="tts-speed-21" title="Velocidad de lectura">
+        <option value="0.8">0.8×</option>
+        <option value="1" selected>1×</option>
+        <option value="1.2">1.2×</option>
+        <option value="1.5">1.5×</option>
+      </select>
+      <span class="tts-status" id="tts-status-21">🎧 listo para escuchar</span>
+    </div>
   
   
   
@@ -3391,6 +3628,22 @@
       <button class="ctrl-btn" onclick="nextSlide(22)">&#8594;</button>
     </div>
     <div class="progress-bar-wrap"><div class="progress-bar" id="prog-22"></div></div>
+
+    <div class="tts-bar" id="tts-bar-22">
+      <button class="tts-btn" id="tts-play-22" onclick="ttsToggle(22)" title="Leer este slide en voz alta">
+        🔊 Escuchar
+      </button>
+      <button class="tts-btn tts-stop" id="tts-stop-22" onclick="ttsStop(22)" title="Detener lectura" style="display:none">
+        ⏹ Detener
+      </button>
+      <select class="tts-speed" id="tts-speed-22" title="Velocidad de lectura">
+        <option value="0.8">0.8×</option>
+        <option value="1" selected>1×</option>
+        <option value="1.2">1.2×</option>
+        <option value="1.5">1.5×</option>
+      </select>
+      <span class="tts-status" id="tts-status-22">🎧 listo para escuchar</span>
+    </div>
   
   
   
@@ -3541,6 +3794,22 @@
       <button class="ctrl-btn" onclick="nextSlide(23)">&#8594;</button>
     </div>
     <div class="progress-bar-wrap"><div class="progress-bar" id="prog-23"></div></div>
+
+    <div class="tts-bar" id="tts-bar-23">
+      <button class="tts-btn" id="tts-play-23" onclick="ttsToggle(23)" title="Leer este slide en voz alta">
+        🔊 Escuchar
+      </button>
+      <button class="tts-btn tts-stop" id="tts-stop-23" onclick="ttsStop(23)" title="Detener lectura" style="display:none">
+        ⏹ Detener
+      </button>
+      <select class="tts-speed" id="tts-speed-23" title="Velocidad de lectura">
+        <option value="0.8">0.8×</option>
+        <option value="1" selected>1×</option>
+        <option value="1.2">1.2×</option>
+        <option value="1.5">1.5×</option>
+      </select>
+      <span class="tts-status" id="tts-status-23">🎧 listo para escuchar</span>
+    </div>
   
   
   
@@ -3691,6 +3960,22 @@
       <button class="ctrl-btn" onclick="nextSlide(24)">&#8594;</button>
     </div>
     <div class="progress-bar-wrap"><div class="progress-bar" id="prog-24"></div></div>
+
+    <div class="tts-bar" id="tts-bar-24">
+      <button class="tts-btn" id="tts-play-24" onclick="ttsToggle(24)" title="Leer este slide en voz alta">
+        🔊 Escuchar
+      </button>
+      <button class="tts-btn tts-stop" id="tts-stop-24" onclick="ttsStop(24)" title="Detener lectura" style="display:none">
+        ⏹ Detener
+      </button>
+      <select class="tts-speed" id="tts-speed-24" title="Velocidad de lectura">
+        <option value="0.8">0.8×</option>
+        <option value="1" selected>1×</option>
+        <option value="1.2">1.2×</option>
+        <option value="1.5">1.5×</option>
+      </select>
+      <span class="tts-status" id="tts-status-24">🎧 listo para escuchar</span>
+    </div>
   
   
   
@@ -3841,6 +4126,22 @@
       <button class="ctrl-btn" onclick="nextSlide(25)">&#8594;</button>
     </div>
     <div class="progress-bar-wrap"><div class="progress-bar" id="prog-25"></div></div>
+
+    <div class="tts-bar" id="tts-bar-25">
+      <button class="tts-btn" id="tts-play-25" onclick="ttsToggle(25)" title="Leer este slide en voz alta">
+        🔊 Escuchar
+      </button>
+      <button class="tts-btn tts-stop" id="tts-stop-25" onclick="ttsStop(25)" title="Detener lectura" style="display:none">
+        ⏹ Detener
+      </button>
+      <select class="tts-speed" id="tts-speed-25" title="Velocidad de lectura">
+        <option value="0.8">0.8×</option>
+        <option value="1" selected>1×</option>
+        <option value="1.2">1.2×</option>
+        <option value="1.5">1.5×</option>
+      </select>
+      <span class="tts-status" id="tts-status-25">🎧 listo para escuchar</span>
+    </div>
   
   
   
@@ -3996,6 +4297,22 @@
       <button class="ctrl-btn" onclick="nextSlide(26)">&#8594;</button>
     </div>
     <div class="progress-bar-wrap"><div class="progress-bar" id="prog-26"></div></div>
+
+    <div class="tts-bar" id="tts-bar-26">
+      <button class="tts-btn" id="tts-play-26" onclick="ttsToggle(26)" title="Leer este slide en voz alta">
+        🔊 Escuchar
+      </button>
+      <button class="tts-btn tts-stop" id="tts-stop-26" onclick="ttsStop(26)" title="Detener lectura" style="display:none">
+        ⏹ Detener
+      </button>
+      <select class="tts-speed" id="tts-speed-26" title="Velocidad de lectura">
+        <option value="0.8">0.8×</option>
+        <option value="1" selected>1×</option>
+        <option value="1.2">1.2×</option>
+        <option value="1.5">1.5×</option>
+      </select>
+      <span class="tts-status" id="tts-status-26">🎧 listo para escuchar</span>
+    </div>
   
   
   
@@ -4151,6 +4468,22 @@
       <button class="ctrl-btn" onclick="nextSlide(27)">&#8594;</button>
     </div>
     <div class="progress-bar-wrap"><div class="progress-bar" id="prog-27"></div></div>
+
+    <div class="tts-bar" id="tts-bar-27">
+      <button class="tts-btn" id="tts-play-27" onclick="ttsToggle(27)" title="Leer este slide en voz alta">
+        🔊 Escuchar
+      </button>
+      <button class="tts-btn tts-stop" id="tts-stop-27" onclick="ttsStop(27)" title="Detener lectura" style="display:none">
+        ⏹ Detener
+      </button>
+      <select class="tts-speed" id="tts-speed-27" title="Velocidad de lectura">
+        <option value="0.8">0.8×</option>
+        <option value="1" selected>1×</option>
+        <option value="1.2">1.2×</option>
+        <option value="1.5">1.5×</option>
+      </select>
+      <span class="tts-status" id="tts-status-27">🎧 listo para escuchar</span>
+    </div>
   
   
   
@@ -4306,6 +4639,22 @@
       <button class="ctrl-btn" onclick="nextSlide(28)">&#8594;</button>
     </div>
     <div class="progress-bar-wrap"><div class="progress-bar" id="prog-28"></div></div>
+
+    <div class="tts-bar" id="tts-bar-28">
+      <button class="tts-btn" id="tts-play-28" onclick="ttsToggle(28)" title="Leer este slide en voz alta">
+        🔊 Escuchar
+      </button>
+      <button class="tts-btn tts-stop" id="tts-stop-28" onclick="ttsStop(28)" title="Detener lectura" style="display:none">
+        ⏹ Detener
+      </button>
+      <select class="tts-speed" id="tts-speed-28" title="Velocidad de lectura">
+        <option value="0.8">0.8×</option>
+        <option value="1" selected>1×</option>
+        <option value="1.2">1.2×</option>
+        <option value="1.5">1.5×</option>
+      </select>
+      <span class="tts-status" id="tts-status-28">🎧 listo para escuchar</span>
+    </div>
   
   
   
@@ -4456,6 +4805,22 @@
       <button class="ctrl-btn" onclick="nextSlide(29)">&#8594;</button>
     </div>
     <div class="progress-bar-wrap"><div class="progress-bar" id="prog-29"></div></div>
+
+    <div class="tts-bar" id="tts-bar-29">
+      <button class="tts-btn" id="tts-play-29" onclick="ttsToggle(29)" title="Leer este slide en voz alta">
+        🔊 Escuchar
+      </button>
+      <button class="tts-btn tts-stop" id="tts-stop-29" onclick="ttsStop(29)" title="Detener lectura" style="display:none">
+        ⏹ Detener
+      </button>
+      <select class="tts-speed" id="tts-speed-29" title="Velocidad de lectura">
+        <option value="0.8">0.8×</option>
+        <option value="1" selected>1×</option>
+        <option value="1.2">1.2×</option>
+        <option value="1.5">1.5×</option>
+      </select>
+      <span class="tts-status" id="tts-status-29">🎧 listo para escuchar</span>
+    </div>
   
   
   
@@ -4606,6 +4971,22 @@
       <button class="ctrl-btn" onclick="nextSlide(30)">&#8594;</button>
     </div>
     <div class="progress-bar-wrap"><div class="progress-bar" id="prog-30"></div></div>
+
+    <div class="tts-bar" id="tts-bar-30">
+      <button class="tts-btn" id="tts-play-30" onclick="ttsToggle(30)" title="Leer este slide en voz alta">
+        🔊 Escuchar
+      </button>
+      <button class="tts-btn tts-stop" id="tts-stop-30" onclick="ttsStop(30)" title="Detener lectura" style="display:none">
+        ⏹ Detener
+      </button>
+      <select class="tts-speed" id="tts-speed-30" title="Velocidad de lectura">
+        <option value="0.8">0.8×</option>
+        <option value="1" selected>1×</option>
+        <option value="1.2">1.2×</option>
+        <option value="1.5">1.5×</option>
+      </select>
+      <span class="tts-status" id="tts-status-30">🎧 listo para escuchar</span>
+    </div>
   
   
   
@@ -5744,6 +6125,143 @@ window.exitExamSimulacro  = exitExamSimulacro;
 window.examSelectOpt      = examSelectOpt;
 window.examNav            = examNav;
 window.finishExam         = finishExam;
+
+
+// ══════════════════════════════════════════════════════════════
+// TTS ENGINE — Web Speech API
+// ══════════════════════════════════════════════════════════════
+const ttsState = {}; // keyed by lesson number
+
+function ttsGetVoice() {
+  const voices = window.speechSynthesis.getVoices();
+  return (
+    voices.find(v => v.lang === 'es-PY') ||
+    voices.find(v => v.lang === 'es-419') ||
+    voices.find(v => v.lang.startsWith('es')) ||
+    voices[0] || null
+  );
+}
+
+function ttsExtractText(lesson, slideIdx) {
+  const container = document.getElementById('slides-' + lesson);
+  if (!container) return '';
+  const slides = container.querySelectorAll('.slide');
+  const slide = slides[slideIdx];
+  if (!slide) return '';
+  // Skip exercises/quiz slide (last one)
+  const total = TOTAL[String(lesson)];
+  if (slideIdx >= total - 1) return '📝 Esta diapositiva contiene ejercicios interactivos. Pasando a la siguiente lección.';
+  const titleEl = slide.querySelector('.slide-title');
+  const contentEl = slide.querySelector('.slide-content');
+  const numEl = slide.querySelector('.slide-number');
+  const numText = numEl ? numEl.textContent.trim() + '. ' : '';
+  const title = titleEl ? titleEl.textContent.trim() + '. ' : '';
+  const body = contentEl ? contentEl.innerText.replace(/\s+/g, ' ').trim() : '';
+  return numText + title + body;
+}
+
+function ttsSetStatus(lesson, text) {
+  const el = document.getElementById('tts-status-' + lesson);
+  if (el) el.textContent = text;
+}
+
+function ttsSetPlaying(lesson, playing) {
+  const playBtn = document.getElementById('tts-play-' + lesson);
+  const stopBtn = document.getElementById('tts-stop-' + lesson);
+  if (!playBtn) return;
+  if (playing) {
+    playBtn.innerHTML = '⏸ Pausar';
+    playBtn.classList.add('tts-active');
+    if (stopBtn) stopBtn.style.display = '';
+    // Add reading class to active slide
+    const container = document.getElementById('slides-' + lesson);
+    if (container) container.querySelectorAll('.slide').forEach(s => s.classList.remove('reading'));
+    const activeSlide = document.querySelector('#slides-' + lesson + ' .slide.active');
+    if (activeSlide) activeSlide.classList.add('reading');
+  } else {
+    playBtn.innerHTML = '🔊 Escuchar';
+    playBtn.classList.remove('tts-active');
+    if (stopBtn) stopBtn.style.display = 'none';
+    const container = document.getElementById('slides-' + lesson);
+    if (container) container.querySelectorAll('.slide').forEach(s => s.classList.remove('reading'));
+  }
+}
+
+function ttsStop(lesson) {
+  window.speechSynthesis.cancel();
+  if (ttsState[lesson]) ttsState[lesson].active = false;
+  ttsSetPlaying(lesson, false);
+  ttsSetStatus(lesson, '🎧 listo para escuchar');
+}
+
+function ttsToggle(lesson) {
+  // If paused, resume
+  if (window.speechSynthesis.paused) {
+    window.speechSynthesis.resume();
+    ttsSetPlaying(lesson, true);
+    ttsSetStatus(lesson, '▶ reproduciendo...');
+    return;
+  }
+  // If speaking (same lesson), pause
+  if (window.speechSynthesis.speaking && ttsState[lesson] && ttsState[lesson].active) {
+    window.speechSynthesis.pause();
+    ttsSetPlaying(lesson, false);
+    ttsSetStatus(lesson, '⏸ pausado');
+    return;
+  }
+  // Stop any other lesson speaking
+  window.speechSynthesis.cancel();
+  Object.keys(ttsState).forEach(k => { if (ttsState[k]) ttsState[k].active = false; ttsSetPlaying(Number(k), false); });
+
+  ttsState[lesson] = { active: true };
+  ttsReadCurrentSlide(lesson);
+}
+
+function ttsReadCurrentSlide(lesson) {
+  if (!ttsState[lesson] || !ttsState[lesson].active) return;
+  const slideIdx = state[String(lesson)] || 0;
+  const text = ttsExtractText(lesson, slideIdx);
+  if (!text) { ttsStop(lesson); return; }
+
+  const speedEl = document.getElementById('tts-speed-' + lesson);
+  const rate = speedEl ? parseFloat(speedEl.value) : 1;
+
+  const utt = new SpeechSynthesisUtterance(text);
+  utt.lang = 'es-PY';
+  utt.rate = rate;
+  utt.pitch = 1;
+  const voice = ttsGetVoice();
+  if (voice) utt.voice = voice;
+
+  const total = TOTAL[String(lesson)];
+  ttsSetStatus(lesson, '🔊 slide ' + (slideIdx + 1) + ' / ' + total);
+  ttsSetPlaying(lesson, true);
+
+  utt.onend = function() {
+    if (!ttsState[lesson] || !ttsState[lesson].active) return;
+    const nextIdx = slideIdx + 1;
+    if (nextIdx < total - 1) {
+      goToSlide(lesson, nextIdx);
+      setTimeout(() => ttsReadCurrentSlide(lesson), 600);
+    } else {
+      ttsStop(lesson);
+      ttsSetStatus(lesson, '✅ lección completa');
+    }
+  };
+  utt.onerror = function(e) {
+    if (e.error !== 'interrupted') { ttsStop(lesson); ttsSetStatus(lesson, '⚠ error de voz'); }
+  };
+
+  window.speechSynthesis.speak(utt);
+}
+
+// Load voices async (Chrome requires this)
+if (window.speechSynthesis) {
+  window.speechSynthesis.onvoiceschanged = function() { ttsGetVoice(); };
+}
+
+window.ttsToggle = ttsToggle;
+window.ttsStop   = ttsStop;
 
 </script>
 
