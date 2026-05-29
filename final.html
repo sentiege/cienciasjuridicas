@@ -1392,6 +1392,25 @@
     border-radius: 10px; margin-left: 0.5rem; font-weight: bold;
   }
 
+
+  .random-lesson-btn {
+    background: linear-gradient(135deg, var(--dark3), #1a3a6e);
+    color: var(--gold2);
+    border: 1.5px solid var(--gold);
+    border-radius: 20px;
+    padding: 0.25rem 0.9rem;
+    font-size: 0.78rem;
+    font-weight: bold;
+    cursor: pointer;
+    font-family: inherit;
+    white-space: nowrap;
+    transition: all 0.2s;
+  }
+  .random-lesson-btn:hover {
+    background: linear-gradient(135deg, #1a3a6e, #254a8e);
+    box-shadow: 0 2px 10px rgba(212,175,55,0.3);
+  }
+
 </style>
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
@@ -1413,6 +1432,7 @@
   <div class="user-bar-right">
     <span class="xp-badge" id="user-xp-display">⚡ 0 XP</span>
     <span class="streak-badge" id="user-streak-display">🔥 1 día</span>
+    <button class="random-lesson-btn" onclick="openRandomLesson()">🎲 Lección Aleatoria</button>
     <button class="exam-launch-btn" onclick="startExamSimulacro()">📋 Simulacro</button>
     <button class="logout-btn" id="logout-btn">Salir</button>
   </div>
@@ -7962,6 +7982,43 @@ window.rwToggle  = rwToggle;
 window.rwCheck   = rwCheck;
 window.rwClear   = rwClear;
 window.rwGetDone = rwGetDone;
+
+
+// ── Lección Aleatoria ────────────────────────────────────────
+function openRandomLesson() {
+  const lessons = Object.keys(TOTAL).map(Number);
+  const p = getProgress();
+
+  // Prefer unvisited or quiz-failed lessons for smart random
+  const notPassed  = lessons.filter(n => !(p[n] || {}).quizPassed);
+  const notVisited = lessons.filter(n => !(p[n] || {}).visited);
+
+  let pool;
+  if (notVisited.length > 0) {
+    pool = notVisited;           // priority: never-visited
+  } else if (notPassed.length > 0) {
+    pool = notPassed;            // then: visited but quiz not passed
+  } else {
+    pool = lessons;              // all done → fully random
+  }
+
+  const pick = pool[Math.floor(Math.random() * pool.length)];
+
+  // Brief toast showing which lesson was picked
+  const toast = document.createElement('div');
+  toast.style.cssText = 'position:fixed;top:70px;left:50%;transform:translateX(-50%);' +
+    'background:linear-gradient(135deg,var(--dark3),var(--dark2));' +
+    'border:1.5px solid var(--gold);color:var(--gold2);padding:0.6rem 1.4rem;' +
+    'border-radius:20px;font-size:0.85rem;font-weight:bold;z-index:9999;' +
+    'box-shadow:0 4px 15px rgba(0,0,0,0.4);animation:fadeIn 0.3s ease;';
+  toast.textContent = '🎲 Abriendo Lección ' + pick + '...';
+  document.body.appendChild(toast);
+  setTimeout(() => toast.remove(), 1800);
+
+  setTimeout(() => showLesson(pick), 400);
+}
+
+window.openRandomLesson = openRandomLesson;
 
 </script>
 
