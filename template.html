@@ -1,0 +1,4223 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🎓 Nombre de la Materia — Lecciones</title>
+<style>
+  :root {
+    --gold: #d4af37;
+    --gold2: #f0c040;
+    --dark: #1a1a2e;
+    --dark2: #16213e;
+    --dark3: #0f3460;
+    --text: #e8e0d0;
+    --card-bg: #1e2a45;
+    --accent: #c9a227;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Georgia', 'Times New Roman', serif;
+    background: var(--dark);
+    color: var(--text);
+    min-height: 100vh;
+  }
+
+  /* ========== HOME PAGE ========== */
+  #home-page { display: block; }
+  .home-hero {
+    background: linear-gradient(135deg, var(--dark2) 0%, var(--dark3) 100%);
+    text-align: center;
+    padding: 3rem 1rem 2rem;
+    border-bottom: 2px solid var(--gold);
+  }
+  .home-hero .crest {
+    font-size: 3.5rem;
+    margin-bottom: 0.5rem;
+  }
+  .home-hero h1 {
+    color: var(--gold2);
+    font-size: clamp(1.4rem, 4vw, 2.2rem);
+    letter-spacing: 1px;
+    margin-bottom: 0.3rem;
+  }
+  .home-hero .universidad {
+    color: #a89060;
+    font-size: 0.9rem;
+    font-style: italic;
+    margin-bottom: 0.8rem;
+  }
+  .home-hero .profesor {
+    color: var(--gold);
+    font-size: 1rem;
+    font-weight: bold;
+  }
+  .home-hero .badge-row {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  .badge {
+    background: rgba(212,175,55,0.15);
+    border: 1px solid var(--gold);
+    border-radius: 20px;
+    padding: 0.3rem 0.9rem;
+    font-size: 0.8rem;
+    color: var(--gold2);
+  }
+  .lessons-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    padding: 1.5rem 1.5rem;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .lesson-card {
+    background: var(--card-bg);
+    border: 1px solid rgba(212,175,55,0.2);
+    border-radius: 0;
+    padding: 0.75rem 1.1rem;
+    cursor: pointer;
+    transition: background 0.18s, border-color 0.18s;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    border-bottom: none;
+  }
+  .lesson-card:first-child { border-radius: 10px 10px 0 0; }
+  .lesson-card:last-child { border-radius: 0 0 10px 10px; border-bottom: 1px solid rgba(212,175,55,0.2); }
+  .lesson-card + .lesson-card { border-top: 1px solid rgba(212,175,55,0.12); }
+  .lesson-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; bottom: 0;
+    width: 3px;
+    background: linear-gradient(180deg, var(--gold), var(--gold2));
+    transform: scaleY(0);
+    transition: transform 0.25s;
+    transform-origin: top;
+  }
+  .lesson-card:hover {
+    background: rgba(212,175,55,0.07);
+    border-color: rgba(212,175,55,0.4);
+  }
+  .lesson-card:hover::before { transform: scaleY(1); }
+  .card-emoji { font-size: 1.4rem; flex-shrink: 0; }
+  .card-number {
+    color: var(--gold);
+    font-size: 0.7rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    white-space: nowrap;
+    flex-shrink: 0;
+    min-width: 70px;
+  }
+  .card-title {
+    color: var(--gold2);
+    font-size: 0.95rem;
+    font-weight: bold;
+    line-height: 1.3;
+    flex: 1;
+  }
+  .card-sub {
+    color: #a89060;
+    font-size: 0.75rem;
+    line-height: 1.3;
+    display: none;
+  }
+  .card-arrow {
+    color: var(--gold);
+    font-size: 1rem;
+    flex-shrink: 0;
+    margin-left: auto;
+  }
+
+  /* ========== LESSON PAGE ========== */
+  .lesson-page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  .lesson-header {
+    background: linear-gradient(135deg, var(--dark2), var(--dark3));
+    padding: 1rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    border-bottom: 2px solid var(--gold);
+  }
+  .back-btn {
+    background: rgba(212,175,55,0.15);
+    border: 1px solid var(--gold);
+    color: var(--gold2);
+    padding: 0.4rem 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 0.9rem;
+    transition: background 0.2s;
+  }
+  .back-btn:hover { background: rgba(212,175,55,0.3); }
+  .lesson-badge {
+    background: rgba(212,175,55,0.2);
+    border: 1px solid var(--gold);
+    color: var(--gold2);
+    padding: 0.3rem 1rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    margin-left: auto;
+  }
+  .lesson-meta {
+    text-align: center;
+    padding: 1.5rem 1rem 1rem;
+    background: linear-gradient(180deg, var(--dark2) 0%, var(--dark) 100%);
+    border-bottom: 1px solid rgba(212,175,55,0.2);
+  }
+  .lesson-main-title {
+    color: var(--gold2);
+    font-size: clamp(1.4rem, 3.5vw, 2rem);
+    margin-bottom: 0.3rem;
+  }
+  .lesson-subtitle {
+    color: #a89060;
+    font-size: 0.9rem;
+    font-style: italic;
+  }
+  .slideshow-container {
+    flex: 1;
+    padding: 1.5rem;
+    max-width: 900px;
+    width: 100%;
+    margin: 0 auto;
+  }
+  .slide { display: none; animation: fadeIn 0.4s ease; }
+  .slide.active { display: block; }
+  @keyframes fadeIn { from {opacity:0; transform: translateY(10px)} to {opacity:1; transform: translateY(0)} }
+  .slide-number {
+    color: var(--gold);
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+  }
+  .slide-title {
+    color: var(--gold2);
+    font-size: clamp(1.2rem, 3vw, 1.7rem);
+    margin-bottom: 1.2rem;
+    padding-bottom: 0.8rem;
+    border-bottom: 1px solid rgba(212,175,55,0.3);
+    line-height: 1.3;
+  }
+  .slide-content {
+    color: var(--text);
+    font-size: clamp(0.9rem, 2vw, 1.05rem);
+    line-height: 1.9;
+  }
+  .slide-content strong { color: var(--gold2); }
+  .slide-content em { color: #c8b06a; font-style: italic; }
+  .slide-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    padding: 1rem;
+    border-top: 1px solid rgba(212,175,55,0.2);
+    background: var(--dark2);
+  }
+  .ctrl-btn {
+    background: rgba(212,175,55,0.15);
+    border: 1px solid var(--gold);
+    color: var(--gold2);
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background 0.2s;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .ctrl-btn:hover { background: rgba(212,175,55,0.35); }
+  .dots-container { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; }
+  .dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(212,175,55,0.3);
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+    padding: 0;
+  }
+  .dot.active { background: var(--gold2); transform: scale(1.3); }
+  .progress-bar-wrap {
+    width: 100%;
+    height: 4px;
+    background: rgba(212,175,55,0.1);
+  }
+  .progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, var(--gold), var(--gold2));
+    transition: width 0.4s ease;
+  }
+
+  /* Keyboard hint */
+  .key-hint {
+    text-align: center;
+    color: #5a4e35;
+    font-size: 0.72rem;
+    padding: 0.4rem;
+    background: var(--dark2);
+  }
+
+  /* Inline chapter progress bar */
+  .inline-prog-wrap {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    margin-top: 0.8rem;
+    padding: 0 1rem;
+    justify-content: center;
+  }
+  .inline-prog-track {
+    width: 200px;
+    max-width: 60vw;
+    height: 6px;
+    background: rgba(212,175,55,0.12);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .inline-prog-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--gold), var(--gold2));
+    border-radius: 10px;
+    transition: width 0.4s ease;
+    width: 0%;
+  }
+  .inline-prog-label {
+    color: #a89060;
+    font-size: 0.75rem;
+    white-space: nowrap;
+  }
+
+  footer {
+    text-align: center;
+    padding: 1.5rem;
+    color: #5a4e35;
+    font-size: 0.8rem;
+    border-top: 1px solid rgba(212,175,55,0.15);
+    background: var(--dark2);
+  }
+
+  /* ===== EXAM HIGHLIGHTS ===== */
+  .exam-banner {
+    background: linear-gradient(135deg, #2d1a00, #3d2500);
+    border: 1.5px solid #ff9800;
+    border-left: 5px solid #ff9800;
+    border-radius: 8px;
+    padding: 0.6rem 1rem;
+    margin-bottom: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    animation: pulseExam 2.5s ease-in-out infinite;
+  }
+  .exam-banner .exam-icon { font-size: 1.3rem; }
+  .exam-banner .exam-text {
+    color: #ffb74d;
+    font-size: 0.82rem;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    line-height: 1.4;
+  }
+  .exam-banner .exam-label {
+    color: #ff9800;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: block;
+    margin-bottom: 0.15rem;
+  }
+  @keyframes pulseExam {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(255,152,0,0); }
+    50% { box-shadow: 0 0 10px 3px rgba(255,152,0,0.25); }
+  }
+
+  /* Card exam highlight */
+  .lesson-card.exam-card {
+    border-color: rgba(255,152,0,0.5);
+    background: linear-gradient(145deg, #1e2a45, #2a1e00);
+  }
+  .lesson-card.exam-card::after {
+    content: '📌';
+    position: static;
+    font-size: 0.85rem;
+    flex-shrink: 0;
+  }
+  .lesson-card.exam-card:hover {
+    border-color: #ff9800;
+    box-shadow: 0 8px 25px rgba(255,152,0,0.25);
+  }
+  .lesson-card.exam-card .card-number { color: #ffb74d; }
+
+
+  /* ===== QUIZ STYLES ===== */
+  .quiz-section {
+    max-width: 900px;
+    margin: 0 auto 2rem;
+    padding: 0 1.5rem;
+  }
+  .quiz-toggle-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: linear-gradient(135deg, #0f3460, #16213e);
+    border: 1.5px solid var(--gold);
+    color: var(--gold2);
+    padding: 0.75rem 1.5rem;
+    border-radius: 10px;
+    font-family: inherit;
+    font-size: 1rem;
+    cursor: pointer;
+    width: 100%;
+    justify-content: center;
+    transition: all 0.2s;
+    margin-top: 0.5rem;
+  }
+  .quiz-toggle-btn:hover {
+    background: linear-gradient(135deg, #1a4a7a, #1e2a45);
+    box-shadow: 0 4px 15px rgba(212,175,55,0.2);
+  }
+  .quiz-box {
+    display: none;
+    background: #131b2e;
+    border: 1px solid rgba(212,175,55,0.3);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-top: 1rem;
+    animation: fadeIn 0.3s ease;
+  }
+  .quiz-box.open { display: block; }
+  .quiz-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.2rem;
+    padding-bottom: 0.8rem;
+    border-bottom: 1px solid rgba(212,175,55,0.2);
+  }
+  .quiz-title {
+    color: var(--gold2);
+    font-size: 1.1rem;
+    font-weight: bold;
+  }
+  .quiz-score-badge {
+    background: rgba(212,175,55,0.15);
+    border: 1px solid var(--gold);
+    color: var(--gold2);
+    padding: 0.25rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    display: none;
+  }
+  .quiz-question-block { margin-bottom: 1.4rem; }
+  .quiz-question-text {
+    color: var(--text);
+    font-size: 0.95rem;
+    margin-bottom: 0.7rem;
+    line-height: 1.5;
+  }
+  .quiz-question-num {
+    color: var(--gold);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 0.3rem;
+  }
+  .quiz-options { display: flex; flex-direction: column; gap: 0.5rem; }
+  .quiz-opt {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(212,175,55,0.2);
+    color: var(--text);
+    padding: 0.6rem 1rem;
+    border-radius: 8px;
+    text-align: left;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 0.88rem;
+    transition: all 0.15s;
+    line-height: 1.4;
+  }
+  .quiz-opt:hover:not(:disabled) {
+    background: rgba(212,175,55,0.12);
+    border-color: var(--gold);
+    color: var(--gold2);
+  }
+  .quiz-opt.correct {
+    background: rgba(76,175,80,0.2);
+    border-color: #4caf50;
+    color: #a5d6a7;
+  }
+  .quiz-opt.wrong {
+    background: rgba(244,67,54,0.2);
+    border-color: #f44336;
+    color: #ef9a9a;
+  }
+  .quiz-opt:disabled { cursor: default; }
+  .quiz-feedback {
+    font-size: 0.8rem;
+    margin-top: 0.4rem;
+    padding: 0.3rem 0.6rem;
+    border-radius: 5px;
+    display: none;
+  }
+  .quiz-feedback.show { display: block; }
+  .quiz-feedback.ok { color: #81c784; background: rgba(76,175,80,0.1); }
+  .quiz-feedback.fail { color: #e57373; background: rgba(244,67,54,0.1); }
+  .quiz-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+    flex-wrap: wrap;
+  }
+  .quiz-submit-btn, .quiz-reset-btn {
+    padding: 0.6rem 1.4rem;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: 1.5px solid;
+  }
+  .quiz-submit-btn {
+    background: linear-gradient(135deg, var(--dark3), var(--dark2));
+    border-color: var(--gold);
+    color: var(--gold2);
+  }
+  .quiz-submit-btn:hover { background: rgba(212,175,55,0.2); }
+  .quiz-reset-btn {
+    background: transparent;
+    border-color: rgba(212,175,55,0.3);
+    color: #a89060;
+  }
+  .quiz-reset-btn:hover { border-color: var(--gold); color: var(--gold2); }
+  .quiz-result-bar {
+    display: none;
+    margin-top: 1rem;
+    padding: 1rem;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 1rem;
+    font-weight: bold;
+  }
+  .quiz-result-bar.show { display: block; }
+  .quiz-result-bar.great { background: rgba(76,175,80,0.15); border: 1px solid #4caf50; color: #a5d6a7; }
+  .quiz-result-bar.ok-result { background: rgba(255,152,0,0.15); border: 1px solid #ff9800; color: #ffb74d; }
+  .quiz-result-bar.fail-result { background: rgba(244,67,54,0.15); border: 1px solid #f44336; color: #ef9a9a; }
+
+
+  /* ===== PROGRESO GLOBAL ===== */
+  .global-progress-wrap {
+    background: linear-gradient(135deg, #0f1f3d, #16213e);
+    border-bottom: 1px solid rgba(212,175,55,0.25);
+    padding: 1rem 1.5rem;
+  }
+  .global-progress-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    flex-wrap: wrap;
+  }
+  .gp-label { color: var(--gold2); font-size: 0.85rem; white-space: nowrap; }
+  .gp-bar-track {
+    flex: 1;
+    min-width: 120px;
+    height: 10px;
+    background: rgba(255,255,255,0.07);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .gp-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--gold), var(--gold2));
+    border-radius: 10px;
+    transition: width 0.5s ease;
+    width: 0%;
+  }
+  .gp-stats {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  .gp-stat {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.8rem;
+    color: #a89060;
+    white-space: nowrap;
+  }
+  .gp-stat span { color: var(--gold2); font-weight: bold; }
+  .gp-reset-btn {
+    background: transparent;
+    border: 1px solid rgba(212,175,55,0.3);
+    color: #5a4e35;
+    font-size: 0.7rem;
+    padding: 0.2rem 0.6rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.2s;
+  }
+  .gp-reset-btn:hover { border-color: var(--gold); color: var(--gold2); }
+
+  /* Card state badges */
+  .card-state-row {
+    display: flex;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+    flex-shrink: 0;
+  }
+  .state-badge {
+    font-size: 0.65rem;
+    padding: 0.15rem 0.5rem;
+    border-radius: 10px;
+    font-weight: bold;
+    letter-spacing: 0.3px;
+  }
+  .state-badge.visited {
+    background: rgba(33,150,243,0.2);
+    border: 1px solid #2196f3;
+    color: #90caf9;
+  }
+  .state-badge.quiz-pass {
+    background: rgba(76,175,80,0.2);
+    border: 1px solid #4caf50;
+    color: #a5d6a7;
+  }
+  .state-badge.quiz-fail {
+    background: rgba(255,152,0,0.15);
+    border: 1px solid #ff9800;
+    color: #ffb74d;
+  }
+  /* Card dim if not visited */
+  .lesson-card.not-visited { opacity: 0.55; }
+  .lesson-card.visited-card { opacity: 1; }
+
+  /* ===== ESTADO DE LECTURA EN LISTA ===== */
+  /* Visitada: acento azul a la izquierda */
+  .lesson-card.visited-card::before {
+    background: linear-gradient(180deg, #2196f3, #42a5f5) !important;
+    transform: scaleY(1) !important;
+  }
+  /* Quiz aprobado: acento verde */
+  .lesson-card.quiz-ok-card::before {
+    background: linear-gradient(180deg, #4caf50, #66bb6a) !important;
+    transform: scaleY(1) !important;
+  }
+  .lesson-card.quiz-ok-card {
+    background: rgba(76,175,80,0.06) !important;
+  }
+  .lesson-card.quiz-ok-card .card-title {
+    color: #a5d6a7;
+  }
+  /* Quiz intentado sin aprobar: acento naranja */
+  .lesson-card.quiz-tried-card::before {
+    background: linear-gradient(180deg, #ff9800, #ffb74d) !important;
+    transform: scaleY(1) !important;
+  }
+
+  /* Ícono de estado al lado del título */
+  .card-status-icon {
+    font-size: 0.85rem;
+    flex-shrink: 0;
+    margin-left: 0.3rem;
+  }
+
+
+  /* ===== EXERCISES PANEL ===== */
+  .exercises-panel {
+    max-width: 900px;
+    margin: 0 auto 2rem;
+    padding: 0 1.5rem;
+  }
+  .exercises-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: linear-gradient(135deg, #1a0f3d, #2e1760);
+    border: 1.5px solid #9c6fee;
+    color: #d4b8ff;
+    padding: 0.75rem 1.5rem;
+    border-radius: 10px;
+    font-family: inherit;
+    font-size: 1rem;
+    cursor: pointer;
+    width: 100%;
+    justify-content: center;
+    transition: all 0.2s;
+    margin-top: 0.8rem;
+  }
+  .exercises-btn:hover { background: linear-gradient(135deg, #2a1a55, #3d2280); box-shadow: 0 4px 15px rgba(156,111,238,0.25); }
+  .exercises-box { display: none; background: #13102a; border: 1px solid rgba(156,111,238,0.3); border-radius: 12px; padding: 1.5rem; margin-top: 1rem; animation: fadeIn 0.3s ease; }
+  .exercises-box.open { display: block; }
+  .ex-tabs { display: flex; gap: 0.5rem; margin-bottom: 1.2rem; flex-wrap: wrap; }
+  .ex-tab {
+    background: rgba(156,111,238,0.1);
+    border: 1px solid rgba(156,111,238,0.3);
+    color: #b39ddb;
+    padding: 0.4rem 1rem;
+    border-radius: 20px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 0.82rem;
+    transition: all 0.2s;
+  }
+  .ex-tab.active, .ex-tab:hover { background: rgba(156,111,238,0.25); border-color: #9c6fee; color: #d4b8ff; }
+  .ex-pane { display: none; }
+  .ex-pane.active { display: block; }
+
+  /* Fill in the blank */
+  .fill-item { margin-bottom: 1.2rem; padding-bottom: 1.2rem; border-bottom: 1px solid rgba(156,111,238,0.1); }
+  .fill-item:last-child { border-bottom: none; }
+  .fill-sentence { color: var(--text); font-size: 0.95rem; line-height: 1.8; margin-bottom: 0.5rem; }
+  .fill-blank {
+    display: inline-block;
+    border: none;
+    border-bottom: 2px solid #9c6fee;
+    background: transparent;
+    color: #d4b8ff;
+    font-family: inherit;
+    font-size: 0.95rem;
+    padding: 0 0.3rem;
+    width: 130px;
+    outline: none;
+    text-align: center;
+    transition: border-color 0.2s;
+  }
+  .fill-blank:focus { border-bottom-color: #d4b8ff; }
+  .fill-blank.correct { border-bottom-color: #4caf50; color: #a5d6a7; }
+  .fill-blank.wrong { border-bottom-color: #f44336; color: #ef9a9a; }
+  .fill-hint { color: #7c6a9e; font-size: 0.75rem; font-style: italic; margin-top: 0.2rem; }
+  .fill-feedback { font-size: 0.78rem; margin-top: 0.3rem; display: none; }
+  .fill-feedback.show { display: block; }
+  .fill-feedback.ok { color: #81c784; }
+  .fill-feedback.fail { color: #ef9a9a; }
+  .fill-actions { display: flex; gap: 0.8rem; margin-top: 1rem; flex-wrap: wrap; }
+  .fill-check-btn, .fill-reset-btn {
+    padding: 0.5rem 1.2rem; border-radius: 8px; font-family: inherit; font-size: 0.85rem; cursor: pointer; border: 1.5px solid; transition: all 0.2s;
+  }
+  .fill-check-btn { background: rgba(156,111,238,0.15); border-color: #9c6fee; color: #d4b8ff; }
+  .fill-check-btn:hover { background: rgba(156,111,238,0.3); }
+  .fill-reset-btn { background: transparent; border-color: rgba(156,111,238,0.25); color: #7c6a9e; }
+  .fill-reset-btn:hover { border-color: #9c6fee; color: #d4b8ff; }
+  .fill-score { color: #d4b8ff; font-size: 0.85rem; margin-top: 0.8rem; display: none; padding: 0.5rem 1rem; background: rgba(156,111,238,0.1); border-radius: 8px; border: 1px solid rgba(156,111,238,0.3); }
+  .fill-score.show { display: block; }
+
+  /* ===== EXAM SIMULADO ===== */
+  #exam-page { display: none; min-height: 100vh; flex-direction: column; }
+  #exam-page.active { display: flex; }
+  .exam-header {
+    background: linear-gradient(135deg, #1a0a00, #2d1500);
+    padding: 1rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    border-bottom: 2px solid #ff9800;
+  }
+  .exam-back-btn {
+    background: rgba(255,152,0,0.15); border: 1px solid #ff9800; color: #ffb74d;
+    padding: 0.4rem 1rem; border-radius: 8px; cursor: pointer; font-family: inherit; font-size: 0.9rem;
+  }
+  .exam-back-btn:hover { background: rgba(255,152,0,0.3); }
+  .exam-timer-wrap { margin-left: auto; display: flex; align-items: center; gap: 0.5rem; }
+  .exam-timer { color: #ffb74d; font-size: 1.4rem; font-weight: bold; font-variant-numeric: tabular-nums; min-width: 60px; text-align: right; }
+  .exam-timer.urgent { color: #f44336; animation: blink 1s step-start infinite; }
+  @keyframes blink { 50% { opacity: 0.4; } }
+  .exam-meta { text-align: center; padding: 1.5rem 1rem 1rem; background: linear-gradient(180deg, #1a0a00, #13102a); border-bottom: 1px solid rgba(255,152,0,0.2); }
+  .exam-meta h1 { color: #ffb74d; font-size: clamp(1.2rem,3vw,1.8rem); margin-bottom: 0.3rem; }
+  .exam-meta p { color: #a07040; font-size: 0.85rem; font-style: italic; }
+  .exam-body { flex: 1; max-width: 900px; width: 100%; margin: 0 auto; padding: 1.5rem; }
+  .exam-q-block { margin-bottom: 1.6rem; }
+  .exam-q-num { color: #ff9800; font-size: 0.72rem; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 0.3rem; }
+  .exam-q-lesson { color: #7a5a30; font-size: 0.7rem; margin-bottom: 0.3rem; font-style: italic; }
+  .exam-q-text { color: var(--text); font-size: 0.95rem; line-height: 1.5; margin-bottom: 0.6rem; }
+  .exam-opts { display: flex; flex-direction: column; gap: 0.4rem; }
+  .exam-opt {
+    background: rgba(255,255,255,0.03); border: 1px solid rgba(255,152,0,0.2); color: var(--text);
+    padding: 0.55rem 1rem; border-radius: 8px; text-align: left; cursor: pointer;
+    font-family: inherit; font-size: 0.85rem; transition: all 0.15s; line-height: 1.4;
+  }
+  .exam-opt:hover:not(:disabled) { background: rgba(255,152,0,0.1); border-color: #ff9800; color: #ffb74d; }
+  .exam-opt.selected { background: rgba(255,152,0,0.15); border-color: #ff9800; color: #ffb74d; }
+  .exam-opt.correct { background: rgba(76,175,80,0.2); border-color: #4caf50; color: #a5d6a7; }
+  .exam-opt.wrong { background: rgba(244,67,54,0.2); border-color: #f44336; color: #ef9a9a; }
+  .exam-opt:disabled { cursor: default; }
+  .exam-footer { padding: 1rem 1.5rem; background: #1a0a00; border-top: 1px solid rgba(255,152,0,0.2); text-align: center; }
+  .exam-submit-btn {
+    background: linear-gradient(135deg, #d84315, #bf360c); border: none; color: white;
+    padding: 0.75rem 2.5rem; border-radius: 10px; font-family: inherit; font-size: 1rem; cursor: pointer;
+    transition: all 0.2s; font-weight: bold;
+  }
+  .exam-submit-btn:hover { background: linear-gradient(135deg, #ff5722, #d84315); box-shadow: 0 4px 15px rgba(255,87,34,0.35); }
+  .exam-result-screen { display: none; text-align: center; padding: 2rem; }
+  .exam-result-screen.show { display: block; }
+  .exam-result-pct { font-size: 4rem; font-weight: bold; margin: 1rem 0; }
+  .exam-result-label { font-size: 1.1rem; margin-bottom: 1rem; }
+  .exam-result-detail { color: #a07040; font-size: 0.9rem; margin-bottom: 1.5rem; }
+  .exam-result-btn { padding: 0.6rem 1.5rem; border-radius: 8px; font-family: inherit; font-size: 0.9rem; cursor: pointer; border: 1.5px solid #ff9800; background: rgba(255,152,0,0.15); color: #ffb74d; margin: 0.3rem; }
+
+  /* Home exam button */
+  .home-exam-btn {
+    display: flex; align-items: center; gap: 0.7rem;
+    background: linear-gradient(135deg, #2d1500, #3d1f00);
+    border: 2px solid #ff9800; color: #ffb74d;
+    padding: 1rem 2rem; border-radius: 12px;
+    font-family: inherit; font-size: 1.05rem; cursor: pointer;
+    margin: 1rem auto 0; transition: all 0.2s;
+    box-shadow: 0 4px 15px rgba(255,152,0,0.15);
+  }
+  .home-exam-btn:hover { background: linear-gradient(135deg, #3d2000, #4d2800); box-shadow: 0 6px 20px rgba(255,152,0,0.3); }
+
+
+  /* ===== QUIZ CLEAN ===== */
+  .qz-wrap { max-width:900px; margin:0 auto 2rem; padding:0 1.5rem; }
+  .qz-toggle {
+    width:100%; padding:0.75rem 1.5rem; border-radius:10px; cursor:pointer;
+    font-family:inherit; font-size:1rem; display:flex; align-items:center;
+    justify-content:center; gap:0.6rem; transition:all 0.2s; margin-top:0.5rem;
+    background:linear-gradient(135deg,#0f3460,#16213e);
+    border:1.5px solid var(--gold); color:var(--gold2);
+  }
+  .qz-toggle:hover { background:linear-gradient(135deg,#1a4a7a,#1e2a45); box-shadow:0 4px 15px rgba(212,175,55,0.2); }
+  .qz-panel { background:#131b2e; border:1px solid rgba(212,175,55,0.3); border-radius:12px; padding:1.5rem; margin-top:1rem; animation:fadeIn 0.3s ease; }
+  .qz-head { display:flex; justify-content:space-between; align-items:center; margin-bottom:1.2rem; padding-bottom:0.8rem; border-bottom:1px solid rgba(212,175,55,0.2); }
+  .qz-title { color:var(--gold2); font-size:1.1rem; font-weight:bold; }
+  .qz-badge { background:rgba(212,175,55,0.15); border:1px solid var(--gold); color:var(--gold2); padding:0.25rem 0.8rem; border-radius:20px; font-size:0.8rem; }
+  .qz-block { margin-bottom:1.4rem; }
+  .qz-qnum { color:var(--gold); font-size:0.75rem; text-transform:uppercase; letter-spacing:1px; margin-bottom:0.3rem; }
+  .qz-qtxt { color:var(--text); font-size:0.95rem; line-height:1.5; margin-bottom:0.7rem; }
+  .qz-opts { display:flex; flex-direction:column; gap:0.5rem; }
+  .qz-opt {
+    background:rgba(255,255,255,0.04); border:1px solid rgba(212,175,55,0.2);
+    color:var(--text); padding:0.6rem 1rem; border-radius:8px; text-align:left;
+    cursor:pointer; font-family:inherit; font-size:0.88rem; transition:all 0.15s; line-height:1.4;
+  }
+  .qz-opt:hover:not([disabled]) { background:rgba(212,175,55,0.12); border-color:var(--gold); color:var(--gold2); }
+  .qz-opt[data-selected="1"] { background:rgba(212,175,55,0.18); border-color:var(--gold2); color:var(--gold2); font-weight:bold; }
+  .qz-opt.qz-correct { background:rgba(76,175,80,0.2)!important; border-color:#4caf50!important; color:#a5d6a7!important; }
+  .qz-opt.qz-wrong { background:rgba(244,67,54,0.2)!important; border-color:#f44336!important; color:#ef9a9a!important; }
+  .qz-fb { font-size:0.8rem; margin-top:0.4rem; min-height:1rem; }
+  .qz-fb.ok { color:#81c784; }
+  .qz-fb.fail { color:#e57373; }
+  .qz-actions { display:flex; gap:1rem; margin-top:1rem; flex-wrap:wrap; }
+  .qz-check { padding:0.6rem 1.4rem; border-radius:8px; font-family:inherit; font-size:0.9rem; cursor:pointer; transition:all 0.2s; background:linear-gradient(135deg,var(--dark3),var(--dark2)); border:1.5px solid var(--gold); color:var(--gold2); }
+  .qz-check:hover { background:rgba(212,175,55,0.2); }
+  .qz-reset { padding:0.6rem 1.4rem; border-radius:8px; font-family:inherit; font-size:0.9rem; cursor:pointer; background:transparent; border:1.5px solid rgba(212,175,55,0.3); color:#a89060; transition:all 0.2s; }
+  .qz-reset:hover { border-color:var(--gold); color:var(--gold2); }
+  .qz-result { margin-top:1rem; padding:1rem; border-radius:10px; text-align:center; font-size:1rem; font-weight:bold; }
+  .qz-result.great { background:rgba(76,175,80,0.15); border:1px solid #4caf50; color:#a5d6a7; }
+  .qz-result.ok-r { background:rgba(255,152,0,0.15); border:1px solid #ff9800; color:#ffb74d; }
+  .qz-result.fail-r { background:rgba(244,67,54,0.15); border:1px solid #f44336; color:#ef9a9a; }
+
+
+  /* ===== EXERCISE+QUIZ SLIDE ===== */
+  .slide-ex-quiz {
+    overflow-y: auto;
+    max-height: 65vh;
+    padding-right: 0.5rem;
+  }
+  .slide-ex-quiz::-webkit-scrollbar { width: 6px; }
+  .slide-ex-quiz::-webkit-scrollbar-thumb { background: rgba(212,175,55,0.3); border-radius: 3px; }
+  .slide .exercises-panel { padding: 0; margin: 0 0 1rem 0; }
+  .slide .qz-wrap { padding: 0; margin: 0; }
+
+
+  /* ========== FIREBASE AUTH MODAL ========== */
+  #auth-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.85);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+  }
+  #auth-overlay.open { display: flex; }
+  .auth-box {
+    background: var(--dark2);
+    border: 2px solid var(--gold);
+    border-radius: 16px;
+    padding: 2.5rem 2rem;
+    width: min(420px, 92vw);
+    text-align: center;
+    position: relative;
+  }
+  .auth-box h2 { color: var(--gold2); margin-bottom: 0.3rem; font-size: 1.4rem; }
+  .auth-box .auth-sub { color: #a89060; font-size: 0.85rem; margin-bottom: 1.5rem; font-style: italic; }
+  .auth-input {
+    width: 100%;
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(212,175,55,0.4);
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    color: var(--text);
+    font-size: 1rem;
+    margin-bottom: 0.9rem;
+    font-family: inherit;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .auth-input:focus { border-color: var(--gold); }
+  .auth-btn {
+    width: 100%;
+    background: linear-gradient(135deg, var(--gold), var(--gold2));
+    color: #1a1a2e;
+    border: none;
+    border-radius: 8px;
+    padding: 0.8rem;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    font-family: inherit;
+    margin-bottom: 0.7rem;
+    transition: opacity 0.2s;
+  }
+  .auth-btn:hover { opacity: 0.88; }
+  .auth-btn.secondary {
+    background: transparent;
+    color: var(--gold);
+    border: 1px solid var(--gold);
+    margin-bottom: 0;
+  }
+  .auth-msg { color: #e07070; font-size: 0.85rem; margin-bottom: 0.7rem; min-height: 1.2em; }
+  .auth-success { color: #70e070; }
+
+  /* ========== USER PROFILE BAR ========== */
+  #user-bar {
+    display: none;
+    background: rgba(212,175,55,0.08);
+    border-bottom: 1px solid rgba(212,175,55,0.2);
+    padding: 0.5rem 1.5rem;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  #user-bar.visible { display: flex; }
+  .user-bar-left { display: flex; align-items: center; gap: 0.8rem; }
+  @media (max-width: 520px) {
+    #user-bar {
+      padding: 0.6rem 1rem;
+      justify-content: center;
+      text-align: center;
+    }
+    .user-bar-left { justify-content: center; width: 100%; }
+    .user-bar-right { justify-content: center; width: 100%; flex-wrap: wrap; }
+  }
+  .user-avatar {
+    width: 36px; height: 36px;
+    background: linear-gradient(135deg, var(--gold), var(--gold2));
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: bold; color: #1a1a2e; font-size: 0.95rem;
+    flex-shrink: 0;
+  }
+  .user-name { color: var(--gold2); font-weight: bold; font-size: 0.95rem; }
+  .user-ci { color: #a89060; font-size: 0.78rem; }
+  .user-bar-right { display: flex; align-items: center; gap: 0.7rem; }
+  .xp-badge {
+    background: rgba(212,175,55,0.15);
+    border: 1px solid var(--gold);
+    border-radius: 20px;
+    padding: 0.2rem 0.7rem;
+    font-size: 0.78rem;
+    color: var(--gold2);
+  }
+  .streak-badge {
+    background: rgba(255,120,50,0.15);
+    border: 1px solid #ff7832;
+    border-radius: 20px;
+    padding: 0.2rem 0.7rem;
+    font-size: 0.78rem;
+    color: #ffaa60;
+  }
+  .logout-btn {
+    background: transparent;
+    border: 1px solid rgba(212,175,55,0.3);
+    color: #a89060;
+    border-radius: 6px;
+    padding: 0.2rem 0.6rem;
+    font-size: 0.75rem;
+    cursor: pointer;
+    font-family: inherit;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .logout-btn:hover { border-color: var(--gold); color: var(--gold); }
+
+  /* ========== RANKING / LEADERBOARD ========== */
+  #ranking-section {
+    max-width: 900px;
+    margin: 0 auto 2rem;
+    padding: 0 1.5rem;
+  }
+  .ranking-header {
+    color: var(--gold2);
+    font-size: 1.05rem;
+    font-weight: bold;
+    margin-bottom: 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .ranking-table-wrap {
+    width: 100%;
+    border-radius: 10px;
+  }
+  .ranking-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--card-bg);
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid rgba(212,175,55,0.2);
+    font-size: 0.88rem;
+  }
+  @media (max-width: 520px) {
+    .ranking-table { font-size: 0.82rem; }
+    .ranking-table th, .ranking-table td { padding: 0.45rem 0.6rem; }
+    #ranking-section { padding: 0 0.75rem; }
+    .rank-hide-mobile { display: none; }
+  }
+  .ranking-table th {
+    background: rgba(212,175,55,0.12);
+    color: var(--gold);
+    padding: 0.5rem 0.8rem;
+    text-align: left;
+    font-weight: normal;
+    letter-spacing: 0.5px;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+  }
+  .ranking-table td { padding: 0.5rem 0.8rem; border-top: 1px solid rgba(212,175,55,0.08); }
+  .ranking-table tr.me td { background: rgba(212,175,55,0.07); color: var(--gold2); }
+  .rank-pos { color: var(--gold); font-weight: bold; width: 2rem; }
+  .rank-medal { font-size: 1rem; }
+  .rank-xp { color: var(--gold2); font-weight: bold; }
+  .rank-streak { color: #ffaa60; }
+  .rank-passed { color: #70e090; }
+  #ranking-loading { color: #a89060; font-size: 0.85rem; padding: 0.8rem 0; text-align: center; }
+
+  /* ========== LOGIN PROMPT on home ========== */
+  #login-prompt {
+    max-width: 900px;
+    margin: 1.5rem auto 0;
+    padding: 0 1.5rem;
+  }
+  .login-prompt-box {
+    background: rgba(212,175,55,0.06);
+    border: 1px dashed rgba(212,175,55,0.35);
+    border-radius: 10px;
+    padding: 1rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+  }
+  .login-prompt-text { color: #a89060; font-size: 0.9rem; }
+  .login-prompt-text strong { color: var(--gold2); }
+  .login-prompt-btn {
+    background: linear-gradient(135deg, var(--gold), var(--gold2));
+    color: #1a1a2e;
+    border: none;
+    border-radius: 8px;
+    padding: 0.5rem 1.2rem;
+    font-size: 0.88rem;
+    font-weight: bold;
+    cursor: pointer;
+    font-family: inherit;
+    white-space: nowrap;
+  }
+
+  /* ========== THEMATIC PROGRESS BARS ========== */
+  #thematic-section {
+    max-width: 900px;
+    margin: 0 auto 1.5rem;
+    padding: 0 1.5rem;
+  }
+  .thematic-header {
+    color: var(--gold2);
+    font-size: 1.05rem;
+    font-weight: bold;
+    margin-bottom: 0.8rem;
+  }
+  .thematic-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.75rem;
+  }
+  @media (max-width: 600px) {
+    .thematic-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  .thematic-card {
+    background: var(--card-bg);
+    border: 1px solid rgba(212,175,55,0.2);
+    border-radius: 10px;
+    padding: 0.8rem 1rem;
+  }
+  .thematic-card-title {
+    font-size: 0.82rem;
+    color: var(--gold2);
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+  }
+  .thematic-bar-track {
+    width: 100%;
+    height: 8px;
+    background: rgba(255,255,255,0.07);
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 0.35rem;
+  }
+  .thematic-bar-fill {
+    height: 100%;
+    border-radius: 8px;
+    background: linear-gradient(90deg, var(--gold), var(--gold2));
+    transition: width 0.6s ease;
+    width: 0%;
+  }
+  .thematic-bar-fill.complete {
+    background: linear-gradient(90deg, #50c878, #7fffaa);
+  }
+  .thematic-stats {
+    font-size: 0.75rem;
+    color: #a89060;
+    display: flex;
+    justify-content: space-between;
+  }
+  .thematic-stats .complete-label { color: #70e090; font-weight: bold; }
+
+  /* ========== BADGES ========== */
+  #badges-section {
+    max-width: 900px;
+    margin: 0 auto 1.5rem;
+    padding: 0 1.5rem;
+  }
+  .badges-header {
+    color: var(--gold2);
+    font-size: 1.05rem;
+    font-weight: bold;
+    margin-bottom: 0.8rem;
+  }
+  .badges-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+  }
+  .badge-item {
+    background: var(--card-bg);
+    border: 1px solid rgba(212,175,55,0.25);
+    border-radius: 10px;
+    padding: 0.6rem 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    opacity: 0.6;
+    filter: grayscale(0.7);
+    transition: opacity 0.4s, filter 0.4s, border-color 0.4s, transform 0.3s;
+    cursor: default;
+    position: relative;
+  }
+  .badge-item.unlocked {
+    opacity: 1;
+    filter: none;
+    border-color: var(--gold);
+    box-shadow: 0 0 10px rgba(212,175,55,0.2);
+  }
+  .badge-item.just-unlocked {
+    animation: badgePop 0.6s ease;
+  }
+  @keyframes badgePop {
+    0%   { transform: scale(1); }
+    40%  { transform: scale(1.18); }
+    70%  { transform: scale(0.95); }
+    100% { transform: scale(1); }
+  }
+  .badge-icon { font-size: 1.5rem; line-height: 1; }
+  .badge-info { display: flex; flex-direction: column; }
+  .badge-name { font-size: 0.78rem; color: var(--gold2); font-weight: bold; line-height: 1.2; }
+  .badge-desc { font-size: 0.68rem; color: #a89060; line-height: 1.3; }
+
+  /* ========== TOAST NOTIFICATION ========== */
+  #badge-toast {
+    position: fixed;
+    bottom: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background: linear-gradient(135deg, #1e2a45, #16213e);
+    border: 2px solid var(--gold);
+    border-radius: 14px;
+    padding: 0.8rem 1.4rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    z-index: 999;
+    transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+    white-space: nowrap;
+  }
+  #badge-toast.show { transform: translateX(-50%) translateY(0); }
+  .toast-icon { font-size: 1.8rem; }
+  .toast-text { display: flex; flex-direction: column; }
+  .toast-title { color: var(--gold2); font-size: 0.75rem; letter-spacing: 1px; text-transform: uppercase; }
+  .toast-name { color: #fff; font-weight: bold; font-size: 1rem; }
+
+  /* ========== PROFILE PANEL ========== */
+  #profile-panel {
+    display: none;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 1.5rem 1rem;
+    animation: slideDown 0.25s ease;
+  }
+  #profile-panel.open { display: block; }
+  @keyframes slideDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .profile-panel-inner {
+    background: rgba(212,175,55,0.05);
+    border: 1px solid rgba(212,175,55,0.2);
+    border-top: none;
+    border-radius: 0 0 12px 12px;
+    padding: 1rem 1.2rem 1.2rem;
+  }
+  /* Make avatar clickable */
+  .user-bar-left { cursor: pointer; user-select: none; }
+  .user-bar-left:hover .user-avatar {
+    box-shadow: 0 0 0 3px rgba(212,175,55,0.4);
+  }
+  .profile-toggle-hint {
+    font-size: 0.68rem;
+    color: #a89060;
+    margin-top: 0.15rem;
+    letter-spacing: 0.3px;
+  }
+
+  .exam-launch-btn {
+    background: linear-gradient(135deg, var(--gold), var(--gold2));
+    color: #1a1a2e;
+    border: none;
+    border-radius: 20px;
+    padding: 0.25rem 0.9rem;
+    font-size: 0.78rem;
+    font-weight: bold;
+    cursor: pointer;
+    font-family: inherit;
+    white-space: nowrap;
+    transition: opacity 0.2s;
+  }
+  .exam-launch-btn:hover { opacity: 0.85; }
+
+  /* ========== TTS AUDIO PLAYER ========== */
+  .tts-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(212,175,55,0.06);
+    border-top: 1px solid rgba(212,175,55,0.15);
+    padding: 0.5rem 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .tts-btn {
+    background: rgba(212,175,55,0.12);
+    border: 1px solid rgba(212,175,55,0.35);
+    color: var(--gold2);
+    border-radius: 8px;
+    padding: 0.35rem 0.8rem;
+    font-size: 0.82rem;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    white-space: nowrap;
+  }
+  .tts-btn:hover { background: rgba(212,175,55,0.25); border-color: var(--gold); }
+  .tts-btn.tts-active {
+    background: rgba(212,175,55,0.28);
+    border-color: var(--gold2);
+    box-shadow: 0 0 8px rgba(212,175,55,0.25);
+  }
+  .tts-btn.tts-stop { border-color: rgba(244,67,54,0.4); color: #ef9a9a; }
+  .tts-btn.tts-stop:hover { background: rgba(244,67,54,0.15); border-color: #f44336; }
+  .tts-status {
+    font-size: 0.72rem;
+    color: #a89060;
+    font-style: italic;
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .tts-speed {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(212,175,55,0.25);
+    color: var(--gold2);
+    border-radius: 6px;
+    padding: 0.3rem 0.4rem;
+    font-size: 0.78rem;
+    font-family: inherit;
+    cursor: pointer;
+    outline: none;
+  }
+  /* Slide reading highlight */
+  .slide.reading .slide-title {
+    text-shadow: 0 0 12px rgba(212,175,55,0.5);
+    transition: text-shadow 0.4s;
+  }
+
+
+  /* ========== REWRITE CHALLENGE ========== */
+  .rewrite-toggle-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: linear-gradient(135deg, #0d2b1e, #1a4a32);
+    border: 1.5px solid #4caf50;
+    color: #a5d6a7;
+    padding: 0.55rem 1.2rem;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 0.85rem;
+    cursor: pointer;
+    margin-top: 1rem;
+    transition: all 0.2s;
+    width: 100%;
+    justify-content: center;
+  }
+  .rewrite-toggle-btn:hover { background: linear-gradient(135deg, #1a4a32, #256b46); box-shadow: 0 3px 12px rgba(76,175,80,0.2); }
+  .rewrite-box {
+    display: none;
+    margin-top: 0.8rem;
+    background: #0d1f14;
+    border: 1px solid rgba(76,175,80,0.3);
+    border-radius: 10px;
+    padding: 1.2rem;
+    animation: fadeIn 0.3s ease;
+  }
+  .rewrite-box.open { display: block; }
+  .rewrite-instruction {
+    color: #81c784;
+    font-size: 0.8rem;
+    margin-bottom: 0.8rem;
+    font-style: italic;
+    line-height: 1.5;
+  }
+  .rewrite-textarea {
+    width: 100%;
+    min-height: 120px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(76,175,80,0.3);
+    border-radius: 8px;
+    color: var(--text);
+    font-family: inherit;
+    font-size: 0.88rem;
+    line-height: 1.7;
+    padding: 0.7rem 0.9rem;
+    resize: vertical;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .rewrite-textarea:focus { border-color: #4caf50; }
+  .rewrite-textarea.rw-success { border-color: #4caf50; background: rgba(76,175,80,0.07); }
+  .rewrite-textarea.rw-fail    { border-color: #ff9800; }
+  .rewrite-progress-row {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-top: 0.5rem;
+  }
+  .rewrite-pct {
+    font-size: 0.75rem;
+    color: #a89060;
+    min-width: 38px;
+    text-align: right;
+  }
+  .rewrite-mini-bar {
+    flex: 1;
+    height: 5px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .rewrite-mini-fill {
+    height: 100%;
+    border-radius: 4px;
+    transition: width 0.3s ease, background 0.3s;
+    width: 0%;
+    background: #4caf50;
+  }
+  .rewrite-actions { display: flex; gap: 0.7rem; margin-top: 0.8rem; flex-wrap: wrap; }
+  .rw-check-btn {
+    background: rgba(76,175,80,0.15); border: 1.5px solid #4caf50; color: #a5d6a7;
+    padding: 0.45rem 1.1rem; border-radius: 7px; font-family: inherit; font-size: 0.85rem;
+    cursor: pointer; transition: all 0.2s;
+  }
+  .rw-check-btn:hover { background: rgba(76,175,80,0.3); }
+  .rw-clear-btn {
+    background: transparent; border: 1px solid rgba(76,175,80,0.25); color: #5a7a5e;
+    padding: 0.45rem 1rem; border-radius: 7px; font-family: inherit; font-size: 0.85rem;
+    cursor: pointer; transition: all 0.2s;
+  }
+  .rw-clear-btn:hover { border-color: #4caf50; color: #a5d6a7; }
+  .rewrite-result {
+    font-size: 0.82rem; margin-top: 0.6rem; padding: 0.5rem 0.8rem;
+    border-radius: 7px; display: none; line-height: 1.5;
+  }
+  .rewrite-result.show { display: block; }
+  .rewrite-result.rw-ok   { background: rgba(76,175,80,0.12); border:1px solid #4caf50; color: #a5d6a7; }
+  .rewrite-result.rw-warn { background: rgba(255,152,0,0.1);  border:1px solid #ff9800; color: #ffb74d; }
+  .rewrite-done-badge {
+    display: inline-flex; align-items: center; gap: 0.3rem;
+    background: rgba(76,175,80,0.18); border: 1px solid #4caf50;
+    color: #a5d6a7; font-size: 0.72rem; padding: 0.2rem 0.6rem;
+    border-radius: 10px; margin-left: 0.5rem; font-weight: bold;
+  }
+
+
+  .random-lesson-btn {
+    background: linear-gradient(135deg, var(--dark3), #1a3a6e);
+    color: var(--gold2);
+    border: 1.5px solid var(--gold);
+    border-radius: 20px;
+    padding: 0.25rem 0.9rem;
+    font-size: 0.78rem;
+    font-weight: bold;
+    cursor: pointer;
+    font-family: inherit;
+    white-space: nowrap;
+    transition: all 0.2s;
+  }
+  .random-lesson-btn:hover {
+    background: linear-gradient(135deg, #1a3a6e, #254a8e);
+    box-shadow: 0 2px 10px rgba(212,175,55,0.3);
+  }
+
+</style>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════════════════════
+     HOME PAGE
+     ════════════════════════════════════════════════════════════ -->
+<div id="home-page">
+
+  <!-- User bar (login / XP / streak) -->
+  <div class="user-bar" id="user-bar" style="display:none">
+    <div class="user-bar-left">
+      <div class="user-avatar" id="user-avatar" onclick="toggleProfilePanel()">?</div>
+      <div class="user-info">
+        <div class="user-name" id="user-name-display">—</div>
+        <div class="user-ci" id="user-ci-display">CI: —</div>
+      </div>
+    </div>
+    <div class="user-bar-right">
+      <span class="xp-badge" id="user-xp-display">⚡ 0 XP</span>
+      <span class="streak-badge" id="user-streak-display">🔥 1 día</span>
+      <button class="random-lesson-btn" onclick="openRandomLesson()">🎲 Lección Aleatoria</button>
+      <button class="exam-launch-btn" onclick="startExamSimulacro()">📋 Simulacro</button>
+      <button class="logout-btn" id="logout-btn">Salir</button>
+    </div>
+  </div>
+
+  <!-- Profile panel -->
+  <div class="profile-panel" id="profile-panel" style="display:none">
+    <div class="profile-panel-inner">
+      <div class="pp-header">
+        <div class="pp-avatar" id="pp-avatar">?</div>
+        <div>
+          <div class="pp-name" id="pp-name">—</div>
+          <div class="pp-xp" id="pp-xp">⚡ 0 XP</div>
+        </div>
+        <button class="pp-close" onclick="toggleProfilePanel()">✕</button>
+      </div>
+      <div class="pp-section-title">🏅 Insignias</div>
+      <div class="badges-grid" id="badges-grid"></div>
+      <div class="pp-section-title" style="margin-top:1rem">📊 Progreso por Bloque</div>
+      <div id="thematic-grid"></div>
+    </div>
+  </div>
+
+  <!-- Auth overlay -->
+  <div class="auth-overlay" id="auth-overlay">
+    <div class="auth-modal">
+      <button class="auth-close" onclick="hideAuthModal()">✕</button>
+      <div class="auth-title" id="auth-mode-title">Iniciar Sesión</div>
+      <div class="auth-field">
+        <label>Cédula de Identidad</label>
+        <input type="text" id="auth-ci" placeholder="Ej: 1234567" inputmode="numeric">
+      </div>
+      <div class="auth-field" id="auth-name-wrap" style="display:none">
+        <label>Nombre completo</label>
+        <input type="text" id="auth-name" placeholder="Tu nombre">
+      </div>
+      <div class="auth-msg" id="auth-msg"></div>
+      <button class="auth-submit" id="auth-submit" onclick="authSubmit()">Entrar</button>
+      <button class="auth-toggle" id="auth-toggle-btn" onclick="toggleAuthMode()">¿Primera vez? Registrate</button>
+    </div>
+  </div>
+
+  <!-- Login prompt (shown when not logged in) -->
+  <div class="login-prompt" id="login-prompt">
+    <button class="login-prompt-btn" onclick="showAuthModal('login')">
+      🏆 Iniciar sesión para guardar progreso y aparecer en el ranking
+    </button>
+  </div>
+
+  <!-- Hero -->
+  <div class="home-hero">
+    <div class="crest">🎓</div>
+    <!-- ✏️ Cambiá estos datos -->
+    <h1>NOMBRE DE LA MATERIA</h1>
+    <p class="universidad">Universidad Nacional de Asunción</p>
+    <p class="profesor">Prof. Nombre del Profesor</p>
+    <div class="badge-row">
+      <span class="badge">10 Lecciones</span>
+      <span class="badge">Quizzes</span>
+      <span class="badge">Simulacro</span>
+    </div>
+  </div>
+
+  <!-- Global progress bar -->
+  <div class="global-progress-wrap">
+    <div class="global-progress-inner">
+      <span class="gp-label">Progreso general</span>
+      <div class="gp-bar-track"><div class="gp-bar-fill" id="gp-bar-fill"></div></div>
+      <div class="gp-stats">
+        <div class="gp-stat">📖 Visitadas: <span id="gp-visited">0</span>/10</div>
+        <div class="gp-stat">✅ Aprobadas: <span id="gp-passed">0</span>/10</div>
+        <div class="gp-stat">⚡ XP: <span id="gp-xp">0</span></div>
+      </div>
+      <button class="gp-reset-btn" onclick="resetProgress()">↺ Resetear</button>
+    </div>
+  </div>
+
+  <!-- Ranking -->
+  <div class="ranking-wrap" id="ranking-wrap" style="display:none">
+    <div class="ranking-inner">
+      <div class="ranking-title">🏆 Ranking</div>
+      <div id="ranking-list"></div>
+    </div>
+  </div>
+
+  <!-- Lessons grid -->
+  <div class="lessons-grid">
+        <div class="lesson-card not-visited" onclick="showLesson(1)">
+          <span class="card-emoji">📖</span>
+          <span class="card-number">LECCIÓN 01</span>
+          <span class="card-title">Título de la Lección 1</span>
+          <div class="card-state-row" id="card-state-1"></div>
+          <span class="card-arrow">›</span>
+        </div>
+        <div class="lesson-card not-visited" onclick="showLesson(2)">
+          <span class="card-emoji">📖</span>
+          <span class="card-number">LECCIÓN 02</span>
+          <span class="card-title">Título de la Lección 2</span>
+          <div class="card-state-row" id="card-state-2"></div>
+          <span class="card-arrow">›</span>
+        </div>
+        <div class="lesson-card not-visited" onclick="showLesson(3)">
+          <span class="card-emoji">📖</span>
+          <span class="card-number">LECCIÓN 03</span>
+          <span class="card-title">Título de la Lección 3</span>
+          <div class="card-state-row" id="card-state-3"></div>
+          <span class="card-arrow">›</span>
+        </div>
+        <div class="lesson-card not-visited" onclick="showLesson(4)">
+          <span class="card-emoji">📖</span>
+          <span class="card-number">LECCIÓN 04</span>
+          <span class="card-title">Título de la Lección 4</span>
+          <div class="card-state-row" id="card-state-4"></div>
+          <span class="card-arrow">›</span>
+        </div>
+        <div class="lesson-card not-visited" onclick="showLesson(5)">
+          <span class="card-emoji">📖</span>
+          <span class="card-number">LECCIÓN 05</span>
+          <span class="card-title">Título de la Lección 5</span>
+          <div class="card-state-row" id="card-state-5"></div>
+          <span class="card-arrow">›</span>
+        </div>
+        <div class="lesson-card not-visited" onclick="showLesson(6)">
+          <span class="card-emoji">📖</span>
+          <span class="card-number">LECCIÓN 06</span>
+          <span class="card-title">Título de la Lección 6</span>
+          <div class="card-state-row" id="card-state-6"></div>
+          <span class="card-arrow">›</span>
+        </div>
+        <div class="lesson-card not-visited" onclick="showLesson(7)">
+          <span class="card-emoji">📖</span>
+          <span class="card-number">LECCIÓN 07</span>
+          <span class="card-title">Título de la Lección 7</span>
+          <div class="card-state-row" id="card-state-7"></div>
+          <span class="card-arrow">›</span>
+        </div>
+        <div class="lesson-card not-visited" onclick="showLesson(8)">
+          <span class="card-emoji">📖</span>
+          <span class="card-number">LECCIÓN 08</span>
+          <span class="card-title">Título de la Lección 8</span>
+          <div class="card-state-row" id="card-state-8"></div>
+          <span class="card-arrow">›</span>
+        </div>
+        <div class="lesson-card not-visited" onclick="showLesson(9)">
+          <span class="card-emoji">📖</span>
+          <span class="card-number">LECCIÓN 09</span>
+          <span class="card-title">Título de la Lección 9</span>
+          <div class="card-state-row" id="card-state-9"></div>
+          <span class="card-arrow">›</span>
+        </div>
+        <div class="lesson-card not-visited" onclick="showLesson(10)">
+          <span class="card-emoji">📖</span>
+          <span class="card-number">LECCIÓN 10</span>
+          <span class="card-title">Título de la Lección 10</span>
+          <div class="card-state-row" id="card-state-10"></div>
+          <span class="card-arrow">›</span>
+        </div>
+  </div>
+
+  <footer>
+    <p>Material de estudio interactivo · Generado con plantilla educativa</p>
+  </footer>
+</div><!-- end home-page -->
+
+<!-- ════════════════════════════════════════════════════════════
+     LESSON PAGES — Una por lección
+     ════════════════════════════════════════════════════════════ -->
+
+  <section class="lesson-page" id="lesson-1" style="display:none">
+    <header class="lesson-header">
+      <button class="back-btn" onclick="showHome()">← Volver al inicio</button>
+      <span class="lesson-badge">📖 Lección 1</span>
+    </header>
+    <div class="lesson-meta">
+      <h1 class="lesson-main-title" id="lesson-title-1">Título de la Lección 1</h1>
+      <p class="lesson-subtitle" id="lesson-subtitle-1">Subtítulo opcional</p>
+      <div class="inline-prog-wrap">
+        <div class="inline-prog-track"><div class="inline-prog-fill" id="iprog-1"></div></div>
+        <span class="inline-prog-label" id="iprog-label-1">0 / 5</span>
+      </div>
+    </div>
+    <div class="slideshow-container" id="slides-1">
+
+      <!-- ══ SLIDE 1 ══════════════════════════════════════════════════════ -->
+      <div class="slide active" data-index="0">
+        <div class="slide-number">1 / 5</div>
+        <h2 class="slide-title">Título del Slide 1</h2>
+        <div class="slide-content">
+          Reemplazá este texto con el contenido de tu primer slide.<br><br>
+          Podés usar <strong>negrita</strong>, <em>itálica</em>, y listas.<br><br>
+          • Punto 1<br>
+          • Punto 2<br>
+          • Punto 3
+        </div>
+      </div>
+
+      <!-- ══ SLIDE 2 ══════════════════════════════════════════════════════ -->
+      <div class="slide " data-index="1">
+        <div class="slide-number">2 / 5</div>
+        <h2 class="slide-title">Título del Slide 2</h2>
+        <div class="slide-content">
+          Contenido del slide 2.
+        </div>
+      </div>
+
+      <!-- ══ SLIDE 3 ══════════════════════════════════════════════════════ -->
+      <div class="slide " data-index="2">
+        <div class="slide-number">3 / 5</div>
+        <h2 class="slide-title">Título del Slide 3</h2>
+        <div class="slide-content">
+          Contenido del slide 3.
+        </div>
+      </div>
+
+      <!-- ══ SLIDE 4 ══════════════════════════════════════════════════════ -->
+      <div class="slide " data-index="3">
+        <div class="slide-number">4 / 5</div>
+        <h2 class="slide-title">Título del Slide 4</h2>
+        <div class="slide-content">
+          Contenido del slide 4.
+        </div>
+      </div>
+
+      <!-- ══ SLIDE 5 — EJERCICIOS Y QUIZ (no modificar estructura) ════════ -->
+      <div class="slide" data-index="4">
+        <div class="slide-ex-quiz">
+          <div class="exercises-panel">
+            <button class="exercises-btn" id="ex-toggle-1" onclick="toggleExercises(1)">
+              ✏️ Ejercicios didácticos
+            </button>
+            <div class="exercises-box" id="ex-box-1">
+              <div class="ex-tabs">
+                <button class="ex-tab active" onclick="switchExTab(1,'fill',this)">Completar</button>
+              </div>
+              <div class="ex-pane active" id="ex-fill-1">
+                <!-- Fill-in-the-blank generado desde FILL_DATA_JS en JS -->
+              </div>
+            </div>
+          </div>
+          <div class="quiz-section">
+            <button class="quiz-toggle-btn" id="qz-toggle-1" onclick="toggleQuiz(1)">
+              🎯 Quiz de la Lección
+            </button>
+            <div class="quiz-box" id="quiz-box-1">
+              <!-- Quiz generado desde EXAM_DATA en JS -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- end slideshow-container -->
+
+    <div class="slide-controls">
+      <button class="ctrl-btn" onclick="prevSlide(1)">&#8592;</button>
+      <div class="dots-container">
+        <button class="dot active" onclick="goToSlide(1,0)"></button>
+        <button class="dot" onclick="goToSlide(1,1)"></button>
+        <button class="dot" onclick="goToSlide(1,2)"></button>
+        <button class="dot" onclick="goToSlide(1,3)"></button>
+        <button class="dot" onclick="goToSlide(1,4)"></button>
+      </div>
+      <button class="ctrl-btn" onclick="nextSlide(1)">&#8594;</button>
+    </div>
+    <div class="progress-bar-wrap"><div class="progress-bar" id="prog-1"></div></div>
+    <div class="tts-bar" id="tts-bar-1">
+      <button class="tts-btn" id="tts-play-1" onclick="ttsToggle(1)">🔊 Escuchar</button>
+      <button class="tts-btn tts-stop" id="tts-stop-1" onclick="ttsStop(1)" style="display:none">⏹ Detener</button>
+      <select class="tts-speed" id="tts-speed-1">
+        <option value="0.8">0.8×</option>
+        <option value="1" selected>1×</option>
+        <option value="1.2">1.2×</option>
+        <option value="1.5">1.5×</option>
+      </select>
+      <span class="tts-status" id="tts-status-1">🎧 listo para escuchar</span>
+    </div>
+  </section>
+
+
+  <section class="lesson-page" id="lesson-2" style="display:none">
+    <header class="lesson-header">
+      <button class="back-btn" onclick="showHome()">← Volver al inicio</button>
+      <span class="lesson-badge">📖 Lección 2</span>
+    </header>
+    <div class="lesson-meta">
+      <h1 class="lesson-main-title" id="lesson-title-2">Título de la Lección 2</h1>
+      <p class="lesson-subtitle" id="lesson-subtitle-2">Subtítulo opcional</p>
+      <div class="inline-prog-wrap">
+        <div class="inline-prog-track"><div class="inline-prog-fill" id="iprog-2"></div></div>
+        <span class="inline-prog-label" id="iprog-label-2">0 / 5</span>
+      </div>
+    </div>
+    <div class="slideshow-container" id="slides-2">
+
+      <!-- ══ SLIDE 1 ══════════════════════════════════════════════════════ -->
+      <div class="slide active" data-index="0">
+        <div class="slide-number">1 / 5</div>
+        <h2 class="slide-title">Título del Slide 1</h2>
+        <div class="slide-content">
+          Reemplazá este texto con el contenido de tu primer slide.<br><br>
+          Podés usar <strong>negrita</strong>, <em>itálica</em>, y listas.<br><br>
+          • Punto 1<br>
+          • Punto 2<br>
+          • Punto 3
+        </div>
+      </div>
+
+      <!-- ══ SLIDE 2 ══════════════════════════════════════════════════════ -->
+      <div class="slide " data-index="1">
+        <div class="slide-number">2 / 5</div>
+        <h2 class="slide-title">Título del Slide 2</h2>
+        <div class="slide-content">
+          Contenido del slide 2.
+        </div>
+      </div>
+
+      <!-- ══ SLIDE 3 ══════════════════════════════════════════════════════ -->
+      <div class="slide " data-index="2">
+        <div class="slide-number">3 / 5</div>
+        <h2 class="slide-title">Título del Slide 3</h2>
+        <div class="slide-content">
+          Contenido del slide 3.
+        </div>
+      </div>
+
+      <!-- ══ SLIDE 4 ══════════════════════════════════════════════════════ -->
+      <div class="slide " data-index="3">
+        <div class="slide-number">4 / 5</div>
+        <h2 class="slide-title">Título del Slide 4</h2>
+        <div class="slide-content">
+          Contenido del slide 4.
+        </div>
+      </div>
+
+      <!-- ══ SLIDE 5 — EJERCICIOS Y QUIZ (no modificar estructura) ════════ -->
+      <div class="slide" data-index="4">
+        <div class="slide-ex-quiz">
+          <div class="exercises-panel">
+            <button class="exercises-btn" id="ex-toggle-2" onclick="toggleExercises(2)">
+              ✏️ Ejercicios didácticos
+            </button>
+            <div class="exercises-box" id="ex-box-2">
+              <div class="ex-tabs">
+                <button class="ex-tab active" onclick="switchExTab(2,'fill',this)">Completar</button>
+              </div>
+              <div class="ex-pane active" id="ex-fill-2">
+                <!-- Fill-in-the-blank generado desde FILL_DATA_JS en JS -->
+              </div>
+            </div>
+          </div>
+          <div class="quiz-section">
+            <button class="quiz-toggle-btn" id="qz-toggle-2" onclick="toggleQuiz(2)">
+              🎯 Quiz de la Lección
+            </button>
+            <div class="quiz-box" id="quiz-box-2">
+              <!-- Quiz generado desde EXAM_DATA en JS -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- end slideshow-container -->
+
+    <div class="slide-controls">
+      <button class="ctrl-btn" onclick="prevSlide(2)">&#8592;</button>
+      <div class="dots-container">
+        <button class="dot active" onclick="goToSlide(2,0)"></button>
+        <button class="dot" onclick="goToSlide(2,1)"></button>
+        <button class="dot" onclick="goToSlide(2,2)"></button>
+        <button class="dot" onclick="goToSlide(2,3)"></button>
+        <button class="dot" onclick="goToSlide(2,4)"></button>
+      </div>
+      <button class="ctrl-btn" onclick="nextSlide(2)">&#8594;</button>
+    </div>
+    <div class="progress-bar-wrap"><div class="progress-bar" id="prog-2"></div></div>
+    <div class="tts-bar" id="tts-bar-2">
+      <button class="tts-btn" id="tts-play-2" onclick="ttsToggle(2)">🔊 Escuchar</button>
+      <button class="tts-btn tts-stop" id="tts-stop-2" onclick="ttsStop(2)" style="display:none">⏹ Detener</button>
+      <select class="tts-speed" id="tts-speed-2">
+        <option value="0.8">0.8×</option>
+        <option value="1" selected>1×</option>
+        <option value="1.2">1.2×</option>
+        <option value="1.5">1.5×</option>
+      </select>
+      <span class="tts-status" id="tts-status-2">🎧 listo para escuchar</span>
+    </div>
+  </section>
+
+
+  <section class="lesson-page" id="lesson-3" style="display:none">
+    <header class="lesson-header">
+      <button class="back-btn" onclick="showHome()">← Volver al inicio</button>
+      <span class="lesson-badge">📖 Lección 3</span>
+    </header>
+    <div class="lesson-meta">
+      <h1 class="lesson-main-title" id="lesson-title-3">Título de la Lección 3</h1>
+      <p class="lesson-subtitle" id="lesson-subtitle-3">Subtítulo opcional</p>
+      <div class="inline-prog-wrap">
+        <div class="inline-prog-track"><div class="inline-prog-fill" id="iprog-3"></div></div>
+        <span class="inline-prog-label" id="iprog-label-3">0 / 5</span>
+      </div>
+    </div>
+    <div class="slideshow-container" id="slides-3">
+
+      <!-- ══ SLIDE 1 ══════════════════════════════════════════════════════ -->
+      <div class="slide active" data-index="0">
+        <div class="slide-number">1 / 5</div>
+        <h2 class="slide-title">Título del Slide 1</h2>
+        <div class="slide-content">
+          Reemplazá este texto con el contenido de tu primer slide.<br><br>
+          Podés usar <strong>negrita</strong>, <em>itálica</em>, y listas.<br><br>
+          • Punto 1<br>
+          • Punto 2<br>
+          • Punto 3
+        </div>
+      </div>
+
+      <!-- ══ SLIDE 2 ══════════════════════════════════════════════════════ -->
+      <div class="slide " data-index="1">
+        <div class="slide-number">2 / 5</div>
+        <h2 class="slide-title">Título del Slide 2</h2>
+        <div class="slide-content">
+          Contenido del slide 2.
+        </div>
+      </div>
+
+      <!-- ══ SLIDE 3 ══════════════════════════════════════════════════════ -->
+      <div class="slide " data-index="2">
+        <div class="slide-number">3 / 5</div>
+        <h2 class="slide-title">Título del Slide 3</h2>
+        <div class="slide-content">
+          Contenido del slide 3.
+        </div>
+      </div>
+
+      <!-- ══ SLIDE 4 ══════════════════════════════════════════════════════ -->
+      <div class="slide " data-index="3">
+        <div class="slide-number">4 / 5</div>
+        <h2 class="slide-title">Título del Slide 4</h2>
+        <div class="slide-content">
+          Contenido del slide 4.
+        </div>
+      </div>
+
+      <!-- ══ SLIDE 5 — EJERCICIOS Y QUIZ (no modificar estructura) ════════ -->
+      <div class="slide" data-index="4">
+        <div class="slide-ex-quiz">
+          <div class="exercises-panel">
+            <button class="exercises-btn" id="ex-toggle-3" onclick="toggleExercises(3)">
+              ✏️ Ejercicios didácticos
+            </button>
+            <div class="exercises-box" id="ex-box-3">
+              <div class="ex-tabs">
+                <button class="ex-tab active" onclick="switchExTab(3,'fill',this)">Completar</button>
+              </div>
+              <div class="ex-pane active" id="ex-fill-3">
+                <!-- Fill-in-the-blank generado desde FILL_DATA_JS en JS -->
+              </div>
+            </div>
+          </div>
+          <div class="quiz-section">
+            <button class="quiz-toggle-btn" id="qz-toggle-3" onclick="toggleQuiz(3)">
+              🎯 Quiz de la Lección
+            </button>
+            <div class="quiz-box" id="quiz-box-3">
+              <!-- Quiz generado desde EXAM_DATA en JS -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- end slideshow-container -->
+
+    <div class="slide-controls">
+      <button class="ctrl-btn" onclick="prevSlide(3)">&#8592;</button>
+      <div class="dots-container">
+        <button class="dot active" onclick="goToSlide(3,0)"></button>
+        <button class="dot" onclick="goToSlide(3,1)"></button>
+        <button class="dot" onclick="goToSlide(3,2)"></button>
+        <button class="dot" onclick="goToSlide(3,3)"></button>
+        <button class="dot" onclick="goToSlide(3,4)"></button>
+      </div>
+      <button class="ctrl-btn" onclick="nextSlide(3)">&#8594;</button>
+    </div>
+    <div class="progress-bar-wrap"><div class="progress-bar" id="prog-3"></div></div>
+    <div class="tts-bar" id="tts-bar-3">
+      <button class="tts-btn" id="tts-play-3" onclick="ttsToggle(3)">🔊 Escuchar</button>
+      <button class="tts-btn tts-stop" id="tts-stop-3" onclick="ttsStop(3)" style="display:none">⏹ Detener</button>
+      <select class="tts-speed" id="tts-speed-3">
+        <option value="0.8">0.8×</option>
+        <option value="1" selected>1×</option>
+        <option value="1.2">1.2×</option>
+        <option value="1.5">1.5×</option>
+      </select>
+      <span class="tts-status" id="tts-status-3">🎧 listo para escuchar</span>
+    </div>
+  </section>
+
+
+  <section class="lesson-page" id="lesson-4" style="display:none">
+    <header class="lesson-header">
+      <button class="back-btn" onclick="showHome()">← Volver al inicio</button>
+      <span class="lesson-badge">📖 Lección 4</span>
+    </header>
+    <div class="lesson-meta">
+      <h1 class="lesson-main-title" id="lesson-title-4">Título de la Lección 4</h1>
+      <p class="lesson-subtitle" id="lesson-subtitle-4">Subtítulo opcional</p>
+      <div class="inline-prog-wrap">
+        <div class="inline-prog-track"><div class="inline-prog-fill" id="iprog-4"></div></div>
+        <span class="inline-prog-label" id="iprog-label-4">0 / 5</span>
+      </div>
+    </div>
+    <div class="slideshow-container" id="slides-4">
+
+      <!-- ══ SLIDE 1 ══════════════════════════════════════════════════════ -->
+      <div class="slide active" data-index="0">
+        <div class="slide-number">1 / 5</div>
+        <h2 class="slide-title">Título del Slide 1</h2>
+        <div class="slide-content">
+          Reemplazá este texto con el contenido de tu primer slide.<br><br>
+          Podés usar <strong>negrita</strong>, <em>itálica</em>, y listas.<br><br>
+          • Punto 1<br>
+          • Punto 2<br>
+          • Punto 3
+        </div>
+      </div>
+
+      <!-- ══ SLIDE 2 ══════════════════════════════════════════════════════ -->
+      <div class="slide " data-index="1">
+        <div class="slide-number">2 / 5</div>
+        <h2 class="slide-title">Título del Slide 2</h2>
+        <div class="slide-content">
+          Contenido del slide 2.
+        </div>
+      </div>
+
+      <!-- ══ SLIDE 3 ══════════════════════════════════════════════════════ -->
+      <div class="slide " data-index="2">
+        <div class="slide-number">3 / 5</div>
+        <h2 class="slide-title">Título del Slide 3</h2>
+        <div class="slide-content">
+          Contenido del slide 3.
+        </div>
+      </div>
+
+      <!-- ══ SLIDE 4 ══════════════════════════════════════════════════════ -->
+      <div class="slide " data-index="3">
+        <div class="slide-number">4 / 5</div>
+        <h2 class="slide-title">Título del Slide 4</h2>
+        <div class="slide-content">
+          Contenido del slide 4.
+        </div>
+      </div>
+
+      <!-- ══ SLIDE 5 — EJERCICIOS Y QUIZ (no modificar estructura) ════════ -->
+      <div class="slide" data-index="4">
+        <div class="slide-ex-quiz">
+          <div class="exercises-panel">
+            <button class="exercises-btn" id="ex-toggle-4" onclick="toggleExercises(4)">
+              ✏️ Ejercicios didácticos
+            </button>
+            <div class="exercises-box" id="ex-box-4">
+              <div class="ex-tabs">
+                <button class="ex-tab active" onclick="switchExTab(4,'fill',this)">Completar</button>
+              </div>
+              <div class="ex-pane active" id="ex-fill-4">
+                <!-- Fill-in-the-blank generado desde FILL_DATA_JS en JS -->
+              </div>
+            </div>
+          </div>
+          <div class="quiz-section">
+            <button class="quiz-toggle-btn" id="qz-toggle-4" onclick="toggleQuiz(4)">
+              🎯 Quiz de la Lección
+            </button>
+            <div class="quiz-box" id="quiz-box-4">
+              <!-- Quiz generado desde EXAM_DATA en JS -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- end slideshow-container -->
+
+    <div class="slide-controls">
+      <button class="ctrl-btn" onclick="prevSlide(4)">&#8592;</button>
+      <div class="dots-container">
+        <button class="dot active" onclick="goToSlide(4,0)"></button>
+        <button class="dot" onclick="goToSlide(4,1)"></button>
+        <button class="dot" onclick="goToSlide(4,2)"></button>
+        <button class="dot" onclick="goToSlide(4,3)"></button>
+        <button class="dot" onclick="goToSlide(4,4)"></button>
+      </div>
+      <button class="ctrl-btn" onclick="nextSlide(4)">&#8594;</button>
+    </div>
+    <div class="progress-bar-wrap"><div class="progress-bar" id="prog-4"></div></div>
+    <div class="tts-bar" id="tts-bar-4">
+      <button class="tts-btn" id="tts-play-4" onclick="ttsToggle(4)">🔊 Escuchar</button>
+      <button class="tts-btn tts-stop" id="tts-stop-4" onclick="ttsStop(4)" style="display:none">⏹ Detener</button>
+      <select class="tts-speed" id="tts-speed-4">
+        <option value="0.8">0.8×</option>
+        <option value="1" selected>1×</option>
+        <option value="1.2">1.2×</option>
+        <option value="1.5">1.5×</option>
+      </select>
+      <span class="tts-status" id="tts-status-4">🎧 listo para escuchar</span>
+    </div>
+  </section>
+
+
+  <section class="lesson-page" id="lesson-5" style="display:none">
+    <header class="lesson-header">
+      <button class="back-btn" onclick="showHome()">← Volver al inicio</button>
+      <span class="lesson-badge">📖 Lección 5</span>
+    </header>
+    <div class="lesson-meta">
+      <h1 class="lesson-main-title" id="lesson-title-5">Título de la Lección 5</h1>
+      <p class="lesson-subtitle" id="lesson-subtitle-5">Subtítulo opcional</p>
+      <div class="inline-prog-wrap">
+        <div class="inline-prog-track"><div class="inline-prog-fill" id="iprog-5"></div></div>
+        <span class="inline-prog-label" id="iprog-label-5">0 / 5</span>
+      </div>
+    </div>
+    <div class="slideshow-container" id="slides-5">
+
+      <!-- ══ SLIDE 1 ══════════════════════════════════════════════════════ -->
+      <div class="slide active" data-index="0">
+        <div class="slide-number">1 / 5</div>
+        <h2 class="slide-title">Título del Slide 1</h2>
+        <div class="slide-content">
+          Reemplazá este texto con el contenido de tu primer slide.<br><br>
+          Podés usar <strong>negrita</strong>, <em>itálica</em>, y listas.<br><br>
+          • Punto 1<br>
+          • Punto 2<br>
+          • Punto 3
+        </div>
+      </div>
+
+      <!-- ══ SLIDE 2 ══════════════════════════════════════════════════════ -->
+      <div class="slide " data-index="1">
+        <div class="slide-number">2 / 5</div>
+        <h2 class="slide-title">Título del Slide 2</h2>
+        <div class="slide-content">
+          Contenido del slide 2.
+        </div>
+      </div>
+
+      <!-- ══ SLIDE 3 ══════════════════════════════════════════════════════ -->
+      <div class="slide " data-index="2">
+        <div class="slide-number">3 / 5</div>
+        <h2 class="slide-title">Título del Slide 3</h2>
+        <div class="slide-content">
+          Contenido del slide 3.
+        </div>
+      </div>
+
+      <!-- ══ SLIDE 4 ══════════════════════════════════════════════════════ -->
+      <div class="slide " data-index="3">
+        <div class="slide-number">4 / 5</div>
+        <h2 class="slide-title">Título del Slide 4</h2>
+        <div class="slide-content">
+          Contenido del slide 4.
+        </div>
+      </div>
+
+      <!-- ══ SLIDE 5 — EJERCICIOS Y QUIZ (no modificar estructura) ════════ -->
+      <div class="slide" data-index="4">
+        <div class="slide-ex-quiz">
+          <div class="exercises-panel">
+            <button class="exercises-btn" id="ex-toggle-5" onclick="toggleExercises(5)">
+              ✏️ Ejercicios didácticos
+            </button>
+            <div class="exercises-box" id="ex-box-5">
+              <div class="ex-tabs">
+                <button class="ex-tab active" onclick="switchExTab(5,'fill',this)">Completar</button>
+              </div>
+              <div class="ex-pane active" id="ex-fill-5">
+                <!-- Fill-in-the-blank generado desde FILL_DATA_JS en JS -->
+              </div>
+            </div>
+          </div>
+          <div class="quiz-section">
+            <button class="quiz-toggle-btn" id="qz-toggle-5" onclick="toggleQuiz(5)">
+              🎯 Quiz de la Lección
+            </button>
+            <div class="quiz-box" id="quiz-box-5">
+              <!-- Quiz generado desde EXAM_DATA en JS -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- end slideshow-container -->
+
+    <div class="slide-controls">
+      <button class="ctrl-btn" onclick="prevSlide(5)">&#8592;</button>
+      <div class="dots-container">
+        <button class="dot active" onclick="goToSlide(5,0)"></button>
+        <button class="dot" onclick="goToSlide(5,1)"></button>
+        <button class="dot" onclick="goToSlide(5,2)"></button>
+        <button class="dot" onclick="goToSlide(5,3)"></button>
+        <button class="dot" onclick="goToSlide(5,4)"></button>
+      </div>
+      <button class="ctrl-btn" onclick="nextSlide(5)">&#8594;</button>
+    </div>
+    <div class="progress-bar-wrap"><div class="progress-bar" id="prog-5"></div></div>
+    <div class="tts-bar" id="tts-bar-5">
+      <button class="tts-btn" id="tts-play-5" onclick="ttsToggle(5)">🔊 Escuchar</button>
+      <button class="tts-btn tts-stop" id="tts-stop-5" onclick="ttsStop(5)" style="display:none">⏹ Detener</button>
+      <select class="tts-speed" id="tts-speed-5">
+        <option value="0.8">0.8×</option>
+        <option value="1" selected>1×</option>
+        <option value="1.2">1.2×</option>
+        <option value="1.5">1.5×</option>
+      </select>
+      <span class="tts-status" id="tts-status-5">🎧 listo para escuchar</span>
+    </div>
+  </section>
+
+
+  <section class="lesson-page" id="lesson-6" style="display:none">
+    <header class="lesson-header">
+      <button class="back-btn" onclick="showHome()">← Volver al inicio</button>
+      <span class="lesson-badge">📖 Lección 6</span>
+    </header>
+    <div class="lesson-meta">
+      <h1 class="lesson-main-title" id="lesson-title-6">Título de la Lección 6</h1>
+      <p class="lesson-subtitle" id="lesson-subtitle-6">Subtítulo opcional</p>
+      <div class="inline-prog-wrap">
+        <div class="inline-prog-track"><div class="inline-prog-fill" id="iprog-6"></div></div>
+        <span class="inline-prog-label" id="iprog-label-6">0 / 5</span>
+      </div>
+    </div>
+    <div class="slideshow-container" id="slides-6">
+
+      <!-- ══ SLIDE 1 ══════════════════════════════════════════════════════ -->
+      <div class="slide active" data-index="0">
+        <div class="slide-number">1 / 5</div>
+        <h2 class="slide-title">Título del Slide 1</h2>
+        <div class="slide-content">
+          Reemplazá este texto con el contenido de tu primer slide.<br><br>
+          Podés usar <strong>negrita</strong>, <em>itálica</em>, y listas.<br><br>
+          • Punto 1<br>
+          • Punto 2<br>
+          • Punto 3
+        </div>
+      </div>
+
+      <!-- ══ SLIDE 2 ══════════════════════════════════════════════════════ -->
+      <div class="slide " data-index="1">
+        <div class="slide-number">2 / 5</div>
+        <h2 class="slide-title">Título del Slide 2</h2>
+        <div class="slide-content">
+          Contenido del slide 2.
+        </div>
+      </div>
+
+      <!-- ══ SLIDE 3 ══════════════════════════════════════════════════════ -->
+      <div class="slide " data-index="2">
+        <div class="slide-number">3 / 5</div>
+        <h2 class="slide-title">Título del Slide 3</h2>
+        <div class="slide-content">
+          Contenido del slide 3.
+        </div>
+      </div>
+
+      <!-- ══ SLIDE 4 ══════════════════════════════════════════════════════ -->
+      <div class="slide " data-index="3">
+        <div class="slide-number">4 / 5</div>
+        <h2 class="slide-title">Título del Slide 4</h2>
+        <div class="slide-content">
+          Contenido del slide 4.
+        </div>
+      </div>
+
+      <!-- ══ SLIDE 5 — EJERCICIOS Y QUIZ (no modificar estructura) ════════ -->
+      <div class="slide" data-index="4">
+        <div class="slide-ex-quiz">
+          <div class="exercises-panel">
+            <button class="exercises-btn" id="ex-toggle-6" onclick="toggleExercises(6)">
+              ✏️ Ejercicios didácticos
+            </button>
+            <div class="exercises-box" id="ex-box-6">
+              <div class="ex-tabs">
+                <button class="ex-tab active" onclick="switchExTab(6,'fill',this)">Completar</button>
+              </div>
+              <div class="ex-pane active" id="ex-fill-6">
+                <!-- Fill-in-the-blank generado desde FILL_DATA_JS en JS -->
+              </div>
+            </div>
+          </div>
+          <div class="quiz-section">
+            <button class="quiz-toggle-btn" id="qz-toggle-6" onclick="toggleQuiz(6)">
+              🎯 Quiz de la Lección
+            </button>
+            <div class="quiz-box" id="quiz-box-6">
+              <!-- Quiz generado desde EXAM_DATA en JS -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- end slideshow-container -->
+
+    <div class="slide-controls">
+      <button class="ctrl-btn" onclick="prevSlide(6)">&#8592;</button>
+      <div class="dots-container">
+        <button class="dot active" onclick="goToSlide(6,0)"></button>
+        <button class="dot" onclick="goToSlide(6,1)"></button>
+        <button class="dot" onclick="goToSlide(6,2)"></button>
+        <button class="dot" onclick="goToSlide(6,3)"></button>
+        <button class="dot" onclick="goToSlide(6,4)"></button>
+      </div>
+      <button class="ctrl-btn" onclick="nextSlide(6)">&#8594;</button>
+    </div>
+    <div class="progress-bar-wrap"><div class="progress-bar" id="prog-6"></div></div>
+    <div class="tts-bar" id="tts-bar-6">
+      <button class="tts-btn" id="tts-play-6" onclick="ttsToggle(6)">🔊 Escuchar</button>
+      <button class="tts-btn tts-stop" id="tts-stop-6" onclick="ttsStop(6)" style="display:none">⏹ Detener</button>
+      <select class="tts-speed" id="tts-speed-6">
+        <option value="0.8">0.8×</option>
+        <option value="1" selected>1×</option>
+        <option value="1.2">1.2×</option>
+        <option value="1.5">1.5×</option>
+      </select>
+      <span class="tts-status" id="tts-status-6">🎧 listo para escuchar</span>
+    </div>
+  </section>
+
+
+  <section class="lesson-page" id="lesson-7" style="display:none">
+    <header class="lesson-header">
+      <button class="back-btn" onclick="showHome()">← Volver al inicio</button>
+      <span class="lesson-badge">📖 Lección 7</span>
+    </header>
+    <div class="lesson-meta">
+      <h1 class="lesson-main-title" id="lesson-title-7">Título de la Lección 7</h1>
+      <p class="lesson-subtitle" id="lesson-subtitle-7">Subtítulo opcional</p>
+      <div class="inline-prog-wrap">
+        <div class="inline-prog-track"><div class="inline-prog-fill" id="iprog-7"></div></div>
+        <span class="inline-prog-label" id="iprog-label-7">0 / 5</span>
+      </div>
+    </div>
+    <div class="slideshow-container" id="slides-7">
+
+      <!-- ══ SLIDE 1 ══════════════════════════════════════════════════════ -->
+      <div class="slide active" data-index="0">
+        <div class="slide-number">1 / 5</div>
+        <h2 class="slide-title">Título del Slide 1</h2>
+        <div class="slide-content">
+          Reemplazá este texto con el contenido de tu primer slide.<br><br>
+          Podés usar <strong>negrita</strong>, <em>itálica</em>, y listas.<br><br>
+          • Punto 1<br>
+          • Punto 2<br>
+          • Punto 3
+        </div>
+      </div>
+
+      <!-- ══ SLIDE 2 ══════════════════════════════════════════════════════ -->
+      <div class="slide " data-index="1">
+        <div class="slide-number">2 / 5</div>
+        <h2 class="slide-title">Título del Slide 2</h2>
+        <div class="slide-content">
+          Contenido del slide 2.
+        </div>
+      </div>
+
+      <!-- ══ SLIDE 3 ══════════════════════════════════════════════════════ -->
+      <div class="slide " data-index="2">
+        <div class="slide-number">3 / 5</div>
+        <h2 class="slide-title">Título del Slide 3</h2>
+        <div class="slide-content">
+          Contenido del slide 3.
+        </div>
+      </div>
+
+      <!-- ══ SLIDE 4 ══════════════════════════════════════════════════════ -->
+      <div class="slide " data-index="3">
+        <div class="slide-number">4 / 5</div>
+        <h2 class="slide-title">Título del Slide 4</h2>
+        <div class="slide-content">
+          Contenido del slide 4.
+        </div>
+      </div>
+
+      <!-- ══ SLIDE 5 — EJERCICIOS Y QUIZ (no modificar estructura) ════════ -->
+      <div class="slide" data-index="4">
+        <div class="slide-ex-quiz">
+          <div class="exercises-panel">
+            <button class="exercises-btn" id="ex-toggle-7" onclick="toggleExercises(7)">
+              ✏️ Ejercicios didácticos
+            </button>
+            <div class="exercises-box" id="ex-box-7">
+              <div class="ex-tabs">
+                <button class="ex-tab active" onclick="switchExTab(7,'fill',this)">Completar</button>
+              </div>
+              <div class="ex-pane active" id="ex-fill-7">
+                <!-- Fill-in-the-blank generado desde FILL_DATA_JS en JS -->
+              </div>
+            </div>
+          </div>
+          <div class="quiz-section">
+            <button class="quiz-toggle-btn" id="qz-toggle-7" onclick="toggleQuiz(7)">
+              🎯 Quiz de la Lección
+            </button>
+            <div class="quiz-box" id="quiz-box-7">
+              <!-- Quiz generado desde EXAM_DATA en JS -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- end slideshow-container -->
+
+    <div class="slide-controls">
+      <button class="ctrl-btn" onclick="prevSlide(7)">&#8592;</button>
+      <div class="dots-container">
+        <button class="dot active" onclick="goToSlide(7,0)"></button>
+        <button class="dot" onclick="goToSlide(7,1)"></button>
+        <button class="dot" onclick="goToSlide(7,2)"></button>
+        <button class="dot" onclick="goToSlide(7,3)"></button>
+        <button class="dot" onclick="goToSlide(7,4)"></button>
+      </div>
+      <button class="ctrl-btn" onclick="nextSlide(7)">&#8594;</button>
+    </div>
+    <div class="progress-bar-wrap"><div class="progress-bar" id="prog-7"></div></div>
+    <div class="tts-bar" id="tts-bar-7">
+      <button class="tts-btn" id="tts-play-7" onclick="ttsToggle(7)">🔊 Escuchar</button>
+      <button class="tts-btn tts-stop" id="tts-stop-7" onclick="ttsStop(7)" style="display:none">⏹ Detener</button>
+      <select class="tts-speed" id="tts-speed-7">
+        <option value="0.8">0.8×</option>
+        <option value="1" selected>1×</option>
+        <option value="1.2">1.2×</option>
+        <option value="1.5">1.5×</option>
+      </select>
+      <span class="tts-status" id="tts-status-7">🎧 listo para escuchar</span>
+    </div>
+  </section>
+
+
+  <section class="lesson-page" id="lesson-8" style="display:none">
+    <header class="lesson-header">
+      <button class="back-btn" onclick="showHome()">← Volver al inicio</button>
+      <span class="lesson-badge">📖 Lección 8</span>
+    </header>
+    <div class="lesson-meta">
+      <h1 class="lesson-main-title" id="lesson-title-8">Título de la Lección 8</h1>
+      <p class="lesson-subtitle" id="lesson-subtitle-8">Subtítulo opcional</p>
+      <div class="inline-prog-wrap">
+        <div class="inline-prog-track"><div class="inline-prog-fill" id="iprog-8"></div></div>
+        <span class="inline-prog-label" id="iprog-label-8">0 / 5</span>
+      </div>
+    </div>
+    <div class="slideshow-container" id="slides-8">
+
+      <!-- ══ SLIDE 1 ══════════════════════════════════════════════════════ -->
+      <div class="slide active" data-index="0">
+        <div class="slide-number">1 / 5</div>
+        <h2 class="slide-title">Título del Slide 1</h2>
+        <div class="slide-content">
+          Reemplazá este texto con el contenido de tu primer slide.<br><br>
+          Podés usar <strong>negrita</strong>, <em>itálica</em>, y listas.<br><br>
+          • Punto 1<br>
+          • Punto 2<br>
+          • Punto 3
+        </div>
+      </div>
+
+      <!-- ══ SLIDE 2 ══════════════════════════════════════════════════════ -->
+      <div class="slide " data-index="1">
+        <div class="slide-number">2 / 5</div>
+        <h2 class="slide-title">Título del Slide 2</h2>
+        <div class="slide-content">
+          Contenido del slide 2.
+        </div>
+      </div>
+
+      <!-- ══ SLIDE 3 ══════════════════════════════════════════════════════ -->
+      <div class="slide " data-index="2">
+        <div class="slide-number">3 / 5</div>
+        <h2 class="slide-title">Título del Slide 3</h2>
+        <div class="slide-content">
+          Contenido del slide 3.
+        </div>
+      </div>
+
+      <!-- ══ SLIDE 4 ══════════════════════════════════════════════════════ -->
+      <div class="slide " data-index="3">
+        <div class="slide-number">4 / 5</div>
+        <h2 class="slide-title">Título del Slide 4</h2>
+        <div class="slide-content">
+          Contenido del slide 4.
+        </div>
+      </div>
+
+      <!-- ══ SLIDE 5 — EJERCICIOS Y QUIZ (no modificar estructura) ════════ -->
+      <div class="slide" data-index="4">
+        <div class="slide-ex-quiz">
+          <div class="exercises-panel">
+            <button class="exercises-btn" id="ex-toggle-8" onclick="toggleExercises(8)">
+              ✏️ Ejercicios didácticos
+            </button>
+            <div class="exercises-box" id="ex-box-8">
+              <div class="ex-tabs">
+                <button class="ex-tab active" onclick="switchExTab(8,'fill',this)">Completar</button>
+              </div>
+              <div class="ex-pane active" id="ex-fill-8">
+                <!-- Fill-in-the-blank generado desde FILL_DATA_JS en JS -->
+              </div>
+            </div>
+          </div>
+          <div class="quiz-section">
+            <button class="quiz-toggle-btn" id="qz-toggle-8" onclick="toggleQuiz(8)">
+              🎯 Quiz de la Lección
+            </button>
+            <div class="quiz-box" id="quiz-box-8">
+              <!-- Quiz generado desde EXAM_DATA en JS -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- end slideshow-container -->
+
+    <div class="slide-controls">
+      <button class="ctrl-btn" onclick="prevSlide(8)">&#8592;</button>
+      <div class="dots-container">
+        <button class="dot active" onclick="goToSlide(8,0)"></button>
+        <button class="dot" onclick="goToSlide(8,1)"></button>
+        <button class="dot" onclick="goToSlide(8,2)"></button>
+        <button class="dot" onclick="goToSlide(8,3)"></button>
+        <button class="dot" onclick="goToSlide(8,4)"></button>
+      </div>
+      <button class="ctrl-btn" onclick="nextSlide(8)">&#8594;</button>
+    </div>
+    <div class="progress-bar-wrap"><div class="progress-bar" id="prog-8"></div></div>
+    <div class="tts-bar" id="tts-bar-8">
+      <button class="tts-btn" id="tts-play-8" onclick="ttsToggle(8)">🔊 Escuchar</button>
+      <button class="tts-btn tts-stop" id="tts-stop-8" onclick="ttsStop(8)" style="display:none">⏹ Detener</button>
+      <select class="tts-speed" id="tts-speed-8">
+        <option value="0.8">0.8×</option>
+        <option value="1" selected>1×</option>
+        <option value="1.2">1.2×</option>
+        <option value="1.5">1.5×</option>
+      </select>
+      <span class="tts-status" id="tts-status-8">🎧 listo para escuchar</span>
+    </div>
+  </section>
+
+
+  <section class="lesson-page" id="lesson-9" style="display:none">
+    <header class="lesson-header">
+      <button class="back-btn" onclick="showHome()">← Volver al inicio</button>
+      <span class="lesson-badge">📖 Lección 9</span>
+    </header>
+    <div class="lesson-meta">
+      <h1 class="lesson-main-title" id="lesson-title-9">Título de la Lección 9</h1>
+      <p class="lesson-subtitle" id="lesson-subtitle-9">Subtítulo opcional</p>
+      <div class="inline-prog-wrap">
+        <div class="inline-prog-track"><div class="inline-prog-fill" id="iprog-9"></div></div>
+        <span class="inline-prog-label" id="iprog-label-9">0 / 5</span>
+      </div>
+    </div>
+    <div class="slideshow-container" id="slides-9">
+
+      <!-- ══ SLIDE 1 ══════════════════════════════════════════════════════ -->
+      <div class="slide active" data-index="0">
+        <div class="slide-number">1 / 5</div>
+        <h2 class="slide-title">Título del Slide 1</h2>
+        <div class="slide-content">
+          Reemplazá este texto con el contenido de tu primer slide.<br><br>
+          Podés usar <strong>negrita</strong>, <em>itálica</em>, y listas.<br><br>
+          • Punto 1<br>
+          • Punto 2<br>
+          • Punto 3
+        </div>
+      </div>
+
+      <!-- ══ SLIDE 2 ══════════════════════════════════════════════════════ -->
+      <div class="slide " data-index="1">
+        <div class="slide-number">2 / 5</div>
+        <h2 class="slide-title">Título del Slide 2</h2>
+        <div class="slide-content">
+          Contenido del slide 2.
+        </div>
+      </div>
+
+      <!-- ══ SLIDE 3 ══════════════════════════════════════════════════════ -->
+      <div class="slide " data-index="2">
+        <div class="slide-number">3 / 5</div>
+        <h2 class="slide-title">Título del Slide 3</h2>
+        <div class="slide-content">
+          Contenido del slide 3.
+        </div>
+      </div>
+
+      <!-- ══ SLIDE 4 ══════════════════════════════════════════════════════ -->
+      <div class="slide " data-index="3">
+        <div class="slide-number">4 / 5</div>
+        <h2 class="slide-title">Título del Slide 4</h2>
+        <div class="slide-content">
+          Contenido del slide 4.
+        </div>
+      </div>
+
+      <!-- ══ SLIDE 5 — EJERCICIOS Y QUIZ (no modificar estructura) ════════ -->
+      <div class="slide" data-index="4">
+        <div class="slide-ex-quiz">
+          <div class="exercises-panel">
+            <button class="exercises-btn" id="ex-toggle-9" onclick="toggleExercises(9)">
+              ✏️ Ejercicios didácticos
+            </button>
+            <div class="exercises-box" id="ex-box-9">
+              <div class="ex-tabs">
+                <button class="ex-tab active" onclick="switchExTab(9,'fill',this)">Completar</button>
+              </div>
+              <div class="ex-pane active" id="ex-fill-9">
+                <!-- Fill-in-the-blank generado desde FILL_DATA_JS en JS -->
+              </div>
+            </div>
+          </div>
+          <div class="quiz-section">
+            <button class="quiz-toggle-btn" id="qz-toggle-9" onclick="toggleQuiz(9)">
+              🎯 Quiz de la Lección
+            </button>
+            <div class="quiz-box" id="quiz-box-9">
+              <!-- Quiz generado desde EXAM_DATA en JS -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- end slideshow-container -->
+
+    <div class="slide-controls">
+      <button class="ctrl-btn" onclick="prevSlide(9)">&#8592;</button>
+      <div class="dots-container">
+        <button class="dot active" onclick="goToSlide(9,0)"></button>
+        <button class="dot" onclick="goToSlide(9,1)"></button>
+        <button class="dot" onclick="goToSlide(9,2)"></button>
+        <button class="dot" onclick="goToSlide(9,3)"></button>
+        <button class="dot" onclick="goToSlide(9,4)"></button>
+      </div>
+      <button class="ctrl-btn" onclick="nextSlide(9)">&#8594;</button>
+    </div>
+    <div class="progress-bar-wrap"><div class="progress-bar" id="prog-9"></div></div>
+    <div class="tts-bar" id="tts-bar-9">
+      <button class="tts-btn" id="tts-play-9" onclick="ttsToggle(9)">🔊 Escuchar</button>
+      <button class="tts-btn tts-stop" id="tts-stop-9" onclick="ttsStop(9)" style="display:none">⏹ Detener</button>
+      <select class="tts-speed" id="tts-speed-9">
+        <option value="0.8">0.8×</option>
+        <option value="1" selected>1×</option>
+        <option value="1.2">1.2×</option>
+        <option value="1.5">1.5×</option>
+      </select>
+      <span class="tts-status" id="tts-status-9">🎧 listo para escuchar</span>
+    </div>
+  </section>
+
+
+  <section class="lesson-page" id="lesson-10" style="display:none">
+    <header class="lesson-header">
+      <button class="back-btn" onclick="showHome()">← Volver al inicio</button>
+      <span class="lesson-badge">📖 Lección 10</span>
+    </header>
+    <div class="lesson-meta">
+      <h1 class="lesson-main-title" id="lesson-title-10">Título de la Lección 10</h1>
+      <p class="lesson-subtitle" id="lesson-subtitle-10">Subtítulo opcional</p>
+      <div class="inline-prog-wrap">
+        <div class="inline-prog-track"><div class="inline-prog-fill" id="iprog-10"></div></div>
+        <span class="inline-prog-label" id="iprog-label-10">0 / 5</span>
+      </div>
+    </div>
+    <div class="slideshow-container" id="slides-10">
+
+      <!-- ══ SLIDE 1 ══════════════════════════════════════════════════════ -->
+      <div class="slide active" data-index="0">
+        <div class="slide-number">1 / 5</div>
+        <h2 class="slide-title">Título del Slide 1</h2>
+        <div class="slide-content">
+          Reemplazá este texto con el contenido de tu primer slide.<br><br>
+          Podés usar <strong>negrita</strong>, <em>itálica</em>, y listas.<br><br>
+          • Punto 1<br>
+          • Punto 2<br>
+          • Punto 3
+        </div>
+      </div>
+
+      <!-- ══ SLIDE 2 ══════════════════════════════════════════════════════ -->
+      <div class="slide " data-index="1">
+        <div class="slide-number">2 / 5</div>
+        <h2 class="slide-title">Título del Slide 2</h2>
+        <div class="slide-content">
+          Contenido del slide 2.
+        </div>
+      </div>
+
+      <!-- ══ SLIDE 3 ══════════════════════════════════════════════════════ -->
+      <div class="slide " data-index="2">
+        <div class="slide-number">3 / 5</div>
+        <h2 class="slide-title">Título del Slide 3</h2>
+        <div class="slide-content">
+          Contenido del slide 3.
+        </div>
+      </div>
+
+      <!-- ══ SLIDE 4 ══════════════════════════════════════════════════════ -->
+      <div class="slide " data-index="3">
+        <div class="slide-number">4 / 5</div>
+        <h2 class="slide-title">Título del Slide 4</h2>
+        <div class="slide-content">
+          Contenido del slide 4.
+        </div>
+      </div>
+
+      <!-- ══ SLIDE 5 — EJERCICIOS Y QUIZ (no modificar estructura) ════════ -->
+      <div class="slide" data-index="4">
+        <div class="slide-ex-quiz">
+          <div class="exercises-panel">
+            <button class="exercises-btn" id="ex-toggle-10" onclick="toggleExercises(10)">
+              ✏️ Ejercicios didácticos
+            </button>
+            <div class="exercises-box" id="ex-box-10">
+              <div class="ex-tabs">
+                <button class="ex-tab active" onclick="switchExTab(10,'fill',this)">Completar</button>
+              </div>
+              <div class="ex-pane active" id="ex-fill-10">
+                <!-- Fill-in-the-blank generado desde FILL_DATA_JS en JS -->
+              </div>
+            </div>
+          </div>
+          <div class="quiz-section">
+            <button class="quiz-toggle-btn" id="qz-toggle-10" onclick="toggleQuiz(10)">
+              🎯 Quiz de la Lección
+            </button>
+            <div class="quiz-box" id="quiz-box-10">
+              <!-- Quiz generado desde EXAM_DATA en JS -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- end slideshow-container -->
+
+    <div class="slide-controls">
+      <button class="ctrl-btn" onclick="prevSlide(10)">&#8592;</button>
+      <div class="dots-container">
+        <button class="dot active" onclick="goToSlide(10,0)"></button>
+        <button class="dot" onclick="goToSlide(10,1)"></button>
+        <button class="dot" onclick="goToSlide(10,2)"></button>
+        <button class="dot" onclick="goToSlide(10,3)"></button>
+        <button class="dot" onclick="goToSlide(10,4)"></button>
+      </div>
+      <button class="ctrl-btn" onclick="nextSlide(10)">&#8594;</button>
+    </div>
+    <div class="progress-bar-wrap"><div class="progress-bar" id="prog-10"></div></div>
+    <div class="tts-bar" id="tts-bar-10">
+      <button class="tts-btn" id="tts-play-10" onclick="ttsToggle(10)">🔊 Escuchar</button>
+      <button class="tts-btn tts-stop" id="tts-stop-10" onclick="ttsStop(10)" style="display:none">⏹ Detener</button>
+      <select class="tts-speed" id="tts-speed-10">
+        <option value="0.8">0.8×</option>
+        <option value="1" selected>1×</option>
+        <option value="1.2">1.2×</option>
+        <option value="1.5">1.5×</option>
+      </select>
+      <span class="tts-status" id="tts-status-10">🎧 listo para escuchar</span>
+    </div>
+  </section>
+
+
+<!-- ════════════════════════════════════════════════════════════
+     EXAM PAGE
+     ════════════════════════════════════════════════════════════ -->
+<div id="exam-page">
+  <div class="exam-header">
+    <button class="exam-back-btn" onclick="exitExamSimulacro()">← Salir</button>
+    <h2 style="color:#ffb74d;font-size:1rem;margin:0">Simulacro de Examen</h2>
+    <div class="exam-timer-wrap">
+      <span style="color:#ff9800;font-size:0.8rem">⏱</span>
+      <span class="exam-timer" id="exam-timer">15:00</span>
+    </div>
+  </div>
+  <div class="exam-meta">
+    <h1>📋 Simulacro de Examen</h1>
+    <p>20 preguntas · 15 minutos · Aprobado con ≥60%</p>
+  </div>
+  <div class="exam-body" id="exam-body"></div>
+</div>
+
+<script>
+// Available immediately — module will overwrite authSubmit when Firebase is ready
+window.showAuthModal = function(mode) {
+  var o = document.getElementById('auth-overlay');
+  if (!o) return;
+  o.classList.add('open');
+  o.dataset.mode = mode || 'login';
+  var isReg = (mode === 'register');
+  var t = document.getElementById('auth-mode-title');
+  var n = document.getElementById('auth-name-wrap');
+  var s = document.getElementById('auth-submit');
+  var g = document.getElementById('auth-toggle-btn');
+  var m = document.getElementById('auth-msg');
+  if (t) t.textContent = isReg ? 'Registrarse' : 'Iniciar Sesión';
+  if (n) n.style.display = isReg ? 'block' : 'none';
+  if (s) s.textContent = isReg ? 'Registrarme' : 'Entrar';
+  if (g) g.textContent = isReg ? '¿Ya tenés cuenta? Entrá' : '¿Primera vez? Registrate';
+  if (m) m.textContent = '';
+};
+window.hideAuthModal = function() {
+  var o = document.getElementById('auth-overlay');
+  if (o) o.classList.remove('open');
+};
+window.toggleAuthMode = function() {
+  var o = document.getElementById('auth-overlay');
+  if (!o) return;
+  window.showAuthModal(o.dataset.mode === 'login' ? 'register' : 'login');
+};
+window.authSubmit = function() {
+  if (window._authReady) {
+    window._realAuthSubmit();
+  } else {
+    var m = document.getElementById('auth-msg');
+    if (m) m.textContent = '⏳ Un momento...';
+    setTimeout(window.authSubmit, 300);
+  }
+};
+// startExamSimulacro defined in main script
+</script>
+
+<script>
+
+// ════════════════════════════════════════════════════════════════
+// ✏️  CONFIGURACIÓN — Modificá estas secciones para tu materia
+// ════════════════════════════════════════════════════════════════
+
+// Cantidad de slides por lección (incluye el slide de ejercicios al final)
+// Formato: "NÚMERO_LECCIÓN": CANTIDAD_SLIDES
+const TOTAL = {
+  "1": 5, "2": 5, "3": 5, "4": 5, "5": 5,
+  "6": 5, "7": 5, "8": 5, "9": 5, "10": 5,
+};
+const state = {};
+
+Object.keys(TOTAL).forEach(n => { state[n] = 0; });
+
+function showHome() {
+  document.getElementById('home-page').style.display = 'block';
+  document.querySelectorAll('.lesson-page').forEach(p => p.style.display = 'none');
+  window.scrollTo(0, 0);
+}
+
+function showLesson(num) {
+  document.getElementById('home-page').style.display = 'none';
+  document.querySelectorAll('.lesson-page').forEach(p => p.style.display = 'none');
+  const page = document.getElementById('lesson-' + num);
+  if (page) {
+    page.style.display = 'flex';
+    // inject inline progress bar in lesson-meta if not already there
+    const meta = page.querySelector('.lesson-meta');
+    if (meta && !document.getElementById('inline-prog-' + num)) {
+      const wrap = document.createElement('div');
+      wrap.className = 'inline-prog-wrap';
+      wrap.innerHTML = '<div class="inline-prog-track"><div class="inline-prog-fill" id="inline-prog-' + num + '"></div></div><span class="inline-prog-label" id="inline-prog-label-' + num + '"></span>';
+      meta.appendChild(wrap);
+    }
+    updateProgress(num);
+    window.scrollTo(0, 0);
+  }
+}
+
+function goToSlide(num, idx) {
+  const container = document.getElementById('slides-' + num);
+  const slides = container.querySelectorAll('.slide');
+  const dots = document.querySelectorAll('#lesson-' + num + ' .dot');
+  slides.forEach(s => s.classList.remove('active'));
+  dots.forEach(d => d.classList.remove('active'));
+  slides[idx].classList.add('active');
+  dots[idx].classList.add('active');
+  state[num] = idx;
+  updateProgress(num);
+}
+
+function nextSlide(num) {
+  const total = TOTAL[num];
+  const next = (state[num] + 1) % total;
+  goToSlide(num, next);
+}
+
+function prevSlide(num) {
+  const total = TOTAL[num];
+  const prev = (state[num] - 1 + total) % total;
+  goToSlide(num, prev);
+}
+
+function updateProgress(num) {
+  const total = TOTAL[num];
+  const pct = ((state[num] + 1) / total) * 100;
+  const bar = document.getElementById('prog-' + num);
+  if (bar) bar.style.width = pct + '%';
+  const inlineBar = document.getElementById('inline-prog-' + num);
+  if (inlineBar) {
+    inlineBar.style.width = pct + '%';
+    const lbl = document.getElementById('inline-prog-label-' + num);
+    if (lbl) lbl.textContent = (state[num] + 1) + ' / ' + total;
+  }
+}
+
+// Keyboard navigation
+document.addEventListener('keydown', e => {
+  const activePage = document.querySelector('.lesson-page[style*="flex"]');
+  if (!activePage) return;
+  const num = activePage.id.replace('lesson-', '');
+  if (e.key === 'ArrowRight' || e.key === 'ArrowDown') nextSlide(parseInt(num));
+  if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') prevSlide(parseInt(num));
+  if (e.key === 'Escape') showHome();
+});
+
+const STORAGE_KEY = 'cj_progress_v1';
+const ALL_LESSONS = [1,2,3,4,5,6,7,8,9,10];
+
+function getProgress() {
+  try {
+    return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
+  } catch(e) { return {}; }
+}
+
+function saveProgress(data) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+}
+
+function markVisited(num) {
+  const p = getProgress();
+  if (!p[num]) p[num] = {};
+  p[num].visited = true;
+  saveProgress(p);
+  refreshProgressUI();
+}
+
+function markQuizResult(num, pct) {
+  const p = getProgress();
+  if (!p[num]) p[num] = {};
+  p[num].quizPct = pct;
+  p[num].quizPassed = pct >= 75;
+  saveProgress(p);
+  refreshProgressUI();
+}
+
+function refreshProgressUI() {
+  const p = getProgress();
+  let visited = 0, passed = 0;
+
+  ALL_LESSONS.forEach(num => {
+    const data = p[num] || {};
+    const card = document.querySelector(`[onclick="showLesson(${num})"]`);
+    const stateRow = document.getElementById('card-state-' + num);
+
+    if (card) {
+      if (data.visited) {
+        card.classList.remove('not-visited');
+        card.classList.add('visited-card');
+        visited++;
+      } else {
+        card.classList.add('not-visited');
+        card.classList.remove('visited-card');
+      }
+      // quiz state classes
+      card.classList.remove('quiz-ok-card', 'quiz-tried-card');
+      if (data.quizPassed === true) {
+        card.classList.add('quiz-ok-card');
+        passed++;
+      } else if (data.quizPct !== undefined) {
+        card.classList.add('quiz-tried-card');
+      }
+      // status icon next to title
+      const titleEl = card.querySelector('.card-title');
+      const existingIcon = card.querySelector('.card-status-icon');
+      if (existingIcon) existingIcon.remove();
+      if (data.quizPassed === true) {
+        const icon = document.createElement('span');
+        icon.className = 'card-status-icon';
+        icon.textContent = '✅';
+        if (titleEl) titleEl.after(icon);
+      } else if (data.visited && data.quizPct !== undefined) {
+        const icon = document.createElement('span');
+        icon.className = 'card-status-icon';
+        icon.textContent = '🔄';
+        if (titleEl) titleEl.after(icon);
+      } else if (data.visited) {
+        const icon = document.createElement('span');
+        icon.className = 'card-status-icon';
+        icon.textContent = '👁';
+        if (titleEl) titleEl.after(icon);
+      }
+    }
+
+    if (stateRow) {
+      let badges = '';
+      if (data.quizPassed === true) {
+        badges += `<span class="state-badge quiz-pass">✅ ${data.quizPct}%</span>`;
+      } else if (data.quizPct !== undefined) {
+        badges += `<span class="state-badge quiz-fail">📖 ${data.quizPct}%</span>`;
+      }
+      stateRow.innerHTML = badges;
+    }
+  });
+
+  // Update global bar
+  const fillEl = document.getElementById('gp-bar-fill');
+  const visitedEl = document.getElementById('gp-visited');
+  const passedEl = document.getElementById('gp-passed');
+  if (fillEl) fillEl.style.width = Math.round((visited / 20) * 100) + '%';
+  if (visitedEl) visitedEl.textContent = visited;
+  if (passedEl) passedEl.textContent = passed;
+}
+
+function resetAllProgress() {
+  if (confirm('¿Reiniciar todo el progreso? Se borrarán las visitas y resultados de quizzes.')) {
+    localStorage.removeItem(STORAGE_KEY);
+    refreshProgressUI();
+  }
+}
+
+// ── Hook into existing showLesson to mark visited ──────────────────────
+const _origShowLesson = showLesson;
+showLesson = function(num) {
+  _origShowLesson(num);
+  markVisited(num);
+};
+
+// Init on page load
+document.addEventListener('DOMContentLoaded', () => {
+  ALL_LESSONS.forEach(num => {
+    const card = document.querySelector(`[onclick="showLesson(${num})"]`);
+    if (card) card.classList.add('not-visited');
+  });
+  refreshProgressUI();
+  refreshRanking();
+});
+
+
+// ===== FILL IN THE BLANK =====
+// Ejercicios de completar el espacio en blanco por lección.
+// {s: "Oración con ___ en blanco", a: "respuesta", hint: "Pista"}
+const FILL_DATA_JS = {
+  "1": [
+    {s:"La ___ es un ejemplo de concepto clave.", a:"respuesta", hint:"Pista breve"},
+  ],
+  // ... agregá más lecciones acá
+};
+
+function toggleExercises(num) {
+  const box = document.getElementById('ex-box-' + num);
+  const btn = document.getElementById('ex-toggle-' + num);
+  box.classList.toggle('open');
+  btn.innerHTML = box.classList.contains('open') ? '✖ Cerrar ejercicios' : '✏️ Ejercicios didácticos';
+}
+
+function switchExTab(num, tab) {
+  document.querySelectorAll(`#ex-box-${num} .ex-tab`).forEach(t => t.classList.remove('active'));
+  document.querySelectorAll(`#ex-box-${num} .ex-pane`).forEach(p => p.classList.remove('active'));
+  document.querySelector(`#ex-${tab}-${num}`).classList.add('active');
+  event.target.classList.add('active');
+}
+
+function normalize(str) {
+  return str.trim().toLowerCase()
+    .normalize('NFD').replace(/[\u0300-\u036f]/g,'')
+    .replace(/[^a-z0-9\s]/g,'').replace(/\s+/g,' ');
+}
+
+function checkFill(num) {
+  const items = FILL_DATA_JS[num];
+  let correct = 0;
+  items.forEach((item, fi) => {
+    const input = document.getElementById(`fill-${num}-${fi}`);
+    const fb = document.getElementById(`fill-fb-${num}-${fi}`);
+    const val = normalize(input.value);
+    const ans = normalize(item.a);
+    input.disabled = true;
+    if (val === ans) {
+      input.classList.add('correct');
+      fb.textContent = '✅ ¡Correcto!';
+      fb.className = 'fill-feedback show ok';
+      correct++;
+    } else {
+      input.classList.add('wrong');
+      fb.textContent = `❌ Respuesta correcta: "${item.a}"`;
+      fb.className = 'fill-feedback show fail';
+    }
+  });
+  const pct = Math.round(correct/items.length*100);
+  const score = document.getElementById('fill-score-' + num);
+  score.textContent = `Resultado: ${correct}/${items.length} (${pct}%) ${pct>=80?'🎉 ¡Excelente!':pct>=60?'👍 Bien':'📖 Repasá el contenido'}`;
+  score.className = 'fill-score show';
+}
+
+function resetFill(num) {
+  const items = FILL_DATA_JS[num];
+  items.forEach((item, fi) => {
+    const input = document.getElementById(`fill-${num}-${fi}`);
+    const fb = document.getElementById(`fill-fb-${num}-${fi}`);
+    input.value = ''; input.disabled = false;
+    input.classList.remove('correct','wrong');
+    fb.className = 'fill-feedback'; fb.textContent = '';
+  });
+  const score = document.getElementById('fill-score-' + num);
+  score.className = 'fill-score'; score.textContent = '';
+}
+
+// ===== EXAM SIMULADO =====
+// Preguntas para el Simulacro. Agregá al menos 4-5 por lección.
+// {l: NÚMERO_LECCIÓN, q: "Pregunta", opts: ["A","B","C","D"], a: ÍNDICE_CORRECTO (0-3)}
+const EXAM_DATA = [
+  {l:1, q:"Pregunta de ejemplo lección 1", opts:["Opción A","Opción B","Opción C","Opción D"], a:0},
+  {l:2, q:"Pregunta de ejemplo lección 2", opts:["Opción A","Opción B","Opción C","Opción D"], a:1},
+  // ... agregá más preguntas acá
+];
+let examTimer = null;
+let examAnswers = {};
+let examSeconds = 20 * 60;
+
+function startExam() {
+  document.getElementById('home-page').style.display = 'none';
+  document.querySelectorAll('.lesson-page').forEach(p => p.style.display = 'none');
+  const ep = document.getElementById('exam-page');
+  ep.classList.add('active');
+  document.getElementById('exam-questions').style.display = 'block';
+  document.getElementById('exam-result').className = 'exam-result-screen';
+  document.getElementById('exam-footer').style.display = 'block';
+  examAnswers = {};
+  examSeconds = 20 * 60;
+  updateExamTimer();
+  clearInterval(examTimer);
+  examTimer = setInterval(() => {
+    examSeconds--;
+    updateExamTimer();
+    if (examSeconds <= 0) { clearInterval(examTimer); submitExam(); }
+  }, 1000);
+  // Reset all opts
+  EXAM_DATA.forEach((q,ei) => {
+    document.querySelectorAll(`#exam-opts-${ei} .exam-opt`).forEach(o => {
+      o.disabled = false; o.classList.remove('selected','correct','wrong');
+    });
+  });
+  window.scrollTo(0,0);
+}
+
+function exitExam() {
+  clearInterval(examTimer);
+  document.getElementById('exam-page').classList.remove('active');
+  showHome();
+}
+
+function updateExamTimer() {
+  const m = Math.floor(examSeconds/60).toString().padStart(2,'0');
+  const s = (examSeconds%60).toString().padStart(2,'0');
+  const el = document.getElementById('exam-timer');
+  el.textContent = m + ':' + s;
+  el.className = 'exam-timer' + (examSeconds <= 60 ? ' urgent' : '');
+}
+
+function selectExamOpt(ei, oi) {
+  const opts = document.querySelectorAll(`#exam-opts-${ei} .exam-opt`);
+  opts.forEach(o => o.classList.remove('selected'));
+  opts[oi].classList.add('selected');
+  examAnswers[ei] = oi;
+}
+
+function submitExam() {
+  clearInterval(examTimer);
+  let correct = 0;
+  EXAM_DATA.forEach((q,ei) => {
+    const opts = document.querySelectorAll(`#exam-opts-${ei} .exam-opt`);
+    opts.forEach(o => o.disabled = true);
+    const chosen = examAnswers[ei];
+    if (chosen !== undefined) {
+      if (chosen === q.a) { opts[chosen].classList.add('correct'); correct++; }
+      else { opts[chosen].classList.add('wrong'); opts[q.a].classList.add('correct'); }
+    } else { opts[q.a].classList.add('correct'); }
+  });
+  const pct = Math.round(correct/EXAM_DATA.length*100);
+  const res = document.getElementById('exam-result');
+  let emoji = pct>=75 ? '🎉' : pct>=50 ? '👍' : '📖';
+  let label = pct>=75 ? '¡Aprobado! Estás listo para el examen.' : pct>=50 ? 'Bien, pero repasá los temas marcados.' : 'Repasá las lecciones con tema de examen.';
+  let color = pct>=75 ? '#a5d6a7' : pct>=50 ? '#ffb74d' : '#ef9a9a';
+  res.innerHTML = `
+    <div style="color:${color};font-size:5rem;">${emoji}</div>
+    <div class="exam-result-pct" style="color:${color}">${pct}%</div>
+    <div class="exam-result-label" style="color:${color}">${label}</div>
+    <div class="exam-result-detail">${correct} de ${EXAM_DATA.length} correctas</div>
+    <button class="exam-result-btn" onclick="startExam()">🔄 Reintentar</button>
+    <button class="exam-result-btn" onclick="exitExam()">🏠 Volver al inicio</button>`;
+  res.className = 'exam-result-screen show';
+  document.getElementById('exam-questions').style.display = 'none';
+  document.getElementById('exam-footer').style.display = 'none';
+  window.scrollTo(0,0);
+}
+
+
+// ===== QUIZ SYSTEM (clean rewrite) =====
+var QZ = {"11": [{"q": "\u00bfQu\u00e9 regula principalmente la norma jur\u00eddica?", "opts": ["Las relaciones del hombre con Dios", "La conducta humana en sociedad de forma coercible", "El comportamiento decoroso en la vida social", "Los deberes ordenados al bien personal"], "a": 1}, {"q": "\u00bfCu\u00e1l es el car\u00e1cter principal de las normas del trato social?", "opts": ["Aut\u00f3nomo", "Coercible", "Imperativo", "Bilateral"], "a": 2}, {"q": "\u00bfQu\u00e9 proh\u00edbe expresamente el Art. 4\u00b0 de la CN paraguaya?", "opts": ["Las multas desmedidas", "La confiscaci\u00f3n de bienes", "La pena de muerte", "Las torturas"], "a": 2}, {"q": "\u00bfC\u00f3mo se llama la norma que crea la obligaci\u00f3n que debe cumplirse?", "opts": ["Norma secundaria", "Norma sancionadora", "Norma primaria o sancionada", "Norma declarativa"], "a": 2}], "12": [{"q": "\u00bfQu\u00e9 es la pir\u00e1mide de Kelsen?", "opts": ["Una clasificaci\u00f3n de los delitos", "La jerarquizaci\u00f3n piramidal de las normas jur\u00eddicas", "Un m\u00e9todo de interpretaci\u00f3n de leyes", "La organizaci\u00f3n de los poderes del Estado"], "a": 1}, {"q": "\u00bfCu\u00e1l norma encabeza la pir\u00e1mide jur\u00eddica en Paraguay seg\u00fan el Art. 137 CN?", "opts": ["Los tratados internacionales", "Las leyes del Congreso", "La Constituci\u00f3n Nacional", "Los decretos del Poder Ejecutivo"], "a": 2}, {"q": "\u00bfC\u00f3mo caduca violentamente un ordenamiento jur\u00eddico?", "opts": ["Por reforma parcial de la Constituci\u00f3n", "Por una revoluci\u00f3n", "Por vencimiento del plazo constitucional", "Por decisi\u00f3n del Poder Judicial"], "a": 1}, {"q": "\u00bfQu\u00e9 es la antijuridicidad?", "opts": ["El conjunto de hechos que se ajustan al orden jur\u00eddico", "Los hechos que se oponen al orden jur\u00eddico por ser il\u00edcitos o prohibidos", "La conducta l\u00edcita de los \u00f3rganos del Estado", "La interpretaci\u00f3n de normas ambiguas"], "a": 1}], "13": [{"q": "\u00bfEn qu\u00e9 fecha fue sancionada la Constituci\u00f3n vigente del Paraguay?", "opts": ["15 de agosto de 1992", "20 de junio de 1992", "1\u00b0 de marzo de 1992", "3 de noviembre de 1992"], "a": 1}, {"q": "\u00bfQu\u00e9 estudia el Derecho Constitucional?", "opts": ["Las relaciones entre particulares", "La estructura jur\u00eddica de un Estado establecida en su Constituci\u00f3n", "Las normas del comercio internacional", "Los servicios p\u00fablicos municipales"], "a": 1}, {"q": "\u00bfCu\u00e1l es la parte de la Constituci\u00f3n que trata los derechos fundamentales del hombre?", "opts": ["El Pre\u00e1mbulo", "La parte dogm\u00e1tica", "La parte org\u00e1nica", "Los art\u00edculos transitorios"], "a": 1}, {"q": "\u00bfQu\u00e9 es el Derecho Penal?", "opts": ["Normas que regulan los servicios p\u00fablicos", "Normas que determinan los delitos, las penas y medidas para evitar la criminalidad", "Normas que regulan la actividad financiera del Estado", "Normas que organizan la familia"], "a": 1}], "14": [{"q": "\u00bfQu\u00e9 regula el Derecho Internacional P\u00fablico?", "opts": ["Relaciones entre particulares de distintos pa\u00edses", "Relaciones jur\u00eddicas entre Estados soberanos y organizaciones internacionales", "Normas de la Iglesia Cat\u00f3lica", "Relaciones laborales internacionales"], "a": 1}, {"q": "Seg\u00fan el Art. 144 CN, \u00bfqu\u00e9 declara Paraguay respecto a la guerra?", "opts": ["Acepta la guerra preventiva", "Renuncia a la guerra pero sustenta el principio de leg\u00edtima defensa", "Proh\u00edbe cualquier tipo de defensa armada", "Acepta la guerra solo con autorizaci\u00f3n de la ONU"], "a": 1}, {"q": "\u00bfQu\u00e9 es el Derecho Can\u00f3nico?", "opts": ["Leyes del Estado para regular las religiones", "Conjunto de leyes dadas por Dios o por la potestad eclesi\u00e1stica para la organizaci\u00f3n de la Iglesia", "Normas internacionales sobre libertad religiosa", "Acuerdos entre el Vaticano y los Estados"], "a": 1}, {"q": "\u00bfQui\u00e9n promulg\u00f3 el C\u00f3digo de Derecho Can\u00f3nico vigente?", "opts": ["El Concilio Vaticano II en 1965", "La autoridad Papal el 25 de enero de 1983", "La OEA en 1990", "El Papa Juan Pablo II en 2000"], "a": 1}], "15": [{"q": "\u00bfCu\u00e1ntos art\u00edculos tiene el C\u00f3digo Civil Paraguayo (Ley 1183/1985)?", "opts": ["1500 art\u00edculos", "2000 art\u00edculos", "2815 art\u00edculos", "3200 art\u00edculos"], "a": 2}, {"q": "\u00bfQu\u00e9 ley regula el Derecho Laboral en Paraguay?", "opts": ["Ley 1183/1985", "Ley 213/1993", "Ley 1863/2002", "Ley 1294/1998"], "a": 1}, {"q": "\u00bfCu\u00e1l es la principal diferencia entre Derecho P\u00fablico y Derecho Privado?", "opts": ["El p\u00fablico regula solo penales; el privado solo civiles", "El p\u00fablico regula la estructura del Estado y sus relaciones; el privado regula relaciones entre particulares", "El p\u00fablico es escrito; el privado es consuetudinario", "No hay diferencia real entre ambos"], "a": 1}, {"q": "\u00bfQu\u00e9 crea el INDERT seg\u00fan la Ley 2419/2004?", "opts": ["El Instituto Nacional de Desarrollo Rural y Tierras", "El Instituto Nacional de Derecho y Trabajo", "El Instituto de Derecho Rural y Territorial", "El Instituto Nacional de Recursos Tributarios"], "a": 0}], "16": [{"q": "\u00bfQu\u00e9 establece el Art. 46 CN sobre la igualdad?", "opts": ["Solo los ciudadanos paraguayos son iguales ante la ley", "Todos los habitantes son iguales en dignidad y derechos, sin discriminaciones", "La igualdad aplica solo en materia penal", "La igualdad es un principio relativo seg\u00fan la condici\u00f3n social"], "a": 1}, {"q": "Seg\u00fan Kelsen, \u00bfqu\u00e9 es el derecho subjetivo?", "opts": ["Un poder natural del hombre independiente del derecho objetivo", "El mismo derecho objetivo en relaci\u00f3n con el sujeto", "Un inter\u00e9s protegido por la voluntad individual", "Una facultad exclusiva de las personas jur\u00eddicas"], "a": 1}, {"q": "\u00bfQu\u00e9 garantiza el Art. 9 CN?", "opts": ["El derecho a la propiedad privada", "El derecho a la libertad y seguridad de las personas", "El derecho al trabajo", "El derecho a la educaci\u00f3n"], "a": 1}, {"q": "\u00bfCu\u00e1les son los tres derechos subjetivos fundamentales?", "opts": ["Propiedad, libertad y trabajo", "Igualdad, libertad y resistencia a la opresi\u00f3n", "Vida, salud y educaci\u00f3n", "Voto, expresi\u00f3n y asociaci\u00f3n"], "a": 1}], "17": [{"q": "\u00bfQu\u00e9 establece el Art. 372 del C\u00f3digo Civil sobre el ejercicio de los derechos?", "opts": ["Los derechos pueden ejercerse de cualquier forma", "Los derechos deben ser ejercidos de buena fe", "El Estado garantiza el ejercicio irrestricto de todo derecho", "Los derechos vencen si no se ejercen en 10 a\u00f1os"], "a": 1}, {"q": "\u00bfCu\u00e1ndo se configura el abuso del derecho?", "opts": ["Cuando alguien ejerce un derecho para beneficio propio", "Cuando se ejerce un derecho sin necesidad y con intenci\u00f3n de da\u00f1ar a otro", "Cuando se ejerce un derecho sin asesoramiento legal", "Cuando el Estado ejerce sus atribuciones coactivamente"], "a": 1}, {"q": "\u00bfCu\u00e1l es una caracter\u00edstica de las leyes de orden p\u00fablico?", "opts": ["Pueden renunciarse con consentimiento de partes", "Su violaci\u00f3n produce nulidad relativa", "Son aplicables de oficio por el juez", "Son supletorias de la voluntad de las partes"], "a": 2}, {"q": "\u00bfQu\u00e9 protege el Art. 33 CN?", "opts": ["La propiedad privada", "El derecho a la intimidad personal y familiar", "La libertad de expresi\u00f3n", "El derecho al trabajo"], "a": 1}], "18": [{"q": "\u00bfDesde cu\u00e1ndo comienza la existencia jur\u00eddica de las personas f\u00edsicas?", "opts": ["Desde el nacimiento", "Desde los 14 a\u00f1os", "Desde la concepci\u00f3n en el seno materno", "Desde la inscripci\u00f3n en el Registro Civil"], "a": 2}, {"q": "\u00bfQu\u00e9 es el domicilio legal seg\u00fan el Art. 53 del C\u00f3digo Civil?", "opts": ["El lugar elegido por la persona para sus negocios", "El lugar donde la ley presume que una persona reside de manera permanente", "El domicilio del lugar de nacimiento", "El lugar donde la persona pasa m\u00e1s de 6 meses al a\u00f1o"], "a": 1}, {"q": "\u00bfQu\u00e9 son absolutamente incapaces de hecho seg\u00fan el Art. 37 CC?", "opts": ["Personas mayores de 70 a\u00f1os", "Menores de 14 a\u00f1os, personas por nacer, enfermos mentales y sordomudos que no saben darse a entender", "Solo los menores de edad", "Las personas declaradas en quiebra"], "a": 1}, {"q": "\u00bfCu\u00e1l es la diferencia entre relaci\u00f3n jur\u00eddica y situaci\u00f3n jur\u00eddica?", "opts": ["No hay diferencia, son sin\u00f3nimos", "En la relaci\u00f3n jur\u00eddica los derechos y obligaciones est\u00e1n determinados; en la situaci\u00f3n son eventuales", "La situaci\u00f3n es m\u00e1s espec\u00edfica que la relaci\u00f3n", "La relaci\u00f3n jur\u00eddica solo aplica a personas jur\u00eddicas"], "a": 1}], "19": [{"q": "\u00bfQu\u00e9 son los hechos voluntarios seg\u00fan el C\u00f3digo Civil?", "opts": ["Los ejecutados con discernimiento, intenci\u00f3n y libertad", "Los producidos solo por causas naturales", "Los actos que no generan obligaciones", "Los ejecutados por representantes legales"], "a": 0}, {"q": "\u00bfQu\u00e9 excluye la intenci\u00f3n al momento de realizar un acto jur\u00eddico?", "opts": ["La fuerza y la intimidaci\u00f3n", "El error o ignorancia y el dolo", "La minor\u00eda de edad y la insan\u00eda", "La representaci\u00f3n y el mandato"], "a": 1}, {"q": "\u00bfC\u00f3mo define el Art. 296 CC a los actos jur\u00eddicos?", "opts": ["Actos involuntarios que transfieren derechos", "Actos voluntarios l\u00edcitos con fin inmediato de crear, modificar, transferir, conservar o extinguir derechos", "Declaraciones de voluntad solo entre comerciantes", "Actos procesales ante el juez"], "a": 1}, {"q": "\u00bfQu\u00e9 dice el Art. 1872 CC sobre las cosas?", "opts": ["Cosas son todos los derechos patrimoniales", "Cosas son los objetos corporales susceptibles de tener un valor", "Cosas son todos los bienes materiales e inmateriales", "Cosas son solo los bienes ra\u00edces"], "a": 1}], "20": [{"q": "\u00bfCu\u00e1ntas firmas aproximadas se requieren para la Iniciativa Popular?", "opts": ["10.000 firmas", "30.000 firmas", "70.000 firmas (2% de los electores)", "100.000 firmas"], "a": 2}, {"q": "\u00bfQu\u00e9 materias NO pueden ser objeto de refer\u00e9ndum seg\u00fan el Art. 122 CN?", "opts": ["Educaci\u00f3n y salud p\u00fablica", "Relaciones internacionales, defensa nacional y elecciones", "Reforma agraria y propiedad privada", "Derechos laborales y previsi\u00f3n social"], "a": 1}, {"q": "\u00bfQu\u00e9 forma de Estado adopta Paraguay seg\u00fan el Art. 1 CN?", "opts": ["Estado Federal", "Estado Confederado", "Estado Unitario", "Estado Plurinacional"], "a": 2}, {"q": "\u00bfQu\u00e9 es la democracia participativa?", "opts": ["La forma en que el pueblo vota cada 5 a\u00f1os", "Conjunto de instituciones complementarias de la democracia representativa que permiten mayor participaci\u00f3n ciudadana", "La democracia directa tal como la plante\u00f3 Rousseau", "El sistema de partidos pol\u00edticos en Paraguay"], "a": 1}], "21": [{"q": "\u00bfCu\u00e1l es el derecho real que confiere usar, gozar y disponer de la cosa de modo amplio y exclusivo?", "opts": ["Usufructo", "Servidumbre", "Dominio", "Prenda"], "a": 2}, {"q": "\u00bfEn qu\u00e9 se diferencia la propiedad del dominio?", "opts": ["Son exactamente iguales en todos los casos", "La propiedad aplica a bienes materiales e inmateriales; el dominio solo a cosas materiales", "El dominio es m\u00e1s amplio que la propiedad", "La propiedad es solo para personas jur\u00eddicas"], "a": 1}, {"q": "\u00bfQu\u00e9 es la hipoteca?", "opts": ["Derecho real sobre bienes muebles dados en garant\u00eda", "Derecho real constituido en seguridad de un cr\u00e9dito sobre bienes inmuebles que contin\u00faan en poder del deudor", "Contrato de arrendamiento de inmuebles", "Derecho real de uso y habitaci\u00f3n"], "a": 1}, {"q": "\u00bfCu\u00e1l es una caracter\u00edstica exclusiva de los derechos reales?", "opts": ["Solo pueden versar sobre derechos inmateriales", "Solo pueden ser creados por ley", "El sujeto pasivo siempre est\u00e1 determinado", "No pueden transmitirse por herencia"], "a": 1}], "22": [{"q": "\u00bfCu\u00e1les son los elementos constitutivos de la obligaci\u00f3n?", "opts": ["Sujeto, objeto y causa", "Relaci\u00f3n de derecho, objeto/prestaci\u00f3n y forma", "Contrato, delito y ley", "Acreedor, deudor y plazo"], "a": 1}, {"q": "\u00bfQu\u00e9 es el cuasidelito como fuente de obligaciones?", "opts": ["Acto il\u00edcito cometido con intenci\u00f3n de da\u00f1ar", "Acto l\u00edcito realizado sin convenio previo", "Acto il\u00edcito sin dolo pero con negligencia o culpa", "Obligaci\u00f3n nacida directamente de la ley"], "a": 2}, {"q": "\u00bfQu\u00e9 ley regula el Derecho de Autor en Paraguay?", "opts": ["Ley 1294/1998", "Ley 1328/1998", "Ley 4798/2012", "Ley 1630/2000"], "a": 1}, {"q": "\u00bfCu\u00e1les son los derechos morales del autor?", "opts": ["Cobrar regal\u00edas y licenciar la obra", "Divulgaci\u00f3n, paternidad, integridad y retiro de la obra", "Registrar y renovar la marca", "Patentar y explotar comercialmente la creaci\u00f3n"], "a": 1}], "23": [{"q": "\u00bfQu\u00e9 es la marca seg\u00fan el Derecho Marcario?", "opts": ["El nombre de una empresa registrada ante el Estado", "Cualquier signo o combinaci\u00f3n de signos susceptibles de representaci\u00f3n gr\u00e1fica para distinguir productos o servicios", "El logo exclusivo de empresas internacionales", "Un contrato de exclusividad comercial"], "a": 1}, {"q": "\u00bfC\u00f3mo nace el derecho sobre una marca?", "opts": ["Con el uso p\u00fablico y notorio", "Con el registro", "Con la declaraci\u00f3n ante escribano", "Con la publicaci\u00f3n en el diario oficial"], "a": 1}, {"q": "\u00bfQu\u00e9 ley cre\u00f3 la DINAPI en Paraguay?", "opts": ["Ley 1294/1998", "Ley 1630/2000", "Ley 4798/2012", "Ley 1328/1998"], "a": 2}, {"q": "\u00bfCu\u00e1l es la diferencia entre Derecho Intelectual y Derecho Marcario?", "opts": ["No hay diferencia, son lo mismo", "El intelectual protege creaciones de ingenio; el marcario individualiza productos para evitar confusi\u00f3n", "El marcario protege obras art\u00edsticas; el intelectual protege productos industriales", "El intelectual es p\u00fablico; el marcario es privado"], "a": 1}], "24": [{"q": "\u00bfCu\u00e1l es la leg\u00edtima de los descendientes seg\u00fan el Art. 2598 CC?", "opts": ["La mitad de la herencia", "Dos tercios de la herencia", "Cuatro quintas partes de la herencia", "Tres cuartas partes de la herencia"], "a": 2}, {"q": "\u00bfQu\u00e9 es el testamento?", "opts": ["Un contrato bilateral para distribuir bienes", "Un acto escrito y solemne por el cual una persona dispone de sus bienes para despu\u00e9s de su muerte", "Una declaraci\u00f3n verbal ante testigos", "Un acuerdo entre herederos"], "a": 1}, {"q": "\u00bfQu\u00e9 diferencia al heredero del legatario?", "opts": ["No hay diferencia legal entre ambos", "El heredero es sucesor universal que contin\u00faa la persona del causante; el legatario es sucesor singular en bienes espec\u00edficos", "El legatario siempre es familiar; el heredero puede ser cualquier persona", "El heredero recibe solo bienes muebles; el legatario recibe inmuebles"], "a": 1}, {"q": "\u00bfQu\u00e9 es la sucesi\u00f3n intestada o leg\u00edtima?", "opts": ["La que se hace por testamento v\u00e1lido", "La diferida solo por voluntad de la ley a los parientes del extinto", "La que ocurre solo entre c\u00f3nyuges", "La sucesi\u00f3n a t\u00edtulo singular"], "a": 1}], "25": [{"q": "\u00bfQu\u00e9 garantiza el Art. 248 CN sobre el Poder Judicial?", "opts": ["La dependencia del Poder Judicial al Ejecutivo", "La independencia del Poder Judicial \u2014 solo \u00e9l puede conocer actos contenciosos", "La posibilidad de que el Ejecutivo revise sentencias", "La gratuidad de todos los procesos judiciales"], "a": 1}, {"q": "\u00bfQu\u00e9 es el derecho de acci\u00f3n?", "opts": ["El derecho del juez a resolver casos de oficio", "La facultad de toda persona para solicitar legalmente la intervenci\u00f3n de los \u00f3rganos jurisdiccionales", "El derecho del demandado a oponerse a la demanda", "La facultad de apelar todas las sentencias"], "a": 1}, {"q": "\u00bfQu\u00e9 es una excepci\u00f3n perentoria?", "opts": ["La que tiende a postergar la contestaci\u00f3n sobre el m\u00e9rito", "La que extingue la acci\u00f3n deducida y pone fin al litigio", "La que paraliza moment\u00e1neamente el proceso", "La excepci\u00f3n de incompetencia territorial"], "a": 1}, {"q": "\u00bfPor qu\u00e9 medios procesales se extingue una acci\u00f3n?", "opts": ["Solo por prescripci\u00f3n", "Por sentencia del juez o desistimiento del actor", "Por acuerdo privado entre partes sin intervenci\u00f3n judicial", "Por el simple paso del tiempo"], "a": 1}], "26": [{"q": "\u00bfCu\u00e1l es la f\u00f3rmula de sanci\u00f3n de las leyes seg\u00fan el Art. 214 CN?", "opts": ["El Poder Ejecutivo decreta con fuerza de ley", "El Congreso de la Naci\u00f3n paraguaya sanciona con fuerza de ley", "La Corte Suprema de Justicia aprueba con fuerza de ley", "La Convenci\u00f3n Nacional Constituyente promulga"], "a": 1}, {"q": "\u00bfQu\u00e9 son las fuentes reales o materiales del Derecho?", "opts": ["Los requisitos formales que debe reunir una norma jur\u00eddica", "Los factores y elementos que producen normas jur\u00eddicas (pol\u00edticos, sociales, econ\u00f3micos)", "Las sentencias judiciales firmes", "Los tratados internacionales ratificados"], "a": 1}, {"q": "\u00bfQu\u00e9 Decreto-Ley cre\u00f3 la Comisi\u00f3n Nacional de Codificaci\u00f3n en Paraguay?", "opts": ["Decreto-Ley N\u00b0 1183 del 18 de diciembre de 1985", "Decreto-Ley N\u00b0 200 del 2 de julio de 1959", "Decreto-Ley N\u00b0 213 del 9 de octubre de 1993", "Decreto-Ley N\u00b0 1294 del 6 de agosto de 1998"], "a": 1}, {"q": "\u00bfCu\u00e1les son las etapas del proceso formativo de las leyes?", "opts": ["Propuesta, debate, votaci\u00f3n y archivo", "Iniciativa, discusi\u00f3n, sanci\u00f3n, promulgaci\u00f3n y publicaci\u00f3n", "Presentaci\u00f3n, comisi\u00f3n, plenario y decreto", "Redacci\u00f3n, revisi\u00f3n, aprobaci\u00f3n y vigencia"], "a": 1}], "27": [{"q": "\u00bfQu\u00e9 es la hermen\u00e9utica jur\u00eddica?", "opts": ["La ciencia que estudia la creaci\u00f3n de normas", "El arte de interpretar, desentra\u00f1ando el significado de vocablos o fen\u00f3menos jur\u00eddicos", "El m\u00e9todo para aplicar sanciones penales", "La t\u00e9cnica de redactar contratos"], "a": 1}, {"q": "\u00bfCu\u00e1les son los elementos de la interpretaci\u00f3n legal?", "opts": ["Formal, informal, hist\u00f3rico y comparado", "Gramatical, l\u00f3gico, hist\u00f3rico y sistem\u00e1tico", "Literal, extensivo, restrictivo y abrogante", "Subjetivo, objetivo, teleol\u00f3gico y anal\u00f3gico"], "a": 1}, {"q": "\u00bfQu\u00e9 establece el principio de legalidad del Art. 1 del C\u00f3digo Penal?", "opts": ["Todo delito debe ser juzgado por un juez natural", "Nadie ser\u00e1 sancionado sin que los presupuestos de punibilidad est\u00e9n descritos en una ley vigente anterior al hecho", "La ley penal es siempre retroactiva", "El juez puede sancionar conductas por analog\u00eda"], "a": 1}, {"q": "\u00bfQu\u00e9 establece el Art. 6 del C\u00f3digo Civil respecto al silencio de la ley?", "opts": ["El juez puede negarse a juzgar si la ley es oscura", "Los jueces no pueden dejar de juzgar en caso de silencio, oscuridad o insuficiencia de las leyes", "Solo el legislador puede suplir las lagunas de la ley", "El silencio legal equivale a prohibici\u00f3n"], "a": 1}], "28": [{"q": "\u00bfC\u00f3mo se llama el proceso l\u00f3gico por el que se aplica el derecho a un caso concreto?", "opts": ["Hermen\u00e9utica jur\u00eddica", "Silogismo jur\u00eddico", "Analog\u00eda legal", "Integraci\u00f3n normativa"], "a": 1}, {"q": "\u00bfQu\u00e9 son las lagunas de la ley?", "opts": ["Contradicciones entre normas de igual jerarqu\u00eda", "Casos imprevistos o espacios vac\u00edos que la ley dej\u00f3 al ser sancionada", "Art\u00edculos derogados que siguen aplic\u00e1ndose", "Normas que el juez considera injustas"], "a": 1}, {"q": "\u00bfEn qu\u00e9 consiste la integraci\u00f3n interna de la ley?", "opts": ["Aplicar los principios generales del Derecho", "Aplicar la analog\u00eda jur\u00eddica \u2014 descubrir la norma aplicable a un supuesto imprevisto semejante al legislado", "Recurrir a tratados internacionales", "Consultar la doctrina cient\u00edfica extranjera"], "a": 1}, {"q": "\u00bfCu\u00e1l es el tercer y \u00faltimo recurso de integraci\u00f3n en el Derecho paraguayo?", "opts": ["Las leyes an\u00e1logas", "La jurisprudencia de la Corte Suprema", "Los principios generales del Derecho", "Los tratados de Montevideo"], "a": 2}], "29": [{"q": "\u00bfQu\u00e9 establece el Art. 14 CN sobre la retroactividad?", "opts": ["Todas las leyes son retroactivas", "Ninguna ley tendr\u00e1 efecto retroactivo, salvo que sea m\u00e1s favorable al encausado o condenado", "Solo las leyes civiles son irretroactivas", "La retroactividad es siempre facultad del juez"], "a": 1}, {"q": "\u00bfQu\u00e9 establece el Art. 2 del C\u00f3digo Civil sobre la retroactividad?", "opts": ["Las leyes pueden alterar derechos adquiridos si es por razones de orden p\u00fablico", "Las leyes disponen para el futuro, no tienen efecto retroactivo ni pueden alterar derechos adquiridos", "Las leyes nuevas se aplican inmediatamente a todos los casos pendientes", "La retroactividad es la regla y la irretroactividad la excepci\u00f3n"], "a": 1}, {"q": "\u00bfCu\u00e1l es el fundamento racional del principio de irretroactividad?", "opts": ["Que las leyes viejas son mejores que las nuevas", "No se concibe que una ley sea obligatoria antes de existir", "Que los jueces deben aplicar siempre la ley m\u00e1s antigua", "Que la retroactividad favorece siempre al m\u00e1s d\u00e9bil"], "a": 1}, {"q": "\u00bfQu\u00e9 dice el Art. 5 del C\u00f3digo Penal si la ley cambia antes de la sentencia?", "opts": ["Se aplica siempre la ley vigente al momento del hecho", "Se aplica la ley m\u00e1s favorable al encausado", "Se suspende el proceso hasta nueva legislaci\u00f3n", "Se aplica la ley vigente al momento de la sentencia"], "a": 1}], "30": [{"q": "\u00bfQu\u00e9 establece el principio de territorialidad de la ley?", "opts": ["Las leyes rigen en todo el mundo si el Estado es soberano", "Las leyes deben regir en el territorio del Estado soberano de que emanan", "Las leyes de un Estado no pueden aplicarse fuera de su territorio nunca", "Las leyes del domicilio de la persona siempre prevalecen"], "a": 1}, {"q": "\u00bfQu\u00e9 establece el principio Lex Rei Sitae (Art. 16 CC)?", "opts": ["La forma de los actos jur\u00eddicos se rige por la ley del lugar de celebraci\u00f3n", "Los bienes se regir\u00e1n por la ley del lugar donde est\u00e1n situados", "La capacidad de las personas se rige por la ley de su nacionalidad", "Los contratos se rigen por la ley del domicilio del deudor"], "a": 1}, {"q": "\u00bfQu\u00e9 establece el principio Locus Regit Actum (Art. 23 CC)?", "opts": ["Los bienes inmuebles se rigen por la ley del pa\u00eds del propietario", "La forma de los actos jur\u00eddicos se rige por la ley del lugar de su celebraci\u00f3n", "La capacidad para contratar se rige por la ley del domicilio", "La sucesi\u00f3n se rige por la ley del \u00faltimo domicilio del causante"], "a": 1}, {"q": "\u00bfCu\u00e1ndo pueden los jueces paraguayos negarse a aplicar una ley extranjera?", "opts": ["Siempre que el juez lo considere inconveniente", "Cuando se oponga a las instituciones pol\u00edticas, leyes de orden p\u00fablico, moral y buenas costumbres", "Cuando la parte demandada sea paraguaya", "Nunca, siempre deben aplicar la ley extranjera solicitada"], "a": 1}]};
+
+function qzToggle(num) {
+  var panel = document.getElementById('qzp-' + num);
+  var btn = document.querySelector('#qz-' + num + ' .qz-toggle');
+  if (panel.style.display === 'none') {
+    panel.style.display = 'block';
+    btn.textContent = '✖ Cerrar Quiz';
+  } else {
+    panel.style.display = 'none';
+    btn.textContent = '📝 Quiz de esta lección';
+  }
+}
+
+function qzSelect(el) {
+  if (el.disabled) return;
+  var qi = el.getAttribute('data-qi');
+  var num = el.getAttribute('data-lesson');
+  var container = document.getElementById('qzo-' + num + '-' + qi);
+  var opts = container.querySelectorAll('.qz-opt');
+  opts.forEach(function(o) { o.setAttribute('data-selected','0'); });
+  el.setAttribute('data-selected','1');
+}
+
+function qzSubmit(num) {
+  var questions = QZ[String(num)];
+  var correct = 0;
+  for (var qi = 0; qi < questions.length; qi++) {
+    var container = document.getElementById('qzo-' + num + '-' + qi);
+    var fb = document.getElementById('qzf-' + num + '-' + qi);
+    var opts = container.querySelectorAll('.qz-opt');
+    var answered = false;
+    var correctIdx = questions[qi].a;
+    for (var oi = 0; oi < opts.length; oi++) {
+      opts[oi].disabled = true;
+      if (opts[oi].getAttribute('data-selected') === '1') {
+        answered = true;
+        if (oi === correctIdx) {
+          opts[oi].classList.add('qz-correct');
+          correct++;
+          fb.textContent = '✅ ¡Correcto!';
+          fb.className = 'qz-fb ok';
+        } else {
+          opts[oi].classList.add('qz-wrong');
+          opts[correctIdx].classList.add('qz-correct');
+          fb.textContent = '❌ Incorrecto. La respuesta correcta está en verde.';
+          fb.className = 'qz-fb fail';
+        }
+      }
+    }
+    if (!answered) {
+      opts[correctIdx].classList.add('qz-correct');
+      fb.textContent = '⚠️ Sin respuesta. La correcta está en verde.';
+      fb.className = 'qz-fb fail';
+    }
+  }
+  var pct = Math.round(correct / questions.length * 100);
+  var badge = document.getElementById('qzbadge-' + num);
+  badge.textContent = correct + '/' + questions.length + ' (' + pct + '%)';
+  badge.style.display = 'inline-block';
+  var result = document.getElementById('qzresult-' + num);
+  result.style.display = 'block';
+  if (pct >= 75) {
+    result.className = 'qz-result great';
+    result.innerHTML = '🎉 ¡Excelente! ' + correct + ' de ' + questions.length + ' correctas (' + pct + '%)';
+  } else if (pct >= 50) {
+    result.className = 'qz-result ok-r';
+    result.innerHTML = '👍 Bien, podés mejorar: ' + correct + ' de ' + questions.length + ' (' + pct + '%)';
+  } else {
+    result.className = 'qz-result fail-r';
+    result.innerHTML = '📖 Repasá la lección: ' + correct + ' de ' + questions.length + ' (' + pct + '%)';
+  }
+  document.getElementById('qzcheck-' + num).style.display = 'none';
+  // Save to progress
+  markQuizResult(num, pct);
+}
+
+function qzReset(num) {
+  var questions = QZ[String(num)];
+  for (var qi = 0; qi < questions.length; qi++) {
+    var container = document.getElementById('qzo-' + num + '-' + qi);
+    var fb = document.getElementById('qzf-' + num + '-' + qi);
+    var opts = container.querySelectorAll('.qz-opt');
+    opts.forEach(function(o) {
+      o.disabled = false;
+      o.setAttribute('data-selected','0');
+      o.classList.remove('qz-correct','qz-wrong');
+    });
+    fb.textContent = ''; fb.className = 'qz-fb';
+  }
+  var badge = document.getElementById('qzbadge-' + num);
+  badge.style.display = 'none';
+  var result = document.getElementById('qzresult-' + num);
+  result.style.display = 'none'; result.innerHTML = '';
+  document.getElementById('qzcheck-' + num).style.display = 'inline-block';
+}
+
+
+
+
+// ============================================================
+// FIREBASE + GAMIFICATION
+// ============================================================
+
+// 🔥 FIREBASE — Creá tu propio proyecto en https://console.firebase.google.com
+// y reemplazá estos valores con los de tu proyecto.
+const firebaseConfig = {
+  apiKey:            "TU_API_KEY",
+  authDomain:        "TU_PROYECTO.firebaseapp.com",
+  projectId:         "TU_PROYECTO",
+  storageBucket:     "TU_PROYECTO.firebasestorage.app",
+  messagingSenderId: "TU_SENDER_ID",
+  appId:             "TU_APP_ID",
+  measurementId:     "TU_MEASUREMENT_ID"
+};
+const fbApp = firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+
+window._authReady = true;
+
+// ── Session state ────────────────────────────────────────────
+let currentUser = null; // { ci, name, xp, streak, lastDate, progress }
+
+// ── XP rules ────────────────────────────────────────────────
+const XP_VISIT  = 5;   // per lección visited (first time)
+const XP_QUIZ75 = 20;  // quiz ≥ 75%
+const XP_QUIZ100= 35;  // quiz 100%
+
+function calcXP(progress) {
+  let xp = 0;
+  Object.values(progress || {}).forEach(d => {
+    if (d.visited)        xp += XP_VISIT;
+    if (d.quizPassed)     xp += d.quizPct === 100 ? XP_QUIZ100 : XP_QUIZ75;
+    if (d.rewriteXP)      xp += d.rewriteXP;
+  });
+  return xp;
+}
+
+function calcPassed(progress) {
+  return Object.values(progress || {}).filter(d => d.quizPassed).length;
+}
+
+// ── Streak logic ─────────────────────────────────────────────
+function todayStr() { return new Date().toISOString().slice(0,10); }
+
+function updateStreak(userData) {
+  const today = todayStr();
+  if (userData.lastDate === today) return userData.streak || 1;
+  const yesterday = new Date(Date.now() - 86400000).toISOString().slice(0,10);
+  if (userData.lastDate === yesterday) return (userData.streak || 0) + 1;
+  return 1; // broke streak
+}
+
+// ── Firestore helpers ────────────────────────────────────────
+async function loadUserData(ci) {
+  const snap = await db.collection("users").doc(ci).get();
+  return snap.exists ? snap.data() : null;
+}
+
+async function saveUserData(ci, data) {
+  await db.collection("users").doc(ci).set(data, { merge: true });
+}
+
+async function loadRanking() {
+  const snap = await db.collection("users").get();
+  const rows = [];
+  snap.forEach(d => rows.push(d.data()));
+  rows.sort((a,b) => (b.xp||0) - (a.xp||0));
+  return rows.slice(0, 15);
+}
+
+// ── UI helpers ───────────────────────────────────────────────
+function showAuthModal(mode='login') {
+  document.getElementById('auth-overlay').classList.add('open');
+  document.getElementById('auth-mode-title').textContent =
+    mode === 'register' ? 'Registrarse' : 'Iniciar Sesión';
+  document.getElementById('auth-name-wrap').style.display =
+    mode === 'register' ? 'block' : 'none';
+  document.getElementById('auth-submit').textContent =
+    mode === 'register' ? 'Registrarme' : 'Entrar';
+  document.getElementById('auth-toggle-btn').textContent =
+    mode === 'register' ? '¿Ya tenés cuenta? Entrá' : '¿Primera vez? Registrate';
+  document.getElementById('auth-overlay').dataset.mode = mode;
+  document.getElementById('auth-msg').textContent = '';
+}
+
+function hideAuthModal() {
+  document.getElementById('auth-overlay').classList.remove('open');
+}
+
+function renderUserBar() {
+  if (!currentUser) return;
+  document.getElementById('user-bar').classList.add('visible');
+  document.getElementById('login-prompt').style.display = 'none';
+
+  const initials = currentUser.name.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
+  document.getElementById('user-avatar').textContent = initials;
+  document.getElementById('user-name-display').textContent = currentUser.name;
+  document.getElementById('user-ci-display').textContent = 'CI: ' + currentUser.ci;
+  document.getElementById('user-xp-display').textContent = '⚡ ' + (currentUser.xp||0) + ' XP';
+  document.getElementById('user-streak-display').textContent = '🔥 ' + (currentUser.streak||1) + ' días';
+
+  refreshRanking();
+}
+
+async function refreshRanking() {
+  const tbody = document.getElementById('ranking-tbody');
+  const loading = document.getElementById('ranking-loading');
+  if (!tbody) return;
+  if (loading) loading.style.display = 'block';
+  try {
+    const rows = await loadRanking();
+    if (loading) loading.style.display = 'none';
+    const medals = ['🥇','🥈','🥉'];
+    tbody.innerHTML = rows.map((u,i) => {
+      const isMe = currentUser && u.ci === currentUser.ci;
+      return `<tr class="${isMe ? 'me' : ''}">
+        <td class="rank-pos">${medals[i] || (i+1)}</td>
+        <td>${u.name || '—'}</td>
+        <td class="rank-xp">⚡ ${u.xp||0}</td>
+        <td class="rank-passed">✅ ${calcPassed(u.progress||{})} / 20</td>
+        <td class="rank-streak rank-hide-mobile">🔥 ${u.streak||1}</td>
+      </tr>`;
+    }).join('');
+  } catch(e) {
+    if (loading) loading.textContent = 'No se pudo cargar el ranking.';
+  }
+}
+
+// ── Auth submit ──────────────────────────────────────────────
+window._realAuthSubmit = async function() {
+  const mode = document.getElementById('auth-overlay').dataset.mode || 'login';
+  const ci   = document.getElementById('auth-ci').value.trim();
+  const name = document.getElementById('auth-name').value.trim();
+  const msg  = document.getElementById('auth-msg');
+
+  if (!ci || ci.length < 4) { msg.textContent = 'Ingresá un CI válido (mín. 4 dígitos).'; return; }
+  if (mode === 'register' && !name) { msg.textContent = 'Ingresá tu nombre completo.'; return; }
+
+  msg.textContent = '⏳ Verificando...';
+  msg.className = 'auth-msg';
+
+  try {
+    if (typeof db === 'undefined') { msg.textContent = '❌ Error: Firebase no cargó. Recargá la página.'; return; }
+    const existing = await loadUserData(ci);
+
+    if (mode === 'register') {
+      if (existing) { msg.textContent = '❌ Ese CI ya está registrado. Usá "Entrar".'; return; }
+      const localProg = getProgress();
+      const streak = 1;
+      const xp = calcXP(localProg);
+      const userData = { ci, name, xp, streak, lastDate: todayStr(), progress: localProg, createdAt: todayStr() };
+      await saveUserData(ci, userData);
+      currentUser = userData;
+    } else {
+      if (!existing) { msg.textContent = '❌ CI no encontrado. ¿Te registraste?'; return; }
+      const newStreak = updateStreak(existing);
+      const merged = { ...existing, streak: newStreak, lastDate: todayStr() };
+      await saveUserData(ci, { streak: newStreak, lastDate: todayStr() });
+      // Merge remote progress into local
+      const merged_progress = { ...getProgress(), ...(existing.progress||{}) };
+      saveProgress(merged_progress);
+      currentUser = { ...merged, progress: merged_progress };
+    }
+
+    msg.textContent = '✅ ¡Bienvenido/a, ' + currentUser.name + '!';
+    msg.className = 'auth-msg auth-success';
+    setTimeout(() => { hideAuthModal(); renderUserBar(); refreshProgressUI(); }, 900);
+
+  } catch(e) {
+    msg.textContent = '❌ Error: ' + (e.message || 'Intentá de nuevo.');
+    console.error(e);
+  }
+};
+
+// toggle and cancel handled via onclick attributes
+
+document.getElementById('logout-btn').addEventListener('click', () => {
+  currentUser = null;
+  document.getElementById('user-bar').classList.remove('visible');
+  document.getElementById('login-prompt').style.display = 'block';
+  refreshRanking();
+});
+
+// ── Override markVisited & markQuizResult to also sync Firebase ──
+const _origMarkVisited = markVisited;
+markVisited = async function(num) {
+  _origMarkVisited(num);
+  if (!currentUser) return;
+  const p = getProgress();
+  const xp = calcXP(p);
+  currentUser.xp = xp;
+  currentUser.progress = p;
+  document.getElementById('user-xp-display').textContent = '⚡ ' + xp + ' XP';
+  await saveUserData(currentUser.ci, { xp, progress: p, lastDate: todayStr() });
+};
+
+const _origMarkQuizResult = markQuizResult;
+markQuizResult = async function(num, pct) {
+  _origMarkQuizResult(num, pct);
+  if (!currentUser) return;
+  const p = getProgress();
+  const xp = calcXP(p);
+  currentUser.xp = xp;
+  currentUser.progress = p;
+  document.getElementById('user-xp-display').textContent = '⚡ ' + xp + ' XP';
+  await saveUserData(currentUser.ci, { xp, progress: p, lastDate: todayStr() });
+  refreshRanking();
+};
+
+
+// Expose functions to global scope (required for inline onclick with type=module)
+window.checkFill = checkFill;
+window.exitExam = exitExam;
+window.goToSlide = goToSlide;
+window.nextSlide = nextSlide;
+window.prevSlide = prevSlide;
+window.qzReset = qzReset;
+window.qzSelect = qzSelect;
+window.qzSubmit = qzSubmit;
+window.qzToggle = qzToggle;
+window.resetAllProgress = resetAllProgress;
+window.resetFill = resetFill;
+window.selectExamOpt = selectExamOpt;
+window.showAuthModal = showAuthModal;
+window.showHome = showHome;
+window.showLesson = showLesson;
+window.startExam = startExam;
+window.submitExam = submitExam;
+window.switchExTab = switchExTab;
+window.toggleExercises = toggleExercises;
+window.checkBadges = checkBadges;
+window.refreshThematic = refreshThematic;
+
+
+// ============================================================
+// BLOCKS + BADGES
+// ============================================================
+const BLOCKS = {
+  "📜 Normas Jurídicas":         [11,12,13,14,15],
+  "⚖️ Derechos Subjetivos":      [16,17,18,19,20],
+  "🏛️ Instituciones y Personas": [21,22,23,24,25],
+  "📚 Fuentes y Técnica Jurídica":[26,27,28,29,30],
+};
+
+const BADGES_DEF = [
+  {id:"first_quiz",    icon:"🎓", name:"Primer Aprobado",    desc:"Aprobá tu primer quiz"},
+  {id:"five_visited",  icon:"⚡", name:"Estudioso",          desc:"Visitá 5 lecciones"},
+  {id:"ten_visited",   icon:"🌟", name:"Mitad del Camino",   desc:"Visitá 10 lecciones"},
+  {id:"streak_3",      icon:"✨", name:"Constante",          desc:"3 días seguidos"},
+  {id:"streak_7",      icon:"🔥", name:"Racha Imparable",    desc:"7 días seguidos"},
+  {id:"perfect_quiz",  icon:"🏛️", name:"Perfeccionista",     desc:"Sacá 100% en un quiz"},
+  {id:"block_done",    icon:"📖", name:"Bloque Completado",  desc:"Aprobá todo un bloque"},
+  {id:"all_passed",    icon:"💎", name:"Jurista Completo",   desc:"Aprobá las 20 lecciones"},
+  {id:"exam_pass",     icon:"📋", name:"Examen Aprobado",    desc:"Aprobá el simulacro (≥60%)"},
+  {id:"exam_perfect",  icon:"🥇", name:"Excelencia",         desc:"Sacá 100% en el simulacro"},
+  {id:"rw_1",          icon:"✍️", name:"Texteador",          desc:"Reescribí tu primer slide"},
+  {id:"rw_10",         icon:"⌨️", name:"Tipeador",           desc:"Reescribí 10 slides"},
+  {id:"rw_20",         icon:"🖊️", name:"Dactilógrafo",       desc:"Reescribí 20 slides"},
+  {id:"rw_all",        icon:"📜", name:"Escriba",            desc:"Reescribí al menos 1 slide en cada lección"},
+];
+
+// ── Init badge grid ──────────────────────────────────────────
+function initBadgeGrid() {
+  const grid = document.getElementById('badges-grid');
+  if (!grid) return;
+  grid.innerHTML = BADGES_DEF.map(b => `
+    <div class="badge-item" id="badge-${b.id}">
+      <div class="badge-icon">${b.icon}</div>
+      <div class="badge-info">
+        <div class="badge-name">${b.name}</div>
+        <div class="badge-desc">${b.desc}</div>
+      </div>
+    </div>`).join('');
+}
+
+// ── Init thematic bars ───────────────────────────────────────
+function initThematicGrid() {
+  const grid = document.getElementById('thematic-grid');
+  if (!grid) return;
+  grid.innerHTML = Object.keys(BLOCKS).map((name, i) => `
+    <div class="thematic-card">
+      <div class="thematic-card-title">${name}</div>
+      <div class="thematic-bar-track">
+        <div class="thematic-bar-fill" id="tbar-${i}"></div>
+      </div>
+      <div class="thematic-stats">
+        <span id="tstat-${i}">0 / 5 aprobadas</span>
+      </div>
+    </div>`).join('');
+}
+
+// ── Refresh thematic bars ────────────────────────────────────
+function refreshThematic() {
+  const p = getProgress();
+  Object.entries(BLOCKS).forEach(([name, lessons], i) => {
+    const passed = lessons.filter(n => (p[n] || {}).quizPassed).length;
+    const visited = lessons.filter(n => (p[n] || {}).visited).length;
+    const pct = Math.round((passed / lessons.length) * 100);
+    const fill = document.getElementById('tbar-' + i);
+    const stat = document.getElementById('tstat-' + i);
+    if (fill) {
+      fill.style.width = pct + '%';
+      fill.classList.toggle('complete', passed === lessons.length);
+    }
+    if (stat) {
+      if (passed === lessons.length) {
+        stat.innerHTML = '<span class="complete-label">✅ Bloque completo</span>';
+      } else {
+        stat.innerHTML = `<span>✅ ${passed} aprob.</span><span>👁 ${visited} vistas</span>`;
+      }
+    }
+  });
+}
+
+// ── Toast ────────────────────────────────────────────────────
+let toastTimer = null;
+function showBadgeToast(badge) {
+  document.getElementById('toast-icon').textContent = badge.icon;
+  document.getElementById('toast-name').textContent = badge.name;
+  const toast = document.getElementById('badge-toast');
+  toast.classList.add('show');
+  if (toastTimer) clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => toast.classList.remove('show'), 3500);
+}
+
+// ── Check & unlock badges ────────────────────────────────────
+function checkBadges() {
+  const p = getProgress();
+  const streak = currentUser ? (currentUser.streak || 1) : 0;
+  const visited = Object.values(p).filter(d => d.visited).length;
+  const passed  = Object.values(p).filter(d => d.quizPassed).length;
+  const perfect = Object.values(p).some(d => d.quizPct === 100);
+  const blockDone = Object.values(BLOCKS).some(lessons =>
+    lessons.every(n => (p[n] || {}).quizPassed));
+
+  const examHistory = JSON.parse(localStorage.getItem('cj_exams_v1') || '[]');
+  const examPassed  = examHistory.some(e => e.pass);
+  const examPerfect = examHistory.some(e => e.pct === 100);
+
+  const rwDone = typeof rwGetDone === 'function' ? rwGetDone() : {};
+  const rwTotal = Object.keys(rwDone).filter(k => rwDone[k]).length;
+  const rwLessons = new Set(Object.keys(rwDone).filter(k => rwDone[k]).map(k => k.split('_')[0]));
+
+  const conditions = {
+    first_quiz:   passed >= 1,
+    five_visited: visited >= 5,
+    ten_visited:  visited >= 10,
+    streak_3:     streak >= 3,
+    streak_7:     streak >= 7,
+    perfect_quiz: perfect,
+    block_done:   blockDone,
+    all_passed:   passed >= 20,
+    exam_pass:    examPassed,
+    exam_perfect: examPerfect,
+    rw_1:         rwTotal >= 1,
+    rw_10:        rwTotal >= 10,
+    rw_20:        rwTotal >= 20,
+    rw_all:       rwLessons.size >= 20,
+  };
+
+  const earned = JSON.parse(localStorage.getItem('cj_badges_v1') || '[]');
+
+  BADGES_DEF.forEach(b => {
+    const el = document.getElementById('badge-' + b.id);
+    if (conditions[b.id]) {
+      if (el && !el.classList.contains('unlocked')) {
+        el.classList.add('unlocked');
+        if (earned.includes(b.id)) return; // already notified
+        el.classList.add('just-unlocked');
+        setTimeout(() => el.classList.remove('just-unlocked'), 700);
+        showBadgeToast(b);
+        earned.push(b.id);
+        localStorage.setItem('cj_badges_v1', JSON.stringify(earned));
+        // sync to firebase if logged in
+        if (currentUser) {
+          saveUserData(currentUser.ci, { badges: earned });
+        }
+      }
+    } else {
+      if (el) el.classList.remove('unlocked');
+    }
+  });
+
+  // also restore already-earned badges silently on load
+  earned.forEach(id => {
+    const el = document.getElementById('badge-' + id);
+    if (el) el.classList.add('unlocked');
+  });
+}
+
+// ── Hook into refreshProgressUI ──────────────────────────────
+const _origRefreshProgressUI = refreshProgressUI;
+refreshProgressUI = function() {
+  _origRefreshProgressUI();
+  refreshThematic();
+  checkBadges();
+};
+
+// ── Init on DOMContentLoaded ─────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+  initBadgeGrid();
+  initThematicGrid();
+  refreshThematic();
+  checkBadges();
+});
+
+
+// ── Profile panel toggle ─────────────────────────────────────
+function toggleProfilePanel() {
+  const panel = document.getElementById('profile-panel');
+  const hint = document.querySelector('.profile-toggle-hint');
+  if (!panel) return;
+  const isOpen = panel.classList.toggle('open');
+  if (hint) hint.textContent = isOpen ? 'toca para cerrar ▴' : 'toca para ver tu perfil ▾';
+  if (isOpen) {
+    // Re-init grids every time in case DOM wasn't ready on first load
+    initBadgeGrid();
+    initThematicGrid();
+    refreshThematic();
+    checkBadges();
+  }
+}
+window.toggleProfilePanel = toggleProfilePanel;
+
+
+// ============================================================
+// EXAMEN SIMULACRO
+// ============================================================
+const EXAM_DURATION = 15 * 60; // 15 minutes in seconds
+// Agrupá las lecciones en bloques temáticos (para las barras de progreso del perfil)
+const EXAM_LESSONS  = [1,2,3,4,5,6,7,8,9,10];
+const BLOCK_NAMES   = {
+  1:'Bloque A', 2:'Bloque A', 3:'Bloque A', 4:'Bloque A', 5:'Bloque A',
+  6:'Bloque B', 7:'Bloque B', 8:'Bloque B', 9:'Bloque B', 10:'Bloque B',
+};
+const BLOCKS = {
+  "📖 Bloque A": [1,2,3,4,5],
+  "📚 Bloque B": [6,7,8,9,10],
+};
+
+let examQuestions = [];   // [{lesson, q, opts, a}, ...]
+let simAnswers   = [];   // user selected option index per question (-1 = unanswered)
+let examCurrent   = 0;
+let examTimerInterval = null;
+let examSecondsLeft   = EXAM_DURATION;
+let examFinished      = false;
+
+// ── Build exam question pool (1 random per lesson) ───────────
+function buildExam() {
+  examQuestions = EXAM_LESSONS.map(n => {
+    const pool = QZ[String(n)];
+    const q    = pool[Math.floor(Math.random() * pool.length)];
+    return { lesson: n, ...q };
+  });
+  // Shuffle order
+  for (let i = examQuestions.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [examQuestions[i], examQuestions[j]] = [examQuestions[j], examQuestions[i]];
+  }
+  simAnswers  = new Array(examQuestions.length).fill(-1);
+  examCurrent  = 0;
+  examFinished = false;
+  examSecondsLeft = EXAM_DURATION;
+}
+
+// ── Show exam page ───────────────────────────────────────────
+function startExamSimulacro() {
+  buildExam();
+  document.getElementById('home-page').style.display  = 'none';
+  document.querySelectorAll('.lesson-page').forEach(p => p.style.display = 'none');
+  document.getElementById('exam-page').classList.add('active');
+  renderExamDots();
+  renderExamQuestion();
+  startExamTimer();
+  window.scrollTo(0, 0);
+}
+
+function exitExamSimulacro() {
+  if (!examFinished) {
+    if (!confirm('¿Salir del examen? Se perderá el progreso.')) return;
+  }
+  clearInterval(examTimerInterval);
+  document.getElementById('exam-page').classList.remove('active');
+  showHome();
+}
+
+// ── Timer ────────────────────────────────────────────────────
+function startExamTimer() {
+  clearInterval(examTimerInterval);
+  updateTimerDisplay();
+  examTimerInterval = setInterval(() => {
+    examSecondsLeft--;
+    updateTimerDisplay();
+    if (examSecondsLeft <= 0) {
+      clearInterval(examTimerInterval);
+      finishExam(true);
+    }
+  }, 1000);
+}
+
+function updateTimerDisplay() {
+  const m = Math.floor(examSecondsLeft / 60).toString().padStart(2,'0');
+  const s = (examSecondsLeft % 60).toString().padStart(2,'0');
+  const el = document.getElementById('exam-timer');
+  if (el) {
+    el.textContent = m + ':' + s;
+    el.classList.toggle('warning', examSecondsLeft <= 120);
+  }
+}
+
+// ── Progress dots ────────────────────────────────────────────
+function renderExamDots() {
+  const container = document.getElementById('exam-prog-dots');
+  if (!container) return;
+  container.innerHTML = examQuestions.map((_, i) =>
+    `<div class="exam-dot${i === examCurrent ? ' current' : ''}${simAnswers[i] >= 0 ? ' answered' : ''}" id="edot-${i}"></div>`
+  ).join('');
+}
+
+function updateExamDots() {
+  examQuestions.forEach((_, i) => {
+    const d = document.getElementById('edot-' + i);
+    if (!d) return;
+    d.className = 'exam-dot' +
+      (i === examCurrent ? ' current' : '') +
+      (simAnswers[i] >= 0 ? ' answered' : '');
+  });
+  const counter = document.getElementById('exam-q-counter');
+  if (counter) counter.textContent = (examCurrent + 1) + ' / ' + examQuestions.length;
+}
+
+// ── Render current question ──────────────────────────────────
+function renderExamQuestion() {
+  const body = document.getElementById('exam-body');
+  if (!body) return;
+  const q   = examQuestions[examCurrent];
+  const sel = simAnswers[examCurrent];
+  const isLast = examCurrent === examQuestions.length - 1;
+
+  body.innerHTML = `
+    <div class="exam-q-card">
+      <div class="exam-q-meta">Lección ${q.lesson} — ${BLOCK_NAMES[q.lesson]}</div>
+      <div class="exam-q-text">${q.q}</div>
+      <div class="exam-opts">
+        ${q.opts.map((opt, i) => `
+          <button class="exam-opt${sel === i ? ' selected' : ''}"
+            onclick="examSelectOpt(${i})"
+            ${examFinished ? 'disabled' : ''}>
+            <span style="color:var(--gold);margin-right:0.5rem">${['A','B','C','D'][i]}.</span>${opt}
+          </button>`).join('')}
+      </div>
+    </div>
+    <div class="exam-nav">
+      <button class="exam-nav-btn" onclick="examNav(-1)" ${examCurrent === 0 ? 'disabled' : ''}>← Anterior</button>
+      <button class="exam-nav-btn" onclick="exitExamSimulacro()">✕ Salir</button>
+      ${isLast
+        ? `<button class="exam-nav-btn primary" onclick="finishExam(false)">📋 Entregar</button>`
+        : `<button class="exam-nav-btn primary" onclick="examNav(1)">Siguiente →</button>`}
+    </div>`;
+  updateExamDots();
+}
+
+// ── Select option ────────────────────────────────────────────
+function examSelectOpt(oi) {
+  if (examFinished) return;
+  simAnswers[examCurrent] = oi;
+  renderExamQuestion();
+}
+
+// ── Navigate ─────────────────────────────────────────────────
+function examNav(dir) {
+  examCurrent = Math.max(0, Math.min(examQuestions.length - 1, examCurrent + dir));
+  renderExamQuestion();
+}
+
+// ── Finish exam ──────────────────────────────────────────────
+function finishExam(timeUp) {
+  clearInterval(examTimerInterval);
+  examFinished = true;
+
+  const unanswered = simAnswers.filter(a => a < 0).length;
+  if (!timeUp && unanswered > 0) {
+    if (!confirm(`Tenés ${unanswered} pregunta${unanswered>1?'s':''} sin responder. ¿Entregar igual?`)) {
+      examFinished = false;
+      startExamTimer();
+      return;
+    }
+  }
+
+  // Score
+  let correct = 0;
+  const breakdown = {};
+  examQuestions.forEach((q, i) => {
+    const lesson = q.lesson;
+    if (!breakdown[lesson]) breakdown[lesson] = { correct: 0, total: 0, name: BLOCK_NAMES[lesson] };
+    breakdown[lesson].total++;
+    if (simAnswers[i] === q.a) { correct++; breakdown[lesson].correct++; }
+  });
+
+  const pct   = Math.round((correct / examQuestions.length) * 100);
+  const pass  = pct >= 60;
+  const nota  = (correct / examQuestions.length * 5).toFixed(1); // 0–5 scale
+  const timeTaken = EXAM_DURATION - examSecondsLeft;
+  const mins = Math.floor(timeTaken/60), secs = timeTaken % 60;
+
+  // Save to localStorage + Firebase
+  const examRecord = { pct, correct, total: examQuestions.length, pass, date: todayStr(), timeTaken };
+  const examHistory = JSON.parse(localStorage.getItem('cj_exams_v1') || '[]');
+  examHistory.unshift(examRecord);
+  localStorage.setItem('cj_exams_v1', JSON.stringify(examHistory.slice(0, 10)));
+  if (currentUser) {
+    const bestExam = examHistory.reduce((b, e) => e.pct > b.pct ? e : b, examRecord);
+    saveUserData(currentUser.ci, { bestExam: bestExam.pct, lastExam: pct });
+    currentUser.bestExam = bestExam.pct;
+  }
+
+  // Check exam badges
+  checkBadges();
+
+  // Render result
+  const body = document.getElementById('exam-body');
+  const timerEl = document.getElementById('exam-timer');
+  if (timerEl) { timerEl.textContent = '✓ Entregado'; timerEl.classList.remove('warning'); }
+
+  body.innerHTML = `
+    <div class="exam-result-card">
+      <div class="exam-score-circle ${pass ? 'pass' : 'fail'}">
+        ${pct}%
+        <div class="exam-score-label">${pass ? 'APROBADO' : 'REPROBADO'}</div>
+      </div>
+      <div class="exam-result-title">${pass ? '🎉 ¡Aprobaste!' : '📖 Podés mejorar'}</div>
+      <div class="exam-result-sub">
+        ${correct} / ${examQuestions.length} correctas · Nota: ${nota} / 5.0 · Tiempo: ${mins}m ${secs}s
+      </div>
+      <div class="exam-breakdown">
+        <div class="exam-breakdown-title">Desglose por lección</div>
+        ${examQuestions.map((q, i) => {
+          const ok = simAnswers[i] === q.a;
+          return `<div class="exam-breakdown-row">
+            <span>L${q.lesson} — ${q.q.slice(0,45)}${q.q.length>45?'…':''}</span>
+            <span class="${ok?'ok':'fail'}">${ok ? '✅' : '❌ ' + q.opts[q.a]}</span>
+          </div>`;
+        }).join('')}
+      </div>
+    </div>
+    <div style="text-align:center;padding-bottom:2rem">
+      <button class="exam-nav-btn primary" onclick="startExamSimulacro()" style="margin-right:0.7rem">🔄 Reintentar</button>
+      <button class="exam-nav-btn" onclick="exitExamSimulacro()">🏠 Volver al inicio</button>
+    </div>`;
+}
+
+window.startExamSimulacro = startExamSimulacro;
+window.exitExamSimulacro  = exitExamSimulacro;
+window.examSelectOpt      = examSelectOpt;
+window.examNav            = examNav;
+window.finishExam         = finishExam;
+
+
+// ══════════════════════════════════════════════════════════════
+// TTS ENGINE — Web Speech API
+// ══════════════════════════════════════════════════════════════
+const ttsState = {}; // keyed by lesson number
+
+function ttsGetVoice() {
+  const voices = window.speechSynthesis.getVoices();
+  return (
+    voices.find(v => v.lang === 'es-PY') ||
+    voices.find(v => v.lang === 'es-419') ||
+    voices.find(v => v.lang.startsWith('es')) ||
+    voices[0] || null
+  );
+}
+
+function ttsExtractText(lesson, slideIdx) {
+  const container = document.getElementById('slides-' + lesson);
+  if (!container) return '';
+  const slides = container.querySelectorAll('.slide');
+  const slide = slides[slideIdx];
+  if (!slide) return '';
+  // Skip exercises/quiz slide (last one)
+  const total = TOTAL[String(lesson)];
+  if (slideIdx >= total - 1) return '📝 Esta diapositiva contiene ejercicios interactivos. Pasando a la siguiente lección.';
+  const titleEl = slide.querySelector('.slide-title');
+  const contentEl = slide.querySelector('.slide-content');
+  const numEl = slide.querySelector('.slide-number');
+  const numText = numEl ? numEl.textContent.trim() + '. ' : '';
+  const title = titleEl ? titleEl.textContent.trim() + '. ' : '';
+  const body = contentEl ? contentEl.innerText.replace(/\s+/g, ' ').trim() : '';
+  return numText + title + body;
+}
+
+function ttsSetStatus(lesson, text) {
+  const el = document.getElementById('tts-status-' + lesson);
+  if (el) el.textContent = text;
+}
+
+function ttsSetPlaying(lesson, playing) {
+  const playBtn = document.getElementById('tts-play-' + lesson);
+  const stopBtn = document.getElementById('tts-stop-' + lesson);
+  if (!playBtn) return;
+  if (playing) {
+    playBtn.innerHTML = '⏸ Pausar';
+    playBtn.classList.add('tts-active');
+    if (stopBtn) stopBtn.style.display = '';
+    // Add reading class to active slide
+    const container = document.getElementById('slides-' + lesson);
+    if (container) container.querySelectorAll('.slide').forEach(s => s.classList.remove('reading'));
+    const activeSlide = document.querySelector('#slides-' + lesson + ' .slide.active');
+    if (activeSlide) activeSlide.classList.add('reading');
+  } else {
+    playBtn.innerHTML = '🔊 Escuchar';
+    playBtn.classList.remove('tts-active');
+    if (stopBtn) stopBtn.style.display = 'none';
+    const container = document.getElementById('slides-' + lesson);
+    if (container) container.querySelectorAll('.slide').forEach(s => s.classList.remove('reading'));
+  }
+}
+
+function ttsStop(lesson) {
+  window.speechSynthesis.cancel();
+  if (ttsState[lesson]) ttsState[lesson].active = false;
+  ttsSetPlaying(lesson, false);
+  ttsSetStatus(lesson, '🎧 listo para escuchar');
+}
+
+function ttsToggle(lesson) {
+  // If paused, resume
+  if (window.speechSynthesis.paused) {
+    window.speechSynthesis.resume();
+    ttsSetPlaying(lesson, true);
+    ttsSetStatus(lesson, '▶ reproduciendo...');
+    return;
+  }
+  // If speaking (same lesson), pause
+  if (window.speechSynthesis.speaking && ttsState[lesson] && ttsState[lesson].active) {
+    window.speechSynthesis.pause();
+    ttsSetPlaying(lesson, false);
+    ttsSetStatus(lesson, '⏸ pausado');
+    return;
+  }
+  // Stop any other lesson speaking
+  window.speechSynthesis.cancel();
+  Object.keys(ttsState).forEach(k => { if (ttsState[k]) ttsState[k].active = false; ttsSetPlaying(Number(k), false); });
+
+  ttsState[lesson] = { active: true };
+  ttsReadCurrentSlide(lesson);
+}
+
+function ttsReadCurrentSlide(lesson) {
+  if (!ttsState[lesson] || !ttsState[lesson].active) return;
+  const slideIdx = state[String(lesson)] || 0;
+  const text = ttsExtractText(lesson, slideIdx);
+  if (!text) { ttsStop(lesson); return; }
+
+  const speedEl = document.getElementById('tts-speed-' + lesson);
+  const rate = speedEl ? parseFloat(speedEl.value) : 1;
+
+  const utt = new SpeechSynthesisUtterance(text);
+  utt.lang = 'es-PY';
+  utt.rate = rate;
+  utt.pitch = 1;
+  const voice = ttsGetVoice();
+  if (voice) utt.voice = voice;
+
+  const total = TOTAL[String(lesson)];
+  ttsSetStatus(lesson, '🔊 slide ' + (slideIdx + 1) + ' / ' + total);
+  ttsSetPlaying(lesson, true);
+
+  utt.onend = function() {
+    if (!ttsState[lesson] || !ttsState[lesson].active) return;
+    const nextIdx = slideIdx + 1;
+    if (nextIdx < total - 1) {
+      goToSlide(lesson, nextIdx);
+      setTimeout(() => ttsReadCurrentSlide(lesson), 600);
+    } else {
+      ttsStop(lesson);
+      ttsSetStatus(lesson, '✅ lección completa');
+    }
+  };
+  utt.onerror = function(e) {
+    if (e.error !== 'interrupted') { ttsStop(lesson); ttsSetStatus(lesson, '⚠ error de voz'); }
+  };
+
+  window.speechSynthesis.speak(utt);
+}
+
+// Load voices async (Chrome requires this)
+if (window.speechSynthesis) {
+  window.speechSynthesis.onvoiceschanged = function() { ttsGetVoice(); };
+}
+
+window.ttsToggle = ttsToggle;
+window.ttsStop   = ttsStop;
+
+
+// ══════════════════════════════════════════════════════════════
+// REWRITE CHALLENGE ENGINE
+// ══════════════════════════════════════════════════════════════
+const XP_REWRITE = 3;
+const RW_STORAGE = 'cj_rewrites_v1'; // { "11_0": true, "11_2": true, ... }
+
+function rwGetDone() {
+  try { return JSON.parse(localStorage.getItem(RW_STORAGE) || '{}'); } catch(e) { return {}; }
+}
+function rwSaveDone(obj) {
+  localStorage.setItem(RW_STORAGE, JSON.stringify(obj));
+}
+
+// Normalize: lowercase, remove accents, punctuation, extra spaces
+function rwNormalize(str) {
+  return str
+    .toLowerCase()
+    .normalize('NFD').replace(/[\u0300-\u036f]/g, '') // strip accents
+    .replace(/[^a-z0-9\s]/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+// Similarity: word overlap ratio (Jaccard-like)
+function rwSimilarity(a, b) {
+  const wa = new Set(rwNormalize(a).split(' ').filter(w => w.length > 2));
+  const wb = new Set(rwNormalize(b).split(' ').filter(w => w.length > 2));
+  if (wa.size === 0 || wb.size === 0) return 0;
+  let common = 0;
+  wa.forEach(w => { if (wb.has(w)) common++; });
+  return common / Math.max(wa.size, wb.size);
+}
+
+// Extract plain text from the active slide's content
+function rwGetSlideText(lesson, slideIdx) {
+  const container = document.getElementById('slides-' + lesson);
+  if (!container) return '';
+  const slides = container.querySelectorAll('.slide');
+  const slide = slides[slideIdx];
+  if (!slide) return '';
+  const titleEl  = slide.querySelector('.slide-title');
+  const contentEl = slide.querySelector('.slide-content');
+  const title = titleEl  ? titleEl.innerText.trim()   : '';
+  const body  = contentEl ? contentEl.innerText.replace(/\s+/g, ' ').trim() : '';
+  return (title + ' ' + body).trim();
+}
+
+function rwToggle(lesson, slideIdx) {
+  const box = document.getElementById('rw-box-' + lesson + '-' + slideIdx);
+  if (!box) return;
+  box.classList.toggle('open');
+  if (box.classList.contains('open')) {
+    const ta = document.getElementById('rw-ta-' + lesson + '-' + slideIdx);
+    if (ta && !ta.value) ta.focus();
+  }
+}
+
+function rwCheck(lesson, slideIdx) {
+  const ta      = document.getElementById('rw-ta-' + lesson + '-' + slideIdx);
+  const fillBar = document.getElementById('rw-fill-' + lesson + '-' + slideIdx);
+  const pctEl   = document.getElementById('rw-pct-' + lesson + '-' + slideIdx);
+  const result  = document.getElementById('rw-result-' + lesson + '-' + slideIdx);
+  const btn     = document.getElementById('rw-togglebtn-' + lesson + '-' + slideIdx);
+  if (!ta || !result) return;
+
+  const original = rwGetSlideText(lesson, slideIdx);
+  const typed    = ta.value;
+  const sim      = rwSimilarity(original, typed);
+  const pct      = Math.round(sim * 100);
+
+  // Update mini progress bar
+  if (fillBar) {
+    fillBar.style.width = pct + '%';
+    fillBar.style.background = pct >= 80 ? '#4caf50' : pct >= 50 ? '#ff9800' : '#f44336';
+  }
+  if (pctEl) pctEl.textContent = pct + '%';
+
+  result.classList.remove('rw-ok', 'rw-warn');
+  result.classList.add('show');
+
+  const key = lesson + '_' + slideIdx;
+  const done = rwGetDone();
+
+  if (sim >= 0.80) {
+    ta.classList.add('rw-success'); ta.classList.remove('rw-fail');
+    result.classList.add('rw-ok');
+    result.innerHTML = '✅ ¡Excelente! Similitud: <strong>' + pct + '%</strong>. Slide dominado.';
+
+    if (!done[key]) {
+      done[key] = true;
+      rwSaveDone(done);
+      // Award XP
+      rwGrantXP(lesson, slideIdx);
+      // Show done badge on toggle button
+      if (btn && !btn.querySelector('.rewrite-done-badge')) {
+        btn.innerHTML += '<span class="rewrite-done-badge">✔ completado</span>';
+      }
+      // Check new badges
+      checkBadges();
+    }
+  } else {
+    ta.classList.add('rw-fail'); ta.classList.remove('rw-success');
+    result.classList.add('rw-warn');
+    const needed = Math.ceil(0.80 * Math.max(
+      new Set(rwNormalize(original).split(' ').filter(w=>w.length>2)).size, 1
+    ));
+    result.innerHTML = '⚠ Similitud: <strong>' + pct + '%</strong>. Necesitás al menos 80%. ¡Seguí intentando!';
+  }
+}
+
+function rwClear(lesson, slideIdx) {
+  const ta     = document.getElementById('rw-ta-' + lesson + '-' + slideIdx);
+  const result = document.getElementById('rw-result-' + lesson + '-' + slideIdx);
+  const fillBar = document.getElementById('rw-fill-' + lesson + '-' + slideIdx);
+  const pctEl  = document.getElementById('rw-pct-' + lesson + '-' + slideIdx);
+  if (ta) { ta.value = ''; ta.classList.remove('rw-success', 'rw-fail'); ta.focus(); }
+  if (result) { result.classList.remove('show'); }
+  if (fillBar) { fillBar.style.width = '0%'; }
+  if (pctEl) { pctEl.textContent = '0%'; }
+}
+
+function rwGrantXP(lesson, slideIdx) {
+  // XP is stored in progress as rewriteXP accumulator
+  const p = getProgress();
+  if (!p[lesson]) p[lesson] = {};
+  p[lesson].rewriteXP = (p[lesson].rewriteXP || 0) + XP_REWRITE;
+  saveProgress(p);
+  refreshProgressUI();
+}
+
+// Restore done state on page load / slide navigation
+function rwRestoreUI(lesson) {
+  const done = rwGetDone();
+  const total = TOTAL[String(lesson)];
+  for (let i = 0; i < total - 1; i++) {
+    const key = lesson + '_' + i;
+    if (done[key]) {
+      const btn = document.getElementById('rw-togglebtn-' + lesson + '-' + i);
+      if (btn && !btn.querySelector('.rewrite-done-badge')) {
+        btn.innerHTML += '<span class="rewrite-done-badge">✔ completado</span>';
+      }
+    }
+  }
+}
+
+window.rwToggle  = rwToggle;
+window.rwCheck   = rwCheck;
+window.rwClear   = rwClear;
+window.rwGetDone = rwGetDone;
+
+
+// ── Lección Aleatoria ────────────────────────────────────────
+function openRandomLesson() {
+  const lessons = Object.keys(TOTAL).map(Number);
+  const p = getProgress();
+
+  // Prefer unvisited or quiz-failed lessons for smart random
+  const notPassed  = lessons.filter(n => !(p[n] || {}).quizPassed);
+  const notVisited = lessons.filter(n => !(p[n] || {}).visited);
+
+  let pool;
+  if (notVisited.length > 0) {
+    pool = notVisited;           // priority: never-visited
+  } else if (notPassed.length > 0) {
+    pool = notPassed;            // then: visited but quiz not passed
+  } else {
+    pool = lessons;              // all done → fully random
+  }
+
+  const pick = pool[Math.floor(Math.random() * pool.length)];
+
+  // Brief toast showing which lesson was picked
+  const toast = document.createElement('div');
+  toast.style.cssText = 'position:fixed;top:70px;left:50%;transform:translateX(-50%);' +
+    'background:linear-gradient(135deg,var(--dark3),var(--dark2));' +
+    'border:1.5px solid var(--gold);color:var(--gold2);padding:0.6rem 1.4rem;' +
+    'border-radius:20px;font-size:0.85rem;font-weight:bold;z-index:9999;' +
+    'box-shadow:0 4px 15px rgba(0,0,0,0.4);animation:fadeIn 0.3s ease;';
+  toast.textContent = '🎲 Abriendo Lección ' + pick + '...';
+  document.body.appendChild(toast);
+  setTimeout(() => toast.remove(), 1800);
+
+  setTimeout(() => showLesson(pick), 400);
+}
+
+window.openRandomLesson = openRandomLesson;
+
+
+</script>
+
+</body>
+</html>
