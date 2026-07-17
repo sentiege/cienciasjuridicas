@@ -1412,45 +1412,13 @@
   }
 
 </style>
-  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
 </head>
 <body>
 
 <!-- ===== HOME PAGE ===== -->
 
-<!-- ===== USER BAR ===== -->
-<div id="user-bar">
-  <div class="user-bar-left" onclick="toggleProfilePanel()">
-    <div class="user-avatar" id="user-avatar">?</div>
-    <div>
-      <div class="user-name" id="user-name-display">—</div>
-      <div class="user-ci" id="user-ci-display">CI: —</div>
-      <div class="profile-toggle-hint">toca para ver tu perfil ▾</div>
-    </div>
-  </div>
-  <div class="user-bar-right">
-    <span class="xp-badge" id="user-xp-display">⚡ 0 XP</span>
-    <span class="streak-badge" id="user-streak-display">🔥 1 día</span>
-    <button class="random-lesson-btn" onclick="openRandomLesson()">🎲 Lección Aleatoria</button>
-    <button class="exam-launch-btn" onclick="startExamSimulacro()">📋 Simulacro</button>
-    <button class="logout-btn" id="logout-btn">Salir</button>
-  </div>
-</div>
 
-<!-- ===== PROFILE PANEL ===== -->
-<div id="profile-panel">
-  <div class="profile-panel-inner">
-    <div id="thematic-section">
-      <div class="thematic-header">📊 Progreso por Unidad</div>
-      <div class="thematic-grid" id="thematic-grid"></div>
-    </div>
-    <div style="margin-top:1rem" id="badges-section">
-      <div class="badges-header">🏅 Mis Insignias</div>
-      <div class="badges-grid" id="badges-grid"></div>
-    </div>
-  </div>
-</div>
+
 
 
 <div id="home-page">
@@ -1465,38 +1433,9 @@
       <span class="badge">🇵🇾 Derecho Paraguayo</span>
     </div>
 
-<!-- ===== LOGIN PROMPT ===== -->
-<div id="login-prompt">
-  <div class="login-prompt-box">
-    <div class="login-prompt-text">
-      🎮 <strong>¿Querés guardar tu progreso y competir en el ranking?</strong><br>
-      Registrate con tu CI para que tus lecciones y quizzes queden guardados en la nube.
-    </div>
-    <button class="login-prompt-btn" onclick="showAuthModal('register')">Registrarme / Entrar</button>
-  </div>
-</div>
 
 
-<!-- ===== RANKING ===== -->
-<div id="ranking-section">
-  <div class="ranking-header">🏆 Ranking del Curso</div>
-  <div class="ranking-table-wrap"><table class="ranking-table">
-    <thead>
-      <tr>
-        <th>#</th>
-        <th>Estudiante</th>
-        <th>XP</th>
-        <th>Aprobadas</th>
-        <th class="rank-hide-mobile">Racha</th>
-      </tr>
-    </thead>
-    <tbody id="ranking-tbody"></tbody>
-  </table></div>
-  <div id="ranking-loading" style="display:none">⏳ Cargando ranking...</div>
-</div>
 
-
-  </div>
 
   <!-- GLOBAL PROGRESS BAR -->
   <div class="global-progress-wrap" id="global-progress-wrap">
